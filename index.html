@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JunxiBao's Blog</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+            /* 彩虹渐变 */
+            background-size: 1400% 1400%;
+            /* 增加 background-size 以容纳更多颜色 */
+            animation: rainbowBG 100s ease infinite;
+            /* 更快的动画 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+        @keyframes rainbowBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .typewriter {
+            color: white;
+            /* 白色文字在彩虹背景上更清晰 */
+            font-size: 4.0em;
+            /* **这里增大了文字尺寸** */
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            /* 稍微增加下边距 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            /* 增加文字阴影 */
+        }
+
+        .cursor {
+            width: 4px;
+            /* 稍微增大光标宽度 */
+            height: 1.2em;
+            /* 稍微增大光标高度 */
+            background-color: white;
+            margin-left: 8px;
+            /* 稍微增大左边距 */
+            animation: blink 0.7s steps(1) infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .button {
+            padding: 20px 45px;
+            /* 增大按钮内边距 */
+            font-size: 1.8em;
+            /* **这里增大了按钮文字尺寸** */
+            border: 10px solid white;
+            /* 白色边框 */
+            border-radius: 20px;
+            background-color: white;
+            /* **修改为白色背景** */
+            color: black;
+            /* **修改为黑色文字** */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* 更明显的阴影 */
+        }
+
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            /* 略微减淡 hover 效果 */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #languageButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            padding: 10px 20px;
+            /* 稍微调整语言按钮的内边距 */
+            font-size: 1em;
+            /* 保持语言按钮文字大小 */
+            background-color: white;
+            /* 确保初始状态也是白底 */
+            color: black;
+            /* 确保初始状态也是黑字 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="typewriter">
+        <div id="text"></div>
+        <div class="cursor"></div>
+    </div>
+
+    <button class="button" onclick="location.href='home.html'">
+        <span id="homeButtonText">进入主页</span>
+    </button>
+    <button class="button" id="languageButton">English</button>
+
+    <script>
+        const texts = [
+            "你好，我是鲍俊希",
+            "Hello, I'm JunxiBao",
+            "こんにちは、私は鲍俊希です",
+            "안녕하세요, 저는 鲍俊希입니다",
+            "Bonjour, je suis JunxiBao",
+            "Hola, soy JunxiBao",
+        ];
+
+        let i = 0;
+        let j = 0;
+        let isDeleting = false;
+        const speed = 100;
+        const delay = 1500;
+        const textElement = document.getElementById('text');
+        const homeButtonText = document.getElementById('homeButtonText');
+        const languageButton = document.getElementById('languageButton');
+        let isChinese = true;
+
+        function type() {
+            const fullText = texts[i];
+
+            if (isDeleting) {
+                j--;
+            } else {
+                j++;
+            }
+
+            textElement.textContent = fullText.substring(0, j);
+
+            if (!isDeleting && j === fullText.length) {
+                isDeleting = true;
+                setTimeout(type, delay);
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i = (i + 1) % texts.length;
+                setTimeout(type, 300);
+            } else {
+                setTimeout(type, isDeleting ? speed / 2 : speed);
+            }
+        }
+
+        function toggleLanguage() {
+            if (isChinese) {
+                homeButtonText.textContent = "Enter Home";
+                languageButton.textContent = "中文";
+            } else {
+                homeButtonText.textContent = "进入主页";
+                languageButton.textContent = "English";
+            }
+            isChinese = !isChinese;
+            // 确保语言按钮始终是白底黑字
+            languageButton.style.backgroundColor = "white";
+            languageButton.style.color = "black";
+        }
+
+        languageButton.addEventListener('click', toggleLanguage);
+
+        type();
+    </script>
+</body>
+
+</html>
