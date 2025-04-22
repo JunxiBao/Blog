@@ -1,0 +1,118 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body base */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe4e1, #e0f7fa);
+    color: #333;
+    line-height: 1.6;
+    animation: fadeIn 1s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hoverPop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #ff6a88, #ffb347);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    margin-top: 20px;
+}
+
+nav li {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+nav a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: white;
+    color: #ff6a88;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: #ff6a88;
+    color: white;
+    animation: hoverPop 0.3s ease;
+}
+
+/* Section */
+section {
+    padding: 60px 20px;
+    text-align: center;
+    flex: 1;
+}
+
+section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+section p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #666;
+    animation: fadeIn 1s ease-in;
+}
+
+/* Footer */
+footer {
+    background-color: #fce4ec;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #555;
+    border-top: 2px solid #ffb6c1;
+}
