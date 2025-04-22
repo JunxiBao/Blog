@@ -82,3 +82,34 @@
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
+
+
+@media (max-width: 768px) {
+  .intro-container {
+    flex-direction: column;
+     display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .profile-image {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+  }
+
+  .intro-text {
+    font-size: 16px;
+    padding: 0 10px;
+    text-align: left; /* 可选改为 center */
+  }
+
+  .intro-text p {
+    margin-bottom: 1em;
+  }
+
+  .intro-text a::after {
+    bottom: -4px;
+  }
+}
