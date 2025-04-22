@@ -125,9 +125,8 @@
     </div>
 
     <button class="button" onclick="location.href='./src/home.html'">
-        <span id="homeButtonText">进入主页</span>
+        <span id="homeButtonText">Go To Home Page</span>
     </button>
-    <button class="button" id="languageButton">English</button>
 
     <script>
         const texts = [
@@ -146,7 +145,6 @@
         const delay = 1500;
         const textElement = document.getElementById('text');
         const homeButtonText = document.getElementById('homeButtonText');
-        const languageButton = document.getElementById('languageButton');
         let isChinese = true;
 
         function type() {
@@ -172,21 +170,6 @@
             }
         }
 
-        function toggleLanguage() {
-            if (isChinese) {
-                homeButtonText.textContent = "Enter Home";
-                languageButton.textContent = "中文";
-            } else {
-                homeButtonText.textContent = "进入主页";
-                languageButton.textContent = "English";
-            }
-            isChinese = !isChinese;
-            // 确保语言按钮始终是白底黑字
-            languageButton.style.backgroundColor = "white";
-            languageButton.style.color = "black";
-        }
-
-        languageButton.addEventListener('click', toggleLanguage);
 
         type();
     </script>
