@@ -1,0 +1,126 @@
+/* 页面基础样式 */
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background-color: #f8f9fb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* 容器居中，最大宽度限制 */
+.article-wrapper {
+  max-width: 800px;
+  width: 100%;
+}
+
+/* 卡片样式 */
+.article-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 标题样式 */
+.article-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* 日期样式 */
+.article-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+/* 正文内容 */
+.article-content p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .article-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .article-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* 🌈 彩虹边框外壳 */
+.rainbow-border {
+  padding: 5px; /* 彩虹边框的厚度 */
+  border-radius: 20px;
+  background: linear-gradient(270deg,
+    #ff0000, #ff9900, #33cc33,
+    #3399ff, #9933ff, #ff3399, #ff0000);
+  background-size: 400% 400%;
+  animation: rainbowFlow 8s linear infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  margin: 3rem auto; /* 页面居中 + 上下间距 */
+  box-shadow: 0 0 20px rgba(255, 0, 150, 0.2); /* 可选：发光感 */
+}
+
+/* 🌈 彩虹流动动画 */
+@keyframes rainbowFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  text-decoration: none;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background 0.3s;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background: #f0f0f0;
+}
