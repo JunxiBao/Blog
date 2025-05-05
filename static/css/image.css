@@ -6,31 +6,6 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 彩虹边框 */
-body::before {
-  content: "";
-  position: fixed;
-  top: 8px;
-  left: 8px;
-  width: calc(100vw - 16px);
-  height: calc(100vh - 16px);
-  pointer-events: none;
-  border: 6px solid transparent;
-  border-radius: 20px;
-  box-sizing: border-box;
-  z-index: 9999;
-  background: linear-gradient(
-    90deg,
-    red, orange, yellow, green, cyan, blue, violet, red
-  );
-  background-size: 400% 400%;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: rainbow-border 20s linear infinite;
-}
 
 @keyframes rainbow-border {
   0% {
@@ -41,13 +16,7 @@ body::before {
   }
 }
 
-/* 标题样式 */
-.title {
-  text-align: center;
-  font-size: 2rem;
-  color: #333;
-  margin-top: 1rem;
-}
+
 
 /* 照片容器布局 */
 .gallery {
