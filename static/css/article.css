@@ -1,18 +1,35 @@
 /* 页面基础 */
 body {
   margin: 0;
-  padding: 2rem;
+  padding: 0;
+  /* 移除内边距 */
   background-color: #f4f4f9;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 页眉样式 */
+header {
+  margin: 0;
+  /* 移除外边距 */
+  padding: 40px 20px;
+  /* 保持一致的内边距 */
+  width: 100%;
+  /* 确保占满宽度 */
+  box-sizing: border-box;
+  /* 包括内边距在宽度内 */
 }
 
 /* 横向布局容器 */
 .article-container {
   display: flex;
-  flex-wrap: wrap; /* 关键：空间不足时换行 */
+  flex-wrap: wrap;
+  /* 关键：空间不足时换行 */
   gap: 2rem;
   justify-content: center;
-  margin-top: 3rem; /* 增加顶部间距 */
+  margin-top: 3rem;
+  /* 增加顶部间距 */
+  padding: 0 2rem;
+  /* 添加左右内边距 */
 }
 
 /* 卡片样式 */
@@ -21,7 +38,7 @@ body {
   border-radius: 16px;
   padding: 1.5rem;
   width: 700px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeIn 0.6s ease forwards;
   opacity: 0;
@@ -33,6 +50,7 @@ body {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -41,7 +59,7 @@ body {
 
 .article:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 /* 标题样式 */
