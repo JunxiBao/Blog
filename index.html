@@ -50,6 +50,10 @@
       /* 稍微增加下边距 */
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       /* 增加文字阴影 */
+      white-space: nowrap;
+      /* 防止文字换行 */
+      overflow: hidden;
+      /* 防止超出容器 */
     }
 
     .cursor {
@@ -115,6 +119,56 @@
       color: black;
       /* 确保初始状态也是黑字 */
     }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 0.9em;
+        padding: 10px;
+      }
+
+      .typewriter {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .cursor {
+        width: 3px;
+        height: 1em;
+        margin-left: 5px;
+      }
+
+      .button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        border: 8px solid white;
+        border-radius: 15px;
+      }
+
+      #languageButton {
+        top: 10px;
+        right: 10px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .typewriter {
+        font-size: 2em;
+      }
+
+      .button {
+        padding: 10px 20px;
+        font-size: 1em;
+        border: 6px solid white;
+        border-radius: 10px;
+      }
+
+      #languageButton {
+        padding: 5px 10px;
+        font-size: 0.8em;
+      }
+    }
   </style>
 </head>
 
@@ -148,8 +202,18 @@
     const speed = 100;
     const delay = 1500;
     const textElement = document.getElementById('text');
-    const homeButtonText = document.getElementById('homeButtonText');
-    let isChinese = true;
+
+    function adjustFontSize() {
+      const containerWidth = document.body.clientWidth;
+      // 获取容器宽度
+      const baseFontSize = 40;
+      // 基础字体大小
+      const scaleFactor = containerWidth / 800;
+      // 根据宽度调整比例
+      const newFontSize = Math.max(baseFontSize * scaleFactor, 16);
+      // 最小字体大小为 16px
+      textElement.style.fontSize = `${newFontSize}px`;
+    }
 
     function type() {
       const fullText = texts[i];
@@ -174,7 +238,10 @@
       }
     }
 
-
+    window.addEventListener('resize', adjustFontSize);
+    // 监听窗口大小变化
+    adjustFontSize();
+    // 初始化字体大小
     type();
   </script>
 </body>
