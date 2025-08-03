@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <link rel="stylesheet" href="../../static/css/template.css" />
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
   <link rel="shortcut icon" href="/static/image/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
@@ -73,34 +72,11 @@
               native
               app? This would drastically reduce my workload and development time. As a result, the current version of
               my app
-              follows this hybrid structure.</p>
+              follows this hybrid structure.
 
-            <p>The core code in Xcode is very simple. I generated it directly using artificial intelligence, so I can
-              just paste it in.👇</p>
+              The core code in Xcode is very simple, I generated it directly using artificial intelligence.</p>
 
-            <pre><code class="language-swift">
-import UIKit
-import WebKit
 
-class WebViewController: UIViewController {
-  private var webView: WKWebView!
-
-  override func loadView() {
-    let webConfiguration = WKWebViewConfiguration()
-    webView = WKWebView(frame: .zero, configuration: webConfiguration)
-    view = webView
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    if let url = URL(string: "MyURL") {
-      let request = URLRequest(url: url)
-      webView.load(request)
-    }
-  }
-}
-            </code></pre>
           </section>
 
           <section>
@@ -120,13 +96,82 @@ class WebViewController: UIViewController {
 
           <section>
             <h2 id="database">Making the backend: user registration and login</h2>
+            <p>After completing the UI, the first thing I needed to do was to implement user login functionality. I
+              previously built a
+              WebUI for a project on a Raspberry Pi using the Python Flask library, so this time, I planned to use Flask
+              as my
+              backend. I used a MySQL database to store user data. The overall process was as follows: I ran the Flask
+              code on a
+              server. The Flask code opened a port and contained multiple routes. I used JavaScript to access the
+              corresponding routes
+              on this port to manipulate the database.</p>
+            <!--第一次绑定域名-->
+            <h2 id="http2https">Switching from http to https</h2>
+            <p>Originally, I planned to use the app to access the server via its public IP address to retrieve data.
+              However, I later
+              read that Apple requires all network requests made by apps to use the HTTPS protocol; using HTTP is highly
+              likely to
+              result in rejection during the app review process.
+
+              As a result, I decided to register a domain name. My primary domain is hosted on Cloudflare and hasn’t
+              undergone ICP
+              registration in China, which means it cannot be linked to a public server hosted in the country.
+              Registering a new
+              domain and completing the ICP approval process would have taken several weeks.
+
+              Then I remembered that I had previously registered a domain name for a website I was planning to build for
+              people with
+              disabilities. Unfortunately, the project never moved forward because my friend, who was supposed to
+              collaborate with me,
+              backed out. So I repurposed that domain name and pointed it to my server. I then installed an SSL
+              certificate using
+              Let’s Encrypt, which enabled access to the site over HTTPS.
+
+              However, my backend—built using the Flask library—was still configured to serve over HTTP. I switched it
+              to HTTPS, but
+              ran into a series of problems, such as CORS-related issues, which took a considerable amount of time to
+              debug and
+              resolve, with help from AI tools.</p>
+            <h2 id="biggest-difficulty">The biggest difficulty so far</h2>
+            <p>After deploying the backend services and setting up HTTPS encryption, I planned to display something like
+              "Username +
+              Greeting" at the top of the homepage. Sounds simple, right? All I had to do was use the frontend
+              JavaScript to request a
+              request from the backend server, which would query the database and return the result.
+
+              But honestly, this was the most challenging part of the project, and it took me a significant amount of
+              time. Initially,
+              the entire page was stuck loading. Even adding timeout logic to the JavaScript file had no effect. I began
+              to suspect my
+              JavaScript wasn't running at all.
+
+              I opened my browser's developer tools and, sure enough, found that the browser wasn't loading daily.js.
+              After consulting
+              AI, I realized that my daily.html page was dynamically loaded from index.html, so I had to manually load
+              daily.js in
+              index.js.
+
+              In theory, this should have fixed the problem. However, strangely, even though daily.js was loading, the
+              code wasn't
+              executing. I added debugging information to the code and realized the problem lay in event binding: the
+              AI-generated
+              code relied on the DOMContentLoaded event. Since daily.js was dynamically loaded, the event had already
+              been triggered
+              by the time it loaded, so the code wasn't executed at all. I ultimately changed the logic to run the
+              initialization code
+              directly whenever the event was triggered, and the problem was resolved.
+
+              The AI's help during this process was limited. It could only statically analyze a few files and had no
+              understanding of
+              the dynamic loading structure of my code, nor could it determine the specific timing of event triggering.
+              Ultimately, it
+              was through my own analysis and debugging that I finally identified the true cause of the problem.</p>
+
           </section>
         </div>
       </article>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-swift.min.js"></script>
 </body>
 
 </html>
