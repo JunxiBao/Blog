@@ -186,7 +186,24 @@
               development process
               was relatively straightforward.</p>
 
-              <p>The process of making the app is not over yet, I will continue to update this passage, thank you~</p>
+            <h2 id="designing-the-core-with-AI">Designing the Core: User Data Collection and AI Analysis</h2>
+            <p>Okay, now that the preliminary preparations are complete, the AI has been invoked, and all the pages have
+              been set up, I
+              can move on to the core content of the website. The core of our software is to analyze user-recorded data,
+              so the first
+              step in building the website is, of course, to record that data. In this version of the concept, we need
+              three types of
+              data: time, diet, and physical condition. My idea is to have a date selection window on the top of the
+              page. The default
+              date is the current date, which the user can change if they wish. Below is an input box where the user can
+              enter
+              anything, and the AI will analyze "which are diet and which are physical conditions." I also added a route
+              using the
+              Flask library to request DeepSeek to process this data. DeepSeek returns data in a JSON format
+              encapsulated in Markdown.
+              After removing the ``` markdown encapsulation in the Flask library, I return it to the front-end for
+              display.</p>
+            <p>The process of making the app is not over yet, I will continue to update this passage, thank you~</p>
           </section>
         </div>
       </article>
