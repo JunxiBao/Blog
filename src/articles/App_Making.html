@@ -203,7 +203,34 @@
               encapsulated in Markdown.
               After removing the ``` markdown encapsulation in the Flask library, I return it to the front-end for
               display.</p>
-            <p>The process of making the app is not over yet, I will continue to update this passage, thank you~</p>
+           
+          </section>
+
+          <section>
+            <h2 id="Make_my_project_safer">Make my project safer</h2>
+            <p>Recently, I came across a video about SQL injection online, and it immediately made me realize that my
+              SQL database
+              might have security vulnerabilities. Previously, I was accessing the database by concatenating strings on
+              the frontend—a
+              very risky approach. So, I quickly updated the backend logic to use %s placeholders to prevent injection
+              attacks.
+
+              After making that change, another thought struck me—my DeepSeek API key and database password were written
+              in plain text
+              directly in my Python code! To make matters worse, the entire project was open-sourced on GitHub. That
+              sent a chill down
+              my spine, and I took immediate action: I moved all sensitive information into a .env file and added it to
+              .gitignore.
+              Finally, I regenerated both the API key and the database password to completely close this security
+              loophole.
+
+              Although I believe that, at this stage, no one would bother attacking my database—after all, the project
+              is still small
+              and the DeepSeek API account only has about 10 yuan in it—I firmly believe that cybersecurity awareness
+              must always be
+              maintained. Waiting until something goes wrong to take action is simply too late.</p>
+
+              <p>The process of making the app is not over yet, I will continue to update this passage, thank you~</p>
           </section>
         </div>
       </article>

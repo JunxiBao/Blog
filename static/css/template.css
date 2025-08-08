@@ -1,23 +1,31 @@
+:root {
+  --rb-radius: 20px;       /* 彩虹外壳圆角 */
+  --rb-thickness: 6px;     /* 彩虹边框厚度 */
+  --content-max: 1600px;   /* 内容最大宽度 */
+}
+
 /* 页面基础样式 */
 body {
   margin: 0;
-  padding: 2rem 1rem;
+  padding: 2rem 5%;
   background-color: #f8f9fb;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* 容器居中，最大宽度限制 */
 .article-wrapper {
-  max-width: 800px;
+  max-width: 1600px;
   width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* 卡片样式 */
 .article-card {
   background: white;
-  border-radius: 16px;
+  border-radius: calc(var(--rb-radius) - var(--rb-thickness));
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   animation: fadeInUp 0.6s ease forwards;
@@ -71,19 +79,20 @@ body {
 
 /* 🌈 彩虹边框外壳 */
 .rainbow-border {
-  padding: 5px; /* 彩虹边框的厚度 */
-  border-radius: 20px;
+  padding: var(--rb-thickness); /* 彩虹边框的厚度 */
+  border-radius: var(--rb-radius);
   background: linear-gradient(270deg,
     #ff0000, #ff9900, #33cc33,
     #3399ff, #9933ff, #ff3399, #ff0000);
   background-size: 400% 400%;
   animation: rainbowFlow 8s linear infinite;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  width: 100%;
+  max-width: var(--content-max);
+  box-sizing: border-box;
+  overflow: hidden;
 
-  width: fit-content;
   margin: 3rem auto; /* 页面居中 + 上下间距 */
   box-shadow: 0 0 20px rgba(255, 0, 150, 0.2); /* 可选：发光感 */
 }
@@ -123,4 +132,12 @@ body {
 
 .back-button:hover {
   background: #f0f0f0;
+}
+
+/* 保证彩虹外壳内的卡片占满容器宽度，避免边缘长度异常 */
+.rainbow-border > .article-card {
+  display: block;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
