@@ -232,6 +232,80 @@
         grid-template-columns: 1fr;
       }
     }
+    /* === Global page fade-in === */
+    body {
+      opacity: 0;
+      animation: page-fade-in .6s ease both;
+    }
+    @keyframes page-fade-in { from { opacity: 0 } to { opacity: 1 } }
+
+    /* === Scroll reveal utility === */
+    .reveal { opacity: 0; transform: translateY(24px); }
+    .reveal.in { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; transition-delay: var(--d, 0s); }
+
+    /* === Nav link underline slide (fixed) === */
+    .nav-menu a { position: relative; display: inline-block; overflow: hidden; text-decoration: none; }
+    .nav-menu a::after {
+      content: '';
+      position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .28s ease;
+    }
+    .nav-menu a:hover::after, .nav-menu a.active::after { transform: scaleX(1); }
+
+    /* === Hero polish: animated gradient slide & float === */
+    .hero-title {
+      background-size: 200% auto;
+      animation: glow 2s ease-in-out infinite alternate, gradient-slide 8s linear infinite, floatY 6s ease-in-out infinite;
+    }
+    @keyframes gradient-slide { 0% { background-position: 0% 50% } 100% { background-position: 200% 50% } }
+    @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+
+    /* Subtle animated veil in hero bg */
+    .hero-section::after {
+      content: '';
+      position: absolute; inset: -20% -10%;
+      background: radial-gradient(60% 40% at 20% 30%, rgba(0,255,65,.12), transparent 60%),
+                  radial-gradient(40% 30% at 80% 60%, rgba(0,128,255,.12), transparent 60%);
+      filter: blur(30px);
+      animation: drift 18s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    @keyframes drift { from { transform: translate3d(-10px, -6px, 0) } to { transform: translate3d(10px, 6px, 0) } }
+
+    /* === Profile image bob + soft glow pulse === */
+    .profile-image { animation: bob 8s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+    .profile-image::before { animation: rotate 10s linear infinite, ring-glow 3s ease-in-out infinite; }
+    @keyframes ring-glow { 0%,100% { box-shadow: 0 0 0 rgba(0,255,65,0) } 50% { box-shadow: 0 0 12px rgba(0,255,65,.35) } }
+
+    /* === Skill card sheen + lift === */
+    .skill-card { will-change: transform, box-shadow; }
+    .skill-card::after {
+      content: '';
+      position: absolute; top: -120%; left: -30%; width: 60%; height: 300%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.08) 45%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 55%, transparent 100%);
+      transform: rotate(25deg); opacity: 0; transition: opacity .25s ease, transform .6s ease;
+    }
+    .skill-card:hover::after { opacity: 1; transform: rotate(25deg) translateX(180%); }
+    .skill-icon { animation: floatY 7s ease-in-out infinite; }
+
+    /* === Buttons: glow + micro-press === */
+    .btn {
+      position: relative; overflow: hidden; border: 1.5px solid var(--border-color);
+      transition: transform .15s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,255,65,.18); border-color: var(--accent-green); }
+    .btn:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(0,255,65,.12); }
+    .btn::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(200px 200px at var(--mx,50%) var(--my,50%), rgba(0,255,65,.15), transparent 60%);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .btn:hover::after { opacity: 1; }
   </style>
 </head>
 
@@ -260,8 +334,8 @@
   <main class="main-content">
     <!-- Hero Section -->
     <section class="hero-section">
-      <h1 class="hero-title">Welcome to My Website</h1>
-      <p class="hero-subtitle">In this page, I will record my study life, welcome to watch</p>
+      <h1 class="hero-title reveal" style="--d: .05s">Welcome to My Website</h1>
+      <p class="hero-subtitle reveal" style="--d: .2s">In this page, I will record my study life, welcome to watch</p>
     </section>
 
     <!-- Profile Section -->
@@ -269,12 +343,12 @@
       <div class="profile-container">
         
         <div class="profile-info">
-          <h2>Hello, I'm Junxi Bao</h2>
-          <p>I'm a passionate high school student at <strong>NINGBO HD School</strong>, deeply fascinated by the world of technology, especially computer science and engineering.</p>
+          <h2 class="reveal" style="--d: .1s">Hello, I'm Junxi Bao</h2>
+          <p class="reveal" style="--d: .2s">I'm a passionate high school student at <strong>NINGBO HD School</strong>, deeply fascinated by the world of technology, especially computer science and engineering.</p>
           
-          <p>In this Website, I document my journey through the fascinating realms of technology, like programming, smart home automation, and innovative projects. From building intelligent systems to crafting web applications, every project is a step forward in my tech adventure.</p>
+          <p class="reveal" style="--d: .3s">In this Website, I document my journey through the fascinating realms of technology, like programming, smart home automation, and innovative projects. From building intelligent systems to crafting web applications, every project is a step forward in my tech adventure.</p>
           
-          <p>Join me as I explore the intersection of creativity and technology, sharing insights, challenges, and discoveries along the way.</p>
+          <p class="reveal" style="--d: .4s">Join me as I explore the intersection of creativity and technology, sharing insights, challenges, and discoveries along the way.</p>
         </div>
       </div>
     </section>
@@ -283,25 +357,25 @@
     <section class="skills-section">
       <h2 style="text-align: center; margin-bottom: 2rem;">My Tech Arsenal</h2>
       <div class="skills-grid">
-        <div class="skill-card">
+        <div class="skill-card reveal" style="--d: .1s">
           <div class="skill-icon">📱</div>
           <div class="skill-name">Application development</div>
           <div class="skill-description">SQL database, Flask library, API keys, Network Request</div>
         </div>
         
-        <div class="skill-card">
+        <div class="skill-card reveal" style="--d: .2s">
           <div class="skill-icon">🏠</div>
           <div class="skill-name">Smart Home</div>
           <div class="skill-description">Home Assistant, IoT, Automation</div>
         </div>
         
-        <div class="skill-card">
+        <div class="skill-card reveal" style="--d: .3s">
           <div class="skill-icon">🌐</div>
           <div class="skill-name">Web Development</div>
           <div class="skill-description">HTML, CSS, JavaScript</div>
         </div>
         
-        <div class="skill-card">
+        <div class="skill-card reveal" style="--d: .4s">
           <div class="skill-icon">🍓</div>
           <div class="skill-name">Raspberry Pi</div>
           <div class="skill-description">Embedded Systems, Linux, Face Recognition</div>
@@ -311,16 +385,37 @@
 
     <!-- Call to Action -->
     <section class="cta-section">
-      <h2>Ready to Explore My Projects?</h2>
-      <p>Discover the fascinating world of technology through my articles and projects</p>
+      <h2 class="reveal" style="--d: .05s">Ready to Explore My Projects?</h2>
+      <p class="reveal" style="--d: .15s">Discover the fascinating world of technology through my articles and projects</p>
       <div class="cta-buttons">
-        <a href="passage" class="btn">📚 Read Articles</a>
-        <a href="https://github.com/junxibao" class="btn">🐙 View GitHub</a>
-        <a href="mailto:junxibao@junxibao.com" class="btn">📧 Get in Touch</a>
+        <a href="passage" class="btn reveal" style="--d: .25s">📚 Read Articles</a>
+        <a href="https://github.com/junxibao" class="btn reveal" style="--d: .35s">🐙 View GitHub</a>
+        <a href="mailto:junxibao@junxibao.com" class="btn reveal" style="--d: .45s">📧 Get in Touch</a>
       </div>
     </section>
   </main>
 
+  <script>
+    // Scroll reveal
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el=>io.observe(el));
+    })();
+
+    // Button hover glow follows mouse
+    document.addEventListener('pointermove', function(e){
+      document.querySelectorAll('.btn').forEach(btn=>{
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width * 100;
+        const y = (e.clientY - rect.top) / rect.height * 100;
+        btn.style.setProperty('--mx', x+'%');
+        btn.style.setProperty('--my', y+'%');
+      });
+    });
+  </script>
   <script src="../../static/js/geek-theme.js"></script>
 </body>
 </html>

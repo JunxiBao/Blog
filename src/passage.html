@@ -88,6 +88,18 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      animation: cardEnter 0.6s ease forwards;
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .article-card::before {
@@ -110,6 +122,13 @@
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
       border-color: var(--accent-green);
+      animation: cardHover 0.4s ease forwards;
+    }
+
+    @keyframes cardHover {
+      0% { transform: translateY(-8px) scale(1); box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15); }
+      50% { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px rgba(0, 255, 65, 0.25); }
+      100% { transform: translateY(-8px) scale(1); box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15); }
     }
 
     .article-header {
@@ -190,6 +209,13 @@
       color: var(--bg-primary);
       box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
       transform: translateY(-2px);
+      animation: buttonPulse 0.6s ease-in-out;
+    }
+
+    @keyframes buttonPulse {
+      0% { transform: translateY(-2px) scale(1); }
+      50% { transform: translateY(-3px) scale(1.03); }
+      100% { transform: translateY(-2px) scale(1); }
     }
 
     .article-icon {
@@ -319,6 +345,53 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* === Global page fade-in === */
+    body { opacity: 0; animation: page-fade-in .6s ease both; }
+    @keyframes page-fade-in { from { opacity: 0 } to { opacity: 1 } }
+
+    /* === Scroll reveal utility === */
+    .reveal { opacity: 0; transform: translateY(24px); }
+    .reveal.in { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; transition-delay: var(--d, 0s); }
+
+    /* === Nav link underline slide (fixed) === */
+    .nav-menu a { position: relative; display: inline-block; overflow: hidden; text-decoration: none; }
+    .nav-menu a::after {
+      content: '';
+      position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .28s ease;
+    }
+    .nav-menu a:hover::after, .nav-menu a.active::after { transform: scaleX(1); }
+
+    /* === Hero polish: animated gradient slide & float === */
+    .hero-title { background-size: 200% auto; animation: glow 2s ease-in-out infinite alternate, gradient-slide 8s linear infinite, floatY 6s ease-in-out infinite; }
+    @keyframes gradient-slide { 0% { background-position: 0% 50% } 100% { background-position: 200% 50% } }
+    @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+
+    /* Subtle animated veil in hero bg */
+    .hero-section::after {
+      content: '';
+      position: absolute; inset: -20% -10%;
+      background: radial-gradient(60% 40% at 20% 30%, rgba(0,255,65,.12), transparent 60%),
+                  radial-gradient(40% 30% at 80% 60%, rgba(0,128,255,.12), transparent 60%);
+      filter: blur(30px);
+      animation: drift 18s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    @keyframes drift { from { transform: translate3d(-10px, -6px, 0) } to { transform: translate3d(10px, 6px, 0) } }
+
+    /* === Article button: glow + mouse-follow === */
+    .article-button { position: relative; }
+    .article-button::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(180px 180px at var(--mx,50%) var(--my,50%), rgba(0,255,65,.15), transparent 60%);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .article-button:hover::after { opacity: 1; }
   </style>
 </head>
 
@@ -347,19 +420,19 @@
   <main class="main-content">
     <!-- Hero Section -->
     <section class="hero-section">
-      <h1 class="hero-title">Knowledge Repository</h1>
-      <p class="hero-subtitle">Exploring technology, sharing insights, building the future</p>
+      <h1 class="hero-title reveal" style="--d: .05s">Knowledge Repository</h1>
+      <p class="hero-subtitle reveal" style="--d: .2s">Exploring technology, sharing insights, building the future</p>
     </section>
 
     <!-- Stats Section -->
     <section class="stats-section">
-      <h2>Article Statistics</h2>
+      <h2 class="reveal" style="--d: .05s">Article Statistics</h2>
       <div class="stats-grid">
-        <div class="stat-item">
+        <div class="stat-item reveal" style="--d: .15s">
           <div class="stat-number">5</div>
           <div class="stat-label">Total Articles</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item reveal" style="--d: .25s">
           <div class="stat-number">3</div>
           <div class="stat-label">Categories</div>
         </div>
@@ -368,19 +441,19 @@
 
     <!-- Filter Section -->
     <section class="filter-section">
-      <h3>Filter by Category</h3>
+      <h3 class="reveal" style="--d: .05s">Filter by Category</h3>
       <div class="filter-buttons">
-        <button class="filter-btn active" data-category="all">All Articles</button>
-        <button class="filter-btn" data-category="projects">Projects</button>
-        <button class="filter-btn" data-category="daily">Daily</button>
-        <button class="filter-btn" data-category="smart-home">Smart-Home</button>
+        <button class="filter-btn active reveal" data-category="all" style="--d: .1s">All Articles</button>
+        <button class="filter-btn reveal" data-category="projects" style="--d: .2s">Projects</button>
+        <button class="filter-btn reveal" data-category="daily" style="--d: .3s">Daily</button>
+        <button class="filter-btn reveal" data-category="smart-home" style="--d: .4s">Smart-Home</button>
       </div>
     </section>
 
     <!-- Articles Section -->
     <section class="articles-section">
       <div class="article-grid">
-        <article class="article-card" data-category="daily">
+        <article class="article-card reveal" data-category="daily" style="--d: .05s">
           <div class="article-icon">🌐</div>
           <div class="article-header">
             <h3 class="article-title">My Website, My Rules</h3>
@@ -394,7 +467,7 @@
           <a href="./articles/My_Web_My_rules" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="daily">
+        <article class="article-card reveal" data-category="daily" style="--d: .15s">
           <div class="article-icon">💻</div>
           <div class="article-header">
             <h3 class="article-title">The Complex Path of Finding a Suitable Editor</h3>
@@ -409,7 +482,7 @@
           <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="smart-home">
+        <article class="article-card reveal" data-category="smart-home" style="--d: .25s">
           <div class="article-icon">🏠</div>
           <div class="article-header">
             <h3 class="article-title">The Intelligent Path in my room</h3>
@@ -425,7 +498,7 @@
           <a href="./articles/intelligent_home" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="daily">
+        <article class="article-card reveal" data-category="daily" style="--d: .35s">
           <div class="article-icon">☁️</div>
           <div class="article-header">
             <h3 class="article-title">Internet Great Good Samaritan: Cloudflare</h3>
@@ -440,7 +513,7 @@
           <a href="./articles/Cloudflare" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="projects">
+        <article class="article-card reveal" data-category="projects" style="--d: .45s">
           <div class="article-icon">📱</div>
           <div class="article-header">
             <h3 class="article-title">The process of me making an app</h3>
@@ -456,7 +529,7 @@
         </article>
 
 
-        <article class="article-card" data-category="projects">
+        <article class="article-card reveal" data-category="projects" style="--d: .55s">
           <div class="article-icon">🤖</div>
           <div class="article-header">
             <h3 class="article-title">Developing an automatic vision measurement system using Raspberry Pi</h3>
@@ -475,6 +548,27 @@
 
   </main>
 
+  <script>
+    // Scroll reveal
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el=>io.observe(el));
+    })();
+
+    // Button hover glow follows mouse for article buttons
+    document.addEventListener('pointermove', function(e){
+      document.querySelectorAll('.article-button').forEach(btn=>{
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width * 100;
+        const y = (e.clientY - rect.top) / rect.height * 100;
+        btn.style.setProperty('--mx', x+'%');
+        btn.style.setProperty('--my', y+'%');
+      });
+    });
+  </script>
   <script src="../../static/js/geek-theme.js"></script>
   <script>
     // Filter functionality (supports comma-separated categories in data-category)
