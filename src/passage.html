@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
   <link rel="shortcut icon" href="/static/image/favicon.ico" />
@@ -38,8 +39,25 @@
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
-      to { text-shadow: 0 0 30px rgba(0, 255, 65, 0.8); }
+      from {
+        text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+      }
+
+      to {
+        text-shadow: 0 0 30px rgba(0, 255, 65, 0.8);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero-subtitle {
@@ -309,13 +327,13 @@
   <nav class="nav-container">
     <div class="nav-content">
       <div class="nav-brand">JunxiBao.com</div>
-      
+
       <button class="mobile-menu-toggle" id="mobileMenuToggle">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      
+
       <ul class="nav-menu" id="navMenu">
         <li><a href="home">About Myself</a></li>
         <li><a href="passage">Passages</a></li>
@@ -353,38 +371,41 @@
       <h3>Filter by Category</h3>
       <div class="filter-buttons">
         <button class="filter-btn active" data-category="all">All Articles</button>
-        <button class="filter-btn" data-category="development">Development</button>
-        <button class="filter-btn" data-category="smart-home">Smart Home</button>
-        <button class="filter-btn" data-category="tutorial">Tutorial</button>
+        <button class="filter-btn" data-category="projects">Projects</button>
+        <button class="filter-btn" data-category="daily">Daily</button>
+        <button class="filter-btn" data-category="smart-home">Smart-Home</button>
       </div>
     </section>
 
     <!-- Articles Section -->
     <section class="articles-section">
       <div class="article-grid">
-        <article class="article-card" data-category="development">
+        <article class="article-card" data-category="daily">
           <div class="article-icon">🌐</div>
           <div class="article-header">
             <h3 class="article-title">My Website, My Rules</h3>
             <div class="article-meta">
-              <span class="article-tag">Development</span>
-           
+              <span class="article-tag">daily</span>
+
             </div>
           </div>
-          <p class="article-description">This is the first article on this website, where I'll walk you through the development process and provide a general introduction to its purpose and features.</p>
+          <p class="article-description">This is the first article on this website, where I'll walk you through the
+            development process and provide a general introduction to its purpose and features.</p>
           <a href="./articles/My_Web_My_rules" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="development">
+        <article class="article-card" data-category="daily">
           <div class="article-icon">💻</div>
           <div class="article-header">
             <h3 class="article-title">The Complex Path of Finding a Suitable Editor</h3>
             <div class="article-meta">
-              <span class="article-tag">Development</span>
-            
+              <span class="article-tag">daily</span>
+
             </div>
           </div>
-          <p class="article-description">This article shares my journey of exploring different code editors. From DEV C++ to Visual Studio, JetBrains, VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use neovim and sometimes use VSCode for Raspberry Pi's development.</p>
+          <p class="article-description">This article shares my journey of exploring different code editors. From DEV
+            C++ to Visual Studio, JetBrains, VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use
+            neovim and sometimes use VSCode for Raspberry Pi's development.</p>
           <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor" class="article-button">Read Article →</a>
         </article>
 
@@ -393,69 +414,100 @@
           <div class="article-header">
             <h3 class="article-title">The Intelligent Path in my room</h3>
             <div class="article-meta">
-              <span class="article-tag">Smart Home</span>
-           
+              <span class="article-tag">smart-home</span>
+
             </div>
           </div>
-          <p class="article-description">I built a smart bedroom using Xiaomi devices and Home Assistant. I installed a smart socket, upgraded my chandelier lights, added motion sensors for automation, and used a Curtain Mate for automatic curtain control. This setup makes my room more convenient, efficient, and comfortable without major modifications.</p>
+          <p class="article-description">I built a smart bedroom using Xiaomi devices and Home Assistant. I installed a
+            smart socket, upgraded my chandelier lights, added motion sensors for automation, and used a Curtain Mate
+            for automatic curtain control. This setup makes my room more convenient, efficient, and comfortable without
+            major modifications.</p>
           <a href="./articles/intelligent_home" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="tutorial">
+        <article class="article-card" data-category="daily">
           <div class="article-icon">☁️</div>
           <div class="article-header">
             <h3 class="article-title">Internet Great Good Samaritan: Cloudflare</h3>
             <div class="article-meta">
-              <span class="article-tag">Tutorial</span>
-             
+              <span class="article-tag">daily</span>
+
             </div>
           </div>
-          <p class="article-description">I used to host my website on Vultr for $5/month, which was too expensive. Due to the GFW, GitHub Pages was inaccessible. I finally switched to Cloudflare, which is free, powerful, and not blocked, greatly reducing my costs.</p>
+          <p class="article-description">I used to host my website on Vultr for $5/month, which was too expensive. Due
+            to the GFW, GitHub Pages was inaccessible. I finally switched to Cloudflare, which is free, powerful, and
+            not blocked, greatly reducing my costs.</p>
           <a href="./articles/Cloudflare" class="article-button">Read Article →</a>
         </article>
 
-        <article class="article-card" data-category="development">
+        <article class="article-card" data-category="projects">
           <div class="article-icon">📱</div>
           <div class="article-header">
             <h3 class="article-title">The process of me making an app</h3>
             <div class="article-meta">
-              <span class="article-tag">Development</span>
-             
+              <span class="article-tag">projects</span>
+
             </div>
           </div>
-          <p class="article-description">In this website, I described the process of making my own app and some problems I encountered in the early stage, such as js loading problems, https problems, etc. I will add more content later.</p>
+          <p class="article-description">In this website, I described the process of making my own app and some problems
+            I encountered in the early stage, such as js loading problems, https problems, etc. I will add more content
+            later.</p>
           <a href="./articles/App_Making" class="article-button">Read Article →</a>
+        </article>
+
+
+        <article class="article-card" data-category="projects">
+          <div class="article-icon">🤖</div>
+          <div class="article-header">
+            <h3 class="article-title">Developing an automatic vision measurement system using Raspberry Pi</h3>
+            <div class="article-meta">
+              <span class="article-tag">projects</span>
+        
+            </div>
+          </div>
+          <p class="article-description">This is a notion from a project I did. My project was to build an automatic vision test system based on gesture
+          recognition and face recognition on a Raspberry Pi.</p>
+          <a href="https://pewter-stoplight-6c5.notion.site/Passion-Project-Learn-Raspberry-Pi-10d104ec071e80fb8b72f963a5ab63f3" class="article-button">Read Article →</a>
         </article>
       </div>
     </section>
+   
 
   </main>
 
   <script src="../../static/js/geek-theme.js"></script>
   <script>
-    // Filter functionality
+    // Filter functionality (supports comma-separated categories in data-category)
     const filterButtons = document.querySelectorAll('.filter-btn');
     const articleCards = document.querySelectorAll('.article-card');
 
+    function applyFilter(category) {
+      articleCards.forEach(card => {
+        const raw = (card.dataset.category || '').toLowerCase();
+        const categories = raw.split(',').map(s => s.trim()).filter(Boolean);
+        const match = category === 'all' || categories.includes(category);
+        if (match) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.4s ease forwards';
+        } else {
+          card.style.display = 'none';
+          card.style.animation = '';
+        }
+      });
+    }
+
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // Remove active class from all buttons
         filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
         button.classList.add('active');
-
-        const category = button.getAttribute('data-category');
-
-        articleCards.forEach(card => {
-          if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.style.display = 'block';
-            card.style.animation = 'fadeIn 0.5s ease forwards';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        applyFilter(button.getAttribute('data-category'));
       });
     });
+
+    // Initialize with the active button on load
+    const initial = document.querySelector('.filter-btn.active');
+    applyFilter(initial ? initial.getAttribute('data-category') : 'all');
   </script>
 </body>
+
 </html>
