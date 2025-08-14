@@ -1,71 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
   <link rel="shortcut icon" href="/static/image/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>passages</title>
-  <link rel="stylesheet" href="../static/css/styles.css">
-  <link rel="stylesheet" href="../static/css/article.css">
+  <title>Articles - JunxiBao's Terminal</title>
+  <link rel="stylesheet" href="../static/css/geek-theme.css">
+  <style>
+    .hero-section {
+      text-align: center;
+      padding: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 255, 65, 0.1), rgba(0, 128, 255, 0.1));
+      z-index: -1;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
+      to { text-shadow: 0 0 30px rgba(0, 255, 65, 0.8); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .articles-section {
+      padding: 3rem 0;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .article-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 2.5rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .article-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .article-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+      border-color: var(--accent-green);
+    }
+
+    .article-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-size: 1.8rem;
+      color: var(--accent-green);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .article-description {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+      font-size: 1rem;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .article-tag {
+      background: var(--bg-tertiary);
+      color: var(--accent-green);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid var(--accent-green);
+    }
+
+    .article-button {
+      background: transparent;
+      color: var(--accent-green);
+      border: 2px solid var(--accent-green);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .article-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .article-button:hover::before {
+      left: 100%;
+    }
+
+    .article-button:hover {
+      background: var(--accent-green);
+      color: var(--bg-primary);
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .article-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .filter-section {
+      text-align: center;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent-green);
+      color: var(--bg-primary);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    }
+
+    .stats-section {
+      text-align: center;
+      padding: 2rem 0;
+      margin: 2rem 0;
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      color: var(--accent-green);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .article-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .article-card {
+        padding: 2rem;
+      }
+
+      .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filter-btn {
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .article-card {
+        padding: 1.5rem;
+      }
+
+      .article-title {
+        font-size: 1.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <h1>Welcome to Junxi's passage</h1>
-    <nav>
-      <ul>
-        <a href="home">About Myself</a>
-        <a href="passage">Passages</a>
-        <a href="https://github.com/junxibao">Github</a>
-        <a href="mailto:junxibao@junxibao.com">Email</a>
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-content">
+      <div class="nav-brand">JunxiBao.dev</div>
+      
+      <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="home">About Myself</a></li>
+        <li><a href="passage">Passages</a></li>
+        <li><a href="https://github.com/junxibao">Github</a></li>
+        <li><a href="mailto:junxibao@junxibao.com">Email</a></li>
       </ul>
-    </nav>
-  </header>
-  <div class="article-container">
-    <div class="article">
-      <h1>My Website, My Rules</h1>
-      <p>This is the first article on this website, where I’ll walk you through the development process and provide a
-        general introduction to its purpose and features.</p>
-      <button type="button" onclick="location.href='./articles/My_Web_My_rules'">View</button>
     </div>
-    <div class="article">
-      <h1>The Complex Path of Finding a Suitable Editor</h1>
-      <p>This article shares my journey of exploring different code editors. From DEV C++ to Visual Studio, JetBrains,
-        VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use neovim and sometimes use VSCode for
-        Raspberry Pi's development.</p>
-      <button type="button"
-        onclick="location.href='./articles/The_Complex_Path_of_Findin_a_Suitable_Editor'">View</button>
-    </div>
-    <div class="article">
-      <h1>The Intelligent Path in my room</h1>
-      <p>I built a smart bedroom using Xiaomi devices and Home Assistant. I installed a smart socket, upgraded my
-        chandelier lights, added motion sensors for automation, and used a Curtain Mate for automatic curtain control.
-        This setup makes my room more convenient, efficient, and comfortable without major modifications.</p>
-      <button type="button" onclick="location.href='./articles/intelligent_home'">View</button>
-    </div>
-    <div class="article">
-      <h1>Internet Great Good Samaritan: Cloudflare</h1>
-      <p>I used to host my website on Vultr for $5/month, which was too expensive. Due to the GFW, GitHub Pages was
-        inaccessible. I finally switched to Cloudflare, which is free, powerful, and not blocked, greatly reducing my
-        costs.
-      </p>
-      <button type="button" onclick="location.href='./articles/Cloudflare'">View</button>
-    </div>
-    <div class="article">
-      <h1>The process of me making an app</h1>
-      <p>In this website, I described the process of making my own app and some problems I encountered in the early
-        stage, such
-        as js loading problems, https problems, etc. I will add more content later.</p>
-      <button type="button" onclick="location.href='./articles/App_Making'">View</button>
+  </nav>
 
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">Knowledge Repository</h1>
+      <p class="hero-subtitle">Exploring technology, sharing insights, building the future</p>
+    </section>
 
-      <!-- 可以继续添加更多 .article -->
-    </div>
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <h2>Article Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Total Articles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Original Content</div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Filter Section -->
+    <section class="filter-section">
+      <h3>Filter by Category</h3>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-category="all">All Articles</button>
+        <button class="filter-btn" data-category="development">Development</button>
+        <button class="filter-btn" data-category="smart-home">Smart Home</button>
+        <button class="filter-btn" data-category="tutorial">Tutorial</button>
+      </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+      <div class="article-grid">
+        <article class="article-card" data-category="development">
+          <div class="article-icon">🌐</div>
+          <div class="article-header">
+            <h3 class="article-title">My Website, My Rules</h3>
+            <div class="article-meta">
+              <span class="article-tag">Development</span>
+              <span>📅 2024</span>
+            </div>
+          </div>
+          <p class="article-description">This is the first article on this website, where I'll walk you through the development process and provide a general introduction to its purpose and features.</p>
+          <a href="./articles/My_Web_My_rules" class="article-button">Read Article →</a>
+        </article>
+
+        <article class="article-card" data-category="development">
+          <div class="article-icon">💻</div>
+          <div class="article-header">
+            <h3 class="article-title">The Complex Path of Finding a Suitable Editor</h3>
+            <div class="article-meta">
+              <span class="article-tag">Development</span>
+              <span>📅 2024</span>
+            </div>
+          </div>
+          <p class="article-description">This article shares my journey of exploring different code editors. From DEV C++ to Visual Studio, JetBrains, VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use neovim and sometimes use VSCode for Raspberry Pi's development.</p>
+          <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor" class="article-button">Read Article →</a>
+        </article>
+
+        <article class="article-card" data-category="smart-home">
+          <div class="article-icon">🏠</div>
+          <div class="article-header">
+            <h3 class="article-title">The Intelligent Path in my room</h3>
+            <div class="article-meta">
+              <span class="article-tag">Smart Home</span>
+              <span>📅 2024</span>
+            </div>
+          </div>
+          <p class="article-description">I built a smart bedroom using Xiaomi devices and Home Assistant. I installed a smart socket, upgraded my chandelier lights, added motion sensors for automation, and used a Curtain Mate for automatic curtain control. This setup makes my room more convenient, efficient, and comfortable without major modifications.</p>
+          <a href="./articles/intelligent_home" class="article-button">Read Article →</a>
+        </article>
+
+        <article class="article-card" data-category="tutorial">
+          <div class="article-icon">☁️</div>
+          <div class="article-header">
+            <h3 class="article-title">Internet Great Good Samaritan: Cloudflare</h3>
+            <div class="article-meta">
+              <span class="article-tag">Tutorial</span>
+              <span>📅 2024</span>
+            </div>
+          </div>
+          <p class="article-description">I used to host my website on Vultr for $5/month, which was too expensive. Due to the GFW, GitHub Pages was inaccessible. I finally switched to Cloudflare, which is free, powerful, and not blocked, greatly reducing my costs.</p>
+          <a href="./articles/Cloudflare" class="article-button">Read Article →</a>
+        </article>
+
+        <article class="article-card" data-category="development">
+          <div class="article-icon">📱</div>
+          <div class="article-header">
+            <h3 class="article-title">The process of me making an app</h3>
+            <div class="article-meta">
+              <span class="article-tag">Development</span>
+              <span>📅 2024</span>
+            </div>
+          </div>
+          <p class="article-description">In this website, I described the process of making my own app and some problems I encountered in the early stage, such as js loading problems, https problems, etc. I will add more content later.</p>
+          <a href="./articles/App_Making" class="article-button">Read Article →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <h2>Want to Contribute?</h2>
+      <p>Have an idea for an article or want to share your tech journey?</p>
+      <div class="cta-buttons">
+        <a href="mailto:junxibao@junxibao.com" class="btn">📧 Get in Touch</a>
+        <a href="https://github.com/junxibao" class="btn">🐙 View GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../static/js/geek-theme.js"></script>
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        const category = button.getAttribute('data-category');
+
+        articleCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.5s ease forwards';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </body>
-
 </html>

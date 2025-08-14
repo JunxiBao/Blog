@@ -1,249 +1,336 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
   <link rel="shortcut icon" href="/static/image/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
   <meta charset="UTF-8">
-  <title>JunxiBao's Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JunxiBao's Terminal</title>
+  <link rel="stylesheet" href="/static/css/geek-theme.css">
   <style>
     body {
+      background: #000;
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-      /* 彩虹渐变 */
-      background-size: 1400% 1400%;
-      /* 增加 background-size 以容纳更多颜色 */
-      animation: rainbowBG 100s ease infinite;
-      /* 更快的动画 */
+      padding: 0;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      position: relative;
+      min-height: 100vh;
     }
 
-    @keyframes rainbowBG {
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .matrix-char {
+      position: absolute;
+      color: #00ff41;
+      font-family: monospace;
+      font-size: 14px;
+      animation: matrix-fall 3s linear infinite;
+    }
+
+    @keyframes matrix-fall {
       0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    .typewriter {
-      color: white;
-      /* 白色文字在彩虹背景上更清晰 */
-      font-size: 4.0em;
-      /* **这里增大了文字尺寸** */
-      display: flex;
-      align-items: center;
-      margin-bottom: 40px;
-      /* 稍微增加下边距 */
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      /* 增加文字阴影 */
-      white-space: nowrap;
-      /* 防止文字换行 */
-      overflow: hidden;
-      /* 防止超出容器 */
-    }
-
-    .cursor {
-      width: 4px;
-      /* 稍微增大光标宽度 */
-      height: 1.2em;
-      /* 稍微增大光标高度 */
-      background-color: white;
-      margin-left: 8px;
-      /* 稍微增大左边距 */
-      animation: blink 0.7s steps(1) infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      50% {
+        transform: translateY(-100vh);
         opacity: 1;
       }
-
-      51%,
       100% {
+        transform: translateY(100vh);
         opacity: 0;
       }
     }
 
-    .button {
-      padding: 20px 45px;
-      /* 增大按钮内边距 */
-      font-size: 1.8em;
-      /* **这里增大了按钮文字尺寸** */
-      border: 10px solid white;
-      /* 白色边框 */
-      border-radius: 20px;
-      background-color: white;
-      /* **修改为白色背景** */
-      color: black;
-      /* **修改为黑色文字** */
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      /* 更明显的阴影 */
+    .terminal-container {
+      width: 90%;
+      max-width: 800px;
+      z-index: 10;
     }
 
-    .button:hover {
-      background-color: rgba(255, 255, 255, 0.8);
-      /* 略微减淡 hover 效果 */
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    .terminal-window {
+      background: rgba(0, 0, 0, 0.95);
+      border: 3px solid #00ff41;
+      border-radius: 15px;
+      padding: 0;
+      margin: 0;
+      box-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
     }
 
-    #languageButton {
+    .terminal-header {
+      background: linear-gradient(90deg, #ff5f56, #ffbd2e, #27ca3f);
+      height: 35px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      position: relative;
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .terminal-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+    }
+
+    .terminal-button.close { background: #ff5f56; }
+    .terminal-button.minimize { background: #ffbd2e; }
+    .terminal-button.maximize { background: #27ca3f; }
+
+    .terminal-title {
       position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #333;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .terminal-content {
+      padding: 2rem;
+      color: #00ff41;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .terminal-line {
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .terminal-line:nth-child(1) { animation-delay: 0.5s; }
+    .terminal-line:nth-child(2) { animation-delay: 1s; }
+    .terminal-line:nth-child(3) { animation-delay: 1.5s; }
+    .terminal-line:nth-child(4) { animation-delay: 2s; }
+    .terminal-line:nth-child(5) { animation-delay: 2.5s; }
+    .terminal-line:nth-child(6) { animation-delay: 3s; }
+    .terminal-line:nth-child(7) { animation-delay: 3.5s; }
+    .terminal-line:nth-child(8) { animation-delay: 4s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .prompt {
+      color: #00ff41;
+      font-weight: bold;
+    }
+
+    .command {
+      color: #0080ff;
+      font-weight: bold;
+    }
+
+    .output {
+      color: #ffffff;
+      margin-left: 20px;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background: #00ff41;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: transparent;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn:hover {
+      background: #00ff41;
+      color: #000;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .language-toggle {
+      position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 10;
-      padding: 10px 20px;
-      /* 稍微调整语言按钮的内边距 */
-      font-size: 1em;
-      /* 保持语言按钮文字大小 */
-      background-color: white;
-      /* 确保初始状态也是白底 */
-      color: black;
-      /* 确保初始状态也是黑字 */
+      background: transparent;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .language-toggle:hover {
+      background: #00ff41;
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
     }
 
     @media (max-width: 768px) {
-      body {
-        font-size: 0.9em;
-        padding: 10px;
+      .terminal-container {
+        width: 95%;
+        top: 60%;
       }
 
-      .typewriter {
-        font-size: 2.5em;
-        margin-bottom: 20px;
+      .terminal-content {
+        padding: 1.5rem;
+        font-size: 1rem;
       }
 
-      .cursor {
-        width: 3px;
-        height: 1em;
-        margin-left: 5px;
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .button {
-        padding: 15px 30px;
-        font-size: 1.2em;
-        border: 8px solid white;
-        border-radius: 15px;
+      .action-btn {
+        width: 100%;
+        max-width: 300px;
       }
 
-      #languageButton {
-        top: 10px;
-        right: 10px;
-        padding: 8px 15px;
-        font-size: 0.9em;
+      .language-toggle {
+        top: 15px;
+        right: 15px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
       }
     }
 
     @media (max-width: 480px) {
-      .typewriter {
-        font-size: 2em;
+      .terminal-content {
+        padding: 1rem;
+        font-size: 0.9rem;
       }
 
-      .button {
-        padding: 10px 20px;
-        font-size: 1em;
-        border: 6px solid white;
-        border-radius: 10px;
-      }
-
-      #languageButton {
-        padding: 5px 10px;
-        font-size: 0.8em;
+      .action-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="typewriter">
-    <div id="text"></div>
-    <div class="cursor"></div>
+  <!-- Matrix Rain Background -->
+  <div class="matrix-bg" id="matrixBg"></div>
+
+
+  <!-- Main Terminal -->
+  <div class="terminal-container">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <button class="terminal-button close"></button>
+          <button class="terminal-button minimize"></button>
+          <button class="terminal-button maximize"></button>
+        </div>
+        <div class="terminal-title">junxibao@terminal:~$</div>
+      </div>
+      
+      <div class="terminal-content">
+        <div class="terminal-line">
+          <span class="prompt">junxibao@terminal:~$</span> <span class="command">whoami</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output">Junxi Bao - High School Student & Tech Enthusiast</span>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">junxibao@terminal:~$</span> <span class="command">cat about.txt</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output">Passionate about computer science, engineering, and smart home technology.</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output">Currently studying at NINGBO HD School.</span>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">junxibao@terminal:~$</span> <span class="command">ls projects/</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output">Smart Home Setup | Web Development | App Development | Raspberry Pi Projects</span>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">junxibao@terminal:~$</span> <span class="command">echo "Ready to explore?"</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output">Ready to explore?</span><span class="typing-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="./src/home" class="action-btn">🚀 Enter Website</a>
+    </div>
   </div>
 
-  <button class="button" onclick="location.href='./src/home'">
-    <span id="homeButtonText">Go To Home Page</span>
-  </button>
-
-  <script>
-    const texts = [
-      "你好，我是鲍俊希",
-      "Hello, I'm JunxiBao",
-      "こんにちは、鮑俊熙です",
-      "안녕하세요, 바오준시입니다",
-      "Bonjour, je suis JunxiBao",
-      "Hola, soy JunxiBao",
-      "Salve, ego sum JunxiBao",
-      "สวัสดี ฉันชื่อจุนซีเป่า",
-      "Привет, я ЦзюньсиБао.",
-
-    ];
-
-    let i = 0;
-    let j = 0;
-    let isDeleting = false;
-    const speed = 100;
-    const delay = 1500;
-    const textElement = document.getElementById('text');
-
-    function adjustFontSize() {
-      const containerWidth = document.body.clientWidth;
-      // 获取容器宽度
-      const baseFontSize = 40;
-      // 基础字体大小
-      const scaleFactor = containerWidth / 800;
-      // 根据宽度调整比例
-      const newFontSize = Math.max(baseFontSize * scaleFactor, 16);
-      // 最小字体大小为 16px
-      textElement.style.fontSize = `${newFontSize}px`;
-    }
-
-    function type() {
-      const fullText = texts[i];
-
-      if (isDeleting) {
-        j--;
-      } else {
-        j++;
-      }
-
-      textElement.textContent = fullText.substring(0, j);
-
-      if (!isDeleting && j === fullText.length) {
-        isDeleting = true;
-        setTimeout(type, delay);
-      } else if (isDeleting && j === 0) {
-        isDeleting = false;
-        i = (i + 1) % texts.length;
-        setTimeout(type, 300);
-      } else {
-        setTimeout(type, isDeleting ? speed / 2 : speed);
-      }
-    }
-
-    window.addEventListener('resize', adjustFontSize);
-    // 监听窗口大小变化
-    adjustFontSize();
-    // 初始化字体大小
-    type();
-  </script>
+  <script src="/static/js/geek-theme.js"></script>
 </body>
-
 </html>
