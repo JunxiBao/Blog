@@ -22,6 +22,26 @@
         <h1 class="article-title">The process of me making an app</h1>
         <p class="article-date">Aug 1 2025</p>
         <div class="article-content">
+          <h2>Category</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#welcome">Welcome Back!</a></li>
+              <li><a href="#project">About My Project</a></li>
+              <li><a href="#public-testing">Public Testing &amp; Source Code</a></li>
+              <li><a href="#cross-platform">Cross-Platform Challenges</a></li>
+              <li><a href="#project-begins">Project Begins: Creating the UI</a></li>
+              <li><a href="#database">Making the backend: user registration and login</a></li>
+              <li><a href="#http2https">Switching from http to https</a></li>
+              <li><a href="#biggest-difficulty">The biggest difficulty so far</a></li>
+              <li><a href="#AI API request">Integrating DeepSeek: Building an AI Assistant</a></li>
+              <li><a href="#designing-the-core-with-AI">Designing the Core: User Data Collection and AI Analysis</a>
+              </li>
+              <li><a href="#Make_my_project_safer">Make my project safer</a></li>
+              <li><a href="#A-Complete-UI-Overhaul">A Complete UI Overhaul</a></li>
+              <li><a href="#sms-verification">Implementing SMS-Based Registration &amp; Login with Alibaba Cloud</a>
+              </li>
+            </ul>
+          </nav>
 
           <!-- Main Article Content -->
           <section>
@@ -250,7 +270,7 @@
               imagined.
             </p>
 
-           
+
           </section>
           <section>
             <h2 style="margin: 0 0 12px;">Next Steps: User Information Management</h2>
@@ -289,7 +309,54 @@
               moving all
               password-related checks to the cloud so that plaintext passwords never appear on the frontend.
             </p>
-            <p>The process of making the app is not over yet, I will continue to update this passage, thank you~</p>
+          </section>
+
+          <section>
+            <h2 id="sms-verification">Implementing SMS-Based Registration &amp; Login with Alibaba Cloud</h2>
+            <p>
+              One thing I really wanted to improve was making the registration and login process more convenient and
+              secure for users. I thought about how much easier it would be if users could just log in with their phone
+              number, without having to remember a password. SMS verification not only simplifies the login flow but
+              also helps confirm that the user actually owns the phone number they're registering with.
+            </p>
+            <p>
+              After researching several options, I decided to use Alibaba Cloud’s SMS service. Their documentation was
+              clear and the pricing was reasonable, which made the decision pretty straightforward.
+            </p>
+            <p>
+              In China, using SMS services for things like login requires going through three main steps: submitting
+              your qualifications, applying for a signature, and creating a template for the messages. At first, I
+              thought this process would be complicated, but it turned out to be much smoother than expected.
+            </p>
+            <p>
+              For the qualification step, I used my father’s company. I uploaded my ID and the company’s business
+              license as required. To my surprise, the approval came through in just two hours.
+            </p>
+            <p>
+              The next step was applying for a “signature”—which is basically the company name that appears as the
+              sender in the SMS messages. This required an authorization letter stamped with the company’s official
+              seal. Alibaba Cloud reviewed this very quickly as well, but then there was a five-day period for the
+              mobile carriers to integrate the new signature. During this time, I periodically sent test messages to
+              check on the progress, which made the wait feel a bit less long.
+            </p>
+            <p>
+              After that, I created the SMS message template. This step was even faster, and the approval came almost
+              immediately.
+            </p>
+            <p>
+              With everything set up, I wrote a new <code>sms</code> route in my Flask backend. I split it into two
+              subroutes: <code>send</code> for sending the verification code to the user’s phone, and
+              <code>verify</code> for checking the code the user enters. I also updated my <code>users</code> table in
+              the database to include a <code>phone_number</code> column, so users could be uniquely identified by their
+              phone.
+            </p>
+            <p>
+              Honestly, the whole process was much less daunting than I had imagined. Alibaba Cloud’s documentation was
+              thorough, and their APIs were fast and reliable. Adding SMS-based registration and login made the app feel
+              more professional, and it was satisfying to see it all come together so smoothly.
+            </p>
+            <p>The process of making the app is not over yet, I will continue to update this passage, thank you, Because
+              this post is already quite long, I will open a separate page for the next post.</p>
           </section>
         </div>
       </article>
