@@ -11,6 +11,28 @@
   <link rel="shortcut icon" href="/static/image/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+  <style>
+    /* Make code blocks mobile-friendly */
+    .article-content pre.code-block {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f6f8fa;
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin: 0.75rem 0 1rem;
+    }
+    .article-content pre.code-block code {
+      white-space: pre; /* keep formatting; allow horizontal scroll on small screens */
+      word-break: normal;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
 </head>
 
 <body>
@@ -40,9 +62,19 @@
           AI’s help, I replaced my app.py and backend routes to run under Gunicorn, enabling multiple processes and threads. Next,
           I configured Nginx as a reverse proxy to handle all routes. Finally, I updated my frontend JavaScript requests from
           https://<domain>:5000/<route> to simply /<route>.
-          
-                After testing, I found that both /readdata and /login responded much faster. As for stability, I’ll continue
-                monitoring it over time.</p>
+          After testing, I found that both /readdata and /login responded much faster. As for stability, I’ll continue
+          monitoring it over time.</p>
+          <h2 class="log">Fix Logging Issues</h2>
+          <p>After switching my backend to Gunicorn, stability improved a lot. However, I ran into a development-time issue: inside my route handlers I used <em>print</em> to write logs, and I started the app with this command to redirect all stdout/stderr to a file:</p>
+          <pre class="code-block line-numbers"><code class="language-bash">exec python3 src/backend/app.py &gt; ./log/app.out 2&gt;&amp;1</code></pre>
+          <p>In theory, everything printed should land in <em>app.out</em>, but nothing showed up. A quick search told me this is pretty common. I asked ChatGPT how to log “properly,” and it suggested using Python’s <em>logging</em> library.</p>
+          <p>So at the top of <em>app.py</em> I added:</p>
+          <pre class="code-block line-numbers"><code class="language-python">import logging
+</code></pre>
+<p>And also, I add:</p>
+<pre class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")
+</code></pre>
+          <p>With that in place, I can call <em>logger</em> in my route functions and use levels like <em>info</em> and <em>warning</em> to make searching easier. Now, checking logs is much smoother.</p>
         </div>
       </article>
     </div>

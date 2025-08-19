@@ -1,367 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Article</title>
+    <link rel="stylesheet" href="../../static/css/template.css" />
+    <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+    <link rel="shortcut icon" href="/static/image/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/image/favicon.png" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Article</title>
-  <link rel="stylesheet" href="../../static/css/template.css" />
-  <link rel="icon" type="image/png" href="/static/image/favicon.png" />
-  <link rel="shortcut icon" href="/static/image/favicon.ico" />
-  <link rel="apple-touch-icon" href="/static/image/favicon.png">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css"
+    />
+    <style>
+      /* Make code blocks mobile-friendly */
+      .article-content pre.code-block {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 12px;
+        border-radius: 8px;
+        background: #f6f8fa;
+        font-size: 0.95em;
+        line-height: 1.5;
+        margin: 0.75rem 0 1rem;
+      }
+      .article-content pre.code-block code {
+        white-space: pre; /* keep formatting; allow horizontal scroll on small screens */
+        word-break: normal;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+  </head>
 
-</head>
+  <body>
+    <a href="javascript:history.back()" class="back-button" title="返回">
+      &#8592;
+    </a>
+    <div class="rainbow-border">
+      <div class="article-wrapper">
+        <article class="article-card">
+          <h1 class="article-title">The process of me making an app</h1>
+          <p class="article-date">Aug 1 2025</p>
+          <div class="article-content">
+            <h2>Category</h2>
+            <nav class="toc">
+              <ul>
+                <li><a href="#welcome">Welcome Back!</a></li>
+                <li><a href="#project">About My Project</a></li>
+                <li>
+                  <a href="#public-testing">Public Testing &amp; Source Code</a>
+                </li>
+                <li><a href="#cross-platform">Cross-Platform Challenges</a></li>
+                <li>
+                  <a href="#project-begins">Project Begins: Creating the UI</a>
+                </li>
+                <li>
+                  <a href="#database"
+                    >Making the backend: user registration and login</a
+                  >
+                </li>
+                <li><a href="#http2https">Switching from http to https</a></li>
+                <li>
+                  <a href="#biggest-difficulty"
+                    >The biggest difficulty so far</a
+                  >
+                </li>
+                <li>
+                  <a href="#AI API request"
+                    >Integrating DeepSeek: Building an AI Assistant</a
+                  >
+                </li>
+                <li>
+                  <a href="#designing-the-core-with-AI"
+                    >Designing the Core: User Data Collection and AI Analysis</a
+                  >
+                </li>
+                <li>
+                  <a href="#Make_my_project_safer">Make my project safer</a>
+                </li>
+                <li>
+                  <a href="#A-Complete-UI-Overhaul">A Complete UI Overhaul</a>
+                </li>
+                <li>
+                  <a href="#sms-verification"
+                    >Implementing SMS-Based Registration &amp; Login with
+                    Alibaba Cloud</a
+                  >
+                </li>
+              </ul>
+            </nav>
 
-<body>
-  <a href="javascript:history.back()" class="back-button" title="返回">
-    &#8592;
-  </a>
-  <div class="rainbow-border">
-    <div class="article-wrapper">
-      <article class="article-card">
-        <h1 class="article-title">The process of me making an app</h1>
-        <p class="article-date">Aug 1 2025</p>
-        <div class="article-content">
-          <h2>Category</h2>
-          <nav class="toc">
-            <ul>
-              <li><a href="#welcome">Welcome Back!</a></li>
-              <li><a href="#project">About My Project</a></li>
-              <li><a href="#public-testing">Public Testing &amp; Source Code</a></li>
-              <li><a href="#cross-platform">Cross-Platform Challenges</a></li>
-              <li><a href="#project-begins">Project Begins: Creating the UI</a></li>
-              <li><a href="#database">Making the backend: user registration and login</a></li>
-              <li><a href="#http2https">Switching from http to https</a></li>
-              <li><a href="#biggest-difficulty">The biggest difficulty so far</a></li>
-              <li><a href="#AI API request">Integrating DeepSeek: Building an AI Assistant</a></li>
-              <li><a href="#designing-the-core-with-AI">Designing the Core: User Data Collection and AI Analysis</a>
-              </li>
-              <li><a href="#Make_my_project_safer">Make my project safer</a></li>
-              <li><a href="#A-Complete-UI-Overhaul">A Complete UI Overhaul</a></li>
-              <li><a href="#sms-verification">Implementing SMS-Based Registration &amp; Login with Alibaba Cloud</a>
-              </li>
-            </ul>
-          </nav>
+            <!-- Main Article Content -->
+            <section>
+              <h2 id="welcome">Welcome Back!</h2>
+              <p>
+                Hello everyone, long time no see! It’s finally summer vacation,
+                and I have two major goals during this break.
+              </p>
+              <p>
+                The first is to achieve a great score on the TOEFL exam — a real
+                challenge for me. The second is to kick off a project that I’ll
+                be working on in the next semester.
+              </p>
+            </section>
 
-          <!-- Main Article Content -->
-          <section>
-            <h2 id="welcome">Welcome Back!</h2>
-            <p>Hello everyone, long time no see! It’s finally summer vacation, and I have two major goals during this
-              break.</p>
-            <p>The first is to achieve a great score on the TOEFL exam — a real challenge for me. The second is to kick
-              off a
-              project that I’ll be working on in the next semester.</p>
-          </section>
+            <section>
+              <h2 id="project">About My Project</h2>
+              <p>
+                In this post, I’d like to share something about my project and
+                what I’ve accomplished so far.
+              </p>
+              <p>
+                My project is to develop an app designed to help people with
+                anaphylactoid purpura track their diet, symptoms, and share
+                personal experiences or medical knowledge about the condition.
+                Beyond simple logging, the app uses AI to provide intelligent
+                suggestions and analyses based on user-submitted data.
+              </p>
+              <p>
+                I’m working on this project with one of my classmates, who also
+                suffers from purpura. She hopes this app can be a meaningful
+                tool for others facing the same condition.
+              </p>
+            </section>
 
-          <section>
-            <h2 id="project">About My Project</h2>
-            <p>In this post, I’d like to share something about my project and what I’ve accomplished so far.</p>
-            <p>My project is to develop an app designed to help people with anaphylactoid purpura track their diet,
-              symptoms, and
-              share personal experiences or medical knowledge about the condition. Beyond simple logging, the app uses
-              AI to
-              provide intelligent suggestions and analyses based on user-submitted data.</p>
-            <p>I’m working on this project with one of my classmates, who also suffers from purpura. She hopes this app
-              can be a
-              meaningful tool for others facing the same condition.</p>
-          </section>
+            <section>
+              <h2 id="public-testing">Public Testing & Source Code</h2>
+              <p>
+                I’m excited to announce that the app is now available for public
+                testing on Apple’s TestFlight. You can try it out using the
+                following link:
+              </p>
+              <p>
+                <a
+                  href="https://testflight.apple.com/join/dZQy4fKN"
+                  target="_blank"
+                  >https://testflight.apple.com/join/dZQy4fKN</a
+                >
+              </p>
+              <p>
+                If you have any suggestions or find any bugs, feel free to
+                contact me — your feedback is truly appreciated.
+              </p>
+              <p>
+                Also, the core code of the app is open source and available on
+                GitHub:
+              </p>
+              <p>
+                <a href="https://github.com/JunxiBao/health" target="_blank"
+                  >https://github.com/JunxiBao/health</a
+                >
+              </p>
+            </section>
 
-          <section>
-            <h2 id="public-testing">Public Testing & Source Code</h2>
-            <p>I’m excited to announce that the app is now available for public testing on Apple’s TestFlight. You can
-              try it out
-              using the following link:</p>
-            <p><a href="https://testflight.apple.com/join/dZQy4fKN"
-                target="_blank">https://testflight.apple.com/join/dZQy4fKN</a>
-            </p>
-            <p>If you have any suggestions or find any bugs, feel free to contact me — your feedback is truly
-              appreciated.</p>
-            <p>Also, the core code of the app is open source and available on GitHub:</p>
-            <p><a href="https://github.com/JunxiBao/health" target="_blank">https://github.com/JunxiBao/health</a></p>
-          </section>
+            <section>
+              <h2 id="cross-platform">Cross-Platform Challenges</h2>
+              <p>
+                Before developing the app, I struggled with the question of how
+                to efficiently support multiple platforms. iOS uses Swift, while
+                Android uses Kotlin — learning and maintaining both would be
+                quite difficult. While exploring solutions, I discovered
+                Google’s Flutter framework. However, I found the learning curve
+                a bit steep. Then, I had an idea: since I’m already familiar
+                with HTML, why not create a web app and embed it into a native
+                app? This would drastically reduce my workload and development
+                time. As a result, the current version of my app follows this
+                hybrid structure. The core code in Xcode is very simple, I
+                generated it directly using artificial intelligence.
+              </p>
+              <p>
+                The code I wrote on the Apple side is very simple, I can just
+                put it out:
+              </p>
+              <pre class="code-block line-numbers"><code class="language-swift">import UIKit
+            import WebKit
+            
+            class WebViewController: UIViewController {
+              private var webView: WKWebView!
+            
+              override func loadView() {
+                let webConfiguration = WKWebViewConfiguration()
+                webView = WKWebView(frame: .zero, configuration: webConfiguration)
+                view = webView
+              }
+            
+              override func viewDidLoad() {
+                super.viewDidLoad()
+            
+                // 设置导航代理以处理加载失败
+                webView.navigationDelegate = self
+            
+                // 加载线上地址
+                if let url = URL(string: "https://zhucan.xyz") {
+                  let request = URLRequest(url: url)
+                  webView.load(request)
+                }
+              }
+            }
+            
+            // MARK: - WKNavigationDelegate
+            extension WebViewController: WKNavigationDelegate {
+              func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+                showErrorAlert(error: error)
+              }
+              
+              func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+                showErrorAlert(error: error)
+              }
+              
+              private func showErrorAlert(error: Error) {
+                let alert = UIAlertController(title: "加载失败", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "确定", style: .default))
+                present(alert, animated: true)
+              }
+            }
 
-          <section>
-            <h2 id="cross-platform">Cross-Platform Challenges</h2>
-            <p>Before developing the app, I struggled with the question of how to efficiently support multiple
-              platforms. iOS uses
-              Swift, while Android uses Kotlin — learning and maintaining both would be quite difficult.
-              While exploring solutions, I discovered Google’s Flutter framework. However, I found the learning curve a
-              bit
-              steep.
-              Then, I had an idea: since I’m already familiar with HTML, why not create a web app and embed it into a
-              native
-              app? This would drastically reduce my workload and development time. As a result, the current version of
-              my app
-              follows this hybrid structure.
+</code></pre>
+            </section>
 
-              The core code in Xcode is very simple, I generated it directly using artificial intelligence.</p>
+            <section>
+              <h2 id="project-begins">Project Begins: Creating the UI</h2>
+              <p>
+                In the early days, I deployed my project directly using
+                Cloudflare Pages, as I only needed to write simple UI elements
+                and didn't need to run code. Just like this website, when
+                writing the UI, I simply wrote some HTML, and the CSS code was
+                completely generated by AI. I have to say, AI is really useful
+                these days. During this process, I would repeatedly let the AI
+                optimize the UI to make the page look good. In my opinion, UI is
+                more important than functionality, as a good UI makes my website
+                pleasing to the eye. During this process, since I didn't have a
+                ChatGPT membership, I registered several email addresses to use.
+              </p>
+            </section>
 
+            <section>
+              <h2 id="database">
+                Making the backend: user registration and login
+              </h2>
+              <p>
+                After completing the UI, the first thing I needed to do was to
+                implement user login functionality. I previously built a WebUI
+                for a project on a Raspberry Pi using the Python Flask library,
+                so this time, I planned to use Flask as my backend. I used a
+                MySQL database to store user data. The overall process was as
+                follows: I ran the Flask code on a server. The Flask code opened
+                a port and contained multiple routes. I used JavaScript to
+                access the corresponding routes on this port to manipulate the
+                database.
+              </p>
+              <!--第一次绑定域名-->
+              <h2 id="http2https">Switching from http to https</h2>
+              <p>
+                Originally, I planned to use the app to access the server via
+                its public IP address to retrieve data. However, I later read
+                that Apple requires all network requests made by apps to use the
+                HTTPS protocol; using HTTP is highly likely to result in
+                rejection during the app review process. As a result, I decided
+                to register a domain name. My primary domain is hosted on
+                Cloudflare and hasn’t undergone ICP registration in China, which
+                means it cannot be linked to a public server hosted in the
+                country. Registering a new domain and completing the ICP
+                approval process would have taken several weeks. Then I
+                remembered that I had previously registered a domain name for a
+                website I was planning to build for people with disabilities.
+                Unfortunately, the project never moved forward because my
+                friend, who was supposed to collaborate with me, backed out. So
+                I repurposed that domain name and pointed it to my server. I
+                then installed an SSL certificate using Let’s Encrypt, which
+                enabled access to the site over HTTPS. However, my backend—built
+                using the Flask library—was still configured to serve over HTTP.
+                I switched it to HTTPS, but ran into a series of problems, such
+                as CORS-related issues, which took a considerable amount of time
+                to debug and resolve, with help from AI tools.
+              </p>
+              <h2 id="biggest-difficulty">The biggest difficulty so far</h2>
+              <p>
+                After deploying the backend services and setting up HTTPS
+                encryption, I planned to display something like "Username +
+                Greeting" at the top of the homepage. Sounds simple, right? All
+                I had to do was use the frontend JavaScript to request a request
+                from the backend server, which would query the database and
+                return the result. But honestly, this was the most challenging
+                part of the project, and it took me a significant amount of
+                time. Initially, the entire page was stuck loading. Even adding
+                timeout logic to the JavaScript file had no effect. I began to
+                suspect my JavaScript wasn't running at all. I opened my
+                browser's developer tools and, sure enough, found that the
+                browser wasn't loading daily.js. After consulting AI, I realized
+                that my daily.html page was dynamically loaded from index.html,
+                so I had to manually load daily.js in index.js. In theory, this
+                should have fixed the problem. However, strangely, even though
+                daily.js was loading, the code wasn't executing. I added
+                debugging information to the code and realized the problem lay
+                in event binding: the AI-generated code relied on the
+                DOMContentLoaded event. Since daily.js was dynamically loaded,
+                the event had already been triggered by the time it loaded, so
+                the code wasn't executed at all. I ultimately changed the logic
+                to run the initialization code directly whenever the event was
+                triggered, and the problem was resolved. The AI's help during
+                this process was limited. It could only statically analyze a few
+                files and had no understanding of the dynamic loading structure
+                of my code, nor could it determine the specific timing of event
+                triggering. Ultimately, it was through my own analysis and
+                debugging that I finally identified the true cause of the
+                problem.
+              </p>
+            </section>
 
-          </section>
+            <section>
+              <h2 id="AI API request">
+                Integrating DeepSeek: Building an AI Assistant
+              </h2>
+              <p>
+                After that, I planned to introduce some AI features to my
+                website. First, I wanted to integrate an AI assistant that users
+                could use to ask questions. DeepSeek has been very popular in
+                China recently, offering powerful features and a relatively low
+                price, so I chose to use its API. I wrote a Python script that
+                uses Flask to provide a routing interface. When the front-end
+                user enters and submits content, the JavaScript sends the input
+                to my back-end server. Upon receiving the request, the back-end
+                uses DeepSeek's API to retrieve the corresponding response,
+                returning the result to the front-end for display on the page.
+                The entire process was very simple, and DeepSeek also provides
+                detailed API documentation, so the development process was
+                relatively straightforward.
+              </p>
 
-          <section>
-            <h2 id="project-begins">Project Begins: Creating the UI</h2>
-            <p>In the early days, I deployed my project directly using Cloudflare Pages, as I only needed to write
-              simple UI elements
-              and didn't need to run code. Just like this website, when writing the UI, I simply wrote some HTML, and
-              the CSS code was
-              completely generated by AI. I have to say, AI is really useful these days. During this process, I would
-              repeatedly let
-              the AI optimize the UI to make the page look good. In my opinion, UI is more important than functionality,
-              as a good UI
-              makes my website pleasing to the eye. During this process, since I didn't have a ChatGPT membership, I
-              registered
-              several email addresses to use.</p>
-          </section>
+              <h2 id="designing-the-core-with-AI">
+                Designing the Core: User Data Collection and AI Analysis
+              </h2>
+              <p>
+                Okay, now that the preliminary preparations are complete, the AI
+                has been invoked, and all the pages have been set up, I can move
+                on to the core content of the website. The core of our software
+                is to analyze user-recorded data, so the first step in building
+                the website is, of course, to record that data. In this version
+                of the concept, we need three types of data: time, diet, and
+                physical condition. My idea is to have a date selection window
+                on the top of the page. The default date is the current date,
+                which the user can change if they wish. Below is an input box
+                where the user can enter anything, and the AI will analyze
+                "which are diet and which are physical conditions." I also added
+                a route using the Flask library to request DeepSeek to process
+                this data. DeepSeek returns data in a JSON format encapsulated
+                in Markdown. After removing the ``` markdown encapsulation in
+                the Flask library, I return it to the front-end for display.
+              </p>
+            </section>
 
-          <section>
-            <h2 id="database">Making the backend: user registration and login</h2>
-            <p>After completing the UI, the first thing I needed to do was to implement user login functionality. I
-              previously built a
-              WebUI for a project on a Raspberry Pi using the Python Flask library, so this time, I planned to use Flask
-              as my
-              backend. I used a MySQL database to store user data. The overall process was as follows: I ran the Flask
-              code on a
-              server. The Flask code opened a port and contained multiple routes. I used JavaScript to access the
-              corresponding routes
-              on this port to manipulate the database.</p>
-            <!--第一次绑定域名-->
-            <h2 id="http2https">Switching from http to https</h2>
-            <p>Originally, I planned to use the app to access the server via its public IP address to retrieve data.
-              However, I later
-              read that Apple requires all network requests made by apps to use the HTTPS protocol; using HTTP is highly
-              likely to
-              result in rejection during the app review process.
+            <section>
+              <h2 id="Make_my_project_safer">Make my project safer</h2>
+              <p>
+                Recently, I came across a video about SQL injection online, and
+                it immediately made me realize that my SQL database might have
+                security vulnerabilities. Previously, I was accessing the
+                database by concatenating strings on the frontend—a very risky
+                approach. So, I quickly updated the backend logic to use %s
+                placeholders to prevent injection attacks. After making that
+                change, another thought struck me—my DeepSeek API key and
+                database password were written in plain text directly in my
+                Python code! To make matters worse, the entire project was
+                open-sourced on GitHub. That sent a chill down my spine, and I
+                took immediate action: I moved all sensitive information into a
+                .env file and added it to .gitignore. Finally, I regenerated
+                both the API key and the database password to completely close
+                this security loophole. Although I believe that, at this stage,
+                no one would bother attacking my database—after all, the project
+                is still small and the DeepSeek API account only has about 10
+                yuan in it—I firmly believe that cybersecurity awareness must
+                always be maintained. Waiting until something goes wrong to take
+                action is simply too late.
+              </p>
 
-              As a result, I decided to register a domain name. My primary domain is hosted on Cloudflare and hasn’t
-              undergone ICP
-              registration in China, which means it cannot be linked to a public server hosted in the country.
-              Registering a new
-              domain and completing the ICP approval process would have taken several weeks.
+              <h2 id="A-Complete-UI-Overhaul">A Complete UI Overhaul</h2>
+              <p>
+                1:00 AM, August 8th, Beijing time. OpenAI had just released
+                GPT-5, and I couldn’t wait to give it a try. The result? Its
+                capabilities went far beyond my expectations. Naturally, I
+                handed it the task of revamping my project’s UI. Just a few
+                hours later, a brand-new interface was born: clean layouts,
+                well-defined hierarchy, and animations flowing as smoothly as
+                water. Although all my daily devices are made by Apple, I’ve
+                never been particularly fond of Apple’s design
+                language—especially the liquid-glass effect introduced in iOS
+                26. It’s flashy, but not quite my style. In contrast, I’ve
+                always preferred Google’s flat design: simple, restrained, and
+                timeless. That’s why this UI overhaul embraces Google’s visual
+                language entirely—and the outcome turned out even better than I
+                imagined.
+              </p>
+            </section>
+            <section>
+              <h2 style="margin: 0 0 12px">
+                Next Steps: User Information Management
+              </h2>
+              <p>
+                Next, I plan to implement user information management. Since all
+                data generated by the app needs to be written to the
+                database—and each user must be precisely distinguished—this step
+                is crucial.
+              </p>
+              <p>
+                I used an advanced GPT‑5 model to generate a beautiful UI and
+                added several buttons. Some of these buttons don’t have
+                functionality yet, but I expect they’ll be useful in future
+                iterations.
+              </p>
 
-              Then I remembered that I had previously registered a domain name for a website I was planning to build for
-              people with
-              disabilities. Unfortunately, the project never moved forward because my friend, who was supposed to
-              collaborate with me,
-              backed out. So I repurposed that domain name and pointed it to my server. I then installed an SSL
-              certificate using
-              Let’s Encrypt, which enabled access to the site over HTTPS.
+              <h3 style="margin: 24px 0 12px">Implemented Features</h3>
+              <ul>
+                <li>
+                  <strong>Log out:</strong> Simply remove the
+                  <code>userid</code> and redirect to the login page’s HTML.
+                </li>
+                <li>
+                  <strong>Edit age &amp; password:</strong> First, I read the
+                  current data via <code>readdata</code> and display the user’s
+                  age in the UI. The user can then modify their age and
+                  password, and I compare the new input with the data from
+                  <code>readdata</code> to prevent setting an identical
+                  password. Finally, I submit the changes to the server through
+                  my new <code>editdata</code> route.
+                </li>
+              </ul>
 
-              However, my backend—built using the Flask library—was still configured to serve over HTTP. I switched it
-              to HTTPS, but
-              ran into a series of problems, such as CORS-related issues, which took a considerable amount of time to
-              debug and
-              resolve, with help from AI tools.</p>
-            <h2 id="biggest-difficulty">The biggest difficulty so far</h2>
-            <p>After deploying the backend services and setting up HTTPS encryption, I planned to display something like
-              "Username +
-              Greeting" at the top of the homepage. Sounds simple, right? All I had to do was use the frontend
-              JavaScript to request a
-              request from the backend server, which would query the database and return the result.
+              <h3 style="margin: 24px 0 12px">Security Note</h3>
+              <p>
+                I identified a security issue: the server currently returns
+                data—including passwords—in plaintext. I can’t fully fix this
+                immediately because the frontend relies on that data for some
+                logic. However, I’ll address this by moving all password-related
+                checks to the cloud so that plaintext passwords never appear on
+                the frontend.
+              </p>
+            </section>
 
-              But honestly, this was the most challenging part of the project, and it took me a significant amount of
-              time. Initially,
-              the entire page was stuck loading. Even adding timeout logic to the JavaScript file had no effect. I began
-              to suspect my
-              JavaScript wasn't running at all.
-
-              I opened my browser's developer tools and, sure enough, found that the browser wasn't loading daily.js.
-              After consulting
-              AI, I realized that my daily.html page was dynamically loaded from index.html, so I had to manually load
-              daily.js in
-              index.js.
-
-              In theory, this should have fixed the problem. However, strangely, even though daily.js was loading, the
-              code wasn't
-              executing. I added debugging information to the code and realized the problem lay in event binding: the
-              AI-generated
-              code relied on the DOMContentLoaded event. Since daily.js was dynamically loaded, the event had already
-              been triggered
-              by the time it loaded, so the code wasn't executed at all. I ultimately changed the logic to run the
-              initialization code
-              directly whenever the event was triggered, and the problem was resolved.
-
-              The AI's help during this process was limited. It could only statically analyze a few files and had no
-              understanding of
-              the dynamic loading structure of my code, nor could it determine the specific timing of event triggering.
-              Ultimately, it
-              was through my own analysis and debugging that I finally identified the true cause of the problem.</p>
-          </section>
-
-          <section>
-            <h2 id="AI API request">Integrating DeepSeek: Building an AI Assistant</h2>
-            <p>After that, I planned to introduce some AI features to my website. First, I wanted to integrate an AI
-              assistant that
-              users could use to ask questions. DeepSeek has been very popular in China recently, offering powerful
-              features and a
-              relatively low price, so I chose to use its API.
-
-              I wrote a Python script that uses Flask to provide a routing interface. When the front-end user enters and
-              submits
-              content, the JavaScript sends the input to my back-end server. Upon receiving the request, the back-end
-              uses DeepSeek's
-              API to retrieve the corresponding response, returning the result to the front-end for display on the page.
-
-              The entire process was very simple, and DeepSeek also provides detailed API documentation, so the
-              development process
-              was relatively straightforward.</p>
-
-            <h2 id="designing-the-core-with-AI">Designing the Core: User Data Collection and AI Analysis</h2>
-            <p>Okay, now that the preliminary preparations are complete, the AI has been invoked, and all the pages have
-              been set up, I
-              can move on to the core content of the website. The core of our software is to analyze user-recorded data,
-              so the first
-              step in building the website is, of course, to record that data. In this version of the concept, we need
-              three types of
-              data: time, diet, and physical condition. My idea is to have a date selection window on the top of the
-              page. The default
-              date is the current date, which the user can change if they wish. Below is an input box where the user can
-              enter
-              anything, and the AI will analyze "which are diet and which are physical conditions." I also added a route
-              using the
-              Flask library to request DeepSeek to process this data. DeepSeek returns data in a JSON format
-              encapsulated in Markdown.
-              After removing the ``` markdown encapsulation in the Flask library, I return it to the front-end for
-              display.</p>
-
-          </section>
-
-          <section>
-            <h2 id="Make_my_project_safer">Make my project safer</h2>
-            <p>Recently, I came across a video about SQL injection online, and it immediately made me realize that my
-              SQL database
-              might have security vulnerabilities. Previously, I was accessing the database by concatenating strings on
-              the frontend—a
-              very risky approach. So, I quickly updated the backend logic to use %s placeholders to prevent injection
-              attacks.
-
-              After making that change, another thought struck me—my DeepSeek API key and database password were written
-              in plain text
-              directly in my Python code! To make matters worse, the entire project was open-sourced on GitHub. That
-              sent a chill down
-              my spine, and I took immediate action: I moved all sensitive information into a .env file and added it to
-              .gitignore.
-              Finally, I regenerated both the API key and the database password to completely close this security
-              loophole.
-
-              Although I believe that, at this stage, no one would bother attacking my database—after all, the project
-              is still small
-              and the DeepSeek API account only has about 10 yuan in it—I firmly believe that cybersecurity awareness
-              must always be
-              maintained. Waiting until something goes wrong to take action is simply too late.</p>
-
-            <h2 id="A-Complete-UI-Overhaul">A Complete UI Overhaul</h2>
-            <p>1:00 AM, August 8th, Beijing time.
-              OpenAI had just released GPT-5, and I couldn’t wait to give it a try. The result? Its capabilities went
-              far beyond my
-              expectations. Naturally, I handed it the task of revamping my project’s UI.
-
-              Just a few hours later, a brand-new interface was born: clean layouts, well-defined hierarchy, and
-              animations flowing as
-              smoothly as water.
-              Although all my daily devices are made by Apple, I’ve never been particularly fond of Apple’s design
-              language—especially
-              the liquid-glass effect introduced in iOS 26. It’s flashy, but not quite my style. In contrast, I’ve
-              always preferred
-              Google’s flat design: simple, restrained, and timeless.
-
-              That’s why this UI overhaul embraces Google’s visual language entirely—and the outcome turned out even
-              better than I
-              imagined.
-            </p>
-
-
-          </section>
-          <section>
-            <h2 style="margin: 0 0 12px;">Next Steps: User Information Management</h2>
-            <p>
-              Next, I plan to implement user information management. Since all data generated by the app needs to be
-              written to
-              the database—and each user must be precisely distinguished—this step is crucial.
-            </p>
-            <p>
-              I used an advanced GPT‑5 model to generate a beautiful UI and added several buttons. Some of these buttons
-              don’t
-              have functionality yet, but I expect they’ll be useful in future iterations.
-            </p>
-
-            <h3 style="margin: 24px 0 12px;">Implemented Features</h3>
-            <ul>
-              <li>
-                <strong>Log out:</strong> Simply remove the <code>userid</code> and redirect to the login page’s HTML.
-              </li>
-              <li>
-                <strong>Edit age &amp; password:</strong> First, I read the current data via <code>readdata</code> and
-                display the
-                user’s age in the UI. The user can then modify their age and password, and I compare the new input with
-                the data
-                from <code>readdata</code> to prevent setting an identical password. Finally, I submit the changes to
-                the server
-                through my new <code>editdata</code> route.
-              </li>
-            </ul>
-
-            <h3 style="margin: 24px 0 12px;">Security Note</h3>
-            <p>
-              I identified a security issue: the server currently returns data—including passwords—in plaintext. I can’t
-              fully fix
-              this immediately because the frontend relies on that data for some logic. However, I’ll address this by
-              moving all
-              password-related checks to the cloud so that plaintext passwords never appear on the frontend.
-            </p>
-          </section>
-
-          <section>
-            <h2 id="sms-verification">Implementing SMS-Based Registration &amp; Login with Alibaba Cloud</h2>
-            <p>
-              One thing I really wanted to improve was making the registration and login process more convenient and
-              secure for users. I thought about how much easier it would be if users could just log in with their phone
-              number, without having to remember a password. SMS verification not only simplifies the login flow but
-              also helps confirm that the user actually owns the phone number they're registering with.
-            </p>
-            <p>
-              After researching several options, I decided to use Alibaba Cloud’s SMS service. Their documentation was
-              clear and the pricing was reasonable, which made the decision pretty straightforward.
-            </p>
-            <p>
-              In China, using SMS services for things like login requires going through three main steps: submitting
-              your qualifications, applying for a signature, and creating a template for the messages. At first, I
-              thought this process would be complicated, but it turned out to be much smoother than expected.
-            </p>
-            <p>
-              For the qualification step, I used my father’s company. I uploaded my ID and the company’s business
-              license as required. To my surprise, the approval came through in just two hours.
-            </p>
-            <p>
-              The next step was applying for a “signature”—which is basically the company name that appears as the
-              sender in the SMS messages. This required an authorization letter stamped with the company’s official
-              seal. Alibaba Cloud reviewed this very quickly as well, but then there was a five-day period for the
-              mobile carriers to integrate the new signature. During this time, I periodically sent test messages to
-              check on the progress, which made the wait feel a bit less long.
-            </p>
-            <p>
-              After that, I created the SMS message template. This step was even faster, and the approval came almost
-              immediately.
-            </p>
-            <p>
-              With everything set up, I wrote a new <code>sms</code> route in my Flask backend. I split it into two
-              subroutes: <code>send</code> for sending the verification code to the user’s phone, and
-              <code>verify</code> for checking the code the user enters. I also updated my <code>users</code> table in
-              the database to include a <code>phone_number</code> column, so users could be uniquely identified by their
-              phone.
-            </p>
-            <p>
-              Honestly, the whole process was much less daunting than I had imagined. Alibaba Cloud’s documentation was
-              thorough, and their APIs were fast and reliable. Adding SMS-based registration and login made the app feel
-              more professional, and it was satisfying to see it all come together so smoothly.
-            </p>
-            <p>The process of making the app is not over yet, I will continue to update this passage, thank you, Because
-              this post is already quite long, I will open a separate page for the next post.</p>
-          </section>
-        </div>
-      </article>
+            <section>
+              <h2 id="sms-verification">
+                Implementing SMS-Based Registration &amp; Login with Alibaba
+                Cloud
+              </h2>
+              <p>
+                One thing I really wanted to improve was making the registration
+                and login process more convenient and secure for users. I
+                thought about how much easier it would be if users could just
+                log in with their phone number, without having to remember a
+                password. SMS verification not only simplifies the login flow
+                but also helps confirm that the user actually owns the phone
+                number they're registering with.
+              </p>
+              <p>
+                After researching several options, I decided to use Alibaba
+                Cloud’s SMS service. Their documentation was clear and the
+                pricing was reasonable, which made the decision pretty
+                straightforward.
+              </p>
+              <p>
+                In China, using SMS services for things like login requires
+                going through three main steps: submitting your qualifications,
+                applying for a signature, and creating a template for the
+                messages. At first, I thought this process would be complicated,
+                but it turned out to be much smoother than expected.
+              </p>
+              <p>
+                For the qualification step, I used my father’s company. I
+                uploaded my ID and the company’s business license as required.
+                To my surprise, the approval came through in just two hours.
+              </p>
+              <p>
+                The next step was applying for a “signature”—which is basically
+                the company name that appears as the sender in the SMS messages.
+                This required an authorization letter stamped with the company’s
+                official seal. Alibaba Cloud reviewed this very quickly as well,
+                but then there was a five-day period for the mobile carriers to
+                integrate the new signature. During this time, I periodically
+                sent test messages to check on the progress, which made the wait
+                feel a bit less long.
+              </p>
+              <p>
+                After that, I created the SMS message template. This step was
+                even faster, and the approval came almost immediately.
+              </p>
+              <p>
+                With everything set up, I wrote a new <code>sms</code> route in
+                my Flask backend. I split it into two subroutes:
+                <code>send</code> for sending the verification code to the
+                user’s phone, and <code>verify</code> for checking the code the
+                user enters. I also updated my <code>users</code> table in the
+                database to include a <code>phone_number</code> column, so users
+                could be uniquely identified by their phone.
+              </p>
+              <p>
+                Honestly, the whole process was much less daunting than I had
+                imagined. Alibaba Cloud’s documentation was thorough, and their
+                APIs were fast and reliable. Adding SMS-based registration and
+                login made the app feel more professional, and it was satisfying
+                to see it all come together so smoothly.
+              </p>
+              <p>
+                The process of making the app is not over yet, I will continue
+                to update this passage, thank you, Because this post is already
+                quite long, I will open a separate page for the next post.
+              </p>
+            </section>
+          </div>
+        </article>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
