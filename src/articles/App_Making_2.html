@@ -75,6 +75,15 @@
 <pre class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")
 </code></pre>
           <p>With that in place, I can call <em>logger</em> in my route functions and use levels like <em>info</em> and <em>warning</em> to make searching easier. Now, checking logs is much smoother.</p>
+        
+          <h2>Compatible with Android devices</h2>
+          <p>Today, I successfully adapted my app to the Android system. You can click <a href="https://github.com/JunxiBao/zdelf_andriod">here</a> to view the source code. Since my app is
+          essentially a web page, the adaptation was relatively simple — it only required opening a link through the app. However,
+          as I had never worked with Android development before, the process still felt quite challenging. Compared to Apple’s
+          development, Android involves many more configuration items, which at times left me overwhelmed. Fortunately, with the
+          help of AI, I was able to complete it. But when I tried to add a splash screen, I unexpectedly discovered that Android
+          does not support playing videos with an alpha channel. This means I couldn’t create the same startup animation as on
+          iOS. In the end, I decided to skip the splash animation altogether.</p>
         </div>
       </article>
     </div>
