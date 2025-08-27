@@ -429,11 +429,11 @@
       <h2 class="reveal" style="--d: .05s">Article Statistics</h2>
       <div class="stats-grid">
         <div class="stat-item reveal" style="--d: .15s">
-          <div class="stat-number">6</div>
+          <div class="stat-number"><span id="totalArticlesCount">0</span></div>
           <div class="stat-label">Total Articles</div>
         </div>
         <div class="stat-item reveal" style="--d: .25s">
-          <div class="stat-number">3</div>
+          <div class="stat-number"><span id="totalCategoriesCount">0</span></div>
           <div class="stat-label">Categories</div>
         </div>
       </div>
@@ -588,6 +588,23 @@
     // Filter functionality (supports comma-separated categories in data-category)
     const filterButtons = document.querySelectorAll('.filter-btn');
     const articleCards = document.querySelectorAll('.article-card');
+
+    // === Auto statistics for total articles & unique categories ===
+    (function(){
+      // total articles
+      const totalArticles = articleCards.length;
+      const totalEl = document.getElementById('totalArticlesCount');
+      if (totalEl) totalEl.textContent = String(totalArticles);
+
+      // unique categories from data-category (comma-separated supported)
+      const categories = new Set();
+      articleCards.forEach(card => {
+        const raw = (card.dataset.category || '').toLowerCase();
+        raw.split(',').map(s => s.trim()).filter(Boolean).forEach(cat => categories.add(cat));
+      });
+      const catEl = document.getElementById('totalCategoriesCount');
+      if (catEl) catEl.textContent = String(categories.size);
+    })();
 
     function applyFilter(category) {
       articleCards.forEach(card => {
