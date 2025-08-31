@@ -16,10 +16,14 @@ class GeekTheme {
 
   // Matrix Rain Effect
   setupMatrixRain() {
-    const matrixContainer = document.createElement('div');
-    matrixContainer.className = 'matrix-bg';
-    matrixContainer.id = 'matrixBg';
-    document.body.appendChild(matrixContainer);
+    // Guard: reuse existing container if already present (avoid duplicates)
+    let matrixContainer = document.getElementById('matrixBg');
+    if (!matrixContainer) {
+      matrixContainer = document.createElement('div');
+      matrixContainer.className = 'matrix-bg';
+      matrixContainer.id = 'matrixBg';
+      document.body.appendChild(matrixContainer);
+    }
 
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
     const columns = Math.floor(window.innerWidth / 20);

@@ -51,6 +51,11 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+/* Fix typo: use correct thumb selector */
+::-webkit-scrollbar-thumb {
+  background: var(--accent-green);
+  border-radius: 4px;
+}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {

@@ -66,6 +66,26 @@ body {
   font-size: 1.05rem;
 }
 
+/* Enhance article typography */
+.article-content h2, .article-content h3, .article-content h4 {
+  color: #111;
+  margin: 1.5rem 0 .75rem;
+}
+.article-content ul, .article-content ol { padding-left: 1.25rem; margin: .75rem 0 1rem; }
+.article-content li { margin: .25rem 0; }
+.article-content a { color: #0a7cff; text-decoration: none; border-bottom: 1px dashed rgba(10,124,255,.5); }
+.article-content a:hover { text-decoration: underline; }
+
+/* Code blocks */
+.article-content pre { background: #0a0a0a; color: #e8e8e8; border-radius: 10px; padding: 1rem; overflow: auto; box-shadow: 0 6px 18px rgba(0,0,0,.15); }
+.article-content code { background: rgba(0,0,0,.06); padding: .2rem .4rem; border-radius: 6px; }
+
+/* Blockquote */
+.article-content blockquote { margin: 1.2rem 0; padding: .8rem 1rem; background: #f1f6ff; border-left: 4px solid #59a7ff; color: #2a405a; border-radius: 0 8px 8px 0; }
+
+/* Images */
+.article-content img { max-width: 100%; display: block; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.08); margin: 1rem auto; }
+
 /* 响应式 */
 @media (max-width: 600px) {
   .article-card {
