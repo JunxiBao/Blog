@@ -85,11 +85,11 @@
           does not support playing videos with an alpha channel. This means I couldn’t create the same startup animation as on
           iOS. In the end, I decided to skip the splash animation altogether.</p>
 
-          <h2>Adapting to App Store Guidelines with Capacitor and Ionic</h2>
+          <h2>Adapting to App Store Guidelines with Capacitor</h2>
           <p>Recently, while reviewing Apple’s App Store guidelines, I realized that purely wrapping an H5 web app inside a shell makes it impossible to pass the review. Some native functionalities are required, 
             such as notifications, widgets, or integrations with Apple Health. Since my current H5 frontend could not achieve this, I started exploring new solutions. That’s when I discovered <strong>Capacitor</strong>,
-             a framework that can package JavaScript-based apps into cross‑platform native applications, while also providing a rich plugin system for interacting with native features. I also learned about the <strong>Ionic</strong> 
-             UI component library, which automatically adapts to iOS and Android design languages. Initially, I tried migrating my existing UI into Ionic, but the results were unsatisfactory, so I abandoned that path. Instead, I fully embraced Capacitor. 
+             a framework that can package JavaScript-based apps into cross‑platform native applications, while also providing a rich plugin system for interacting with native features. I also learned there is a UI library named <strong>Ionic</strong> 
+              , which automatically adapts to iOS and Android design languages. Initially, I tried migrating my existing UI into Ionic, but the results were unsatisfactory, so I abandoned that path. Instead, I use Capacitor only. 
              After installation, I could control app behavior directly from the terminal and use plugins like vibration, which worked seamlessly across both iOS and Android. Soon, I added vibration feedback to most buttons, greatly enhancing user immersion. 
              With this framework, adapting system‑level features and accessing Apple Health data became much more approachable, and I finally felt confident about aligning my app with App Store requirements.</p>
         </div>
