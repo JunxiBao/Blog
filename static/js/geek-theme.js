@@ -41,7 +41,7 @@ class GeekTheme {
     column.style.color = '#00ff41';
     column.style.fontFamily = 'monospace';
     column.style.fontSize = '14px';
-    column.style.opacity = '0.3';
+    column.style.opacity = '0.6';
     column.style.pointerEvents = 'none';
     column.style.zIndex = '-1';
 
