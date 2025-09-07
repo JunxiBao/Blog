@@ -44,8 +44,18 @@
       <article class="article-card">
         <h1 class="article-title">The process of me making an app 2</h1>
         <p class="article-date">Aug 18 2025</p>
+        <h2>Category</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</a></li>
+            <li><a href="#log">Fix Logging Issues</a></li>
+            <li><a href="#android">Compatible with Android devices</a></li>
+            <li><a href="#capacitor">Adapting to App Store Guidelines with Capacitor</a></li>
+            <li><a href="#reminder">Building a Medication Reminder Feature</a></li>
+          </ul>
+        </nav>
         <div class="article-content">
-          <h2 class="flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</h2>
+          <h2 id="flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</h2>
           <p>Recently, I’ve been facing a recurring issue: after running for a while, my backend server becomes unresponsive.
           Restarting the process temporarily fixes it, but this is a serious problem once the user base grows.
           
@@ -64,19 +74,17 @@
           https://<domain>:5000/<route> to simply /<route>.
           After testing, I found that both /readdata and /login responded much faster. As for stability, I’ll continue
           monitoring it over time.</p>
-          <h2 class="log">Fix Logging Issues</h2>
+          <h2 id="log">Fix Logging Issues</h2>
           <p>After switching my backend to Gunicorn, stability improved a lot. However, I ran into a development-time issue: inside my route handlers I used <em>print</em> to write logs, and I started the app with this command to redirect all stdout/stderr to a file:</p>
           <pre class="code-block line-numbers"><code class="language-bash">exec python3 src/backend/app.py &gt; ./log/app.out 2&gt;&amp;1</code></pre>
           <p>In theory, everything printed should land in <em>app.out</em>, but nothing showed up. A quick search told me this is pretty common. I asked ChatGPT how to log “properly,” and it suggested using Python’s <em>logging</em> library.</p>
           <p>So at the top of <em>app.py</em> I added:</p>
-          <pre class="code-block line-numbers"><code class="language-python">import logging
-</code></pre>
+          <pre class="code-block line-numbers"><code class="language-python">import logging</code></pre>
 <p>And also, I add:</p>
-<pre class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")
-</code></pre>
+<pre class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")</code></pre>
           <p>With that in place, I can call <em>logger</em> in my route functions and use levels like <em>info</em> and <em>warning</em> to make searching easier. Now, checking logs is much smoother.</p>
         
-          <h2>Compatible with Android devices</h2>
+          <h2 id="android">Compatible with Android devices</h2>
           <p>Today, I successfully adapted my app to the Android system. You can click <a href="https://github.com/JunxiBao/zdelf_andriod">here</a> to view the source code. Since my app is
           essentially a web page, the adaptation was relatively simple — it only required opening a link through the app. However,
           as I had never worked with Android development before, the process still felt quite challenging. Compared to Apple’s
@@ -85,7 +93,7 @@
           does not support playing videos with an alpha channel. This means I couldn’t create the same startup animation as on
           iOS. In the end, I decided to skip the splash animation altogether.</p>
 
-          <h2>Adapting to App Store Guidelines with Capacitor</h2>
+          <h2 id="capacitor">Adapting to App Store Guidelines with Capacitor</h2>
           <p>Recently, while reviewing Apple’s App Store guidelines, I realized that purely wrapping an H5 web app inside a shell makes it impossible to pass the review. Some native functionalities are required, 
             such as notifications, widgets, or integrations with Apple Health. Since my current H5 frontend could not achieve this, I started exploring new solutions. That’s when I discovered <strong>Capacitor</strong>,
              a framework that can package JavaScript-based apps into cross‑platform native applications, while also providing a rich plugin system for interacting with native features. I also learned there is a UI library named <strong>Ionic</strong> 
@@ -93,6 +101,40 @@
              After installation, I could control app behavior directly from the terminal and use plugins like vibration, which worked seamlessly across both iOS and Android. Soon, I added vibration feedback to most buttons, greatly enhancing user immersion. 
              With this framework, adapting system‑level features and accessing Apple Health data became much more approachable, and I finally felt confident about aligning my app with App Store requirements.
              You can see my app with capacitor over <a href="https://github.com/JunxiBao/zdelf_capacitor">here.</a></p>
+
+          <h2 id="reminder">Building a Medication Reminder Feature</h2>
+          <p>Over the past few days, I updated quite a few features, such as the mood selection interface and the record page. These updates didn’t carry much record‑keeping value; they were mostly about UI tweaks and refining the interaction with AI, which handled them excellently. 
+          After that, I decided to build a <strong>medication reminder feature</strong>. Since it was logically independent and didn’t rely on a database, I thought it would be quick to implement — though it turned out more complex than expected. Capacitor made it easy to support iOS and Android push notifications via plugins, but the web version posed challenges. In the end, I removed the feature on web and guided users to download the app if they needed reminders. 
+          I completed the environment judgment with the following code:</p>
+          <pre
+            class="code-block line-numbers"><code class="language-javascript">function isCapacitorApp() {
+  try {
+    // Check if the Capacitor object exists
+    if (typeof window.Capacitor === 'undefined') {
+      return false;
+    }
+
+    // Check if it is a native platform
+    if (typeof window.Capacitor.isNativePlatform === 'function') {
+      return window.Capacitor.isNativePlatform();
+    }
+
+    // Fallback check: verify the basic structure of the Capacitor object
+    return !!(window.Capacitor && window.Capacitor.Plugins);
+  } catch (error) {
+    console.warn('Error while detecting Capacitor environment:', error);
+    return false;
+  }
+}
+</code></pre>
+          <p>The basic notification sending worked quickly, but to make it more useful, I added recurring reminders like daily and weekly schedules. While AI generated much of the code, I struggled to understand the overall structure. A bug appeared: switching pages caused duplicate notifications and reminder cards wouldn’t clear. AI failed to fix it despite many attempts, so I dug into the code myself. Eventually I found that reloading <code>index.js</code> triggered the duplicate requests. After I reported this root cause, AI instantly gave a working fix: assigning each reminder a random ID that can only trigger once. 
+          This solved the bug neatly. Later, I polished the feature further with extra options. Through this process I realized that while AI can write code very efficiently, its context limitations prevent it from fully grasping project architecture. A skilled programmer’s role is still crucial — to understand the logic, direct the development, and collaborate with AI for maximum efficiency.</p>
+          <p>
+            The process of making the app is not over yet, I will continue
+            to update this passage, thank you, Because this post is already
+            quite long, I will open a separate page for the next post. You can click <a href="./App_Making_2.html">here </a>to
+            view the next article.
+          </p>
         </div>
       </article>
     </div>
