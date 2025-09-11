@@ -10,64 +10,6 @@
   <link rel="stylesheet" href="../static/css/geek-theme.css">
   <link rel="stylesheet" href="../static/css/home.css">
   <style>
-    .hero-section { /* moved to home.css */ }
-
-    .hero-section::before { /* moved to home.css */ }
-
-    .hero-title { /* moved to home.css */ }
-
-    @keyframes glow { /* moved to home.css */ }
-
-    .hero-subtitle { /* moved to home.css */ }
-
-    .profile-section { /* moved to home.css */ }
-
-  
-  
-
-    .profile-image-container { /* moved to home.css */ }
-
-    .profile-image { /* moved to home.css */ }
-
-    .profile-image:hover { /* moved to home.css */ }
-
-    .profile-image::before { /* moved to home.css */ }
-
-    @keyframes rotate { /* moved to home.css */ }
-
-    .profile-info { /* moved to home.css */ }
-
-    .profile-info h2 { /* moved to home.css */ }
-
-    .profile-info p { /* moved to home.css */ }
-
-    .skills-section { /* moved to home.css */ }
-
-    .skills-grid { /* moved to home.css */ }
-
-    .skill-card { /* moved to home.css */ }
-
-    .skill-card::before { /* moved to home.css */ }
-
-    .skill-card:hover::before { /* moved to home.css */ }
-
-    .skill-card:hover { /* moved to home.css */ }
-
-    .skill-icon { /* moved to home.css */ }
-
-    .skill-name { /* moved to home.css */ }
-
-    .skill-description { /* moved to home.css */ }
-
-    .cta-section { /* moved to home.css */ }
-
-    .cta-buttons { /* moved to home.css */ }
-
-    @media (max-width: 768px) { /* moved to home.css */ }
-
-    @media (max-width: 480px) { /* moved to home.css */ }
-    /* === Extracted to home.css === */
-
     /* === Extracted to home.css === */
 
     /* Subtle animated veil in hero bg (keep) */
@@ -278,6 +220,13 @@
     </section>
   </main>
 
+  <!-- 返回顶部按钮 -->
+  <button id="backToTop" class="back-to-top" aria-label="返回顶部">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor"/>
+    </svg>
+  </button>
+
   <script>
     // Scroll reveal
     (function(){
@@ -314,10 +263,38 @@
     modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
   })();
+
+  // 返回顶部按钮逻辑
+  (function(){
+    const backToTopBtn = document.getElementById('backToTop');
+    if(!backToTopBtn) return;
+
+    // 滚动监听 - 200像素后显示按钮
+    function handleScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 200) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    }
+
+    // 平滑滚动到顶部
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // 添加事件监听器
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    backToTopBtn.addEventListener('click', scrollToTop);
+
+    // 初始化检查
+    handleScroll();
+  })();
   </script>
   <script src="/static/js/geek-theme.js"></script>
-  <footer class="site-footer">
-    <p>© JunxiBao.com · Built with ❤️ · <a href="https://github.com/junxibao" target="_blank" rel="noopener">GitHub</a></p>
-  </footer>
 </body>
 </html>
