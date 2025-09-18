@@ -52,6 +52,7 @@
             <li><a href="#android">Compatible with Android devices</a></li>
             <li><a href="#capacitor">Adapting to App Store Guidelines with Capacitor</a></li>
             <li><a href="#reminder">Building a Medication Reminder Feature</a></li>
+            <li><a href="#health-db">Start building the user health database</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -129,12 +130,32 @@
 </code></pre>
           <p>The basic notification sending worked quickly, but to make it more useful, I added recurring reminders like daily and weekly schedules. While AI generated much of the code, I struggled to understand the overall structure. A bug appeared: switching pages caused duplicate notifications and reminder cards wouldn’t clear. AI failed to fix it despite many attempts, so I dug into the code myself. Eventually I found that reloading <code>index.js</code> triggered the duplicate requests. After I reported this root cause, AI instantly gave a working fix: assigning each reminder a random ID that can only trigger once. 
           This solved the bug neatly. Later, I polished the feature further with extra options. Through this process I realized that while AI can write code very efficiently, its context limitations prevent it from fully grasping project architecture. A skilled programmer’s role is still crucial — to understand the logic, direct the development, and collaborate with AI for maximum efficiency.</p>
-          <p>
-            The process of making the app is not over yet, I will continue
-            to update this passage, thank you, Because this post is already
-            quite long, I will open a separate page for the next post. You can click <a href="./App_Making_2.html">here </a>to
-            view the next article.
-          </p>
+         <h2 id="health-db">Start building the user health database</h2>
+        <p>After completing a series of functions, I finally encountered the most difficult part I had always thought - storing
+        users' dietary, health status and other information in the database. As I have designed many health-related sections and
+        my knowledge of MySQL is quite limited, I initially intended to store data through table associations, but I felt it was
+        quite challenging. Suddenly, an idea struck me: Why not convert the information filled in by users each time into JSON
+        format and then store it in the database? I thought this was a feasible solution, so I began to put it into practice.
+        Since the data to be stored mainly consists of three parts: diet, health and medical records, I have decided to create
+        separate tables for each part. I created an uploadjson.py file in the back end and created a database table through the
+        following code:</p>
+        <pre class="code-block line-numbers"><code class="language-python">function isCapacitorApp() {
+          ddl = f"""
+          CREATE TABLE IF NOT EXISTS {table_name} (
+          id VARCHAR(64) PRIMARY KEY,
+          user_id VARCHAR(128) NULL,
+          username VARCHAR(128) NULL,
+          file_name VARCHAR(255) NOT NULL,
+          content LONGTEXT NOT NULL,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          INDEX idx_user_id (user_id),
+          INDEX idx_username (username),
+          INDEX idx_created_at (created_at)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          """</code></pre>
+          <p>Subsequently, I asked the AI to write the code for JSON conversion in the JavaScript file for me and unified the file
+          naming format. At this point, the entire process is basically completed, and the user's health data can be smoothly
+          stored and managed.</p>
         </div>
       </article>
     </div>

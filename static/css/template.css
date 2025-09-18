@@ -73,8 +73,45 @@ body {
 }
 .article-content ul, .article-content ol { padding-left: 1.25rem; margin: .75rem 0 1rem; }
 .article-content li { margin: .25rem 0; }
-.article-content a { color: #0a7cff; text-decoration: none; border-bottom: 1px dashed rgba(10,124,255,.5); }
-.article-content a:hover { text-decoration: underline; }
+/* Deeply polished rainbow links */
+@keyframes rainbow-shimmer { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+.article-content a, .toc a {
+  position: relative;
+  text-decoration: none;
+  border-bottom: none;
+  font-weight: 600; /* improve legibility */
+  /* Full rainbow text for readability and style */
+  color: transparent;
+  background-image: linear-gradient(90deg,
+    #ff0000, #ff7a00, #ffcc00, #33cc33, #3399ff, #7a33ff, #ff3399);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position .6s ease, transform .2s ease;
+}
+.article-content a::after, .toc a::after { content: none; }
+.article-content a::before, .toc a::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: -4px;
+  height: 60%;
+  background: radial-gradient(60% 60% at 50% 100%, rgba(0,255,65,.25), rgba(0,128,255,.18), rgba(128,0,255,.12), transparent 70%);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity .28s ease;
+  pointer-events: none;
+}
+.article-content a:hover, .toc a:hover {
+  transform: translateY(-1px);
+  background-position: 100% 0; /* subtle motion across spectrum */
+}
+.article-content a:hover::after, .toc a:hover::after { content: none; }
+.article-content a:hover::before, .toc a:hover::before { opacity: .6; }
+.article-content a:focus-visible, .toc a:focus-visible { outline: 3px solid rgba(0, 128, 255, .35); outline-offset: 3px; border-radius: 6px; }
+.article-content a:visited, .toc a:visited { color: #5a3fd4; }
 
 /* Code blocks */
 .article-content pre { background: #0a0a0a; color: #e8e8e8; border-radius: 10px; padding: 1rem; overflow: auto; box-shadow: 0 6px 18px rgba(0,0,0,.15); }
