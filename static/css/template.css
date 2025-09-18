@@ -113,9 +113,21 @@ body {
 .article-content a:focus-visible, .toc a:focus-visible { outline: 3px solid rgba(0, 128, 255, .35); outline-offset: 3px; border-radius: 6px; }
 .article-content a:visited, .toc a:visited { color: #5a3fd4; }
 
-/* Code blocks */
-.article-content pre { background: #0a0a0a; color: #e8e8e8; border-radius: 10px; padding: 1rem; overflow: auto; box-shadow: 0 6px 18px rgba(0,0,0,.15); }
+/* Code blocks (light defaults) */
+.article-content pre { background: #f6f8fa; color: #1c2025; border-radius: 10px; padding: 1rem; overflow: auto; box-shadow: none; border: 1px solid #e6e8eb; }
 .article-content code { background: rgba(0,0,0,.06); padding: .2rem .4rem; border-radius: 6px; }
+/* Mobile-friendly wide blocks used in pages */
+.article-content pre.code-block { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 12px; border-radius: 8px; background: inherit; font-size: .95em; line-height: 1.5; margin: .75rem 0 1rem; }
+.article-content pre.code-block code { white-space: pre; word-break: normal; }
+/* Prism light overrides */
+pre[class*="language-"], code[class*="language-"] { background: #f6f8fa !important; color: #1c2025 !important; }
+:not(pre) > code[class*="language-"] { padding: .15rem .35rem; border-radius: 6px; border: 1px solid #e6e8eb; }
+/* Remove unwanted glow/overlay on tokens */
+pre[class*="language-"], code[class*="language-"],
+pre[class*="language-"] *, code[class*="language-"] * {
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
 
 /* Blockquote */
 .article-content blockquote { margin: 1.2rem 0; padding: .8rem 1rem; background: #f1f6ff; border-left: 4px solid #59a7ff; color: #2a405a; border-radius: 0 8px 8px 0; }
@@ -197,4 +209,35 @@ body {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
+}
+
+/* ======================
+   Dark mode adaptations
+   ====================== */
+@media (prefers-color-scheme: dark) {
+  body { background-color: #0a0a0a; color: #e8e8e8; }
+  .article-card { background: #111213; box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+  .article-title { color: #f2f2f2; }
+  .article-content p { color: #d6d8db; }
+  .article-content h2, .article-content h3, .article-content h4 { color: #f4f6f8; }
+  /* Links: keep rainbow readable with subtle glow */
+  .article-content a, .toc a { text-shadow: 0 0 8px rgba(255,255,255,0.08); }
+  /* Code blocks dark */
+  .article-content pre { background: #0f1011; color: #e9eef2; box-shadow: none; border: 1px solid rgba(255,255,255,.08); }
+  pre[class*="language-"], code[class*="language-"] { background: #0f1011 !important; color: #e9eef2 !important; }
+  :not(pre) > code[class*="language-"] { background: rgba(255,255,255,.06) !important; border: 1px solid rgba(255,255,255,.08); color: #f0f3f5 !important; }
+  /* Ensure no glow in dark mode either */
+  pre[class*="language-"], code[class*="language-"],
+  pre[class*="language-"] *, code[class*="language-"] * { text-shadow: none !important; -webkit-text-stroke: 0 !important; }
+  pre.line-numbers { position: relative; }
+  pre.line-numbers .line-numbers-rows { border-right: 1px solid rgba(255,255,255,.08); background: transparent; }
+  .line-numbers-rows > span:before { color: rgba(255,255,255,.35) !important; }
+  .article-content code { background: rgba(255,255,255,.08); color: #f0f3f5; }
+  /* Blockquote */
+  .article-content blockquote { background: #0f1712; border-left: 4px solid #00c86b; color: #d1e7db; }
+  /* Rainbow shell tweak */
+  .rainbow-border { box-shadow: 0 0 26px rgba(0, 255, 150, 0.16); }
+  /* Back button */
+  .back-button { color: #e6e6e6; background: #1a1b1d; border: 1px solid #2a2c2f; box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+  .back-button:hover { background: #232528; }
 }

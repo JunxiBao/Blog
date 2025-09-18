@@ -38,10 +38,12 @@ class GeekTheme {
     column.style.position = 'absolute';
     column.style.left = x + 'px';
     column.style.top = '-100px';
-    column.style.color = '#00ff41';
+    // Use theme color for better contrast in light/dark modes
+    column.style.color = 'var(--accent-green)';
     column.style.fontFamily = 'monospace';
     column.style.fontSize = '14px';
-    column.style.opacity = '0.6';
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    column.style.opacity = prefersDark ? '0.6' : '0.9';
     column.style.pointerEvents = 'none';
     column.style.zIndex = '-1';
 
@@ -97,7 +99,7 @@ class GeekTheme {
         const speed = 0.5;
         element.style.transform = `translateY(${scrolled * speed}px)`;
       });
-    });
+    }, { passive: true });
   }
 
   // Typing Effects
@@ -321,10 +323,12 @@ class EnhancedNavigation {
     if (!this.nav) return;
 
     const handleScroll = GeekTheme.throttle(() => {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (window.scrollY > 100) {
-        this.nav.style.background = 'rgba(26, 26, 26, 0.95)';
+        // Use theme variables instead of forcing black
+        this.nav.style.background = prefersDark ? 'rgba(26, 26, 26, 0.95)' : 'rgba(246, 247, 249, 0.95)';
         this.nav.style.backdropFilter = 'blur(20px)';
-        this.nav.style.borderBottom = '2px solid var(--accent-green)';
+        this.nav.style.borderBottom = '2px solid var(--border-color)';
       } else {
         this.nav.style.background = 'var(--bg-secondary)';
         this.nav.style.backdropFilter = 'blur(10px)';

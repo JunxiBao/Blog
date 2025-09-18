@@ -1,20 +1,42 @@
 /* Geek Theme - Dark Mode & Terminal Style */
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --text-primary: #00ff41;
-  --text-secondary: #00cc33;
-  --text-muted: #666666;
-  --accent-green: #00ff41;
-  --accent-blue: #0080ff;
-  --accent-purple: #8000ff;
-  --accent-orange: #ff8000;
-  --border-color: #333333;
-  --shadow-color: rgba(0, 255, 65, 0.1);
-  --terminal-bg: rgba(0, 0, 0, 0.9);
-  --terminal-border: #00ff41;
-  --terminal-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  /* Light mode defaults */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f7f9;
+  --bg-tertiary: #eef1f5;
+  --text-primary: #0a0a0a;
+  --text-secondary: #1f2937;
+  --text-muted: #6b7280;
+  --accent-green: #00c768;
+  --accent-blue: #2563eb;
+  --accent-purple: #7c3aed;
+  --accent-orange: #f59e0b;
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.06);
+  --terminal-bg: rgba(255, 255, 255, 0.95);
+  --terminal-border: #00c768;
+  --terminal-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2a2a2a;
+    --text-primary: #d6ffe3;
+    --text-secondary: #a3f3c4;
+    --text-muted: #999999;
+    --accent-green: #00ff41;
+    --accent-blue: #0080ff;
+    --accent-purple: #8000ff;
+    --accent-orange: #ff8000;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 255, 65, 0.1);
+    --terminal-bg: rgba(0, 0, 0, 0.9);
+    --terminal-border: #00ff41;
+    --terminal-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  }
 }
 
 * {
@@ -163,7 +185,7 @@ a:hover {
 }
 
 .nav-menu a {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: all 0.3s ease;
