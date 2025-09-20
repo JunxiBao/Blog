@@ -85,8 +85,8 @@ class GeekTheme {
       });
     }, observerOptions);
 
-    // Observe all cards and sections
-    document.querySelectorAll('.card, .article-card, .skill-card, .terminal-window').forEach(el => {
+    // Observe all cards and sections (排除reveal的skill-card)
+    document.querySelectorAll('.card, .article-card, .skill-card:not(.reveal), .terminal-window').forEach(el => {
       observer.observe(el);
     });
 
@@ -365,7 +365,8 @@ class EnhancedCards {
   }
 
   setupCardHoverEffects() {
-    const cards = document.querySelectorAll('.card, .article-card, .skill-card');
+    // 只处理非reveal的卡片，reveal卡片的hover效果由CSS处理
+    const cards = document.querySelectorAll('.card, .article-card, .skill-card:not(.reveal)');
     
     cards.forEach(card => {
       card.addEventListener('mouseenter', () => {
@@ -381,7 +382,10 @@ class EnhancedCards {
   }
 
   setupCardAnimations() {
-    const cards = document.querySelectorAll('.card, .article-card, .skill-card');
+    // 排除已经有reveal类的卡片，避免动画冲突
+    const cards = document.querySelectorAll('.card, .article-card');
+    const skillCards = document.querySelectorAll('.skill-card:not(.reveal)');
+    const allCards = [...cards, ...skillCards];
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -392,7 +396,7 @@ class EnhancedCards {
       });
     }, { threshold: 0.1 });
 
-    cards.forEach(card => {
+    allCards.forEach(card => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(30px)';
       card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

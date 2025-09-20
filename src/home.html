@@ -231,8 +231,15 @@
     // Scroll reveal
     (function(){
       const els = document.querySelectorAll('.reveal');
+      console.log('Found reveal elements:', els.length);
       const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+        entries.forEach(e=>{ 
+          if(e.isIntersecting){ 
+            console.log('Adding in class to:', e.target);
+            e.target.classList.add('in'); 
+            io.unobserve(e.target); 
+          } 
+        });
       }, { threshold: 0.12 });
       els.forEach(el=>io.observe(el));
     })();
