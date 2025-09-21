@@ -38,6 +38,7 @@
             <li><a href="#reminder">Building a Medication Reminder Feature</a></li>
             <li><a href="#health-db">Start building the user health database</a></li>
             <li><a href="#daily-completion">Completing the Daily Page and App Store Submission</a></li>
+            <li><a href="#app-store-approval">Meeting Review Requirements and Successful Launch</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -160,6 +161,17 @@
           <p>I asked AI to calculate the probability of approval, and it estimated around 85-90%. I logged into App Store Connect, 
           filled out the necessary information similar to my previous calendar app submission, and submitted for review. 
           I'm hoping the review process goes smoothly!</p>
+          
+          <h2 id="app-store-approval">Meeting Review Requirements and Successful Launch</h2>
+          <p>As I mentioned earlier, I had uploaded my app to App Store Connect, but unsurprisingly, it was rejected. The first rejection was because I hadn't provided test account credentials for the reviewers. This was relatively easy to fix—I simply added test accounts to the backend database and shared the login information with the reviewers.</p>
+          
+          <p>The second rejection was more concerning. I discovered the rejection notice at 1 AM when I got up to use the bathroom. The reason was a bug in my AI chat feature. The news completely eliminated my drowsiness, and I spent half an hour fixing the issue before resubmitting and finally going back to bed. However, when I woke up, I found it had been rejected again. This time, the reason was that Apple requires AI-generated health information to include citations.</p>
+          
+          <p>This left me feeling somewhat helpless, as my AI model doesn't have internet search capabilities and couldn't find web sources. Following AI's suggestion, I manually found several authoritative websites and implemented a keyword-matching system to determine which citation to display. Users could click the links to open these authoritative sites in their default browser. I submitted again, but it was still rejected.</p>
+          
+          <p>Feeling frustrated, I replied to the Apple reviewer, explaining that my AI model lacks internet search capabilities. I also mentioned that I had already added citations from authoritative websites and included a disclaimer at the end stating that the advice was for reference only and that users should seek medical attention if they feel unwell. Surprisingly, the reviewer immediately approved my app after reading my response.</p>
+          
+          <p>Now, this app is live on the App Store at <a href="https://apps.apple.com/cn/app/%E7%B4%AB%E7%99%9C%E7%B2%BE%E7%81%B5/id6749155721" target="_blank" rel="noopener">https://apps.apple.com/cn/app/%E7%B4%AB%E7%99%9C%E7%B2%BE%E7%81%B5/id6749155721</a>. This experience taught me the importance of clear communication with reviewers and the value of being transparent about technical limitations while still meeting platform requirements.</p>
         </div>
       </article>
     </div>
