@@ -25,11 +25,11 @@
   height: 20px;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-2px, -2px);
-  transition: transform 0.1s ease-out;
+  transform: translate3d(-2px, -2px, 0);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><defs><linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230066cc'/><stop offset='100%' stop-color='%23004499'/></linearGradient><filter id='gl' x='-50%' y='-50%' width='200%' height='200%'><feGaussianBlur stdDeviation='1.2'/></filter></defs><path d='M2 2 L2 16 L6 12 L9 18 L11 17 L8 11 L13 11 Z' fill='%23ffffff' stroke='url(%23g1)' stroke-width='1.5'/><path d='M2 2 L2 16 L6 12 L9 18 L11 17 L8 11 L13 11 Z' fill='none' stroke='%230066cc' stroke-opacity='0.8' stroke-width='2.5' filter='url(%23gl)'/></svg>");
   background-size: contain;
   background-repeat: no-repeat;
+  will-change: left, top, transform;
 }
 
 

@@ -22,20 +22,23 @@
 
   // 动画循环
   function animate() {
-    // 平滑跟随鼠标
-    cursorX += (mouseX - cursorX) * 0.15;
-    cursorY += (mouseY - cursorY) * 0.15;
-    
+    // 零阻尼：直接贴合鼠标位置
+    cursorX = mouseX;
+    cursorY = mouseY;
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
-
     requestAnimationFrame(animate);
   }
 
   // 鼠标移动事件
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('pointermove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    // 事件触发时立即更新，最大程度降低延迟感
+    cursorX = mouseX;
+    cursorY = mouseY;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
   });
 
   // 鼠标进入页面

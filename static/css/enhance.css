@@ -42,3 +42,175 @@ a:not(.btn):not(.article-button)::after {
 a:not(.btn):not(.article-button):hover::after { transform: scaleX(1); }
 
 
+/* Global page loader (CSS-only overlay using pseudo elements) */
+/* Visible until body has .page-loaded; then fades out smoothly */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Dim background overlay */
+body::before {
+  background: color-mix(in oklab, var(--bg-primary, #0b0b0b) 88%, black 12%);
+  opacity: 1;
+  transition: opacity .35s ease;
+}
+
+/* Centered spinner */
+body::after {
+  width: 56px;
+  height: 56px;
+  margin: auto;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--accent-green, #00ff41);
+  border-right-color: color-mix(in oklab, var(--accent-blue, #0080ff) 80%, white 20%);
+  box-shadow: 0 0 24px rgba(0,255,65,.25);
+  animation: loader-rotate .9s linear infinite;
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; border-right-color: var(--accent-green, #00ff41); }
+}
+
+/* Loaded state fades overlay out and disables spinner */
+.page-loaded::before,
+.page-loaded::after {
+  opacity: 0;
+  transition: opacity .35s ease .05s;
+}
+
+/* After fade, stop displaying to re-enable pointer events */
+.page-loaded::before { pointer-events: none; }
+.page-loaded::after { pointer-events: none; }
+
+@keyframes loader-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Advanced DOM-based loader */
+#pageLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(1200px 600px at 20% 30%, rgba(0,255,65,.06), transparent 60%),
+    radial-gradient(1000px 500px at 80% 60%, rgba(0,128,255,.06), transparent 60%),
+    var(--bg-primary, #0b0b0b);
+  transition: opacity .35s ease;
+}
+
+#pageLoader.hide { opacity: 0; pointer-events: none; }
+
+#pageLoader .loader-wrap {
+  position: relative;
+  width: clamp(120px, 12vw, 160px);
+  height: clamp(120px, 12vw, 160px);
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 8px 30px rgba(0,255,65,.18));
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transform: rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg));
+}
+
+#pageLoader .ring {
+  position: absolute;
+  border-radius: 50%;
+  inset: 0;
+  border: 2.5px solid transparent;
+  animation: ring-rotate 1.2s linear infinite;
+}
+
+#pageLoader .ring.r1 {
+  border-top-color: var(--accent-green, #00ff41);
+  border-right-color: rgba(0,255,65,.6);
+}
+
+#pageLoader .ring.r2 {
+  inset: 12%;
+  border-top-color: var(--accent-blue, #0080ff);
+  border-left-color: rgba(0,128,255,.6);
+  animation-direction: reverse;
+  animation-duration: 1.6s;
+}
+
+#pageLoader .core {
+  position: relative;
+  width: 46%;
+  height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, rgba(0,255,65,.9), rgba(0,128,255,.9));
+  box-shadow: 0 0 24px rgba(0,255,65,.35), inset 0 0 18px rgba(255,255,255,.2);
+}
+
+#pageLoader .brand {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 22px);
+  transform: translateX(-50%);
+  color: var(--text-primary, #eaeaea);
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-align: center;
+  font-size: clamp(.95rem, 1.2vw, 1.05rem);
+  opacity: .92;
+}
+
+@keyframes ring-rotate { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #pageLoader .ring { animation: none; }
+}
+
+/* Progress and tips */
+#pageLoader .progress {
+  position: absolute;
+  width: min(320px, 80vw);
+  left: 50%;
+  top: calc(100% + 64px);
+  transform: translateX(-50%);
+  display: grid;
+  gap: 8px;
+}
+
+#pageLoader .bar {
+  height: 8px;
+  background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
+  border: 1px solid var(--border-color, rgba(255,255,255,.14));
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#pageLoader .bar > i {
+  display: block;
+  height: 100%;
+  width: var(--p, 8%);
+  background: linear-gradient(90deg, var(--accent-green, #00ff41), var(--accent-blue, #0080ff));
+  box-shadow: 0 0 20px rgba(0,255,65,.25);
+  transition: width .24s ease;
+}
+
+#pageLoader .pct {
+  justify-self: center;
+  color: var(--text-primary, #eaeaea);
+  font-variant-numeric: tabular-nums;
+  opacity: .9;
+}
+
+#pageLoader .tips {
+  margin-top: 2px;
+  justify-self: center;
+  color: var(--text-muted, #b7b7b7);
+  font-size: .92rem;
+  opacity: .85;
+}
+

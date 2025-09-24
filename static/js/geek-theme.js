@@ -1,4 +1,128 @@
 // Geek Theme JavaScript - Enhanced Interactions and Effects
+// Page loader minimum visible duration
+// Ensure back/forward cache restores trigger a refresh when requested
+window.addEventListener('pageshow', (event) => {
+  try {
+    if (sessionStorage.getItem('forceReload') === '1') {
+      sessionStorage.removeItem('forceReload');
+      location.reload();
+      return;
+    }
+    if (event.persisted) {
+      location.reload();
+    }
+  } catch {}
+});
+const __pageLoadStartTs = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+
+// When navigating back to a page from bfcache or history, force refresh if flagged
+window.addEventListener('pageshow', (e) => {
+  try {
+    const force = sessionStorage.getItem('forceReload');
+    if (force) {
+      sessionStorage.removeItem('forceReload');
+      // Force a hard reload to refresh content/state
+      location.reload();
+    }
+  } catch {}
+});
+
+// Inject advanced DOM loader as early as possible
+(function injectDomLoader(){
+  if (document.getElementById('pageLoader')) return;
+  const loader = document.createElement('div');
+  loader.id = 'pageLoader';
+  loader.setAttribute('aria-hidden', 'true');
+  loader.innerHTML = `
+    <div class="loader-wrap">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="core"></div>
+      <div class="brand">JunxiBao.com</div>
+      <div class="progress">
+        <div class="bar"><i style="--p:8%"></i></div>
+        <div class="pct" id="loaderPct">8%</div>
+        <div class="tips" id="loaderTip">Loading...</div>
+      </div>
+    </div>
+  `;
+  // Setup dynamic progress, tips, and tilt once appended
+  const setupLoaderDynamics = () => {
+    const pctEl = document.getElementById('loaderPct');
+    const barEl = document.querySelector('#pageLoader .bar > i');
+    const tipEl = document.getElementById('loaderTip');
+    const wrapEl = document.querySelector('#pageLoader .loader-wrap');
+
+    let pct = 8;
+    const tipTexts = [
+      'Loading...'
+    ];
+    let tipIndex = 0;
+
+    const pctTimer = setInterval(() => {
+      pct = Math.min(pct + Math.random() * 6 + 1, 96);
+      if (pctEl) pctEl.textContent = `${Math.floor(pct)}%`;
+      if (barEl) barEl.style.setProperty('--p', `${pct}%`);
+    }, 180);
+
+    const tipTimer = setInterval(() => {
+      tipIndex = (tipIndex + 1) % tipTexts.length;
+      if (tipEl) tipEl.textContent = tipTexts[tipIndex];
+    }, 1200);
+
+    const onMove = (e) => {
+      if (!wrapEl) return;
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      const max = 10;
+      wrapEl.style.setProperty('--tiltX', `${(-dy * max).toFixed(2)}deg`);
+      wrapEl.style.setProperty('--tiltY', `${(dx * max).toFixed(2)}deg`);
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+
+    // expose clear method
+    window.__loaderDyn = {
+      completeAndClear() {
+        try {
+          if (pctEl) pctEl.textContent = '100%';
+          if (barEl) barEl.style.setProperty('--p', '100%');
+        } catch {}
+        clearInterval(pctTimer);
+        clearInterval(tipTimer);
+        window.removeEventListener('pointermove', onMove);
+      }
+    };
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.appendChild(loader);
+    // Respect reduced motion: keep UI but stop animations
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      setupLoaderDynamics();
+    }
+  });
+})();
+window.addEventListener('load', () => {
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MIN_VISIBLE_MS = prefersReduced ? 0 : 650; // minimum time to keep loader visible
+  const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+  const elapsed = now - __pageLoadStartTs;
+  const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+  setTimeout(() => {
+    document.body.classList.add('page-loaded');
+    // Hide and remove DOM loader
+    const domLoader = document.getElementById('pageLoader');
+    if (domLoader) {
+      if (window.__loaderDyn && typeof window.__loaderDyn.completeAndClear === 'function') {
+        window.__loaderDyn.completeAndClear();
+      }
+      domLoader.classList.add('hide');
+      setTimeout(() => domLoader.remove(), 420);
+    }
+  }, remaining);
+});
 
 class GeekTheme {
   constructor() {
@@ -473,6 +597,31 @@ document.addEventListener('DOMContentLoaded', () => {
   new EnhancedNavigation();
   new EnhancedCards();
   new EnhancedButtons();
+  
+  // Back button handler (elements with .back-button)
+  document.addEventListener('click', (e) => {
+    const backBtn = e.target.closest && e.target.closest('.back-button');
+    if (!backBtn) return;
+    e.preventDefault();
+    try {
+      // Show loader overlay if not already injected
+      if (!document.getElementById('pageLoader')) {
+        const loader = document.createElement('div');
+        loader.id = 'pageLoader';
+        loader.setAttribute('aria-hidden', 'true');
+        loader.innerHTML = '<div class="loader-wrap"><div class="ring r1"></div><div class="ring r2"></div><div class="core"></div><div class="brand">JunxiBao.com</div><div class="progress"><div class="bar"><i style="--p:8%"></i></div><div class="pct">...</div><div class="tips">Returning…</div></div></div>';
+        document.body.appendChild(loader);
+      }
+      sessionStorage.setItem('forceReload', '1');
+    } catch {}
+    setTimeout(() => {
+      if (history.length > 1) {
+        history.back();
+      } else {
+        location.href = '/src/passage.html';
+      }
+    }, 100);
+  });
 });
 
 // Add CSS animations
