@@ -1,39 +1,123 @@
 (function(){
-  // JS no longer draws custom DOM cursor; CSS handles cursor visuals.
-  // We keep a minimal enhancement: add ripple on click for subtle feedback on fine pointers.
+  // 自定义光标脱尾动画效果
   const isFinePointer = matchMedia('(pointer:fine)').matches;
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!isFinePointer || prefersReduced) return;
 
-  const body = document.body;
+  // 创建光标容器
+  const cursorContainer = document.createElement('div');
+  cursorContainer.className = 'cursor-trail';
+  document.body.appendChild(cursorContainer);
 
-  window.addEventListener('pointerdown', (e)=>{
-    spawnRipple(e.clientX, e.clientY);
-  }, { passive: true });
+  // 创建主光标
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor-main';
+  cursorContainer.appendChild(cursor);
 
-  function spawnRipple(x, y){
-    const el = document.createElement('span');
-    el.style.position = 'fixed';
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-    el.style.width = '2px';
-    el.style.height = '2px';
-    el.style.marginLeft = '-1px';
-    el.style.marginTop = '-1px';
-    el.style.borderRadius = '50%';
-    el.style.background = 'rgba(0,255,65,.28)';
-    el.style.boxShadow = '0 0 24px rgba(0,255,65,.35)';
-    el.style.pointerEvents = 'none';
-    el.style.zIndex = '9999';
-    el.style.transform = 'translate3d(0,0,0) scale(1)';
-    el.style.transition = 'transform .45s ease-out, opacity .45s ease-out';
-    body.appendChild(el);
-    requestAnimationFrame(()=>{
-      el.style.transform = 'translate3d(0,0,0) scale(14)';
-      el.style.opacity = '0';
-    });
-    setTimeout(()=> el.remove(), 500);
+  // 鼠标位置跟踪
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  let isHovering = false;
+  let isClicking = false;
+
+  // 动画循环
+  function animate() {
+    // 平滑跟随鼠标
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
+    
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+
+    requestAnimationFrame(animate);
   }
+
+  // 鼠标移动事件
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // 鼠标进入页面
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+  });
+
+  // 鼠标离开页面
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+  });
+
+  // 悬停效果
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target;
+    if (target.matches('a, button, .btn, .article-button, .action-btn, .filter-btn, [role="button"], .modal-close, input, textarea, [contenteditable="true"]')) {
+      isHovering = true;
+      cursor.classList.add('cursor-hover');
+      
+      // 文本输入框特殊处理
+      if (target.matches('input, textarea, [contenteditable="true"]')) {
+        cursor.classList.add('cursor-text');
+      }
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const target = e.target;
+    if (target.matches('a, button, .btn, .article-button, .action-btn, .filter-btn, [role="button"], .modal-close, input, textarea, [contenteditable="true"]')) {
+      isHovering = false;
+      cursor.classList.remove('cursor-hover', 'cursor-text');
+    }
+  });
+
+  // 点击效果
+  document.addEventListener('mousedown', (e) => {
+    isClicking = true;
+    cursor.classList.add('cursor-click');
+    
+    // 创建点击波纹效果
+    createClickRipple(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mouseup', () => {
+    isClicking = false;
+    cursor.classList.remove('cursor-click');
+  });
+
+  // 创建点击波纹
+  function createClickRipple(x, y) {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'fixed';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.style.width = '4px';
+    ripple.style.height = '4px';
+    ripple.style.marginLeft = '-2px';
+    ripple.style.marginTop = '-2px';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'radial-gradient(circle, rgba(255, 217, 61, 0.8) 0%, rgba(255, 107, 107, 0.4) 50%, transparent 100%)';
+    ripple.style.boxShadow = '0 0 20px rgba(255, 217, 61, 0.6)';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.zIndex = '9999';
+    ripple.style.transform = 'translate3d(0,0,0) scale(1)';
+    ripple.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+    cursorContainer.appendChild(ripple);
+    
+    requestAnimationFrame(() => {
+      ripple.style.transform = 'translate3d(0,0,0) scale(20)';
+      ripple.style.opacity = '0';
+    });
+    
+    setTimeout(() => ripple.remove(), 600);
+  }
+
+  // 开始动画循环
+  animate();
+
+  // 页面卸载时清理
+  window.addEventListener('beforeunload', () => {
+    cursorContainer.remove();
+  });
 })();
 
 
