@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Article</title>
+  <link rel="stylesheet" href="../../static/css/template.css" />
+
+  <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+  <link rel="shortcut icon" href="/static/image/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/image/favicon.png">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+  
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button" title="返回">
+    &#8592;
+  </a>
+  <div class="rainbow-border">
+    <div class="article-wrapper">
+      <article class="article-card">
+        <h1 class="article-title">The process of me making an app 3</h1>
+        <p class="article-date">Dec 15 2025</p>
+        <h2>Category</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#popup-ui-fix">Fixing the Popup UI Issue</a></li>
+            <li><a href="#photo-upload">Adding Photo Upload Feature</a></li>
+          </ul>
+        </nav>
+        <div class="article-content">
+          <h2 id="popup-ui-fix">Fixing the Popup UI Issue</h2>
+          <p>My app is already live on the App Store, and my main focus now is improving the user experience and fixing some bugs. One issue had been bothering me for a long time: when I added many elements to a page, scrolling up and down became inevitable. But whenever I opened a popup in this state, the entire page would still scroll, which looked really awkward.</p>
+          
+          <p>I once tried disabling scrolling in JavaScript when the popup was open. It worked, but then the popup itself couldn't scroll either. After consulting AI, I finally learned that this was happening because all of my pages were injected into the index using Shadow DOM. The only feasible solution was to place the popup in the main document instead of inside the Shadow DOM.</p>
+          
+          <p>That sounded simple, but it turned out to be a huge task. I had to migrate CSS styles into JavaScript and also refactor parts of the JavaScript architecture. Still, I wasn't afraid—because I had AI. With its help, the changes were completed quickly. A few bugs did show up along the way, but once I pointed them out, AI helped me fix them just as fast.</p>
+
+          <h2 id="photo-upload">Adding Photo Upload Feature</h2>
+          <p>My team suggested adding a photo upload feature to my app, allowing users to submit images such as bleeding spots or medical cases. Initially, I was hesitant due to concerns about limited server storage. However, after checking, I found that only 15% of the 40GB disk space was used, so I decided to implement it.</p>
+          
+          <p>The main challenge was how to store these images. Although MySQL supports storing images, my data is primarily stored in JSON files, making direct storage cumbersome. I came up with a solution: encode the images in Base64 and include them as part of the JSON data. On the frontend, the images are displayed using HTML <code>&lt;img&gt;</code> tags.</p>
+          
+          <p>This approach introduces another issue: Base64-encoded images are roughly 33% larger than regular binary images, which could create transmission problems if the JSON file becomes too large. To address this, I implemented a size limit of 5MB per JSON file in JavaScript, triggering an error if exceeded, and compress each image to around 500KB. This effectively prevents overly large JSON files.</p>
+          
+          <p>Additionally, I integrated Capacitor's camera plugin, allowing the app to directly access the device camera. Finally, I implemented the Base64 decoding logic on the main pages, completing the photo upload and display functionality.</p>
+        </div>
+        
+      </article>
+    </div>
+  </div>
+</body>
+
+</html>
