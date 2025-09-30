@@ -33,6 +33,7 @@
           <ul>
             <li><a href="#popup-ui-fix">Fixing the Popup UI Issue</a></li>
             <li><a href="#photo-upload">Adding Photo Upload Feature</a></li>
+            <li><a href="#calendar-feature">Adding Calendar Feature for Symptom Visualization</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -51,6 +52,42 @@
           <p>This approach introduces another issue: Base64-encoded images are roughly 33% larger than regular binary images, which could create transmission problems if the JSON file becomes too large. To address this, I implemented a size limit of 5MB per JSON file in JavaScript, triggering an error if exceeded, and compress each image to around 500KB. This effectively prevents overly large JSON files.</p>
           
           <p>Additionally, I integrated Capacitor's camera plugin, allowing the app to directly access the device camera. Finally, I implemented the Base64 decoding logic on the main pages, completing the photo upload and display functionality.</p>
+
+          <h2 id="calendar-feature">Adding Calendar Feature for Symptom Visualization</h2>
+          <p>After some optimization and interface improvements, I needed to implement a new feature. I wanted to create a calendar interface that would allow users to visually see their symptom patterns throughout the month using different colors. The biggest challenge was how to store symptom data and retrieve it efficiently for the calendar page.</p>
+          
+          <p>Initially, I considered using the large JSON files that were saved and uploaded from the metric page. However, I discovered that these files were too large, especially when they contained photo information, making calendar page retrieval extremely slow.</p>
+          
+          <p>I came up with a solution: when saving metric data, I would also add a separate table to the database with a similar structure, but in the JSON file I would only store numeric codes representing symptom conditions. For example, 0 represents no symptoms, 1 = cutaneous purpura, 2 = articular purpura.</p>
+          
+          <p>The database structure I implemented:</p>
+          <pre class="code-block line-numbers"><code class="language-sql">CREATE TABLE IF NOT EXISTS symptom_files (
+    id VARCHAR(64) PRIMARY KEY,           -- Unique identifier
+    user_id VARCHAR(128) NULL,            -- User ID
+    username VARCHAR(128) NULL,            -- Username
+    file_name VARCHAR(255) NOT NULL,      -- File name
+    content LONGTEXT NOT NULL,            -- JSON content (main data)
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- Creation time
+    INDEX idx_user_id (user_id),          -- User ID index
+    INDEX idx_username (username),        -- Username index
+    INDEX idx_created_at (created_at)      -- Creation time index
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</code></pre>
+          
+          <p>The JSON structure stored in the <code>content</code> field:</p>
+          <pre class="code-block line-numbers"><code class="language-json">{
+  "exportInfo": {
+    "exportTime": "2024-01-15 14:30:25",
+    "recordTime": "2024-01-15 14:30",
+    "version": "1.0",
+    "appName": "紫癜精灵",
+    "dataType": "symptom_tracking"
+  },
+  "symptomData": {
+    "symptoms": [1, 2, 3]  // Array of numeric codes
+  }
+}</code></pre>
+          
+          <p>In the calendar page, by reading data using user ID and month, users can understand their symptom patterns for that month, and display them with different colors on the calendar. This approach significantly improved performance while maintaining data integrity and providing users with an intuitive way to track their health patterns over time.</p>
         </div>
         
       </article>
