@@ -34,6 +34,8 @@
             <li><a href="#popup-ui-fix">Fixing the Popup UI Issue</a></li>
             <li><a href="#photo-upload">Adding Photo Upload Feature</a></li>
             <li><a href="#calendar-feature">Adding Calendar Feature for Symptom Visualization</a></li>
+            <li><a href="#photo-storage-optimization">Optimizing Photo Storage Performance</a></li>
+            <li><a href="#time-zone-fix">Fixing Time Zone Issues</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -88,6 +90,79 @@
 }</code></pre>
           
           <p>In the calendar page, by reading data using user ID and month, users can understand their symptom patterns for that month, and display them with different colors on the calendar. This approach significantly improved performance while maintaining data integrity and providing users with an intuitive way to track their health patterns over time.</p>
+
+          <h2 id="photo-storage-optimization">Optimizing Photo Storage Performance</h2>
+          <p>I discovered that the previous method of storing images through Base64 encoding had serious performance issues. Every time data was read, these massive image files had to be downloaded, causing extremely slow application response times. After careful consideration, I decided to use the file system to store images, saving only the image access links in the database. Taking the diet page as an example, the optimized JSON data structure is as follows:</p>
+          
+          <pre class="code-block line-numbers"><code class="language-json">{
+  "exportInfo": {
+    "exportTime": "2024-01-15 14:30:25",
+    "recordTime": "2024-01-15 12:30:00",
+    "version": "1.0",
+    "appName": "紫癜精灵",
+    "dataType": "diet_record"
+  },
+  "dietData": {
+    "meal_1": {
+      "time": "12:30",
+      "food": "米饭、青菜、鸡肉",
+      "mealId": 1,
+      "images": ["https://app.zdelf.cn/uploads/diet_image_123.jpg"],
+      "date": "2024-01-15",
+      "timestamp": "2024-01-15 12:30:00"
+    },
+    "meal_2": {
+      "time": "18:00",
+      "food": "面条、蔬菜汤",
+      "mealId": 2,
+      "images": [],
+      "date": "2024-01-15",
+      "timestamp": "2024-01-15 18:00:00"
+    }
+  }
+}</code></pre>
+          
+          <p>The <code>images</code> field now stores URLs to access the images instead of Base64-encoded data. This approach dramatically increased the speed of reading the database, as the application no longer needs to download large image files every time data is accessed. Images are now loaded on-demand, significantly improving the user experience.</p>
+
+          <h2 id="time-zone-fix">Fixing Time Zone Issues</h2>
+          <p>I also discovered another critical issue: the time was consistently inaccurate. After consulting with AI, I learned that the application wasn't using China's timezone. To ensure time accuracy, I implemented a solution using Capacitor's geolocation plugin to read the user's location and determine the timezone based on their geographical position.</p>
+          
+          <p>Here's the code for obtaining the user's location:</p>
+          <pre class="code-block line-numbers"><code class="language-javascript">async _getUserLocation() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                };
+                resolve(location);
+            },
+            (error) => {
+                console.warn('⚠️ 无法获取用户位置:', error.message);
+                resolve(null);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 300000 // 5分钟缓存
+            }
+        );
+    });
+}</code></pre>
+          
+          <p>I then created a mapping table to determine the timezone based on the user's location:</p>
+          <pre class="code-block line-numbers"><code class="language-javascript">const timezoneMap = {
+    '-12': 'Pacific/Kwajalein',
+    '-11': 'Pacific/Midway',
+    // ... other timezones
+    '8': 'Asia/Shanghai',  // China timezone
+    '9': 'Asia/Tokyo',
+    // ...
+};</code></pre>
+          
+          <p>This approach effectively resolved the time accuracy issues by automatically detecting the user's timezone and applying the correct time calculations throughout the application. The timezone detection ensures that all timestamps are accurate and consistent with the user's local time.</p>
         </div>
         
       </article>
