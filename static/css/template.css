@@ -229,6 +229,61 @@ pre[class*="language-"] *, code[class*="language-"] * {
   /* Ensure no glow in dark mode either */
   pre[class*="language-"], code[class*="language-"],
   pre[class*="language-"] *, code[class*="language-"] * { text-shadow: none !important; -webkit-text-stroke: 0 !important; }
+  
+  /* Fix symbol highlighting issues in dark mode */
+  pre[class*="language-"] .token.punctuation,
+  pre[class*="language-"] .token.operator,
+  pre[class*="language-"] .token.bracket,
+  pre[class*="language-"] .token.delimiter,
+  code[class*="language-"] .token.punctuation,
+  code[class*="language-"] .token.operator,
+  code[class*="language-"] .token.bracket,
+  code[class*="language-"] .token.delimiter {
+    color: #e9eef2 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-stroke: 0 !important;
+  }
+  
+  /* Fix specific symbols that might have boxes */
+  pre[class*="language-"] .token.punctuation:not(.token.string),
+  code[class*="language-"] .token.punctuation:not(.token.string) {
+    color: #e9eef2 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Comprehensive fix for all token types that might have visual artifacts */
+  pre[class*="language-"] .token,
+  code[class*="language-"] .token {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-stroke: 0 !important;
+  }
+  
+  /* Specific fixes for common problematic tokens */
+  pre[class*="language-"] .token.comment,
+  pre[class*="language-"] .token.prolog,
+  pre[class*="language-"] .token.doctype,
+  pre[class*="language-"] .token.cdata,
+  code[class*="language-"] .token.comment,
+  code[class*="language-"] .token.prolog,
+  code[class*="language-"] .token.doctype,
+  code[class*="language-"] .token.cdata {
+    color: #6a737d !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
   pre.line-numbers { position: relative; }
   pre.line-numbers .line-numbers-rows { border-right: 1px solid rgba(255,255,255,.08); background: transparent; }
   .line-numbers-rows > span:before { color: rgba(255,255,255,.35) !important; }

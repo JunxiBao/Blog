@@ -36,6 +36,8 @@
             <li><a href="#calendar-feature">Adding Calendar Feature for Symptom Visualization</a></li>
             <li><a href="#photo-storage-optimization">Optimizing Photo Storage Performance</a></li>
             <li><a href="#time-zone-fix">Fixing Time Zone Issues</a></li>
+            <li><a href="#notification-fix">Fixing Notification Functionality Issues</a></li>
+            <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -163,6 +165,106 @@
 };</code></pre>
           
           <p>This approach effectively resolved the time accuracy issues by automatically detecting the user's timezone and applying the correct time calculations throughout the application. The timezone detection ensures that all timestamps are accurate and consistent with the user's local time.</p>
+
+          <h2 id="notification-fix">Fixing Notification Functionality Issues</h2>
+          <p>Recently, my companion has been constantly reporting issues with the notification functionality. Every time she enters the app, she experiences a bombardment of messages, even when the current time doesn't fall within any scheduled notification time. I've attempted to fix this problem multiple times, but I kept asking AI to figure out the cause on its own. Each time after an update, the problem remained unresolved.</p>
+          
+          <p>I tried to reproduce this issue by AI but was unsuccessful. However, during one conversation when my companion was sending me messages, she revealed a crucial detail: this bug only occurs when reminder items are set to repeat, and it only manifests after several days have passed. This made me realize that the system might be sending messages, but since the app wasn't running, the app thinks the messages haven't been successfully sent. The moment the app opens, it discovers a large number of unsent messages and sends them all at once, regardless of the current time.</p>
+          
+          <p>I thought about it and realized that solving this problem shouldn't be too difficult - I just need to delete outdated messages during the app initialization phase. Here's the code I implemented:</p>
+          
+          <pre class="code-block line-numbers"><code class="language-javascript">function catchUpOverdueReminders() {
+  // When entering/resuming the page, perform "silent alignment" for overdue reminders:
+  // - Don't send notifications
+  // - Only advance to the next scheduled time or delete one-time reminders
+  try {
+    const now = new Date();
+    const toDelete = [];
+
+    reminders.forEach((reminder) => {
+      if (!(reminder && reminder.dailyCount > 0 && Array.isArray(reminder.dailyTimes) && reminder.dailyTimes.length > 0)) return;
+
+      // If past the end date, delete directly
+      if (isReminderExpired(reminder, now)) {
+        toDelete.push(reminder.id);
+        return;
+      }
+
+      // One-time (non-repeating): if no remaining time points today, delete; otherwise advance to next time today
+      if (!reminder.repeatInterval || reminder.repeatInterval === 'none') {
+        const nextToday = getNextTimeToday(reminder, now);
+        if (nextToday) {
+          scheduleUiAdvance(reminder.id, nextToday);
+        } else {
+          toDelete.push(reminder.id);
+        }
+        return;
+      }
+
+      // Repeating: calculate the next trigger time from the current moment
+      const baseDateStr = (() => {
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+      })();
+      const nextAt = computeNextTime(reminder, new Date(`${baseDateStr}T00:00:00`), now);
+
+      // If the next time exceeds the end date, delete; otherwise advance UI to nextAt
+      if (!nextAt || isReminderExpired(reminder, nextAt)) {
+        toDelete.push(reminder.id);
+      } else {
+        scheduleUiAdvance(reminder.id, nextAt);
+      }
+    });
+
+    toDelete.forEach((rid) => { try { hardDeleteReminder(rid); } catch (_) { } });
+    if (currentRoot) renderReminders(currentRoot);
+    console.log('⏰ Aligned overdue reminders (silent advance/cleanup).');
+  } catch (e) {
+    console.warn('⏰ Failed to align overdue reminders:', e);
+  }
+}</code></pre>
+          
+          <p>As expected, the problem was successfully fixed. After resolving this issue, I realized that while AI is powerful, it still cannot replace humans at this stage. Some problems still require human intervention to solve.</p>
+          
+          <p>I also discovered another issue: if users set up recurring message sending, the app only calculates the next sending time after opening the app following a completed message send. My solution was to schedule multiple notifications in the system immediately when users set up recurring notifications, and then update the status when they enter the app. Here's the code:</p>
+          
+          <pre class="code-block line-numbers"><code class="language-javascript">function enumerateUpcomingOccurrences(reminder, fromTime, maxDays, perReminderCap) {
+  const occurrences = [];
+  if (!(reminder && reminder.dailyCount > 0 && Array.isArray(reminder.dailyTimes) && reminder.dailyTimes.length > 0)) return occurrences;
+  const enabledTimes = [...reminder.dailyTimes].filter(Boolean).filter(t => isTimeEnabled(reminder, t)).sort();
+  if (enabledTimes.length === 0) return occurrences;
+
+  const now = new Date(fromTime);
+  const startBoundary = reminder.startDate ? new Date(`${reminder.startDate}T00:00:00`) : null;
+  const endBoundary = reminder.endDate ? new Date(`${reminder.endDate}T23:59:59`) : null;
+
+  for (let dayOffset = 0; dayOffset < maxDays; dayOffset++) {
+    const day = new Date(now);
+    day.setHours(0, 0, 0, 0);
+    day.setDate(day.getDate() + dayOffset);
+    if (startBoundary && day < startBoundary) continue;
+    if (endBoundary && day > endBoundary) break;
+
+    const ymd = formatDateYMD(day);
+    for (const t of enabledTimes) {
+      const at = new Date(`${ymd}T${t}:00`);
+      if (at <= now) continue; // Skip past moments
+      if (endBoundary && at > endBoundary) continue;
+      occurrences.push(at);
+      if (occurrences.length >= perReminderCap) return occurrences;
+    }
+  }
+  return occurrences;
+}</code></pre>
+          
+          <p>With these changes, the notification functionality should now be complete and working properly.</p>
+
+          <h2 id="icon-accessibility">Improving Icon Accessibility</h2>
+          <p>I also discovered another issue: the icons in my app were using Google's Material Design icons, which cannot be loaded if users are in China without using a VPN. I replaced these icons with Ionic icons, which can automatically adjust based on whether the user is on iOS or Android, and can be accessed directly in China.</p>
+          
+          <p>This change significantly improved the user experience for Chinese users, ensuring that all icons display correctly regardless of network restrictions. The Ionic icon system also provides better platform-specific iconography, making the app feel more native to each operating system.</p>
         </div>
         
       </article>
