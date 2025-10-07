@@ -38,6 +38,7 @@
             <li><a href="#time-zone-fix">Fixing Time Zone Issues</a></li>
             <li><a href="#notification-fix">Fixing Notification Functionality Issues</a></li>
             <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
+            <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -265,6 +266,21 @@
           <p>I also discovered another issue: the icons in my app were using Google's Material Design icons, which cannot be loaded if users are in China without using a VPN. I replaced these icons with Ionic icons, which can automatically adjust based on whether the user is on iOS or Android, and can be accessed directly in China.</p>
           
           <p>This change significantly improved the user experience for Chinese users, ensuring that all icons display correctly regardless of network restrictions. The Ionic icon system also provides better platform-specific iconography, making the app feel more native to each operating system.</p>
+
+          <h2 id="ai-database-analysis">AI Reading Database and Analyzing User Behavior</h2>
+          <p>I developed an AI assistant in my app, but currently it cannot analyze user-submitted data. To differentiate my AI assistant from ordinary web chatbots, I plan to enable it to read user-submitted health-related data, analyze the user's physical condition, and provide recommendations.</p>
+          
+          <p>Initially, my idea was to have the frontend read data from the database and then send it to the AI backend for processing. However, after careful consideration, I realized this approach was very inefficient—since both the backend and database run on the same server, there's no need for the frontend to participate in data transmission and waste additional bandwidth.</p>
+          
+          <p>So I adjusted the architecture: the frontend only sends basic user information (such as userid and username) to the backend; after receiving this information, the backend queries the user's diet, health, and medical record data from the database, integrates it, and then sends it to the large language model for analysis.</p>
+          
+          <p>To save on Token costs, I added an "Enable Data Analysis" button on the frontend. The AI only reads and analyzes user data when users actively enable the analysis feature; if not enabled, the AI behaves like a regular chat mode.</p>
+          
+          <p>After completing the functionality, I began testing but encountered a strange problem: in data analysis mode, whenever I switched pages after a chat ended, the chat history would disappear, and the "AI Data Analysis" button would automatically become inactive. However, strangely, even under these circumstances, the AI could still access my health data.</p>
+          
+          <p>At first, I thought it was a backend bug—perhaps the analysis logic was still being executed even when the analysis feature wasn't activated. But after checking the code, I found this wasn't the case. It wasn't until one time when the AI's response mentioned: "Based on our previous chat content, your health data is..." that I realized what the problem was.</p>
+          
+          <p>It turned out that even though the frontend state was reset after switching pages, it was still part of the same session. The AI's responses continued to be based on previous context for reasoning. To completely solve this problem, I made the AI page create a new sessionID every time it initializes, ensuring that each conversation is independent and no longer affected by previous chat content.</p>
         </div>
         
       </article>
