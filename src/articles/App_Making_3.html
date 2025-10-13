@@ -39,6 +39,7 @@
             <li><a href="#notification-fix">Fixing Notification Functionality Issues</a></li>
             <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
             <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
+            <li><a href="#app-update-check">App Version and Update Check</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -281,6 +282,36 @@
           <p>At first, I thought it was a backend bug—perhaps the analysis logic was still being executed even when the analysis feature wasn't activated. But after checking the code, I found this wasn't the case. It wasn't until one time when the AI's response mentioned: "Based on our previous chat content, your health data is..." that I realized what the problem was.</p>
           
           <p>It turned out that even though the frontend state was reset after switching pages, it was still part of the same session. The AI's responses continued to be based on previous context for reasoning. To completely solve this problem, I made the AI page create a new sessionID every time it initializes, ensuring that each conversation is independent and no longer affected by previous chat content.</p>
+        <h2 id="app-update-check">App Version and Update Check</h2>
+        <p>I have completed the functionality for the square page, but I suddenly realized an issue: since my app is not published on any Android app store, how can Android users know if their app is the latest version?</p>
+
+        <p>My solution is to add a JSON file on the app's website that includes update information for each version. The current JSON file looks like this:</p>
+
+        <pre class="code-block line-numbers"><code class="language-json">{
+  "app_name": "紫癜精灵",
+  "package_name": "com.junxibao.healthapp",
+  "versions": [
+    {
+      "version": "1.2.5.2",
+      "release_date": "2025-10-9",
+      "changes": [
+        "Fixed an issue when users cropped their avatars"
+      ]
+    },
+    {
+      "version": "1.3.0.0",
+      "release_date": "2025-10-11",
+      "changes": [
+        "Added square page functionality",
+        "Added automatic update check feature"
+      ]
+    }
+  ]
+}</code></pre>
+
+        <p>In the app, I only need to add a version number and compare the local version with the remote version from the JSON file. If the local version is older than the remote version, the app will display the update prompt along with detailed information for each version.</p>
+
+        <p>Thus, for future updates, I only need to update the app's local version number and modify the server JSON file. The app will then automatically check for updates without relying on any app store.</p>
         </div>
         
       </article>
