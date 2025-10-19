@@ -40,6 +40,7 @@
             <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
             <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
             <li><a href="#app-update-check">App Version and Update Check</a></li>
+            <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -312,6 +313,25 @@
         <p>In the app, I only need to add a version number and compare the local version with the remote version from the JSON file. If the local version is older than the remote version, the app will display the update prompt along with detailed information for each version.</p>
 
         <p>Thus, for future updates, I only need to update the app's local version number and modify the server JSON file. The app will then automatically check for updates without relying on any app store.</p>
+
+        <h2 id="icp-filing-challenge">ICP Filing Challenge</h2>
+        <p>One morning after waking up, my companion told me that users were reporting they couldn't find our app on the App Store. At first, I thought the users had misspelled the name and didn't pay much attention. But upon closer investigation, I discovered that the app was indeed no longer searchable on the Chinese mainland App Store. My first reaction was: could this be a bug on Apple's end? Logically, if an app gets delisted, Apple should send notifications or email reminders, but I hadn't received any messages.</p>
+
+        <p>When I continued checking the App Store Connect settings, I noticed a prompt in the "Countries and Regions" section—the Chinese mainland region was not ICP filed. That's when I realized the problem might be related to filing. So I immediately set out to apply for ICP filing for the app.</p>
+
+        <p>The entire filing process wasn't particularly complex since we already had servers and domain names. However, after submitting the materials, we were quickly rejected by Alibaba Cloud's initial review. There were two reasons:</p>
+        <ul>
+          <li>The reviewer believed my app was company-based and required filing under a company name, not as an individual;</li>
+          <li>The system incorrectly identified information from my ID card, showing "incorrect filer identity information."</li>
+        </ul>
+
+        <p>Additionally, the reviewer specifically emphasized over the phone that the app must not contain any medical-related content. I could solve the first two problems, but this last requirement left me in a difficult position—after all, our app was specifically designed to serve patients. At that moment, I felt very frustrated and even considered giving up on filing, letting users continue with the beta version, or spending 1,000 yuan to hire Alibaba Cloud's "expert service" to handle it for me.</p>
+
+        <p>However, holding onto a glimmer of hope, I resubmitted the application. This time, I barely changed anything, just adding a note in the remarks: "This is a personal developer's app that does not contain any medical advice."</p>
+
+        <p>Unexpectedly, this time it was approved smoothly!</p>
+
+        <p>At this point, our app could finally be relisted on the Chinese mainland App Store.</p>
         </div>
         
       </article>
