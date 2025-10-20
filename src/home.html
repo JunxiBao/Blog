@@ -15,7 +15,7 @@
     /* === Extracted to home.css === */
 
     /* Subtle animated veil in hero bg (keep) */
-    .hero-section::after { content: ''; position: absolute; inset: -20% -10%; background: radial-gradient(60% 40% at 20% 30%, rgba(0,255,65,.12), transparent 60%), radial-gradient(40% 30% at 80% 60%, rgba(0,128,255,.12), transparent 60%); filter: blur(30px); animation: drift 18s ease-in-out infinite alternate; z-index: -1; }
+    .hero-section::after { content: ''; position: absolute; inset: -20% -10%; background: radial-gradient(60% 40% at 20% 30%, rgba(0,255,65,.12), transparent 60%), radial-gradient(40% 30% at 80% 60%, rgba(0,128,255,.12), transparent 60%); filter: blur(30px); animation: drift 18s ease-in-out infinite alternate; z-index: -1; transform: translateZ(0); backface-visibility: hidden; }
     @keyframes drift { from { transform: translate3d(-10px, -6px, 0) } to { transform: translate3d(10px, 6px, 0) } }
 
     /* === Profile image bob + soft glow pulse === */
@@ -25,7 +25,7 @@
     @keyframes ring-glow { 0%,100% { box-shadow: 0 0 0 rgba(0,255,65,0) } 50% { box-shadow: 0 0 12px rgba(0,255,65,.35) } }
 
     /* === Skill card sheen + lift === */
-    .skill-card { will-change: transform, box-shadow; }
+    .skill-card { will-change: transform, box-shadow; transform: translateZ(0); backface-visibility: hidden; contain: content; }
     .skill-card::after {
       content: '';
       position: absolute; top: -120%; left: -30%; width: 60%; height: 300%;
@@ -33,12 +33,13 @@
       transform: rotate(25deg); opacity: 0; transition: opacity .25s ease, transform .6s ease;
     }
     .skill-card:hover::after { opacity: 1; transform: rotate(25deg) translateX(180%); }
-    .skill-icon { animation: floatY 7s ease-in-out infinite; }
+    .skill-icon { animation: floatY 7s ease-in-out infinite; transform: translateZ(0); backface-visibility: hidden; }
 
     /* === Buttons: glow + micro-press === */
     .btn {
       position: relative; overflow: hidden; border: 1.5px solid var(--border-color);
       transition: transform .15s ease, box-shadow .3s ease, border-color .3s ease;
+      will-change: transform, box-shadow; transform: translateZ(0); backface-visibility: hidden;
     }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,255,65,.18); border-color: var(--accent-green); }
     .btn:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(0,255,65,.12); }
@@ -54,9 +55,9 @@
   .apps-section { padding: 3rem 0; background: var(--bg-secondary); margin: 3rem 0; border-radius: 15px; }
   
   /* === Modal styles === */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; z-index: 999; padding: clamp(80px, env(safe-area-inset-top) + 80px, 100px) 1rem; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; z-index: 999; padding: clamp(96px, env(safe-area-inset-top) + 96px, 128px) 1rem 1.25rem; }
   .modal-backdrop.show { display: flex; }
-  .modal { width: min(900px, 100%); max-height: 85vh; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,.35); position: relative; animation: modal-pop .18s ease-out; overflow: hidden; display: flex; flex-direction: column; max-height: 90dvh; margin-top: 0; }
+  .modal { width: min(900px, 100%); max-height: 85vh; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,.35); position: relative; animation: modal-pop .18s ease-out; overflow: hidden; display: flex; flex-direction: column; max-height: 90dvh; margin-top: 0; will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden; }
   .modal-body { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; padding: 0 .25rem .75rem; }
   @keyframes modal-pop { from { transform: translateY(6px) scale(.98); opacity: .6 } to { transform: translateY(0) scale(1); opacity: 1 } }
   .modal-close { position: absolute; top: .6rem; right: .8rem; border: none; background: transparent; font-size: 1.6rem; line-height: 1; color: var(--text-muted); cursor: pointer; }
@@ -65,16 +66,44 @@
   .modal-header h3 { margin: 0; text-align: center; font-size: 1.15rem; }
   .modal-close { top: .9rem; right: 1rem; }
   .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; padding-right: .25rem; align-content: start; }
-  .app-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform .25s ease, box-shadow .3s ease, border-color .3s ease; height: auto; }
+  .app-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform .25s ease, box-shadow .3s ease, border-color .3s ease; height: auto; will-change: transform, box-shadow; transform: translateZ(0); backface-visibility: hidden; contain: content; }
   .app-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,255,65,.1); border-color: var(--accent-green); }
   .app-title { font-size: 1.25rem; color: var(--accent-green); margin-bottom: .5rem; }
   .app-desc { color: var(--text-muted); margin-bottom: 1rem; }
   .app-links { display: flex; gap: .6rem; flex-wrap: wrap; row-gap: .5rem; }
   .badge { display: inline-block; padding: .35rem .6rem; border: 1px solid var(--border-color); border-radius: 999px; font-size: .85rem; color: var(--text-muted); }
+  /* Ensure extra breathing space between header and app cards in Apps modal only */
+  #appsModal .modal-body { padding-top: .9rem; }
+  #appsModal .app-grid { margin-top: 1.35rem; }
+
+  /* Skills modal styling - cleaner card layout */
+  #skillModal .modal { border-radius: 16px; box-shadow: 0 24px 64px rgba(0,0,0,.38); }
+  #skillModal .modal-header { padding: 1rem 2.25rem; }
+  #skillModal .modal-body { padding-top: 1.6rem; }
+  /* Ensure the first content block does not crowd the sticky header */
+  #skillModal .section:first-child { margin-top: .9rem; }
+  #skillModal .section { margin-bottom: 1.1rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem 1rem; }
+  #skillModal .section-title { margin: .1rem 0 .55rem; font-size: 1rem; color: var(--text-muted); letter-spacing: .2px; }
+  #skillModal .intro { color: var(--text-primary); line-height: 1.85; margin: .1rem 0 .8rem; }
+  #skillModal ul { margin: .25rem 0 .4rem; padding-left: 1.05rem; }
+  #skillModal li { margin: .28rem 0; color: var(--text-muted); }
+  @media (min-width: 720px) {
+    #skillModal ul { columns: 2; column-gap: 2rem; }
+    #skillModal li { break-inside: avoid; }
+  }
+  #skillModal .related-list { display: flex; flex-direction: column; gap: .45rem; }
+  #skillModal .related-link { display: inline-flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--accent-green); padding: .25rem .4rem; border-radius: 6px; }
+  #skillModal .related-link:hover { background: color-mix(in oklab, var(--accent-green) 10%, transparent); text-decoration: none; }
+  #skillModal .badge { display: inline-block; padding: .28rem .55rem; border: 1px solid var(--border-color); border-radius: 999px; font-size: .82rem; color: var(--text-muted); }
   @media (max-width: 480px) { .modal { padding: 1.1rem; }
     .modal { max-height: 90vh; }
     .modal { max-height: 92dvh; }
     .modal-header { padding: .85rem 2rem; }
+    .modal-backdrop { padding-top: clamp(84px, env(safe-area-inset-top) + 84px, 110px); padding-bottom: .75rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .modal-backdrop { padding-top: clamp(110px, env(safe-area-inset-top) + 110px, 140px); }
   }
 
   /* Enhanced app card aesthetics and intro space */
@@ -85,6 +114,18 @@
   .app-card::before { content: ''; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; background: linear-gradient(135deg, rgba(0,255,65,.18), rgba(0,128,255,.10)); opacity: .18; }
   .app-card:hover::before { opacity: .28; }
   .app-desc { font-size: .98rem; }
+
+  /* === Effects gating and reduced-motion fallbacks === */
+  :root { --effects: 1; }
+  html[data-effects="off"] { --effects: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    :root { --effects: 0; }
+    .hero-section::after, .profile-image, .skill-icon { animation: none !important; }
+  }
+  /* Dampen common hover/transforms with --effects */
+  .action-btn:hover { transform: translateY(calc(-3px * var(--effects))); }
+  .app-card:hover { transform: translateY(calc(-4px * var(--effects))); }
+  .skill-card:hover { transform: translateY(calc(-4px * var(--effects))); }
   </style>
 </head>
 
@@ -136,31 +177,42 @@
     <section class="skills-section">
       <h2 style="text-align: center; margin-bottom: 2rem;">My Tech Arsenal</h2>
       <div class="skills-grid">
-        <div class="skill-card reveal" style="--d: .1s">
+        <div class="skill-card reveal" style="--d: .1s" role="button" tabindex="0" data-skill="app-dev" aria-label="Application development details">
           <div class="skill-icon">📱</div>
           <div class="skill-name">Application development</div>
-          <div class="skill-description">SQL database, Flask library, API keys, Network Request</div>
+          <div class="skill-description">SQL database, Capacitor Framework, API keys, Network Request</div>
         </div>
         
-        <div class="skill-card reveal" style="--d: .2s">
+        <div class="skill-card reveal" style="--d: .2s" role="button" tabindex="0" data-skill="smart-home" aria-label="Smart Home details">
           <div class="skill-icon">🏠</div>
           <div class="skill-name">Smart Home</div>
           <div class="skill-description">Home Assistant, IoT, Automation</div>
         </div>
         
-        <div class="skill-card reveal" style="--d: .3s">
+        <div class="skill-card reveal" style="--d: .3s" role="button" tabindex="0" data-skill="web-dev" aria-label="Web Development details">
           <div class="skill-icon">🌐</div>
           <div class="skill-name">Web Development</div>
           <div class="skill-description">HTML, CSS, JavaScript</div>
         </div>
         
-        <div class="skill-card reveal" style="--d: .4s">
+        <div class="skill-card reveal" style="--d: .4s" role="button" tabindex="0" data-skill="raspberry-pi" aria-label="Raspberry Pi details">
           <div class="skill-icon">🍓</div>
           <div class="skill-name">Raspberry Pi</div>
           <div class="skill-description">Embedded Systems, Linux, Face Recognition</div>
         </div>
       </div>
     </section>
+
+    <!-- Skills Modal -->
+    <div id="skillModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal" role="document">
+        <div class="modal-header">
+          <h3 id="skillModalTitle">Skill details</h3>
+          <button class="modal-close" aria-label="关闭">×</button>
+        </div>
+        <div class="modal-body" id="skillModalBody"></div>
+      </div>
+    </div>
 
     <!-- Apps Section -->
     <section class="apps-section">
@@ -230,32 +282,56 @@
   </button>
 
   <script>
-    // Scroll reveal
+    // Scroll reveal (gated by effects controller)
     (function(){
+      const enable = window.AppEffects ? window.AppEffects.isEnabled() && !window.AppEffects.isReduced() : true;
+      if(!enable) return;
       const els = document.querySelectorAll('.reveal');
-      console.log('Found reveal elements:', els.length);
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{ 
           if(e.isIntersecting){ 
-            console.log('Adding in class to:', e.target);
             e.target.classList.add('in'); 
             io.unobserve(e.target); 
           } 
         });
       }, { threshold: 0.12 });
       els.forEach(el=>io.observe(el));
+      if(window.AppEffects){
+        window.AppEffects.registerEffect('scroll-reveal', ()=>{}, ()=>{
+          els.forEach(el=>el.classList.remove('in'));
+        });
+      }
     })();
 
-    // Button hover glow follows mouse
-    document.addEventListener('pointermove', function(e){
-      document.querySelectorAll('.btn').forEach(btn=>{
-        const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width * 100;
-        const y = (e.clientY - rect.top) / rect.height * 100;
-        btn.style.setProperty('--mx', x+'%');
-        btn.style.setProperty('--my', y+'%');
-      });
-    });
+    // Button hover glow follows mouse (perf-optimized & gated)
+    (function(){
+      const enable = window.AppEffects ? window.AppEffects.isEnabled() : true;
+      if(!enable) return;
+      let rafId = null;
+      let lastEvent = null;
+      function onMove(e){
+        lastEvent = e;
+        if(rafId) return;
+        rafId = requestAnimationFrame(()=>{
+          rafId = null;
+          const targetButtons = document.querySelectorAll('.btn');
+          const ex = lastEvent.clientX, ey = lastEvent.clientY;
+          targetButtons.forEach(btn=>{
+            const rect = btn.getBoundingClientRect();
+            const x = (ex - rect.left) / rect.width * 100;
+            const y = (ey - rect.top) / rect.height * 100;
+            btn.style.setProperty('--mx', x+'%');
+            btn.style.setProperty('--my', y+'%');
+          });
+        });
+      }
+      document.addEventListener('pointermove', onMove, { passive: true });
+      if(window.AppEffects){
+        window.AppEffects.registerEffect('btn-glow', ()=>{}, ()=>{
+          document.removeEventListener('pointermove', onMove);
+        });
+      }
+    })();
 
   // Apps modal logic
   (function(){
@@ -268,6 +344,112 @@
     function closeModal(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
 
     openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+  })();
+
+  // Skill cards modal logic
+  (function(){
+    const modal = document.getElementById('skillModal');
+    const titleEl = document.getElementById('skillModalTitle');
+    const bodyEl = document.getElementById('skillModalBody');
+    const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+    const cards = document.querySelectorAll('.skill-card[data-skill]');
+    if(!modal || !titleEl || !bodyEl || !closeBtn || cards.length === 0) return;
+
+    const contentMap = {
+      'app-dev': {
+        title: 'Application development',
+        html: [
+          '<div class="section">',
+            '<p class="intro">A classmate invited me to collaborate on a project: an app specifically designed to help purpura (HSP) patients. To achieve cross-platform support, I chose an H5 + Capacitor approach for the frontend, Flask for backend routing, and MySQL for the database.</p>',
+            '<p class="intro">Additionally, out of interest in Apple\'s native development, I independently built a calendar app in Swift to get familiar with the iOS development workflow.</p>',
+          '</div>',
+          '<div class="section">',
+            '<div class="section-title">Related articles</div>',
+            '<div class="related-list">',
+              '<a class="related-link" href="./articles/App_Making.html">📱 The process of me making an app</a>',
+              '<a class="related-link" href="./articles/App_Making_2.html">📱 The process of me making an app 2</a>',
+              '<a class="related-link" href="./articles/App_Making_3.html">📱 The process of me making an app 3</a>',
+              '<a class="related-link" href="./articles/calendar.html">📅 From Zero to App Store: My First Swift App Made with AI</a>',
+            '</div>',
+          '</div>'
+        ].join('')
+      },
+      'smart-home': {
+        title: 'Smart Home',
+        html: [
+          '<div class="section">',
+            '<p class="intro">Since switching my home router to Xiaomi\'s soft router, I\'ve been eager to bring more Xiaomi smart‑home devices into my space. That\'s how I began my journey toward a truly intelligent home.</p>',
+          '</div>',
+          '<div class="section">',
+            '<div class="section-title">Related articles</div>',
+            '<div class="related-list">',
+              '<a class="related-link" href="./articles/intelligent_home.html">🏠 The Intelligent Path in my room</a>',
+              '<a class="related-link" href="./album/intelligent_home_image.html">🖼 Smart Home Gallery</a>',
+              '<a class="related-link" href="./articles/home_networking_router.html">🌐 Building a Home Networking Solution with Mesh Routers</a>',
+            '</div>',
+          '</div>'
+        ].join('')
+      },
+      'web-dev': {
+        title: 'Web Development',
+        html: [
+          '<div class="section">',
+            '<p class="intro">I\'ve long wanted to have my own website. At first, I simply ran it on a Raspberry Pi with no domain, so nobody else could access it. Over time, by learning the right technologies, I finally made my site accessible to people around the world.</p>',
+          '</div>',
+          '<div class="section">',
+            '<div class="section-title">Related articles</div>',
+            '<div class="related-list">',
+              '<a class="related-link" href="./articles/My_Web_My_rules.html">🌐 My Web, My rules</a>',
+              '<a class="related-link" href="./articles/Cloudflare.html">☁️ Internet Great Good Samaritan: Cloudflare</a>',
+            '</div>',
+          '</div>'
+        ].join('')
+      },
+      'raspberry-pi': {
+        title: 'Raspberry Pi',
+        html: [
+          '<div class="section">',
+            '<p class="intro">Raspberry Pi was the first tech project I explored after entering an international high school. I developed on it, learned Linux and related tooling, and completed practical projects like face recognition.</p>',
+          '</div>',
+          '<div class="section">',
+            '<div class="section-title">Related articles</div>',
+            '<div class="related-list">',
+              '<a class="related-link" href="https://pewter-stoplight-6c5.notion.site/Passion-Project-Learn-Raspberry-Pi-10d104ec071e80fb8b72f963a5ab63f3" target="_blank" rel="noopener">🤖 Developing an automatic vision measurement system using Raspberry Pi</a>',
+            '</div>',
+          '</div>'
+        ].join('')
+      }
+    };
+
+    function openModalFor(key){
+      const data = contentMap[key];
+      if(!data) return;
+      titleEl.textContent = data.title;
+      bodyEl.innerHTML = data.html;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => openModalFor(card.getAttribute('data-skill')));
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openModalFor(card.getAttribute('data-skill'));
+        }
+      });
+    });
+
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
@@ -304,6 +486,7 @@
     handleScroll();
   })();
   </script>
+  <script src="/static/js/effects.js"></script>
   <script src="/static/js/geek-theme.js"></script>
   <script src="/static/js/cursor.js"></script>
 </body>

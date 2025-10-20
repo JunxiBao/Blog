@@ -130,12 +130,13 @@ class GeekTheme {
   }
 
   init() {
-    this.setupMatrixRain();
-    this.setupScrollEffects();
-    this.setupTypingEffects();
-    this.setupParticleSystem();
-    this.setupGlitchEffects();
-    this.setupTerminalEffects();
+    const canEffects = !(window.AppEffects && (window.AppEffects.isReduced() || !window.AppEffects.isEnabled()));
+    if (canEffects) this.setupMatrixRain();
+    if (canEffects) this.setupScrollEffects();
+    if (canEffects) this.setupTypingEffects();
+    if (canEffects) this.setupParticleSystem();
+    if (canEffects) this.setupGlitchEffects();
+    if (canEffects) this.setupTerminalEffects();
   }
 
   // Matrix Rain Effect
@@ -215,7 +216,7 @@ class GeekTheme {
     });
 
     // Parallax effect for hero sections
-    window.addEventListener('scroll', () => {
+    const onScroll = () => {
       const scrolled = window.pageYOffset;
       const parallaxElements = document.querySelectorAll('.hero-section, .article-hero');
       
@@ -223,7 +224,8 @@ class GeekTheme {
         const speed = 0.5;
         element.style.transform = `translateY(${scrolled * speed}px)`;
       });
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', GeekTheme.throttle(onScroll, 16), { passive: true });
   }
 
   // Typing Effects

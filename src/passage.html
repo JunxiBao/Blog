@@ -122,7 +122,7 @@
     }
 
     .article-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(calc(-8px * var(--effects, 1)));
       box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
       border-color: var(--accent-green);
       animation: cardHover 0.4s ease forwards;
@@ -211,7 +211,7 @@
       background: var(--accent-green);
       color: var(--bg-primary);
       box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
-      transform: translateY(-2px);
+      transform: translateY(calc(-2px * var(--effects, 1)));
       animation: buttonPulse 0.6s ease-in-out;
     }
 
@@ -878,8 +878,10 @@
   </button>
 
   <script>
-    // Scroll reveal
+    // Scroll reveal (gated)
     (function(){
+      const enable = window.AppEffects ? window.AppEffects.isEnabled() && !window.AppEffects.isReduced() : true;
+      if(!enable) return;
       const els = document.querySelectorAll('.reveal');
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -887,17 +889,29 @@
       els.forEach(el=>io.observe(el));
     })();
 
-    // Button hover glow follows mouse for article buttons
-    document.addEventListener('pointermove', function(e){
-      document.querySelectorAll('.article-button').forEach(btn=>{
-        const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width * 100;
-        const y = (e.clientY - rect.top) / rect.height * 100;
-        btn.style.setProperty('--mx', x+'%');
-        btn.style.setProperty('--my', y+'%');
-      });
-    });
+    // Button hover glow (rAF-throttled & gated)
+    (function(){
+      const enable = window.AppEffects ? window.AppEffects.isEnabled() : true;
+      if(!enable) return;
+      let rafId = null, lastEvent = null;
+      function onMove(e){
+        lastEvent = e;
+        if(rafId) return;
+        rafId = requestAnimationFrame(()=>{
+          rafId = null; const ex = lastEvent.clientX, ey = lastEvent.clientY;
+          document.querySelectorAll('.article-button').forEach(btn=>{
+            const rect = btn.getBoundingClientRect();
+            const x = (ex - rect.left) / rect.width * 100;
+            const y = (ey - rect.top) / rect.height * 100;
+            btn.style.setProperty('--mx', x+'%');
+            btn.style.setProperty('--my', y+'%');
+          });
+        });
+      }
+      document.addEventListener('pointermove', onMove, { passive: true });
+    })();
   </script>
+  <script src="/static/js/effects.js"></script>
   <script src="/static/js/geek-theme.js"></script>
   <script src="/static/js/cursor.js"></script>
   <script>
