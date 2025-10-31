@@ -172,33 +172,15 @@ body {
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  overflow: hidden;
   text-decoration: none;
   display: inline-block;
 }
 
-.action-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent-green) 30%, transparent), transparent);
-  transition: left 0.5s ease;
-}
-
-.action-btn:hover::before {
-  left: 100%;
-}
-
 .action-btn:hover {
-  background: var(--accent-green);
-  color: var(--bg-primary);
-  box-shadow: 0 0 30px color-mix(in oklab, var(--accent-green) 40%, transparent);
-  transform: translateY(-3px);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px color-mix(in oklab, var(--accent-green) 20%, transparent);
 }
 
 .language-toggle {
