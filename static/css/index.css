@@ -58,7 +58,6 @@ body {
   box-shadow: var(--terminal-shadow);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .terminal-header {

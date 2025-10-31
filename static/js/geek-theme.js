@@ -350,19 +350,15 @@ class EnhancedNavigation {
 
     const handleScroll = GeekTheme.throttle(() => {
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (window.scrollY > 100) {
-        // Use theme variables instead of forcing black
-        this.nav.style.background = prefersDark ? 'rgba(26, 26, 26, 0.95)' : 'rgba(246, 247, 249, 0.95)';
-        this.nav.style.backdropFilter = 'blur(20px)';
-        this.nav.style.borderBottom = '2px solid var(--border-color)';
-      } else {
-        this.nav.style.background = 'var(--bg-secondary)';
-        this.nav.style.backdropFilter = 'blur(10px)';
-        this.nav.style.borderBottom = '2px solid var(--border-color)';
-      }
+      const solidBackground = prefersDark ? '#1a1a1a' : '#f6f7f9';
+      this.nav.style.background = solidBackground;
+      this.nav.style.borderBottom = '2px solid var(--border-color)';
+      this.nav.style.backdropFilter = 'none';
+      this.nav.style.webkitBackdropFilter = 'none';
     }, 16);
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
   }
 
   setupActiveLink() {
