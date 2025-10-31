@@ -41,6 +41,7 @@
             <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
             <li><a href="#app-update-check">App Version and Update Check</a></li>
             <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
+            <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -332,6 +333,13 @@
         <p>Unexpectedly, this time it was approved smoothly!</p>
 
         <p>At this point, our app could finally be relisted on the Chinese mainland App Store.</p>
+        
+        <h2 id="auto-message-check">Completing Auto Message Update Check</h2>
+        <p>My teammate suggested adding an automatic "message update check" to the app—whenever someone comments on or replies to a user’s post, the system should promptly notify that user.</p>
+        <p>After researching, I found there wasn’t a straightforward plugin in framework Capacitor to handle remote push. iOS requires APNs and Android relies on Firebase—this is a bit heavy for my current stage.</p>
+        <p>So I chose a pragmatic interim approach: instead of push notifications, I implemented an in-app "Message Center" where users can see all messages relevant to them. The system also shows how many new items have appeared since their last visit.</p>
+        <p>The first part was simple—iterate the database for items related to the current user and sort them by time. The second part took a little thought. Later that night, I realized I could store the user’s last-view time in <code>localStorage</code>, and when loading messages, count how many relevant records in the database have timestamps later than that value. That gives me the exact number of new messages.</p>
+        <p>Once the approach was clear, implementation went smoothly and the feature was quickly completed.</p>
         </div>
         
       </article>
