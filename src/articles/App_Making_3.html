@@ -42,6 +42,7 @@
             <li><a href="#app-update-check">App Version and Update Check</a></li>
             <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
             <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
+            <li><a href="#data-loss-lesson">A Painful Lesson in Data Loss</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -340,6 +341,19 @@
         <p>So I chose a pragmatic interim approach: instead of push notifications, I implemented an in-app "Message Center" where users can see all messages relevant to them. The system also shows how many new items have appeared since their last visit.</p>
         <p>The first part was simple—iterate the database for items related to the current user and sort them by time. The second part took a little thought. Later that night, I realized I could store the user’s last-view time in <code>localStorage</code>, and when loading messages, count how many relevant records in the database have timestamps later than that value. That gives me the exact number of new messages.</p>
         <p>Once the approach was clear, implementation went smoothly and the feature was quickly completed.</p>
+        
+        <h2 id="data-loss-lesson">A Painful Lesson in Data Loss</h2>
+        <p>A long time ago, I renamed my GitHub repository. Recently, for security reasons, I planned to set the repository to private—worried that exposing the source code publicly might lead to someone attacking my server. But here's the problem: once set to private, my server would no longer be able to pull code from GitHub, and since GitHub is mostly blocked by the GFW in China, I also couldn't log into the same account on the server.</p>
+        
+        <p>In desperation, I tried using various GitHub mirror sites, but still couldn't complete account login. Eventually, I had no choice but to compromise: I set the repository back to public and planned to use the githubfast mirror to pull remote code on the server.</p>
+        
+        <p>However, during the switching process, I accidentally wrote the wrong GitHub repository address on the server. When running <code>git pull</code>, the system prompted that the local version and remote version were inconsistent, but I didn't think much of it at the time and directly force-pulled the remote code, which resulted in the local project folder being corrupted. Actually, at this point, the problem wasn't so severe that it couldn't be recovered.</p>
+        
+        <p>What really made things irreversible was that I impulsively used <code>rm -rf</code> to delete the entire folder! If I had immediately used file recovery tools after this step, I might still have been able to recover the data. But I had another moment of impulsiveness and immediately pulled the correct project files from GitHub.</p>
+        
+        <p>Since user data and code were stored in the same folder, and this data wasn't tracked by Git, this data was almost impossible to recover.</p>
+        
+        <p>This incident taught me a very profound lesson. Afterward, I seriously reflected and decided that from now on, I must regularly back up the server to avoid similar tragedies from happening again.</p>
         </div>
         
       </article>
