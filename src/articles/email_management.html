@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Article</title>
+  <link rel="stylesheet" href="../../static/css/template.css" />
+
+  <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+  <link rel="shortcut icon" href="/static/image/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/image/favicon.png">
+
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button" title="返回">
+    &#8592;
+  </a>
+  <div class="rainbow-border">
+    <div class="article-wrapper">
+      <article class="article-card">
+        <h1 class="article-title">Managing Emails with Custom Domain via Cloudflare</h1>
+          <p class="article-date">Nov 27 2025</p>
+        <div class="article-content">
+          <p>
+            Recently, I realized that managing emails is actually quite a complex task. Many important emails often get buried under a flood of promotional messages from various platforms. I tried blocking these promotional emails, but the results weren't great—my inbox still looked messy.
+          </p>
+          <p>
+            Later, I tried Gmail's custom label approach, like having friends send emails to <a href="mailto:junxibao2007+vital@gmail.com">junxibao2007+vital@gmail.com</a>, combined with Gmail's filters for automatic categorization. While this helped to some extent, the email address became really long and inconvenient to share.
+          </p>
+          <p>
+            One day, I noticed that Cloudflare offers email forwarding functionality, and my domain juxibao.com happens to be hosted on Cloudflare, so I decided to give it a try. Through this feature, I can create email addresses using my own domain, such as <a href="mailto:chat@juxibao.com">chat@juxibao.com</a> as my primary email for chatting with others. Cloudflare forwards these emails to Gmail, and Gmail's filters then categorize them by different addresses. This is the solution I'm currently using.
+          </p>
+          <p>
+            However, this approach has an obvious drawback: I can't send emails directly from my domain email. If someone sends me an email through my domain address, my reply still comes from Gmail. When they reply back, the email goes directly to my Gmail instead of the domain email, which means Gmail's categorization rules based on the domain address no longer work, and the email ends up in the main inbox.
+          </p>
+          <p>
+            Although this limitation does affect the user experience in practice, most other solutions that truly support both "sending and receiving" with custom domain emails require upgrading to enterprise email plans, which aren't cheap. So for now, I'm sticking with this Cloudflare forwarding solution.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+
+</html>
+

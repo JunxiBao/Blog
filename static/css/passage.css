@@ -20,6 +20,7 @@
 .article-description { color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; flex-grow: 1; font-size: 1rem; }
 .article-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; color: var(--text-muted); font-size: 0.9rem; }
 .article-tag { background: var(--bg-tertiary); color: var(--accent-green); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--accent-green); }
+.article-date { color: var(--text-secondary); font-size: 0.8rem; opacity: 0.7; }
 .article-button { background: transparent; color: var(--accent-green); border: 2px solid var(--accent-green); padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; position: relative; overflow: hidden; text-decoration: none; display: inline-block; text-align: center; width: 100%; margin-top: auto; }
 .article-button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent); transition: left 0.5s ease; }
 .article-button:hover::before { left: 100%; }
