@@ -43,6 +43,7 @@
             <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
             <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
             <li><a href="#data-loss-lesson">A Painful Lesson in Data Loss</a></li>
+            <li><a href="#check-in-system">Completing the Check-in System</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -354,6 +355,52 @@
         <p>Since user data and code were stored in the same folder, and this data wasn't tracked by Git, this data was almost impossible to recover.</p>
         
         <p>This incident taught me a very profound lesson. Afterward, I seriously reflected and decided that from now on, I must regularly back up the server to avoid similar tragedies from happening again.</p>
+        
+        <h2 id="check-in-system">Completing the Check-in System</h2>
+        <p>Recently, I discovered a problem with my health tracking app: the user engagement rate is quite low. To be honest, not many people open it daily or record their lives. So I started thinking—how can I make users want to come back every day?</p>
+        
+        <p>Around this time, I was using Duolingo to learn Spanish, and I suddenly realized: why can I stick with it every day?</p>
+        
+        <p>It's simple—it's because of their "streak" system. Every day I see that consecutive day number go up, and there are little animations every day. I really want to keep going and not break the streak.</p>
+        
+        <p>So I thought: why can't my own app have one too?</p>
+        
+        <p>So I started working on it. I added two fields to the users data table:</p>
+        <ul>
+          <li>Current consecutive days</li>
+          <li>Highest consecutive days</li>
+        </ul>
+        
+        <p>Then in the backend's <code>getjson</code> router, every time the frontend uploads data, I check:</p>
+        <ul>
+          <li>"Is this the user's first upload today?"</li>
+          <li>"Should I update the streak count?"</li>
+          <li>"Should I refresh the maximum record?"</li>
+        </ul>
+        
+        <p>Of course, I also display these two numbers directly on the "My" page, so users can see their progress day by day as they keep going.</p>
+        
+        <p>What really got me excited was—I also created a celebration animation system!</p>
+        
+        <p>I referenced Duolingo's style:</p>
+        <ul>
+          <li>1–5 consecutive days: light animation</li>
+          <li>Gradually intensifies after that</li>
+          <li>Every full week: confetti</li>
+          <li>Every 100 days: a big explosion (really satisfying!)</li>
+        </ul>
+        
+        <p>However, I did hit a snag in the middle. At first, the celebration animation wouldn't trigger at all, and I was almost ready to give up. Finally, with AI's help, I discovered—I had written the flow backwards.</p>
+        
+        <p>My original approach was: update database first → then check if it's the first upload today</p>
+        
+        <p>Of course, the check result would always be "you've already checked in today," so the animation would never show.</p>
+        
+        <p>Later, I changed the order to: check first → then update database</p>
+        
+        <p>It worked instantly. The animation triggered smoothly, and the whole experience came alive.</p>
+        
+        <p>Now that the entire feature is working, I feel the app finally has a "persistence vibe" to it, and it feels more like a real companion that accompanies users in their daily lives. If it can make users want to open it and check in every day, just like Duolingo, then I think this feature is a success.</p>
         </div>
         
       </article>
