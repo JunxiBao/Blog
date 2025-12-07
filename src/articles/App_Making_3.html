@@ -44,6 +44,7 @@
             <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
             <li><a href="#data-loss-lesson">A Painful Lesson in Data Loss</a></li>
             <li><a href="#check-in-system">Completing the Check-in System</a></li>
+            <li><a href="#system-theme-switch">System Dark/Light Mode Toggle</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -401,6 +402,19 @@
         <p>It worked instantly. The animation triggered smoothly, and the whole experience came alive.</p>
         
         <p>Now that the entire feature is working, I feel the app finally has a "persistence vibe" to it, and it feels more like a real companion that accompanies users in their daily lives. If it can make users want to open it and check in every day, just like Duolingo, then I think this feature is a success.</p>
+        
+        <h2 id="system-theme-switch">System Dark/Light Mode Toggle</h2>
+        <p>Actually, I've wanted to implement a theme switching feature in my app for a long time, allowing users to quickly switch between dark mode, light mode, or follow the system settings. I thought it would be simple—after all, my CSS already uses <code>@media</code> queries for dark/light mode logic, so I could just call that directly, right?</p>
+        
+        <p>But when I actually tried to implement it, I discovered that to achieve independent theme switching within the app, you actually need to rely on "forced theme overrides" in CSS. In other words, you have to write your own logic to forcibly switch all element colors. This process was really too difficult for me as a frontend beginner. I tried several times, and each attempt ended in failure. Even with AI's help, it didn't work—either the entire color scheme got messed up, or some components couldn't properly adapt to the theme.</p>
+        
+        <p>After struggling for a while, I suddenly thought of an approach: since the difficulty lies in forcibly overriding colors, why not let the app's native layer directly switch dark mode? As long as the native layer switches the theme, the elements in my app will naturally follow the dark mode logic I wrote in <code>@media</code> queries—problem solved!</p>
+        
+        <p>I searched through Capacitor plugins but couldn't find one that worked directly, so I decided to write my own plugin. The iOS side went very smoothly—I just bridged the <code>UIWindow.overrideUserInterfaceStyle</code> API, and the theme switching was perfectly implemented.</p>
+        
+        <p>But when I got to the Android side, I discovered there was no corresponding API to call. I tried many approaches, but they all failed. I had no choice but to compromise:</p>
+        
+        <p>In the settings, I only show the dark/light mode toggle for iOS. Android and web versions don't display this option.</p>
         </div>
         
       </article>
