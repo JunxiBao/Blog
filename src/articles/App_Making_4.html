@@ -32,6 +32,7 @@
         <nav class="toc">
           <ul>
             <li><a href="#code-compression">Compressing Code Files</a></li>
+            <li><a href="#ai-enhancement">Making the AI Assistant More Intelligent</a></li>
           </ul>
         </nav>
         <div class="article-content">
@@ -67,6 +68,22 @@
           <p>Additionally, besides JS, I also applied similar obfuscation principles to HTML and CSS.</p>
           
           <p>Now, while I can't say my app is impossible to crack (even compiled binaries can be reverse-engineered), I have significantly increased the difficulty for others to view my source code. Moreover, this also optimized the code execution speed.</p>
+          
+          <h2 id="ai-enhancement">Making the AI Assistant More Intelligent <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Jan 11 2026</span></h2>
+          
+          <p>Recently, I discovered that the AI module in my app was a bit "low-intelligence." It didn't know today's date, so it couldn't answer questions like "Did I check in today?" Its understanding of context was also poor—it would often forget what was said earlier in the conversation. Additionally, since I was using DeepSeek's regular model (which lacks reasoning capabilities), some of its suggestions weren't accurate enough.</p>
+          
+          <p>The first problem was relatively easy to solve. I directly added the current date dynamically to the system prompt, such as "Today is 2026-01-11," so the AI would no longer be "time-blind." I also included instructions in the prompt on how to respond when users ask questions like "Did I check in today?"—it should check the database records and answer accordingly.</p>
+          
+          <p>The second problem initially puzzled me. I had already designed a context management system for the AI: each user had a session stored in the server's runtime memory, and each request would concatenate the entire session into the prompt sent to the AI. This mechanism should have worked, but in practice, it was very unstable. Sometimes the AI wouldn't remember anything, sometimes it would remember the previous sentence but forget the next one—it seemed like the model was randomly "amnesiac."</p>
+          
+          <p>Later, I added logging to the backend to print out the actual prompts sent to the AI each time, and I discovered that the root cause wasn't in the model but on my side. After a few rounds of conversation, the content sent to the AI would only contain the user's current message—all previous dialogue had vanished. Since runtime memory itself is unreliable, I changed my approach: I stored all conversations in the database in JSON format, and retrieved the complete conversation history from the database each time before sending it to the AI. After this change, the context immediately became stable, and the AI stopped mysteriously forgetting what was said before.</p>
+          
+          <p>Since conversations were now stored in the database, I naturally added another feature: allowing users to review their conversation history. I added userId and timestamp fields to the table, along with indexes, so queries by user and time would be efficient. The feature came together naturally.</p>
+          
+          <p>As for the last problem, I checked DeepSeek's API documentation and found that it also offers a Reasoner model. This model is significantly stronger in logical analysis and complex problems, so I tried integrating it. However, I quickly discovered that while the Reasoner is smarter, its response speed is noticeably slower, making it unsuitable for all scenarios. So I added a toggle in the interface, allowing users to choose between the regular model and the Reasoner model: use the regular model for speed, switch to Reasoner for more rigorous analysis.</p>
+          
+          <p>Now, this AI module not only knows what date it is and won't randomly forget things, but it also has an optional "thinking brain."</p>
         </div>
         
       </article>
