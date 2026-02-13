@@ -99,6 +99,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -129,9 +130,20 @@
     }
 
     @keyframes cardHover {
-      0% { transform: translateY(-8px) scale(1); box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15); }
-      50% { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px rgba(0, 255, 65, 0.25); }
-      100% { transform: translateY(-8px) scale(1); box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15); }
+      0% {
+        transform: translateY(-8px) scale(1);
+        box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+      }
+
+      50% {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 255, 65, 0.25);
+      }
+
+      100% {
+        transform: translateY(-8px) scale(1);
+        box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+      }
     }
 
     .article-header {
@@ -216,9 +228,17 @@
     }
 
     @keyframes buttonPulse {
-      0% { transform: translateY(-2px) scale(1); }
-      50% { transform: translateY(-3px) scale(1.03); }
-      100% { transform: translateY(-2px) scale(1); }
+      0% {
+        transform: translateY(-2px) scale(1);
+      }
+
+      50% {
+        transform: translateY(-3px) scale(1.03);
+      }
+
+      100% {
+        transform: translateY(-2px) scale(1);
+      }
     }
 
     .article-icon {
@@ -306,7 +326,11 @@
       transition: opacity .18s ease, transform .18s ease;
     }
 
-    .search-suggestions.visible { display: block; opacity: 1; transform: translateY(0); }
+    .search-suggestions.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .suggestion-item {
       display: flex;
@@ -320,27 +344,61 @@
       transform: translateY(6px);
     }
 
-    .suggestion-item:hover { background: var(--bg-tertiary); }
-    .suggestion-item.in { opacity: 1; transform: translateY(0); transition: opacity .22s ease, transform .22s ease; }
-    .suggestion-item.active { background: rgba(0,255,65,.12); }
+    .suggestion-item:hover {
+      background: var(--bg-tertiary);
+    }
 
-    .suggestion-title { color: var(--text-primary); font-size: .95rem; text-align: left; }
-    .suggestion-meta { display: inline-flex; gap: .4rem; flex-shrink: 0; }
-    .suggestion-meta .article-tag { border-color: var(--border-color); }
+    .suggestion-item.in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .suggestion-item.active {
+      background: rgba(0, 255, 65, .12);
+    }
+
+    .suggestion-title {
+      color: var(--text-primary);
+      font-size: .95rem;
+      text-align: left;
+    }
+
+    .suggestion-meta {
+      display: inline-flex;
+      gap: .4rem;
+      flex-shrink: 0;
+    }
+
+    .suggestion-meta .article-tag {
+      border-color: var(--border-color);
+    }
 
     /* One-time highlight on target card */
     @keyframes cardHighlight {
-      0% { box-shadow: 0 0 0 0 rgba(0,255,65,0); }
-      50% { box-shadow: 0 0 0 3px rgba(0,255,65,.35) inset, 0 0 30px rgba(0,255,65,.25); }
-      100% { box-shadow: 0 0 0 0 rgba(0,255,65,0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 3px rgba(0, 255, 65, .35) inset, 0 0 30px rgba(0, 255, 65, .25);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+      }
     }
-    .highlight-once { animation: cardHighlight 1.2s ease; }
+
+    .highlight-once {
+      animation: cardHighlight 1.2s ease;
+    }
 
     /* Input searching glow and spinner */
     .search-box.searching .search-input {
-      box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.22), 0 0 20px rgba(0,255,65,.18);
+      box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.22), 0 0 20px rgba(0, 255, 65, .18);
       border-color: var(--accent-green);
     }
+
     .search-box .spinner {
       position: absolute;
       right: 12px;
@@ -354,7 +412,10 @@
       animation: spin .7s linear infinite;
       display: none;
     }
-    .search-box.searching .spinner { display: inline-block; }
+
+    .search-box.searching .spinner {
+      display: inline-block;
+    }
 
     .filter-buttons {
       display: flex;
@@ -362,7 +423,8 @@
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 1rem;
-      position: relative; /* ensure new stacking context below suggestions */
+      position: relative;
+      /* ensure new stacking context below suggestions */
       z-index: 1;
     }
 
@@ -447,7 +509,9 @@
         max-width: 200px;
       }
 
-      .search-box { max-width: 100%; }
+      .search-box {
+        max-width: 100%;
+      }
 
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -474,50 +538,123 @@
     }
 
     /* === Global page fade-in === */
-    body { opacity: 0; animation: page-fade-in .6s ease both; }
-    @keyframes page-fade-in { from { opacity: 0 } to { opacity: 1 } }
+    body {
+      opacity: 0;
+      animation: page-fade-in .6s ease both;
+    }
+
+    @keyframes page-fade-in {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
 
     /* === Scroll reveal utility === */
-    .reveal { opacity: 0; transform: translateY(24px); }
-    .reveal.in { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; transition-delay: var(--d, 0s); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .8s ease, transform .8s ease;
+      transition-delay: var(--d, 0s);
+    }
 
     /* === Nav link underline slide (fixed) === */
-    .nav-menu a { position: relative; display: inline-block; overflow: hidden; text-decoration: none; }
+    .nav-menu a {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
     .nav-menu a::after {
       content: '';
-      position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 100%;
       background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
       transform: scaleX(0);
       transform-origin: left;
       transition: transform .28s ease;
     }
-    .nav-menu a:hover::after, .nav-menu a.active::after { transform: scaleX(1); }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+      transform: scaleX(1);
+    }
 
     /* === Hero polish: animated gradient slide & float === */
-    @keyframes gradient-slide { 0% { background-position: 0% 50% } 100% { background-position: 200% 50% } }
-    @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+    @keyframes gradient-slide {
+      0% {
+        background-position: 0% 50%
+      }
+
+      100% {
+        background-position: 200% 50%
+      }
+    }
+
+    @keyframes floatY {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-6px)
+      }
+    }
 
     /* Subtle animated veil in hero bg */
     .hero-section::after {
       content: '';
-      position: absolute; inset: -20% -10%;
-      background: radial-gradient(60% 40% at 20% 30%, rgba(0,255,65,.12), transparent 60%),
-                  radial-gradient(40% 30% at 80% 60%, rgba(0,128,255,.12), transparent 60%);
+      position: absolute;
+      inset: -20% -10%;
+      background: radial-gradient(60% 40% at 20% 30%, rgba(0, 255, 65, .12), transparent 60%),
+        radial-gradient(40% 30% at 80% 60%, rgba(0, 128, 255, .12), transparent 60%);
       filter: blur(30px);
       animation: drift 18s ease-in-out infinite alternate;
       z-index: -1;
     }
-    @keyframes drift { from { transform: translate3d(-10px, -6px, 0) } to { transform: translate3d(10px, 6px, 0) } }
+
+    @keyframes drift {
+      from {
+        transform: translate3d(-10px, -6px, 0)
+      }
+
+      to {
+        transform: translate3d(10px, 6px, 0)
+      }
+    }
 
     /* === Article button: glow + mouse-follow === */
-    .article-button { position: relative; }
+    .article-button {
+      position: relative;
+    }
+
     .article-button::after {
       content: '';
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(180px 180px at var(--mx,50%) var(--my,50%), rgba(0,255,65,.15), transparent 60%);
-      opacity: 0; transition: opacity .3s ease;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(180px 180px at var(--mx, 50%) var(--my, 50%), rgba(0, 255, 65, .15), transparent 60%);
+      opacity: 0;
+      transition: opacity .3s ease;
     }
-    .article-button:hover::after { opacity: 1; }
+
+    .article-button:hover::after {
+      opacity: 1;
+    }
 
     /* 返回顶部按钮 */
     .back-to-top {
@@ -586,8 +723,17 @@
     }
 
     @keyframes pulse-glow {
-      0%, 100% { transform: scale(1); opacity: 0.3; }
-      50% { transform: scale(1.1); opacity: 0.6; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+      }
     }
 
     /* 响应式设计 */
@@ -598,7 +744,7 @@
         width: 48px;
         height: 48px;
       }
-      
+
       .back-to-top svg {
         width: 20px;
         height: 20px;
@@ -612,7 +758,7 @@
         width: 44px;
         height: 44px;
       }
-      
+
       .back-to-top svg {
         width: 18px;
         height: 18px;
@@ -671,7 +817,8 @@
       <div class="search-container reveal" style="--d: .08s">
         <div class="search-box">
           <span class="search-icon">🔎</span>
-          <input id="articleSearchInput" class="search-input" type="text" placeholder="Search articles by title, tag or description..." />
+          <input id="articleSearchInput" class="search-input" type="text"
+            placeholder="Search articles by title, tag or description..." />
           <span class="spinner" aria-hidden="true"></span>
           <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
@@ -682,12 +829,26 @@
         <button class="filter-btn reveal" data-category="daily" style="--d: .3s">Daily</button>
         <button class="filter-btn reveal" data-category="smart-home" style="--d: .4s">Smart-Home</button>
         <button class="filter-btn reveal" data-category="app-development" style="--d: .5s">APP Development</button>
+        <button class="filter-btn reveal" data-category="web3" style="--d: .6s">Web 3</button>
       </div>
     </section>
 
     <!-- Articles Section -->
     <section class="articles-section">
       <div class="article-grid">
+        <article class="article-card reveal" data-category="web3" style="--d: .05s">
+          <div class="article-icon">🪙</div>
+          <div class="article-header">
+            <h3 class="article-title">From a 500 RMB Liquidation to Building a Crypto Portfolio</h3>
+            <div class="article-meta">
+              <span class="article-tag">Web 3</span>
+              <span class="article-date">Feb 13 2026</span>
+            </div>
+          </div>
+          <p class="article-description">How paying for ChatGPT accidentally led me into Web3: a journey from a small
+            liquidation to building a core crypto portfolio.</p>
+          <a href="./articles/From_500_RMB_Liquidation_to_Web3.html" class="article-button">Read Article →</a>
+        </article>
         <article class="article-card reveal" data-category="daily" style="--d: .05s">
           <div class="article-icon">🌐</div>
           <div class="article-header">
@@ -719,7 +880,8 @@
           <p class="article-description">This article shares my journey of exploring different code editors. From DEV
             C++ to Visual Studio, JetBrains, VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use
             neovim and sometimes use VSCode for Raspberry Pi's development.</p>
-          <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor.html" class="article-button">Read Article →</a>
+          <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor.html" class="article-button">Read Article
+            →</a>
         </article>
 
 
@@ -771,7 +933,9 @@
               <span class="article-date">Nov 27 2025</span>
             </div>
           </div>
-          <p class="article-description">Managing emails can be tricky when important messages get buried under promotions. I explored Gmail's plus addressing and eventually settled on Cloudflare's email forwarding with my custom domain—a free solution with some trade-offs.</p>
+          <p class="article-description">Managing emails can be tricky when important messages get buried under
+            promotions. I explored Gmail's plus addressing and eventually settled on Cloudflare's email forwarding with
+            my custom domain—a free solution with some trade-offs.</p>
           <a href="./articles/email_management.html" class="article-button">Read Article →</a>
         </article>
 
@@ -806,12 +970,14 @@
             <h3 class="article-title">Developing an automatic vision measurement system using Raspberry Pi</h3>
             <div class="article-meta">
               <span class="article-tag">projects</span>
-        
+
             </div>
           </div>
-          <p class="article-description">This is a notion from a project I did. My project was to build an automatic vision test system based on gesture
-          recognition and face recognition on a Raspberry Pi.</p>
-          <a href="https://pewter-stoplight-6c5.notion.site/Passion-Project-Learn-Raspberry-Pi-10d104ec071e80fb8b72f963a5ab63f3" class="article-button">Read Article →</a>
+          <p class="article-description">This is a notion from a project I did. My project was to build an automatic
+            vision test system based on gesture
+            recognition and face recognition on a Raspberry Pi.</p>
+          <a href="https://pewter-stoplight-6c5.notion.site/Passion-Project-Learn-Raspberry-Pi-10d104ec071e80fb8b72f963a5ab63f3"
+            class="article-button">Read Article →</a>
         </article>
 
 
@@ -819,144 +985,156 @@
 
 
 
-              <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
-                <div class="article-icon">📱</div>
-                <div class="article-header">
-                  <h3 class="article-title">The process of me making an app 2</h3>
-                  <div class="article-meta">
-                    <span class="article-tag">app-development</span>
-                    <span class="article-date">Aug 18 2025</span>
-                  </div>
-                </div>
-                <p class="article-description">This article is the second part of <a href="./articles/App_Making.html">The process of me making an app.</a>And in this article, I successfully submitted my app to the App Store.</p>
-                <a href="./articles/App_Making_2.html"
-                  class="article-button">Read Article →</a>
-              </article>
+        <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
+          <div class="article-icon">📱</div>
+          <div class="article-header">
+            <h3 class="article-title">The process of me making an app 2</h3>
+            <div class="article-meta">
+              <span class="article-tag">app-development</span>
+              <span class="article-date">Aug 18 2025</span>
+            </div>
+          </div>
+          <p class="article-description">This article is the second part of <a href="./articles/App_Making.html">The
+              process of me making an app.</a>And in this article, I successfully submitted my app to the App Store.</p>
+          <a href="./articles/App_Making_2.html" class="article-button">Read Article →</a>
+        </article>
 
 
 
-                      <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
-                        <div class="article-icon">📅</div>
-                        <div class="article-header">
-                          <h3 class="article-title">From Zero to App Store: My First Swift App Made with AI</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">app-development</span>
-                            <span class="article-date">Aug 27 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">AI lowered the barrier, enabling a beginner to turn an idea into a full App Store release.</p>
-                        <a href="./articles/calendar.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
+          <div class="article-icon">📅</div>
+          <div class="article-header">
+            <h3 class="article-title">From Zero to App Store: My First Swift App Made with AI</h3>
+            <div class="article-meta">
+              <span class="article-tag">app-development</span>
+              <span class="article-date">Aug 27 2025</span>
+            </div>
+          </div>
+          <p class="article-description">AI lowered the barrier, enabling a beginner to turn an idea into a full App
+            Store release.</p>
+          <a href="./articles/calendar.html" class="article-button">Read Article →</a>
+        </article>
 
-                      <article class="article-card reveal" data-category="smart-home" style="--d: .75s">
-                        <div class="article-icon">🌐</div>
-                        <div class="article-header">
-                          <h3 class="article-title">Building a Home Networking Solution with Mesh Routers</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">smart-home</span>
-                            <span class="article-date">Apr 15 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">Setting up a Xiaomi BE6500 mesh router with Clash proxy for whole-home internet access, including performance optimization and rule customization.</p>
-                        <a href="./articles/home_networking_router.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="smart-home" style="--d: .75s">
+          <div class="article-icon">🌐</div>
+          <div class="article-header">
+            <h3 class="article-title">Building a Home Networking Solution with Mesh Routers</h3>
+            <div class="article-meta">
+              <span class="article-tag">smart-home</span>
+              <span class="article-date">Apr 15 2025</span>
+            </div>
+          </div>
+          <p class="article-description">Setting up a Xiaomi BE6500 mesh router with Clash proxy for whole-home internet
+            access, including performance optimization and rule customization.</p>
+          <a href="./articles/home_networking_router.html" class="article-button">Read Article →</a>
+        </article>
 
-                      <article class="article-card reveal" data-category="app-development,projects" style="--d: .85s">
-                        <div class="article-icon">📱</div>
-                        <div class="article-header">
-                          <h3 class="article-title">The process of me making an app 3</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">app-development</span>
-                            <span class="article-date">Dec 15 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">This article is the third part of <a href="./articles/App_Making.html">The process of me making an app.</a> In this article, I continue to improve the app after it went live on the App Store, including fixing UI issues and adding photo upload features.</p>
-                        <a href="./articles/App_Making_3.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="app-development,projects" style="--d: .85s">
+          <div class="article-icon">📱</div>
+          <div class="article-header">
+            <h3 class="article-title">The process of me making an app 3</h3>
+            <div class="article-meta">
+              <span class="article-tag">app-development</span>
+              <span class="article-date">Dec 15 2025</span>
+            </div>
+          </div>
+          <p class="article-description">This article is the third part of <a href="./articles/App_Making.html">The
+              process of me making an app.</a> In this article, I continue to improve the app after it went live on the
+            App Store, including fixing UI issues and adding photo upload features.</p>
+          <a href="./articles/App_Making_3.html" class="article-button">Read Article →</a>
+        </article>
 
-                      <article class="article-card reveal" data-category="app-development,projects" style="--d: .95s">
-                        <div class="article-icon">📱</div>
-                        <div class="article-header">
-                          <h3 class="article-title">The process of me making an app 4</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">app-development</span>
-                            <span class="article-date">Dec 17 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">This article is the fourth part of <a href="./articles/App_Making.html">The process of me making an app.</a> In this article, I discuss how I implemented code obfuscation and compression to protect my source code and optimize app performance.</p>
-                        <a href="./articles/App_Making_4.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="app-development,projects" style="--d: .95s">
+          <div class="article-icon">📱</div>
+          <div class="article-header">
+            <h3 class="article-title">The process of me making an app 4</h3>
+            <div class="article-meta">
+              <span class="article-tag">app-development</span>
+              <span class="article-date">Dec 17 2025</span>
+            </div>
+          </div>
+          <p class="article-description">This article is the fourth part of <a href="./articles/App_Making.html">The
+              process of me making an app.</a> In this article, I discuss how I implemented code obfuscation and
+            compression to protect my source code and optimize app performance.</p>
+          <a href="./articles/App_Making_4.html" class="article-button">Read Article →</a>
+        </article>
 
-                      <article class="article-card reveal" data-category="daily" style="--d: 1.05s">
-                        <div class="article-icon">📚</div>
-                        <div class="article-header">
-                          <h3 class="article-title">TOEFL Learning: A Painful Journey</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">daily</span>
-                            <span class="article-date">Dec 20 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">As a student who transferred from a regular middle school to an international school, English has always been my biggest weakness. This article documents my TOEFL learning journey from scoring 3 on reading in my first attempt to eventually achieving 94, including the setbacks, efforts, and growth along the way.</p>
-                        <a href="./articles/TOEFL_Learning.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="daily" style="--d: 1.05s">
+          <div class="article-icon">📚</div>
+          <div class="article-header">
+            <h3 class="article-title">TOEFL Learning: A Painful Journey</h3>
+            <div class="article-meta">
+              <span class="article-tag">daily</span>
+              <span class="article-date">Dec 20 2025</span>
+            </div>
+          </div>
+          <p class="article-description">As a student who transferred from a regular middle school to an international
+            school, English has always been my biggest weakness. This article documents my TOEFL learning journey from
+            scoring 3 on reading in my first attempt to eventually achieving 94, including the setbacks, efforts, and
+            growth along the way.</p>
+          <a href="./articles/TOEFL_Learning.html" class="article-button">Read Article →</a>
+        </article>
 
-                      <article class="article-card reveal" data-category="daily" style="--d: 1.15s">
-                        <div class="article-icon">🏆</div>
-                        <div class="article-header">
-                          <h3 class="article-title">2025 Youth Challenge competition</h3>
-                          <div class="article-meta">
-                            <span class="article-tag">daily</span>
-                            <span class="article-date">Dec 14 2025</span>
-                          </div>
-                        </div>
-                        <p class="article-description">Our school's education group held a charity competition called the "2050 Future Changemakers Competition." Our "Purple Elf" project participated and won the national championship with a prize of 4000 yuan. This article documents our journey from the preliminary rounds through the school finals to the national finals in Shanghai, including the challenges, improvements, and ultimate victory.</p>
-                        <a href="./articles/2025_Youth_Challenge_competition.html" class="article-button">Read Article →</a>
-                      </article>
+        <article class="article-card reveal" data-category="daily" style="--d: 1.15s">
+          <div class="article-icon">🏆</div>
+          <div class="article-header">
+            <h3 class="article-title">2025 Youth Challenge competition</h3>
+            <div class="article-meta">
+              <span class="article-tag">daily</span>
+              <span class="article-date">Dec 14 2025</span>
+            </div>
+          </div>
+          <p class="article-description">Our school's education group held a charity competition called the "2050 Future
+            Changemakers Competition." Our "Purple Elf" project participated and won the national championship with a
+            prize of 4000 yuan. This article documents our journey from the preliminary rounds through the school finals
+            to the national finals in Shanghai, including the challenges, improvements, and ultimate victory.</p>
+          <a href="./articles/2025_Youth_Challenge_competition.html" class="article-button">Read Article →</a>
+        </article>
 
 
 
 
       </div>
     </section>
-   
+
 
   </main>
 
   <!-- 返回顶部按钮 -->
   <button id="backToTop" class="back-to-top" aria-label="返回顶部">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor"/>
+      <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor" />
     </svg>
   </button>
 
   <script>
     // Scroll reveal (gated)
-    (function(){
+    (function () {
       const enable = window.AppEffects ? window.AppEffects.isEnabled() && !window.AppEffects.isReduced() : true;
-      if(!enable) return;
+      if (!enable) return;
       const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
       }, { threshold: 0.12 });
-      els.forEach(el=>io.observe(el));
+      els.forEach(el => io.observe(el));
     })();
 
     // Button hover glow (rAF-throttled & gated)
-    (function(){
+    (function () {
       const enable = window.AppEffects ? window.AppEffects.isEnabled() : true;
-      if(!enable) return;
+      if (!enable) return;
       let rafId = null, lastEvent = null;
-      function onMove(e){
+      function onMove(e) {
         lastEvent = e;
-        if(rafId) return;
-        rafId = requestAnimationFrame(()=>{
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
           rafId = null; const ex = lastEvent.clientX, ey = lastEvent.clientY;
-          document.querySelectorAll('.article-button').forEach(btn=>{
+          document.querySelectorAll('.article-button').forEach(btn => {
             const rect = btn.getBoundingClientRect();
             const x = (ex - rect.left) / rect.width * 100;
             const y = (ey - rect.top) / rect.height * 100;
-            btn.style.setProperty('--mx', x+'%');
-            btn.style.setProperty('--my', y+'%');
+            btn.style.setProperty('--mx', x + '%');
+            btn.style.setProperty('--my', y + '%');
           });
         });
       }
@@ -977,7 +1155,7 @@
     let activeIndex = -1;
 
     // === Auto statistics for total articles & unique categories ===
-    (function(){
+    (function () {
       // total articles
       const totalArticles = articleCards.length;
       const totalEl = document.getElementById('totalArticlesCount');
@@ -1104,12 +1282,12 @@
     });
 
     // Debounced search
-    (function(){
+    (function () {
       let timer;
       const debounced = (fn, wait) => {
-        return function(...args){
+        return function (...args) {
           clearTimeout(timer);
-          timer = setTimeout(()=>fn.apply(this, args), wait);
+          timer = setTimeout(() => fn.apply(this, args), wait);
         }
       };
       if (searchInput) {
@@ -1155,9 +1333,9 @@
     applyFilter();
 
     // 返回顶部按钮逻辑
-    (function(){
+    (function () {
       const backToTopBtn = document.getElementById('backToTop');
-      if(!backToTopBtn) return;
+      if (!backToTopBtn) return;
 
       // 滚动监听 - 200像素后显示按钮
       function handleScroll() {
