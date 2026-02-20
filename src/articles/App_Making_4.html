@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -27,43 +28,47 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">The process of me making an app 4</h1>
-        <p class="article-date">Feb 06 2026</p>
-        <h2>Category</h2>
-        <nav class="toc">
-          <ul>
-            <li><a href="#code-compression">Compressing Code Files</a></li>
-            <li><a href="#ai-enhancement">Making the AI Assistant More Intelligent</a></li>
-            <li><a href="#software-copyright">My Journey to Getting a Software Copyright</a></li>
-          </ul>
-        </nav>
-        <div class="article-content">
-          <h2 id="code-compression">Compressing Code Files <span class="article-date"
-              style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 17 2025</span></h2>
-          <p>I discovered a serious problem: since my app is developed using H5 with the Capacitor framework, when the
-            app is packaged, the source code is not compiled into binary. Users can directly view the source code when
-            inspecting the package contents. I don't want to open-source this app, so I decided to find a way to prevent
-            users from seeing my original source code. However, JavaScript, being a frontend language, cannot be
-            directly compiled into binary. So I thought of obfuscating my JS files—for example, replacing all variable
-            and function names with simple ones like a, b, and compressing thousands of lines of code into a single
-            line. This not only increases the difficulty for others to understand the code, but also significantly
-            reduces the file size after removing comments and complex naming. It also greatly reduces the time it takes
-            to load the JS code.</p>
 
-          <p>However, I encountered another problem: since there's no way to restore the code to exactly the same state
-            after compression, how do I recover it? My solution was to write a script that automatically moves the
-            current source code to a temporary folder before building, then compresses the files in the main folder.
-            After compression is complete, the build process runs, and after the build is finished, the files from the
-            temporary folder replace the compressed code in the main folder. The main implementation code is:</p>
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">The process of me making an app 4</h1>
+          <p class="article-date">Feb 06 2026</p>
+          <h2>Category</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#code-compression">Compressing Code Files</a></li>
+              <li><a href="#ai-enhancement">Making the AI Assistant More Intelligent</a></li>
+              <li><a href="#software-copyright">My Journey to Getting a Software Copyright</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="code-compression">Compressing Code Files <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 17 2025</span></h2>
+            <p>I discovered a serious problem: since my app is developed using H5 with the Capacitor framework, when the
+              app is packaged, the source code is not compiled into binary. Users can directly view the source code when
+              inspecting the package contents. I don't want to open-source this app, so I decided to find a way to
+              prevent users from seeing my original source code. However, JavaScript, being a frontend language, cannot
+              be directly compiled into binary. So I thought of obfuscating my JS files—for example, replacing all
+              variable and function names with simple ones like a, b, and compressing thousands of lines of code into a
+              single line. This not only increases the difficulty for others to understand the code, but also
+              significantly reduces the file size after removing comments and complex naming. It also greatly reduces
+              the time it takes to load the JS code.</p>
 
-          <pre
-            class="code-block line-numbers"><code class="language-json">"build": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync && npm run restore-backend && npm run restore-assets",
+            <p>However, I encountered another problem: since there's no way to restore the code to exactly the same
+              state after compression, how do I recover it? My solution was to write a script that automatically moves
+              the current source code to a temporary folder before building, then compresses the files in the main
+              folder. After compression is complete, the build process runs, and after the build is finished, the files
+              from the temporary folder replace the compressed code in the main folder. The main implementation code is:
+            </p>
+
+            <pre
+              class="code-block line-numbers"><code class="language-json">"build": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync && npm run restore-backend && npm run restore-assets",
 "build:android": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync android && npm run restore-backend && npm run restore-assets && npx cap build android",
 "build:ios": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync ios && npm run restore-backend && npm run restore-assets && npx cap build ios"</code></pre>
 
-          <p>My logic for JS compression is:</p>
+            <p>My logic for JS compression is:</p>
 
-          <pre class="code-block line-numbers"><code class="language-javascript">const result = await minify(code, {
+            <pre class="code-block line-numbers"><code class="language-javascript">const result = await minify(code, {
       compress: {
         drop_console: false,
         drop_debugger: true,
@@ -81,90 +86,199 @@
       sourceMap: false,
     });</code></pre>
 
-          <p>Additionally, besides JS, I also applied similar obfuscation principles to HTML and CSS.</p>
+            <p>Additionally, besides JS, I also applied similar obfuscation principles to HTML and CSS.</p>
 
-          <p>Now, while I can't say my app is impossible to crack (even compiled binaries can be reverse-engineered), I
-            have significantly increased the difficulty for others to view my source code. Moreover, this also optimized
-            the code execution speed.</p>
+            <p>Now, while I can't say my app is impossible to crack (even compiled binaries can be reverse-engineered),
+              I have significantly increased the difficulty for others to view my source code. Moreover, this also
+              optimized the code execution speed.</p>
 
-          <h2 id="ai-enhancement">Making the AI Assistant More Intelligent <span class="article-date"
-              style="font-size: 0.6em; font-weight: normal; color: #888;">Jan 11 2026</span></h2>
+            <h2 id="ai-enhancement">Making the AI Assistant More Intelligent <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Jan 11 2026</span></h2>
 
-          <p>Recently, I discovered that the AI module in my app was a bit "low-intelligence." It didn't know today's
-            date, so it couldn't answer questions like "Did I check in today?" Its understanding of context was also
-            poor—it would often forget what was said earlier in the conversation. Additionally, since I was using
-            DeepSeek's regular model (which lacks reasoning capabilities), some of its suggestions weren't accurate
-            enough.</p>
+            <p>Recently, I discovered that the AI module in my app was a bit "low-intelligence." It didn't know today's
+              date, so it couldn't answer questions like "Did I check in today?" Its understanding of context was also
+              poor—it would often forget what was said earlier in the conversation. Additionally, since I was using
+              DeepSeek's regular model (which lacks reasoning capabilities), some of its suggestions weren't accurate
+              enough.</p>
 
-          <p>The first problem was relatively easy to solve. I directly added the current date dynamically to the system
-            prompt, such as "Today is 2026-01-11," so the AI would no longer be "time-blind." I also included
-            instructions in the prompt on how to respond when users ask questions like "Did I check in today?"—it should
-            check the database records and answer accordingly.</p>
+            <p>The first problem was relatively easy to solve. I directly added the current date dynamically to the
+              system prompt, such as "Today is 2026-01-11," so the AI would no longer be "time-blind." I also included
+              instructions in the prompt on how to respond when users ask questions like "Did I check in today?"—it
+              should check the database records and answer accordingly.</p>
 
-          <p>The second problem initially puzzled me. I had already designed a context management system for the AI:
-            each user had a session stored in the server's runtime memory, and each request would concatenate the entire
-            session into the prompt sent to the AI. This mechanism should have worked, but in practice, it was very
-            unstable. Sometimes the AI wouldn't remember anything, sometimes it would remember the previous sentence but
-            forget the next one—it seemed like the model was randomly "amnesiac."</p>
+            <p>The second problem initially puzzled me. I had already designed a context management system for the AI:
+              each user had a session stored in the server's runtime memory, and each request would concatenate the
+              entire session into the prompt sent to the AI. This mechanism should have worked, but in practice, it was
+              very unstable. Sometimes the AI wouldn't remember anything, sometimes it would remember the previous
+              sentence but forget the next one—it seemed like the model was randomly "amnesiac."</p>
 
-          <p>Later, I added logging to the backend to print out the actual prompts sent to the AI each time, and I
-            discovered that the root cause wasn't in the model but on my side. After a few rounds of conversation, the
-            content sent to the AI would only contain the user's current message—all previous dialogue had vanished.
-            Since runtime memory itself is unreliable, I changed my approach: I stored all conversations in the database
-            in JSON format, and retrieved the complete conversation history from the database each time before sending
-            it to the AI. After this change, the context immediately became stable, and the AI stopped mysteriously
-            forgetting what was said before.</p>
+            <p>Later, I added logging to the backend to print out the actual prompts sent to the AI each time, and I
+              discovered that the root cause wasn't in the model but on my side. After a few rounds of conversation, the
+              content sent to the AI would only contain the user's current message—all previous dialogue had vanished.
+              Since runtime memory itself is unreliable, I changed my approach: I stored all conversations in the
+              database in JSON format, and retrieved the complete conversation history from the database each time
+              before sending it to the AI. After this change, the context immediately became stable, and the AI stopped
+              mysteriously forgetting what was said before.</p>
 
-          <p>Since conversations were now stored in the database, I naturally added another feature: allowing users to
-            review their conversation history. I added userId and timestamp fields to the table, along with indexes, so
-            queries by user and time would be efficient. The feature came together naturally.</p>
+            <p>Since conversations were now stored in the database, I naturally added another feature: allowing users to
+              review their conversation history. I added userId and timestamp fields to the table, along with indexes,
+              so queries by user and time would be efficient. The feature came together naturally.</p>
 
-          <p>As for the last problem, I checked DeepSeek's API documentation and found that it also offers a Reasoner
-            model. This model is significantly stronger in logical analysis and complex problems, so I tried integrating
-            it. However, I quickly discovered that while the Reasoner is smarter, its response speed is noticeably
-            slower, making it unsuitable for all scenarios. So I added a toggle in the interface, allowing users to
-            choose between the regular model and the Reasoner model: use the regular model for speed, switch to Reasoner
-            for more rigorous analysis.</p>
+            <p>As for the last problem, I checked DeepSeek's API documentation and found that it also offers a Reasoner
+              model. This model is significantly stronger in logical analysis and complex problems, so I tried
+              integrating it. However, I quickly discovered that while the Reasoner is smarter, its response speed is
+              noticeably slower, making it unsuitable for all scenarios. So I added a toggle in the interface, allowing
+              users to choose between the regular model and the Reasoner model: use the regular model for speed, switch
+              to Reasoner for more rigorous analysis.</p>
 
-          <p>Now, this AI module not only knows what date it is and won't randomly forget things, but it also has an
-            optional "thinking brain."</p>
+            <p>Now, this AI module not only knows what date it is and won't randomly forget things, but it also has an
+              optional "thinking brain."</p>
 
-          <h2 id="software-copyright">My Journey to Getting a Software Copyright <span class="article-date"
-              style="font-size: 0.6em; font-weight: normal; color: #888;">Feb 06 2026</span></h2>
+            <h2 id="software-copyright">My Journey to Getting a Software Copyright <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Feb 06 2026</span></h2>
 
-          <p>As my 18th birthday approaches, I can finally publish my independently developed app to Android app stores
-            under my own name! During my research on the publishing process, I ran into an unavoidable hurdle for the
-            domestic market: the "Software Copyright" (Computer Software Copyright of the PRC). It acts as a "passport"
-            for app listings and provides legal protection for my code.</p>
+            <p>As my 18th birthday approaches, I can finally publish my independently developed app to Android app
+              stores under my own name! During my research on the publishing process, I ran into an unavoidable hurdle
+              for the domestic market: the "Software Copyright" (Computer Software Copyright of the PRC). It acts as a
+              "passport" for app listings and provides legal protection for my code.</p>
 
-          <p>Applying for it mainly requires two core documents: a source code document and a software manual. Thanks to
-            an open-source tool on GitHub, I quickly knocked out the code document. As for the manual, wanting to take a
-            shortcut, I handed it straight over to AI. It quickly spat out a Markdown guide, which I casually exported
-            to a PDF and submitted with full confidence.</p>
+            <p>Applying for it mainly requires two core documents: a source code document and a software manual. Thanks
+              to an open-source tool on GitHub, I quickly knocked out the code document. As for the manual, wanting to
+              take a shortcut, I handed it straight over to AI. It quickly spat out a Markdown guide, which I casually
+              exported to a PDF and submitted with full confidence.</p>
 
-          <p>However, reality gave me a quick reality check:</p>
+            <p>However, reality gave me a quick reality check:</p>
 
-          <p><strong>First Correction Request (About a month later):</strong> I received a notice to "amend materials."
-            The reason? The manual had to be in a portrait orientation and include real screenshots with text
-            descriptions. I had no choice but to redo it. I learned my lesson this time: I let AI generate the base
-            text, manually copied it into Word, diligently inserted actual screenshots of my app in action, formatted
-            everything nicely, and resubmitted.</p>
+            <p><strong>First Correction Request (About a month later):</strong> I received a notice to "amend
+              materials." The reason? The manual had to be in a portrait orientation and include real screenshots with
+              text descriptions. I had no choice but to redo it. I learned my lesson this time: I let AI generate the
+              base text, manually copied it into Word, diligently inserted actual screenshots of my app in action,
+              formatted everything nicely, and resubmitted.</p>
 
-          <p><strong>Second Correction Request (Noon, Dec 12, 2025):</strong> The plot thickened. I noticed my status
-            had reverted to "pending amendment." I braced myself for a major issue, but it turned out to be a minor
-            naming technicality. My app is named "紫癜精灵" (Note: You can change this to the actual English name of
-            your app), but the reviewers required the full name to include the word "Software" at the end. I had to
-            change it to "紫癜精灵软件". No big deal, I fixed it in a flash.</p>
+            <p><strong>Second Correction Request (Noon, Dec 12, 2025):</strong> The plot thickened. I noticed my status
+              had reverted to "pending amendment." I braced myself for a major issue, but it turned out to be a minor
+              naming technicality. My app is named "紫癜精灵" (Note: You can change this to the actual English name of your
+              app), but the reviewers required the full name to include the word "Software" at the end. I had to change
+              it to "紫癜精灵软件". No big deal, I fixed it in a flash.</p>
 
-          <p><strong>Progress Update (Afternoon, Jan 9, 2026):</strong> The status finally changed to "Under Review"! In
-            the world of software copyright applications, reaching this stage means your materials are essentially good
-            to go and won't be easily rejected. All that was left was to patiently wait.</p>
+            <p><strong>Progress Update (Afternoon, Jan 9, 2026):</strong> The status finally changed to "Under Review"!
+              In the world of software copyright applications, reaching this stage means your materials are essentially
+              good to go and won't be easily rejected. All that was left was to patiently wait.</p>
 
-          <p><strong>Certificate Granted! (Feb 6, 2026):</strong> Mission accomplished! My software copyright was
-            officially issued! From starting preparations in October 2025 to finally holding the certificate, this
-            three-and-a-half-month "tug-of-war" has come to a perfect end. Next stop: conquering the domestic app
-            stores! You can click <a href="../../share/Copyright Document.pdf" target="_blank">here </a>to see the
-            certificate.</p>
+            <p><strong>Certificate Granted! (Feb 6, 2026):</strong> Mission accomplished! My software copyright was
+              officially issued! From starting preparations in October 2025 to finally holding the certificate, this
+              three-and-a-half-month "tug-of-war" has come to a perfect end. Next stop: conquering the domestic app
+              stores! You can click <a href="../../share/Copyright Document.pdf" target="_blank">here </a>to see the
+              certificate.</p>
+          </div>
+        </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">我做App的过程 4</h1>
+          <p class="article-date">2026年2月6日</p>
+          <h2>目录</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#code-compression">压缩代码文件</a></li>
+              <li><a href="#ai-enhancement">让AI助手更智能</a></li>
+              <li><a href="#software-copyright">我的软件著作权申请之路</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="code-compression">压缩代码文件 <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2025年12月17日</span></h2>
+            <p>
+              我发现了一个严重的问题：由于我的App是使用H5加Capacitor框架开发的，打包时源代码不会被编译成二进制文件。用户可以直接在查看包内容时看到源代码。我不想开源这个App，所以决定想办法防止用户看到我的原始代码。然而，JavaScript作为前端语言，无法直接编译为二进制。于是我想到了混淆JS文件——比如将所有变量名和函数名替换为简单的a、b，并将数千行代码压缩成一行。这不仅增加了他人理解代码的难度，也在去掉注释和复杂命名后大幅减小了文件体积，同时还大大缩短了JS代码的加载时间。
+            </p>
+
+            <p>
+              但我遇到了另一个问题：压缩后无法恢复到完全相同的代码状态，那怎么恢复呢？我的解决方案是写一个脚本，在构建之前自动将当前源代码移到临时文件夹，然后压缩主文件夹中的文件。压缩完成后执行构建流程，构建结束后再用临时文件夹中的文件替换主文件夹中已压缩的代码。主要实现代码如下：
+            </p>
+
+            <pre
+              class="code-block line-numbers"><code class="language-json">"build": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync && npm run restore-backend && npm run restore-assets",
+"build:android": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync android && npm run restore-backend && npm run restore-assets && npx cap build android",
+"build:ios": "npm run copy-ionicons && npm run exclude-backend && npm run obfuscate-all && npx cap sync ios && npm run restore-backend && npm run restore-assets && npx cap build ios"</code></pre>
+
+            <p>我的JS压缩逻辑如下：</p>
+
+            <pre class="code-block line-numbers"><code class="language-javascript">const result = await minify(code, {
+      compress: {
+        drop_console: false,
+        drop_debugger: true,
+        pure_funcs: [],
+        passes: 2,
+      },
+      mangle: {
+        toplevel: false,
+        properties: false,
+        reserved: ['Capacitor', 'window', 'document', 'navigator'],
+      },
+      format: {
+        comments: false,
+      },
+      sourceMap: false,
+    });</code></pre>
+
+            <p>此外，除了JS，我还对HTML和CSS应用了类似的混淆原则。</p>
+
+            <p>现在，虽然我不能说我的App不可能被破解（即使编译后的二进制文件也可以被逆向工程），但我已经大大增加了他人查看我源代码的难度。而且，这也优化了代码的执行速度。</p>
+
+            <h2 id="ai-enhancement">让AI助手更智能 <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2026年1月11日</span></h2>
+
+            <p>
+              最近，我发现我App中的AI模块有点"低智"。它不知道今天的日期，所以无法回答"我今天打卡了吗？"这样的问题。它对上下文的理解也很差——经常忘记对话中之前说过的内容。此外，由于我使用的是DeepSeek的普通模型（缺乏推理能力），它的一些建议不够准确。
+            </p>
+
+            <p>
+              第一个问题相对容易解决。我直接在系统提示词中动态添加了当前日期，比如"今天是2026-01-11"，这样AI就不会再"时间盲"了。我还在提示词中加入了指导，告诉AI当用户问"我今天打卡了吗？"时应该如何回应——它需要查询数据库记录后作答。
+            </p>
+
+            <p>
+              第二个问题起初让我很困惑。我已经为AI设计了一个上下文管理系统：每个用户都有一个存储在服务器运行时内存中的会话，每次请求都会将整个会话拼接到发送给AI的提示词中。这个机制理论上应该能工作，但实际使用中非常不稳定。有时候AI什么都不记得，有时候记住了上一句却忘了下一句——感觉就像模型在随机"失忆"。
+            </p>
+
+            <p>
+              后来，我在后端添加了日志，打印每次发送给AI的实际提示词内容，才发现根本原因不在模型而在我这边。几轮对话后，发送给AI的内容中只包含用户的当前消息——之前所有的对话都消失了。既然运行时内存本身就不可靠，我改变了方案：将所有对话以JSON格式存储在数据库中，每次发送给AI之前从数据库中获取完整的对话历史。改了之后，上下文立刻就稳定了，AI也不再莫名其妙地忘记之前说过的话了。
+            </p>
+
+            <p>既然对话已经存储到数据库了，我自然就顺便加了另一个功能：允许用户查看历史对话记录。我在表中添加了userId和timestamp字段以及索引，这样按用户和时间查询就很高效。这个功能水到渠成。</p>
+
+            <p>
+              至于最后一个问题，我查看了DeepSeek的API文档，发现它还提供了Reasoner模型。这个模型在逻辑分析和复杂问题上明显更强，所以我尝试集成了它。但我很快发现，虽然Reasoner更聪明，但响应速度明显更慢，不适合所有场景。于是我在界面上添加了一个切换开关，允许用户在普通模型和Reasoner模型之间选择：追求速度用普通模型，需要更严谨的分析时切换到Reasoner。
+            </p>
+
+            <p>现在，这个AI模块不仅知道今天是几号、不会随机失忆，还拥有了可选的"思考大脑"。</p>
+
+            <h2 id="software-copyright">我的软件著作权申请之路 <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2026年2月6日</span></h2>
+
+            <p>
+              随着18岁生日临近，我终于可以以自己的名义将独立开发的App发布到安卓应用商店了！在研究发布流程的过程中，我遇到了国内市场一个绕不开的门槛：《计算机软件著作权》。它是App上架的"通行证"，也为我的代码提供了法律保护。
+            </p>
+
+            <p>
+              申请主要需要两份核心文件：源代码文档和软件说明书。借助GitHub上的一个开源工具，我快速搞定了代码文档。至于说明书，想走捷径的我直接丢给AI。它很快生成了一份Markdown格式的说明，我随便导出成PDF就满怀信心地提交了。
+            </p>
+
+            <p>然而，现实给了我当头一棒：</p>
+
+            <p>
+              <strong>第一次补正（大约一个月后）：</strong>我收到了"补正材料"的通知。原因？说明书必须是纵向排版，而且要包含真实截图和文字说明。我只好重新做。这次我吸取了教训：让AI生成基础文字，手动复制到Word中，认真插入App实际运行的截图，排版整齐后重新提交。
+            </p>
+
+            <p>
+              <strong>第二次补正（2025年12月12日中午）：</strong>剧情继续。我注意到状态又变回了"待补正"。我做好了面对大问题的心理准备，结果只是一个命名上的小细节。我的App叫"紫癜精灵"，但审核人员要求全称末尾加上"软件"二字，改成"紫癜精灵软件"。小事一桩，我马上改好了。
+            </p>
+
+            <p><strong>进度更新（2026年1月9日下午）：</strong>状态终于变为"审查中"了！在软件著作权申请的世界里，到了这个阶段就说明你的材料基本没问题了，不太容易被驳回。剩下的就是耐心等待了。</p>
+
+            <p>
+              <strong>证书下来了！（2026年2月6日）：</strong>任务完成！我的软件著作权正式颁发了！从2025年10月开始准备到最终拿到证书，这场三个半月的"拉锯战"画上了圆满的句号。下一站：征服国内应用商店！你可以点击<a
+                href="../../share/Copyright Document.pdf" target="_blank">这里</a>查看证书。</p>
+          </div>
         </div>
 
       </article>

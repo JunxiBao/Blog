@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -13,7 +14,7 @@
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
-  
+
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
@@ -27,54 +28,57 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">The process of me making an app 3</h1>
-        <p class="article-date">Dec 15 2025</p>
-        <h2>Category</h2>
-        <nav class="toc">
-          <ul>
-            <li><a href="#popup-ui-fix">Fixing the Popup UI Issue</a></li>
-            <li><a href="#photo-upload">Adding Photo Upload Feature</a></li>
-            <li><a href="#calendar-feature">Adding Calendar Feature for Symptom Visualization</a></li>
-            <li><a href="#photo-storage-optimization">Optimizing Photo Storage Performance</a></li>
-            <li><a href="#time-zone-fix">Fixing Time Zone Issues</a></li>
-            <li><a href="#notification-fix">Fixing Notification Functionality Issues</a></li>
-            <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
-            <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
-            <li><a href="#app-update-check">App Version and Update Check</a></li>
-            <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
-            <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
-            <li><a href="#data-loss-lesson">A Painful Lesson in Data Loss</a></li>
-            <li><a href="#check-in-system">Completing the Check-in System</a></li>
-            <li><a href="#system-theme-switch">System Dark/Light Mode Toggle</a></li>
-            <li><a href="#streak-check-system">Checking User Streak Days</a></li>
-          </ul>
-        </nav>
-        <div class="article-content">
-          <h2 id="popup-ui-fix">Fixing the Popup UI Issue <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 28 2025</span></h2>
-          <p>My app is already live on the App Store, and my main focus now is improving the user experience and fixing some bugs. One issue had been bothering me for a long time: when I added many elements to a page, scrolling up and down became inevitable. But whenever I opened a popup in this state, the entire page would still scroll, which looked really awkward.</p>
-          
-          <p>I once tried disabling scrolling in JavaScript when the popup was open. It worked, but then the popup itself couldn't scroll either. After consulting AI, I finally learned that this was happening because all of my pages were injected into the index using Shadow DOM. The only feasible solution was to place the popup in the main document instead of inside the Shadow DOM.</p>
-          
-          <p>That sounded simple, but it turned out to be a huge task. I had to migrate CSS styles into JavaScript and also refactor parts of the JavaScript architecture. Still, I wasn't afraid—because I had AI. With its help, the changes were completed quickly. A few bugs did show up along the way, but once I pointed them out, AI helped me fix them just as fast.</p>
 
-          <h2 id="photo-upload">Adding Photo Upload Feature <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 28 2025</span></h2>
-          <p>My team suggested adding a photo upload feature to my app, allowing users to submit images such as bleeding spots or medical cases. Initially, I was hesitant due to concerns about limited server storage. However, after checking, I found that only 15% of the 40GB disk space was used, so I decided to implement it.</p>
-          
-          <p>The main challenge was how to store these images. Although MySQL supports storing images, my data is primarily stored in JSON files, making direct storage cumbersome. I came up with a solution: encode the images in Base64 and include them as part of the JSON data. On the frontend, the images are displayed using HTML <code>&lt;img&gt;</code> tags.</p>
-          
-          <p>This approach introduces another issue: Base64-encoded images are roughly 33% larger than regular binary images, which could create transmission problems if the JSON file becomes too large. To address this, I implemented a size limit of 5MB per JSON file in JavaScript, triggering an error if exceeded, and compress each image to around 500KB. This effectively prevents overly large JSON files.</p>
-          
-          <p>Additionally, I integrated Capacitor's camera plugin, allowing the app to directly access the device camera. Finally, I implemented the Base64 decoding logic on the main pages, completing the photo upload and display functionality.</p>
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">The process of me making an app 3</h1>
+          <p class="article-date">Dec 15 2025</p>
+          <h2>Category</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#popup-ui-fix">Fixing the Popup UI Issue</a></li>
+              <li><a href="#photo-upload">Adding Photo Upload Feature</a></li>
+              <li><a href="#calendar-feature">Adding Calendar Feature for Symptom Visualization</a></li>
+              <li><a href="#photo-storage-optimization">Optimizing Photo Storage Performance</a></li>
+              <li><a href="#time-zone-fix">Fixing Time Zone Issues</a></li>
+              <li><a href="#notification-fix">Fixing Notification Functionality Issues</a></li>
+              <li><a href="#icon-accessibility">Improving Icon Accessibility</a></li>
+              <li><a href="#ai-database-analysis">AI Reading Database and Analyzing User Behavior</a></li>
+              <li><a href="#app-update-check">App Version and Update Check</a></li>
+              <li><a href="#icp-filing-challenge">ICP Filing Challenge</a></li>
+              <li><a href="#auto-message-check">Completing Auto Message Update Check</a></li>
+              <li><a href="#data-loss-lesson">A Painful Lesson in Data Loss</a></li>
+              <li><a href="#check-in-system">Completing the Check-in System</a></li>
+              <li><a href="#system-theme-switch">System Dark/Light Mode Toggle</a></li>
+              <li><a href="#streak-check-system">Checking User Streak Days</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="popup-ui-fix">Fixing the Popup UI Issue <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 28 2025</span></h2>
+            <p>My app is already live on the App Store, and my main focus now is improving the user experience and fixing some bugs. One issue had been bothering me for a long time: when I added many elements to a page, scrolling up and down became inevitable. But whenever I opened a popup in this state, the entire page would still scroll, which looked really awkward.</p>
 
-          <h2 id="calendar-feature">Adding Calendar Feature for Symptom Visualization <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 30 2025</span></h2>
-          <p>After some optimization and interface improvements, I needed to implement a new feature. I wanted to create a calendar interface that would allow users to visually see their symptom patterns throughout the month using different colors. The biggest challenge was how to store symptom data and retrieve it efficiently for the calendar page.</p>
-          
-          <p>Initially, I considered using the large JSON files that were saved and uploaded from the metric page. However, I discovered that these files were too large, especially when they contained photo information, making calendar page retrieval extremely slow.</p>
-          
-          <p>I came up with a solution: when saving metric data, I would also add a separate table to the database with a similar structure, but in the JSON file I would only store numeric codes representing symptom conditions. For example, 0 represents no symptoms, 1 = cutaneous purpura, 2 = articular purpura.</p>
-          
-          <p>The database structure I implemented:</p>
-          <pre class="code-block line-numbers"><code class="language-sql">CREATE TABLE IF NOT EXISTS symptom_files (
+            <p>I once tried disabling scrolling in JavaScript when the popup was open. It worked, but then the popup itself couldn't scroll either. After consulting AI, I finally learned that this was happening because all of my pages were injected into the index using Shadow DOM. The only feasible solution was to place the popup in the main document instead of inside the Shadow DOM.</p>
+
+            <p>That sounded simple, but it turned out to be a huge task. I had to migrate CSS styles into JavaScript and also refactor parts of the JavaScript architecture. Still, I wasn't afraid—because I had AI. With its help, the changes were completed quickly. A few bugs did show up along the way, but once I pointed them out, AI helped me fix them just as fast.</p>
+
+            <h2 id="photo-upload">Adding Photo Upload Feature <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 28 2025</span></h2>
+            <p>My team suggested adding a photo upload feature to my app, allowing users to submit images such as bleeding spots or medical cases. Initially, I was hesitant due to concerns about limited server storage. However, after checking, I found that only 15% of the 40GB disk space was used, so I decided to implement it.</p>
+
+            <p>The main challenge was how to store these images. Although MySQL supports storing images, my data is primarily stored in JSON files, making direct storage cumbersome. I came up with a solution: encode the images in Base64 and include them as part of the JSON data. On the frontend, the images are displayed using HTML <code>&lt;img&gt;</code> tags.</p>
+
+            <p>This approach introduces another issue: Base64-encoded images are roughly 33% larger than regular binary images, which could create transmission problems if the JSON file becomes too large. To address this, I implemented a size limit of 5MB per JSON file in JavaScript, triggering an error if exceeded, and compress each image to around 500KB. This effectively prevents overly large JSON files.</p>
+
+            <p>Additionally, I integrated Capacitor's camera plugin, allowing the app to directly access the device camera. Finally, I implemented the Base64 decoding logic on the main pages, completing the photo upload and display functionality.</p>
+
+            <h2 id="calendar-feature">Adding Calendar Feature for Symptom Visualization <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 30 2025</span></h2>
+            <p>After some optimization and interface improvements, I needed to implement a new feature. I wanted to create a calendar interface that would allow users to visually see their symptom patterns throughout the month using different colors. The biggest challenge was how to store symptom data and retrieve it efficiently for the calendar page.</p>
+
+            <p>Initially, I considered using the large JSON files that were saved and uploaded from the metric page. However, I discovered that these files were too large, especially when they contained photo information, making calendar page retrieval extremely slow.</p>
+
+            <p>I came up with a solution: when saving metric data, I would also add a separate table to the database with a similar structure, but in the JSON file I would only store numeric codes representing symptom conditions. For example, 0 represents no symptoms, 1 = cutaneous purpura, 2 = articular purpura.</p>
+
+            <p>The database structure I implemented:</p>
+            <pre class="code-block line-numbers"><code class="language-sql">CREATE TABLE IF NOT EXISTS symptom_files (
     id VARCHAR(64) PRIMARY KEY,           -- Unique identifier
     user_id VARCHAR(128) NULL,            -- User ID
     username VARCHAR(128) NULL,            -- Username
@@ -85,9 +89,9 @@
     INDEX idx_username (username),        -- Username index
     INDEX idx_created_at (created_at)      -- Creation time index
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</code></pre>
-          
-          <p>The JSON structure stored in the <code>content</code> field:</p>
-          <pre class="code-block line-numbers"><code class="language-json">{
+
+            <p>The JSON structure stored in the <code>content</code> field:</p>
+            <pre class="code-block line-numbers"><code class="language-json">{
   "exportInfo": {
     "exportTime": "2024-01-15 14:30:25",
     "recordTime": "2024-01-15 14:30",
@@ -99,13 +103,13 @@
     "symptoms": [1, 2, 3]  // Array of numeric codes
   }
 }</code></pre>
-          
-          <p>In the calendar page, by reading data using user ID and month, users can understand their symptom patterns for that month, and display them with different colors on the calendar. This approach significantly improved performance while maintaining data integrity and providing users with an intuitive way to track their health patterns over time.</p>
 
-          <h2 id="photo-storage-optimization">Optimizing Photo Storage Performance <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 1 2025</span></h2>
-          <p>I discovered that the previous method of storing images through Base64 encoding had serious performance issues. Every time data was read, these massive image files had to be downloaded, causing extremely slow application response times. After careful consideration, I decided to use the file system to store images, saving only the image access links in the database. Taking the diet page as an example, the optimized JSON data structure is as follows:</p>
-          
-          <pre class="code-block line-numbers"><code class="language-json">{
+            <p>In the calendar page, by reading data using user ID and month, users can understand their symptom patterns for that month, and display them with different colors on the calendar. This approach significantly improved performance while maintaining data integrity and providing users with an intuitive way to track their health patterns over time.</p>
+
+            <h2 id="photo-storage-optimization">Optimizing Photo Storage Performance <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 1 2025</span></h2>
+            <p>I discovered that the previous method of storing images through Base64 encoding had serious performance issues. Every time data was read, these massive image files had to be downloaded, causing extremely slow application response times. After careful consideration, I decided to use the file system to store images, saving only the image access links in the database. Taking the diet page as an example, the optimized JSON data structure is as follows:</p>
+
+            <pre class="code-block line-numbers"><code class="language-json">{
   "exportInfo": {
     "exportTime": "2024-01-15 14:30:25",
     "recordTime": "2024-01-15 12:30:00",
@@ -132,14 +136,14 @@
     }
   }
 }</code></pre>
-          
-          <p>The <code>images</code> field now stores URLs to access the images instead of Base64-encoded data. This approach dramatically increased the speed of reading the database, as the application no longer needs to download large image files every time data is accessed. Images are now loaded on-demand, significantly improving the user experience.</p>
 
-          <h2 id="time-zone-fix">Fixing Time Zone Issues <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 2 2025</span></h2>
-          <p>I also discovered another critical issue: the time was consistently inaccurate. After consulting with AI, I learned that the application wasn't using China's timezone. To ensure time accuracy, I implemented a solution using Capacitor's geolocation plugin to read the user's location and determine the timezone based on their geographical position.</p>
-          
-          <p>Here's the code for obtaining the user's location:</p>
-          <pre class="code-block line-numbers"><code class="language-javascript">async _getUserLocation() {
+            <p>The <code>images</code> field now stores URLs to access the images instead of Base64-encoded data. This approach dramatically increased the speed of reading the database, as the application no longer needs to download large image files every time data is accessed. Images are now loaded on-demand, significantly improving the user experience.</p>
+
+            <h2 id="time-zone-fix">Fixing Time Zone Issues <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 2 2025</span></h2>
+            <p>I also discovered another critical issue: the time was consistently inaccurate. After consulting with AI, I learned that the application wasn't using China's timezone. To ensure time accuracy, I implemented a solution using Capacitor's geolocation plugin to read the user's location and determine the timezone based on their geographical position.</p>
+
+            <p>Here's the code for obtaining the user's location:</p>
+            <pre class="code-block line-numbers"><code class="language-javascript">async _getUserLocation() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -162,9 +166,9 @@
         );
     });
 }</code></pre>
-          
-          <p>I then created a mapping table to determine the timezone based on the user's location:</p>
-          <pre class="code-block line-numbers"><code class="language-javascript">const timezoneMap = {
+
+            <p>I then created a mapping table to determine the timezone based on the user's location:</p>
+            <pre class="code-block line-numbers"><code class="language-javascript">const timezoneMap = {
     '-12': 'Pacific/Kwajalein',
     '-11': 'Pacific/Midway',
     // ... other timezones
@@ -172,17 +176,17 @@
     '9': 'Asia/Tokyo',
     // ...
 };</code></pre>
-          
-          <p>This approach effectively resolved the time accuracy issues by automatically detecting the user's timezone and applying the correct time calculations throughout the application. The timezone detection ensures that all timestamps are accurate and consistent with the user's local time.</p>
 
-          <h2 id="notification-fix">Fixing Notification Functionality Issues <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 4 2025</span></h2>
-          <p>Recently, my companion has been constantly reporting issues with the notification functionality. Every time she enters the app, she experiences a bombardment of messages, even when the current time doesn't fall within any scheduled notification time. I've attempted to fix this problem multiple times, but I kept asking AI to figure out the cause on its own. Each time after an update, the problem remained unresolved.</p>
-          
-          <p>I tried to reproduce this issue by AI but was unsuccessful. However, during one conversation when my companion was sending me messages, she revealed a crucial detail: this bug only occurs when reminder items are set to repeat, and it only manifests after several days have passed. This made me realize that the system might be sending messages, but since the app wasn't running, the app thinks the messages haven't been successfully sent. The moment the app opens, it discovers a large number of unsent messages and sends them all at once, regardless of the current time.</p>
-          
-          <p>I thought about it and realized that solving this problem shouldn't be too difficult - I just need to delete outdated messages during the app initialization phase. Here's the code I implemented:</p>
-          
-          <pre class="code-block line-numbers"><code class="language-javascript">function catchUpOverdueReminders() {
+            <p>This approach effectively resolved the time accuracy issues by automatically detecting the user's timezone and applying the correct time calculations throughout the application. The timezone detection ensures that all timestamps are accurate and consistent with the user's local time.</p>
+
+            <h2 id="notification-fix">Fixing Notification Functionality Issues <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 4 2025</span></h2>
+            <p>Recently, my companion has been constantly reporting issues with the notification functionality. Every time she enters the app, she experiences a bombardment of messages, even when the current time doesn't fall within any scheduled notification time. I've attempted to fix this problem multiple times, but I kept asking AI to figure out the cause on its own. Each time after an update, the problem remained unresolved.</p>
+
+            <p>I tried to reproduce this issue by AI but was unsuccessful. However, during one conversation when my companion was sending me messages, she revealed a crucial detail: this bug only occurs when reminder items are set to repeat, and it only manifests after several days have passed. This made me realize that the system might be sending messages, but since the app wasn't running, the app thinks the messages haven't been successfully sent. The moment the app opens, it discovers a large number of unsent messages and sends them all at once, regardless of the current time.</p>
+
+            <p>I thought about it and realized that solving this problem shouldn't be too difficult - I just need to delete outdated messages during the app initialization phase. Here's the code I implemented:</p>
+
+            <pre class="code-block line-numbers"><code class="language-javascript">function catchUpOverdueReminders() {
   // When entering/resuming the page, perform "silent alignment" for overdue reminders:
   // - Don't send notifications
   // - Only advance to the next scheduled time or delete one-time reminders
@@ -234,12 +238,12 @@
     console.warn('⏰ Failed to align overdue reminders:', e);
   }
 }</code></pre>
-          
-          <p>As expected, the problem was successfully fixed. After resolving this issue, I realized that while AI is powerful, it still cannot replace humans at this stage. Some problems still require human intervention to solve.</p>
-          
-          <p>I also discovered another issue: if users set up recurring message sending, the app only calculates the next sending time after opening the app following a completed message send. My solution was to schedule multiple notifications in the system immediately when users set up recurring notifications, and then update the status when they enter the app. Here's the code:</p>
-          
-          <pre class="code-block line-numbers"><code class="language-javascript">function enumerateUpcomingOccurrences(reminder, fromTime, maxDays, perReminderCap) {
+
+            <p>As expected, the problem was successfully fixed. After resolving this issue, I realized that while AI is powerful, it still cannot replace humans at this stage. Some problems still require human intervention to solve.</p>
+
+            <p>I also discovered another issue: if users set up recurring message sending, the app only calculates the next sending time after opening the app following a completed message send. My solution was to schedule multiple notifications in the system immediately when users set up recurring notifications, and then update the status when they enter the app. Here's the code:</p>
+
+            <pre class="code-block line-numbers"><code class="language-javascript">function enumerateUpcomingOccurrences(reminder, fromTime, maxDays, perReminderCap) {
   const occurrences = [];
   if (!(reminder && reminder.dailyCount > 0 && Array.isArray(reminder.dailyTimes) && reminder.dailyTimes.length > 0)) return occurrences;
   const enabledTimes = [...reminder.dailyTimes].filter(Boolean).filter(t => isTimeEnabled(reminder, t)).sort();
@@ -267,34 +271,35 @@
   }
   return occurrences;
 }</code></pre>
-          
-          <p>With these changes, the notification functionality should now be complete and working properly.</p>
 
-          <h2 id="icon-accessibility">Improving Icon Accessibility <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 6 2025</span></h2>
-          <p>I also discovered another issue: the icons in my app were using Google's Material Design icons, which cannot be loaded if users are in China without using a VPN. I replaced these icons with Ionic icons, which can automatically adjust based on whether the user is on iOS or Android, and can be accessed directly in China.</p>
-          
-          <p>This change significantly improved the user experience for Chinese users, ensuring that all icons display correctly regardless of network restrictions. The Ionic icon system also provides better platform-specific iconography, making the app feel more native to each operating system.</p>
+            <p>With these changes, the notification functionality should now be complete and working properly.</p>
 
-          <h2 id="ai-database-analysis">AI Reading Database and Analyzing User Behavior <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 7 2025</span></h2>
-          <p>I developed an AI assistant in my app, but currently it cannot analyze user-submitted data. To differentiate my AI assistant from ordinary web chatbots, I plan to enable it to read user-submitted health-related data, analyze the user's physical condition, and provide recommendations.</p>
-          
-          <p>Initially, my idea was to have the frontend read data from the database and then send it to the AI backend for processing. However, after careful consideration, I realized this approach was very inefficient—since both the backend and database run on the same server, there's no need for the frontend to participate in data transmission and waste additional bandwidth.</p>
-          
-          <p>So I adjusted the architecture: the frontend only sends basic user information (such as userid and username) to the backend; after receiving this information, the backend queries the user's diet, health, and medical record data from the database, integrates it, and then sends it to the large language model for analysis.</p>
-          
-          <p>To save on Token costs, I added an "Enable Data Analysis" button on the frontend. The AI only reads and analyzes user data when users actively enable the analysis feature; if not enabled, the AI behaves like a regular chat mode.</p>
-          
-          <p>After completing the functionality, I began testing but encountered a strange problem: in data analysis mode, whenever I switched pages after a chat ended, the chat history would disappear, and the "AI Data Analysis" button would automatically become inactive. However, strangely, even under these circumstances, the AI could still access my health data.</p>
-          
-          <p>At first, I thought it was a backend bug—perhaps the analysis logic was still being executed even when the analysis feature wasn't activated. But after checking the code, I found this wasn't the case. It wasn't until one time when the AI's response mentioned: "Based on our previous chat content, your health data is..." that I realized what the problem was.</p>
-          
-          <p>It turned out that even though the frontend state was reset after switching pages, it was still part of the same session. The AI's responses continued to be based on previous context for reasoning. To completely solve this problem, I made the AI page create a new sessionID every time it initializes, ensuring that each conversation is independent and no longer affected by previous chat content.</p>
-        <h2 id="app-update-check">App Version and Update Check <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 13 2025</span></h2>
-        <p>I have completed the functionality for the square page, but I suddenly realized an issue: since my app is not published on any Android app store, how can Android users know if their app is the latest version?</p>
+            <h2 id="icon-accessibility">Improving Icon Accessibility <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 6 2025</span></h2>
+            <p>I also discovered another issue: the icons in my app were using Google's Material Design icons, which cannot be loaded if users are in China without using a VPN. I replaced these icons with Ionic icons, which can automatically adjust based on whether the user is on iOS or Android, and can be accessed directly in China.</p>
 
-        <p>My solution is to add a JSON file on the app's website that includes update information for each version. The current JSON file looks like this:</p>
+            <p>This change significantly improved the user experience for Chinese users, ensuring that all icons display correctly regardless of network restrictions. The Ionic icon system also provides better platform-specific iconography, making the app feel more native to each operating system.</p>
 
-        <pre class="code-block line-numbers"><code class="language-json">{
+            <h2 id="ai-database-analysis">AI Reading Database and Analyzing User Behavior <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 7 2025</span></h2>
+            <p>I developed an AI assistant in my app, but currently it cannot analyze user-submitted data. To differentiate my AI assistant from ordinary web chatbots, I plan to enable it to read user-submitted health-related data, analyze the user's physical condition, and provide recommendations.</p>
+
+            <p>Initially, my idea was to have the frontend read data from the database and then send it to the AI backend for processing. However, after careful consideration, I realized this approach was very inefficient—since both the backend and database run on the same server, there's no need for the frontend to participate in data transmission and waste additional bandwidth.</p>
+
+            <p>So I adjusted the architecture: the frontend only sends basic user information (such as userid and username) to the backend; after receiving this information, the backend queries the user's diet, health, and medical record data from the database, integrates it, and then sends it to the large language model for analysis.</p>
+
+            <p>To save on Token costs, I added an "Enable Data Analysis" button on the frontend. The AI only reads and analyzes user data when users actively enable the analysis feature; if not enabled, the AI behaves like a regular chat mode.</p>
+
+            <p>After completing the functionality, I began testing but encountered a strange problem: in data analysis mode, whenever I switched pages after a chat ended, the chat history would disappear, and the "AI Data Analysis" button would automatically become inactive. However, strangely, even under these circumstances, the AI could still access my health data.</p>
+
+            <p>At first, I thought it was a backend bug—perhaps the analysis logic was still being executed even when the analysis feature wasn't activated. But after checking the code, I found this wasn't the case. It wasn't until one time when the AI's response mentioned: "Based on our previous chat content, your health data is..." that I realized what the problem was.</p>
+
+            <p>It turned out that even though the frontend state was reset after switching pages, it was still part of the same session. The AI's responses continued to be based on previous context for reasoning. To completely solve this problem, I made the AI page create a new sessionID every time it initializes, ensuring that each conversation is independent and no longer affected by previous chat content.</p>
+
+            <h2 id="app-update-check">App Version and Update Check <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 13 2025</span></h2>
+            <p>I have completed the functionality for the square page, but I suddenly realized an issue: since my app is not published on any Android app store, how can Android users know if their app is the latest version?</p>
+
+            <p>My solution is to add a JSON file on the app's website that includes update information for each version. The current JSON file looks like this:</p>
+
+            <pre class="code-block line-numbers"><code class="language-json">{
   "app_name": "紫癜精灵",
   "package_name": "com.junxibao.healthapp",
   "versions": [
@@ -316,119 +321,119 @@
   ]
 }</code></pre>
 
-        <p>In the app, I only need to add a version number and compare the local version with the remote version from the JSON file. If the local version is older than the remote version, the app will display the update prompt along with detailed information for each version.</p>
+            <p>In the app, I only need to add a version number and compare the local version with the remote version from the JSON file. If the local version is older than the remote version, the app will display the update prompt along with detailed information for each version.</p>
 
-        <p>Thus, for future updates, I only need to update the app's local version number and modify the server JSON file. The app will then automatically check for updates without relying on any app store.</p>
+            <p>Thus, for future updates, I only need to update the app's local version number and modify the server JSON file. The app will then automatically check for updates without relying on any app store.</p>
 
-        <h2 id="icp-filing-challenge">ICP Filing Challenge <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 19 2025</span></h2>
-        <p>One morning after waking up, my companion told me that users were reporting they couldn't find our app on the App Store. At first, I thought the users had misspelled the name and didn't pay much attention. But upon closer investigation, I discovered that the app was indeed no longer searchable on the Chinese mainland App Store. My first reaction was: could this be a bug on Apple's end? Logically, if an app gets delisted, Apple should send notifications or email reminders, but I hadn't received any messages.</p>
+            <h2 id="icp-filing-challenge">ICP Filing Challenge <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 19 2025</span></h2>
+            <p>One morning after waking up, my companion told me that users were reporting they couldn't find our app on the App Store. At first, I thought the users had misspelled the name and didn't pay much attention. But upon closer investigation, I discovered that the app was indeed no longer searchable on the Chinese mainland App Store. My first reaction was: could this be a bug on Apple's end? Logically, if an app gets delisted, Apple should send notifications or email reminders, but I hadn't received any messages.</p>
 
-        <p>When I continued checking the App Store Connect settings, I noticed a prompt in the "Countries and Regions" section—the Chinese mainland region was not ICP filed. That's when I realized the problem might be related to filing. So I immediately set out to apply for ICP filing for the app.</p>
+            <p>When I continued checking the App Store Connect settings, I noticed a prompt in the "Countries and Regions" section—the Chinese mainland region was not ICP filed. That's when I realized the problem might be related to filing. So I immediately set out to apply for ICP filing for the app.</p>
 
-        <p>The entire filing process wasn't particularly complex since we already had servers and domain names. However, after submitting the materials, we were quickly rejected by Alibaba Cloud's initial review. There were two reasons:</p>
-        <ul>
-          <li>The reviewer believed my app was company-based and required filing under a company name, not as an individual;</li>
-          <li>The system incorrectly identified information from my ID card, showing "incorrect filer identity information."</li>
-        </ul>
+            <p>The entire filing process wasn't particularly complex since we already had servers and domain names. However, after submitting the materials, we were quickly rejected by Alibaba Cloud's initial review. There were two reasons:</p>
+            <ul>
+              <li>The reviewer believed my app was company-based and required filing under a company name, not as an individual;</li>
+              <li>The system incorrectly identified information from my ID card, showing "incorrect filer identity information."</li>
+            </ul>
 
-        <p>Additionally, the reviewer specifically emphasized over the phone that the app must not contain any medical-related content. I could solve the first two problems, but this last requirement left me in a difficult position—after all, our app was specifically designed to serve patients. At that moment, I felt very frustrated and even considered giving up on filing, letting users continue with the beta version, or spending 1,000 yuan to hire Alibaba Cloud's "expert service" to handle it for me.</p>
+            <p>Additionally, the reviewer specifically emphasized over the phone that the app must not contain any medical-related content. I could solve the first two problems, but this last requirement left me in a difficult position—after all, our app was specifically designed to serve patients. At that moment, I felt very frustrated and even considered giving up on filing, letting users continue with the beta version, or spending 1,000 yuan to hire Alibaba Cloud's "expert service" to handle it for me.</p>
 
-        <p>However, holding onto a glimmer of hope, I resubmitted the application. This time, I barely changed anything, just adding a note in the remarks: "This is a personal developer's app that does not contain any medical advice."</p>
+            <p>However, holding onto a glimmer of hope, I resubmitted the application. This time, I barely changed anything, just adding a note in the remarks: "This is a personal developer's app that does not contain any medical advice."</p>
 
-        <p>Unexpectedly, this time it was approved smoothly!</p>
+            <p>Unexpectedly, this time it was approved smoothly!</p>
 
-        <p>At this point, our app could finally be relisted on the Chinese mainland App Store.</p>
-        
-        <h2 id="auto-message-check">Completing Auto Message Update Check <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 31 2025</span></h2>
-        <p>My teammate suggested adding an automatic "message update check" to the app—whenever someone comments on or replies to a user’s post, the system should promptly notify that user.</p>
-        <p>After researching, I found there wasn’t a straightforward plugin in framework Capacitor to handle remote push. iOS requires APNs and Android relies on Firebase—this is a bit heavy for my current stage.</p>
-        <p>So I chose a pragmatic interim approach: instead of push notifications, I implemented an in-app "Message Center" where users can see all messages relevant to them. The system also shows how many new items have appeared since their last visit.</p>
-        <p>The first part was simple—iterate the database for items related to the current user and sort them by time. The second part took a little thought. Later that night, I realized I could store the user’s last-view time in <code>localStorage</code>, and when loading messages, count how many relevant records in the database have timestamps later than that value. That gives me the exact number of new messages.</p>
-        <p>Once the approach was clear, implementation went smoothly and the feature was quickly completed.</p>
-        
-        <h2 id="data-loss-lesson">A Painful Lesson in Data Loss <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Nov 21 2025</span></h2>
-        <p>A long time ago, I renamed my GitHub repository. Recently, for security reasons, I planned to set the repository to private—worried that exposing the source code publicly might lead to someone attacking my server. But here's the problem: once set to private, my server would no longer be able to pull code from GitHub, and since GitHub is mostly blocked by the GFW in China, I also couldn't log into the same account on the server.</p>
-        
-        <p>In desperation, I tried using various GitHub mirror sites, but still couldn't complete account login. Eventually, I had no choice but to compromise: I set the repository back to public and planned to use the githubfast mirror to pull remote code on the server.</p>
-        
-        <p>However, during the switching process, I accidentally wrote the wrong GitHub repository address on the server. When running <code>git pull</code>, the system prompted that the local version and remote version were inconsistent, but I didn't think much of it at the time and directly force-pulled the remote code, which resulted in the local project folder being corrupted. Actually, at this point, the problem wasn't so severe that it couldn't be recovered.</p>
-        
-        <p>What really made things irreversible was that I impulsively used <code>rm -rf</code> to delete the entire folder! If I had immediately used file recovery tools after this step, I might still have been able to recover the data. But I had another moment of impulsiveness and immediately pulled the correct project files from GitHub.</p>
-        
-        <p>Since user data and code were stored in the same folder, and this data wasn't tracked by Git, this data was almost impossible to recover.</p>
-        
-        <p>This incident taught me a very profound lesson. Afterward, I seriously reflected and decided that from now on, I must regularly back up the server to avoid similar tragedies from happening again.</p>
-        
-        <h2 id="check-in-system">Completing the Check-in System <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 1 2025</span></h2>
-        <p>Recently, I discovered a problem with my health tracking app: the user engagement rate is quite low. To be honest, not many people open it daily or record their lives. So I started thinking—how can I make users want to come back every day?</p>
-        
-        <p>Around this time, I was using Duolingo to learn Spanish, and I suddenly realized: why can I stick with it every day?</p>
-        
-        <p>It's simple—it's because of their "streak" system. Every day I see that consecutive day number go up, and there are little animations every day. I really want to keep going and not break the streak.</p>
-        
-        <p>So I thought: why can't my own app have one too?</p>
-        
-        <p>So I started working on it. I added two fields to the users data table:</p>
-        <ul>
-          <li>Current consecutive days</li>
-          <li>Highest consecutive days</li>
-        </ul>
-        
-        <p>Then in the backend's <code>getjson</code> router, every time the frontend uploads data, I check:</p>
-        <ul>
-          <li>"Is this the user's first upload today?"</li>
-          <li>"Should I update the streak count?"</li>
-          <li>"Should I refresh the maximum record?"</li>
-        </ul>
-        
-        <p>Of course, I also display these two numbers directly on the "My" page, so users can see their progress day by day as they keep going.</p>
-        
-        <p>What really got me excited was—I also created a celebration animation system!</p>
-        
-        <p>I referenced Duolingo's style:</p>
-        <ul>
-          <li>1–5 consecutive days: light animation</li>
-          <li>Gradually intensifies after that</li>
-          <li>Every full week: confetti</li>
-          <li>Every 100 days: a big explosion (really satisfying!)</li>
-        </ul>
-        
-        <p>However, I did hit a snag in the middle. At first, the celebration animation wouldn't trigger at all, and I was almost ready to give up. Finally, with AI's help, I discovered—I had written the flow backwards.</p>
-        
-        <p>My original approach was: update database first → then check if it's the first upload today</p>
-        
-        <p>Of course, the check result would always be "you've already checked in today," so the animation would never show.</p>
-        
-        <p>Later, I changed the order to: check first → then update database</p>
-        
-        <p>It worked instantly. The animation triggered smoothly, and the whole experience came alive.</p>
-        
-        <p>Now that the entire feature is working, I feel the app finally has a "persistence vibe" to it, and it feels more like a real companion that accompanies users in their daily lives. If it can make users want to open it and check in every day, just like Duolingo, then I think this feature is a success.</p>
-        
-        <h2 id="system-theme-switch">System Dark/Light Mode Toggle <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 7 2025</span></h2>
-        <p>Actually, I've wanted to implement a theme switching feature in my app for a long time, allowing users to quickly switch between dark mode, light mode, or follow the system settings. I thought it would be simple—after all, my CSS already uses <code>@media</code> queries for dark/light mode logic, so I could just call that directly, right?</p>
-        
-        <p>But when I actually tried to implement it, I discovered that to achieve independent theme switching within the app, you actually need to rely on "forced theme overrides" in CSS. In other words, you have to write your own logic to forcibly switch all element colors. This process was really too difficult for me as a frontend beginner. I tried several times, and each attempt ended in failure. Even with AI's help, it didn't work—either the entire color scheme got messed up, or some components couldn't properly adapt to the theme.</p>
-        
-        <p>After struggling for a while, I suddenly thought of an approach: since the difficulty lies in forcibly overriding colors, why not let the app's native layer directly switch dark mode? As long as the native layer switches the theme, the elements in my app will naturally follow the dark mode logic I wrote in <code>@media</code> queries—problem solved!</p>
-        
-        <p>I searched through Capacitor plugins but couldn't find one that worked directly, so I decided to write my own plugin. The iOS side went very smoothly—I just bridged the <code>UIWindow.overrideUserInterfaceStyle</code> API, and the theme switching was perfectly implemented.</p>
-        
-        <p>But when I got to the Android side, I discovered there was no corresponding API to call. I tried many approaches, but they all failed. I had no choice but to compromise:</p>
-        
-        <p>In the settings, I only show the dark/light mode toggle for iOS. Android and web versions don't display this option.</p>
-        
-        <h2 id="streak-check-system">Checking User Streak Days <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 11 2025</span></h2>
-        <p>When implementing the user streak day counting feature, the key challenge was how to reliably determine whether a user had completed their check-in on the previous day. Initially, my approach was to have the frontend initiate a request when users opened the app's homepage (index page) to check if they had checked in yesterday; if not, the backend interface would reset <code>current_streak</code> to 0.</p>
-        
-        <p>However, this approach exposed several reliability issues in practice: First, the determination logic depended on when users launched the app. If a network interruption occurred at the moment of launch, the check would be skipped. Second, if users didn't open the app for a long time, the server would have no way of knowing that the user had broken their streak, causing the streak count to fail to reset in time, which affected the accuracy of features like leaderboards that depend on real-time data.</p>
-        
-        <p>Based on these limitations, I decided to migrate the "streak break determination" from the client side to the server side, with the server executing a unified check task at 0:00 every day: the system would iterate through all users, determine whether they had submitted check-in records the previous day, and if not, set that user's <code>current_streak</code> to 0. To implement this mechanism, I used APScheduler as the scheduled task scheduling framework (<code>pip install APScheduler</code>) and improved the database operation logic.</p>
-        
-        <p>At the same time, since the production environment uses Gunicorn to deploy the backend, to avoid multiple workers triggering scheduled tasks simultaneously and causing duplicate execution, I introduced a file lock mechanism in the task execution flow to ensure that scheduled tasks are executed by only one process at any given moment, thereby guaranteeing data consistency and thread safety.</p>
-        
-        <p>Core code:</p>
-        <pre class="code-block line-numbers"><code class="language-python">def _check_user_has_submission_for_date(user_id, target_date, conn):
+            <p>At this point, our app could finally be relisted on the Chinese mainland App Store.</p>
+
+            <h2 id="auto-message-check">Completing Auto Message Update Check <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Oct 31 2025</span></h2>
+            <p>My teammate suggested adding an automatic "message update check" to the app—whenever someone comments on or replies to a user's post, the system should promptly notify that user.</p>
+            <p>After researching, I found there wasn't a straightforward plugin in framework Capacitor to handle remote push. iOS requires APNs and Android relies on Firebase—this is a bit heavy for my current stage.</p>
+            <p>So I chose a pragmatic interim approach: instead of push notifications, I implemented an in-app "Message Center" where users can see all messages relevant to them. The system also shows how many new items have appeared since their last visit.</p>
+            <p>The first part was simple—iterate the database for items related to the current user and sort them by time. The second part took a little thought. Later that night, I realized I could store the user's last-view time in <code>localStorage</code>, and when loading messages, count how many relevant records in the database have timestamps later than that value. That gives me the exact number of new messages.</p>
+            <p>Once the approach was clear, implementation went smoothly and the feature was quickly completed.</p>
+
+            <h2 id="data-loss-lesson">A Painful Lesson in Data Loss <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Nov 21 2025</span></h2>
+            <p>A long time ago, I renamed my GitHub repository. Recently, for security reasons, I planned to set the repository to private—worried that exposing the source code publicly might lead to someone attacking my server. But here's the problem: once set to private, my server would no longer be able to pull code from GitHub, and since GitHub is mostly blocked by the GFW in China, I also couldn't log into the same account on the server.</p>
+
+            <p>In desperation, I tried using various GitHub mirror sites, but still couldn't complete account login. Eventually, I had no choice but to compromise: I set the repository back to public and planned to use the githubfast mirror to pull remote code on the server.</p>
+
+            <p>However, during the switching process, I accidentally wrote the wrong GitHub repository address on the server. When running <code>git pull</code>, the system prompted that the local version and remote version were inconsistent, but I didn't think much of it at the time and directly force-pulled the remote code, which resulted in the local project folder being corrupted. Actually, at this point, the problem wasn't so severe that it couldn't be recovered.</p>
+
+            <p>What really made things irreversible was that I impulsively used <code>rm -rf</code> to delete the entire folder! If I had immediately used file recovery tools after this step, I might still have been able to recover the data. But I had another moment of impulsiveness and immediately pulled the correct project files from GitHub.</p>
+
+            <p>Since user data and code were stored in the same folder, and this data wasn't tracked by Git, this data was almost impossible to recover.</p>
+
+            <p>This incident taught me a very profound lesson. Afterward, I seriously reflected and decided that from now on, I must regularly back up the server to avoid similar tragedies from happening again.</p>
+
+            <h2 id="check-in-system">Completing the Check-in System <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 1 2025</span></h2>
+            <p>Recently, I discovered a problem with my health tracking app: the user engagement rate is quite low. To be honest, not many people open it daily or record their lives. So I started thinking—how can I make users want to come back every day?</p>
+
+            <p>Around this time, I was using Duolingo to learn Spanish, and I suddenly realized: why can I stick with it every day?</p>
+
+            <p>It's simple—it's because of their "streak" system. Every day I see that consecutive day number go up, and there are little animations every day. I really want to keep going and not break the streak.</p>
+
+            <p>So I thought: why can't my own app have one too?</p>
+
+            <p>So I started working on it. I added two fields to the users data table:</p>
+            <ul>
+              <li>Current consecutive days</li>
+              <li>Highest consecutive days</li>
+            </ul>
+
+            <p>Then in the backend's <code>getjson</code> router, every time the frontend uploads data, I check:</p>
+            <ul>
+              <li>"Is this the user's first upload today?"</li>
+              <li>"Should I update the streak count?"</li>
+              <li>"Should I refresh the maximum record?"</li>
+            </ul>
+
+            <p>Of course, I also display these two numbers directly on the "My" page, so users can see their progress day by day as they keep going.</p>
+
+            <p>What really got me excited was—I also created a celebration animation system!</p>
+
+            <p>I referenced Duolingo's style:</p>
+            <ul>
+              <li>1–5 consecutive days: light animation</li>
+              <li>Gradually intensifies after that</li>
+              <li>Every full week: confetti</li>
+              <li>Every 100 days: a big explosion (really satisfying!)</li>
+            </ul>
+
+            <p>However, I did hit a snag in the middle. At first, the celebration animation wouldn't trigger at all, and I was almost ready to give up. Finally, with AI's help, I discovered—I had written the flow backwards.</p>
+
+            <p>My original approach was: update database first → then check if it's the first upload today</p>
+
+            <p>Of course, the check result would always be "you've already checked in today," so the animation would never show.</p>
+
+            <p>Later, I changed the order to: check first → then update database</p>
+
+            <p>It worked instantly. The animation triggered smoothly, and the whole experience came alive.</p>
+
+            <p>Now that the entire feature is working, I feel the app finally has a "persistence vibe" to it, and it feels more like a real companion that accompanies users in their daily lives. If it can make users want to open it and check in every day, just like Duolingo, then I think this feature is a success.</p>
+
+            <h2 id="system-theme-switch">System Dark/Light Mode Toggle <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 7 2025</span></h2>
+            <p>Actually, I've wanted to implement a theme switching feature in my app for a long time, allowing users to quickly switch between dark mode, light mode, or follow the system settings. I thought it would be simple—after all, my CSS already uses <code>@media</code> queries for dark/light mode logic, so I could just call that directly, right?</p>
+
+            <p>But when I actually tried to implement it, I discovered that to achieve independent theme switching within the app, you actually need to rely on "forced theme overrides" in CSS. In other words, you have to write your own logic to forcibly switch all element colors. This process was really too difficult for me as a frontend beginner. I tried several times, and each attempt ended in failure. Even with AI's help, it didn't work—either the entire color scheme got messed up, or some components couldn't properly adapt to the theme.</p>
+
+            <p>After struggling for a while, I suddenly thought of an approach: since the difficulty lies in forcibly overriding colors, why not let the app's native layer directly switch dark mode? As long as the native layer switches the theme, the elements in my app will naturally follow the dark mode logic I wrote in <code>@media</code> queries—problem solved!</p>
+
+            <p>I searched through Capacitor plugins but couldn't find one that worked directly, so I decided to write my own plugin. The iOS side went very smoothly—I just bridged the <code>UIWindow.overrideUserInterfaceStyle</code> API, and the theme switching was perfectly implemented.</p>
+
+            <p>But when I got to the Android side, I discovered there was no corresponding API to call. I tried many approaches, but they all failed. I had no choice but to compromise:</p>
+
+            <p>In the settings, I only show the dark/light mode toggle for iOS. Android and web versions don't display this option.</p>
+
+            <h2 id="streak-check-system">Checking User Streak Days <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Dec 11 2025</span></h2>
+            <p>When implementing the user streak day counting feature, the key challenge was how to reliably determine whether a user had completed their check-in on the previous day. Initially, my approach was to have the frontend initiate a request when users opened the app's homepage (index page) to check if they had checked in yesterday; if not, the backend interface would reset <code>current_streak</code> to 0.</p>
+
+            <p>However, this approach exposed several reliability issues in practice: First, the determination logic depended on when users launched the app. If a network interruption occurred at the moment of launch, the check would be skipped. Second, if users didn't open the app for a long time, the server would have no way of knowing that the user had broken their streak, causing the streak count to fail to reset in time, which affected the accuracy of features like leaderboards that depend on real-time data.</p>
+
+            <p>Based on these limitations, I decided to migrate the "streak break determination" from the client side to the server side, with the server executing a unified check task at 0:00 every day: the system would iterate through all users, determine whether they had submitted check-in records the previous day, and if not, set that user's <code>current_streak</code> to 0. To implement this mechanism, I used APScheduler as the scheduled task scheduling framework (<code>pip install APScheduler</code>) and improved the database operation logic.</p>
+
+            <p>At the same time, since the production environment uses Gunicorn to deploy the backend, to avoid multiple workers triggering scheduled tasks simultaneously and causing duplicate execution, I introduced a file lock mechanism in the task execution flow to ensure that scheduled tasks are executed by only one process at any given moment, thereby guaranteeing data consistency and thread safety.</p>
+
+            <p>Core code:</p>
+            <pre class="code-block line-numbers"><code class="language-python">def _check_user_has_submission_for_date(user_id, target_date, conn):
     cursor = conn.cursor()
     try:
         for table in RECORD_TABLES:  # ['metrics_files', 'diet_files', 'case_files', 'symptom_files']
@@ -457,12 +462,453 @@
             cursor.close()
         except Exception:
             pass</code></pre>
-        
-        <p>Now my app's check-in system should be able to operate perfectly.</p>
-        
-        <p>The process of making the app is not over yet, I will continue to update this passage, thank you. Because this post is already quite long, I will open a separate page for the next post. You can click <a href="./App_Making_4.html">here</a> to view the next article.</p>
+
+            <p>Now my app's check-in system should be able to operate perfectly.</p>
+
+            <p>The process of making the app is not over yet, I will continue to update this passage, thank you. Because this post is already quite long, I will open a separate page for the next post. You can click <a href="./App_Making_4.html">here</a> to view the next article.</p>
+          </div>
         </div>
-        
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">我做App的过程 3</h1>
+          <p class="article-date">2025年12月15日</p>
+          <h2>目录</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#popup-ui-fix">修复弹窗UI问题</a></li>
+              <li><a href="#photo-upload">添加照片上传功能</a></li>
+              <li><a href="#calendar-feature">添加日历功能以可视化症状</a></li>
+              <li><a href="#photo-storage-optimization">优化照片存储性能</a></li>
+              <li><a href="#time-zone-fix">修复时区问题</a></li>
+              <li><a href="#notification-fix">修复通知功能问题</a></li>
+              <li><a href="#icon-accessibility">改善图标可访问性</a></li>
+              <li><a href="#ai-database-analysis">AI读取数据库并分析用户行为</a></li>
+              <li><a href="#app-update-check">App版本和更新检查</a></li>
+              <li><a href="#icp-filing-challenge">ICP备案的挑战</a></li>
+              <li><a href="#auto-message-check">完成消息自动更新检查</a></li>
+              <li><a href="#data-loss-lesson">数据丢失的惨痛教训</a></li>
+              <li><a href="#check-in-system">完成打卡系统</a></li>
+              <li><a href="#system-theme-switch">系统深色/浅色模式切换</a></li>
+              <li><a href="#streak-check-system">检查用户连续天数</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="popup-ui-fix">修复弹窗UI问题 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月28日</span></h2>
+            <p>我的App已经在App Store上线了，现在的主要工作是改善用户体验和修复一些Bug。有一个问题困扰了我很久：当我在一个页面上添加了很多元素，上下滚动就不可避免了。但每当我在这种状态下打开弹窗时，整个页面仍然会滚动，看起来非常别扭。</p>
+
+            <p>我曾经尝试在弹窗打开时用JavaScript禁用滚动，虽然有效，但弹窗本身也无法滚动了。咨询AI后，我终于了解到这是因为我所有的页面都通过Shadow DOM注入到了index中。唯一可行的解决方案是将弹窗放置在主文档中，而不是Shadow DOM内部。</p>
+
+            <p>这听起来很简单，但实际上是一项庞大的工程。我必须将CSS样式迁移到JavaScript中，还要重构部分JavaScript架构。不过我并不害怕——因为我有AI。在它的帮助下，修改很快完成了。过程中确实出现了一些Bug，但一旦我指出来，AI就同样快速地帮我修复了。</p>
+
+            <h2 id="photo-upload">添加照片上传功能 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月28日</span></h2>
+            <p>我的团队建议在App中添加照片上传功能，允许用户提交图片，例如出血点或病历图片。起初，我因为担心服务器存储空间有限而有所顾虑。但检查后发现，40GB磁盘空间只用了15%，于是我决定实现这个功能。</p>
+
+            <p>主要的挑战是如何存储这些图片。虽然MySQL支持存储图片，但我的数据主要存储在JSON文件中，直接存储会很麻烦。我想出了一个解决方案：将图片以Base64编码，作为JSON数据的一部分存储。在前端，图片通过HTML的<code>&lt;img&gt;</code>标签显示。</p>
+
+            <p>这种方法会带来另一个问题：Base64编码的图片比普通二进制图片大约大33%，如果JSON文件过大，可能会造成传输问题。为此，我在JavaScript中实现了每个JSON文件5MB的大小限制，超出则报错，并将每张图片压缩到约500KB。这有效地防止了JSON文件过大。</p>
+
+            <p>此外，我集成了Capacitor的相机插件，允许App直接访问设备相机。最后，我在主页面实现了Base64解码逻辑，完成了照片上传和显示功能。</p>
+
+            <h2 id="calendar-feature">添加日历功能以可视化症状 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月30日</span></h2>
+            <p>经过一些优化和界面改进后，我需要实现一个新功能。我想创建一个日历界面，让用户能够通过不同颜色直观地看到整个月的症状规律。最大的挑战是如何存储症状数据，并在日历页面高效地检索。</p>
+
+            <p>最初，我考虑使用从指标页面保存并上传的大型JSON文件。但我发现这些文件太大了，尤其是包含照片信息时，日历页面的检索会极其缓慢。</p>
+
+            <p>我想到了一个解决方案：在保存指标数据时，同时向数据库添加一个单独的表，结构类似，但JSON文件中只存储代表症状状况的数字代码。例如，0代表无症状，1=皮肤紫癜，2=关节紫癜。</p>
+
+            <p>我实现的数据库结构：</p>
+            <pre class="code-block line-numbers"><code class="language-sql">CREATE TABLE IF NOT EXISTS symptom_files (
+    id VARCHAR(64) PRIMARY KEY,           -- 唯一标识符
+    user_id VARCHAR(128) NULL,            -- 用户ID
+    username VARCHAR(128) NULL,            -- 用户名
+    file_name VARCHAR(255) NOT NULL,      -- 文件名
+    content LONGTEXT NOT NULL,            -- JSON内容（主要数据）
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- 创建时间
+    INDEX idx_user_id (user_id),          -- 用户ID索引
+    INDEX idx_username (username),        -- 用户名索引
+    INDEX idx_created_at (created_at)      -- 创建时间索引
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</code></pre>
+
+            <p><code>content</code>字段中存储的JSON结构：</p>
+            <pre class="code-block line-numbers"><code class="language-json">{
+  "exportInfo": {
+    "exportTime": "2024-01-15 14:30:25",
+    "recordTime": "2024-01-15 14:30",
+    "version": "1.0",
+    "appName": "紫癜精灵",
+    "dataType": "symptom_tracking"
+  },
+  "symptomData": {
+    "symptoms": [1, 2, 3]  // 数字代码数组
+  }
+}</code></pre>
+
+            <p>在日历页面，通过用户ID和月份读取数据，用户可以了解该月的症状规律，并用不同颜色在日历上展示。这种方式在保持数据完整性的同时显著提升了性能，并为用户提供了直观的方式来追踪长期健康规律。</p>
+
+            <h2 id="photo-storage-optimization">优化照片存储性能 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月1日</span></h2>
+            <p>我发现之前通过Base64编码存储图片的方式存在严重的性能问题。每次读取数据时，这些巨大的图片文件都必须被下载，导致应用响应时间极慢。经过仔细考虑，我决定使用文件系统来存储图片，在数据库中只保存图片的访问链接。以饮食页面为例，优化后的JSON数据结构如下：</p>
+
+            <pre class="code-block line-numbers"><code class="language-json">{
+  "exportInfo": {
+    "exportTime": "2024-01-15 14:30:25",
+    "recordTime": "2024-01-15 12:30:00",
+    "version": "1.0",
+    "appName": "紫癜精灵",
+    "dataType": "diet_record"
+  },
+  "dietData": {
+    "meal_1": {
+      "time": "12:30",
+      "food": "米饭、青菜、鸡肉",
+      "mealId": 1,
+      "images": ["https://app.zdelf.cn/uploads/diet_image_123.jpg"],
+      "date": "2024-01-15",
+      "timestamp": "2024-01-15 12:30:00"
+    },
+    "meal_2": {
+      "time": "18:00",
+      "food": "面条、蔬菜汤",
+      "mealId": 2,
+      "images": [],
+      "date": "2024-01-15",
+      "timestamp": "2024-01-15 18:00:00"
+    }
+  }
+}</code></pre>
+
+            <p><code>images</code>字段现在存储的是图片的访问URL，而不是Base64编码的数据。这种方式极大地提高了读取数据库的速度，因为应用不再需要在每次访问数据时下载大型图片文件。图片现在按需加载，显著改善了用户体验。</p>
+
+            <h2 id="time-zone-fix">修复时区问题 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月2日</span></h2>
+            <p>我还发现了另一个关键问题：时间始终不准确。咨询AI后，我得知应用没有使用中国时区。为了确保时间准确，我实现了一个解决方案，使用Capacitor的地理位置插件读取用户位置，并根据地理位置确定时区。</p>
+
+            <p>以下是获取用户位置的代码：</p>
+            <pre class="code-block line-numbers"><code class="language-javascript">async _getUserLocation() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                };
+                resolve(location);
+            },
+            (error) => {
+                console.warn('⚠️ 无法获取用户位置:', error.message);
+                resolve(null);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 300000 // 5分钟缓存
+            }
+        );
+    });
+}</code></pre>
+
+            <p>然后我创建了一个映射表，根据用户位置确定时区：</p>
+            <pre class="code-block line-numbers"><code class="language-javascript">const timezoneMap = {
+    '-12': 'Pacific/Kwajalein',
+    '-11': 'Pacific/Midway',
+    // ... 其他时区
+    '8': 'Asia/Shanghai',  // 中国时区
+    '9': 'Asia/Tokyo',
+    // ...
+};</code></pre>
+
+            <p>这种方式通过自动检测用户时区并在整个应用中应用正确的时间计算，有效解决了时间准确性问题。时区检测确保了所有时间戳都准确，并与用户的本地时间一致。</p>
+
+            <h2 id="notification-fix">修复通知功能问题 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月4日</span></h2>
+            <p>最近，我的同伴一直在反映通知功能有问题。每次进入App，都会遭遇一波消息轰炸，即使当前时间并不在任何预定的通知时间内。我尝试多次修复这个问题，但每次都是让AI自己找原因。每次更新后，问题依然存在。</p>
+
+            <p>我尝试让AI复现这个问题，但没有成功。然而，有一次我的同伴发消息时，透露了一个关键细节：这个Bug只在提醒项目设置为重复时出现，而且只有过了几天之后才会出现。这让我意识到，系统可能已经发送了消息，但由于App没有运行，App认为消息没有成功发送。App一打开，就发现大量未发送的消息，不管当前时间如何，一股脑全发出去了。</p>
+
+            <p>我想了想，意识到解决这个问题应该不太难——我只需要在App初始化阶段删除过期消息就可以了。以下是我实现的代码：</p>
+
+            <pre class="code-block line-numbers"><code class="language-javascript">function catchUpOverdueReminders() {
+  // When entering/resuming the page, perform "silent alignment" for overdue reminders:
+  // - Don't send notifications
+  // - Only advance to the next scheduled time or delete one-time reminders
+  try {
+    const now = new Date();
+    const toDelete = [];
+
+    reminders.forEach((reminder) => {
+      if (!(reminder && reminder.dailyCount > 0 && Array.isArray(reminder.dailyTimes) && reminder.dailyTimes.length > 0)) return;
+
+      // If past the end date, delete directly
+      if (isReminderExpired(reminder, now)) {
+        toDelete.push(reminder.id);
+        return;
+      }
+
+      // One-time (non-repeating): if no remaining time points today, delete; otherwise advance to next time today
+      if (!reminder.repeatInterval || reminder.repeatInterval === 'none') {
+        const nextToday = getNextTimeToday(reminder, now);
+        if (nextToday) {
+          scheduleUiAdvance(reminder.id, nextToday);
+        } else {
+          toDelete.push(reminder.id);
+        }
+        return;
+      }
+
+      // Repeating: calculate the next trigger time from the current moment
+      const baseDateStr = (() => {
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+      })();
+      const nextAt = computeNextTime(reminder, new Date(`${baseDateStr}T00:00:00`), now);
+
+      // If the next time exceeds the end date, delete; otherwise advance UI to nextAt
+      if (!nextAt || isReminderExpired(reminder, nextAt)) {
+        toDelete.push(reminder.id);
+      } else {
+        scheduleUiAdvance(reminder.id, nextAt);
+      }
+    });
+
+    toDelete.forEach((rid) => { try { hardDeleteReminder(rid); } catch (_) { } });
+    if (currentRoot) renderReminders(currentRoot);
+    console.log('⏰ Aligned overdue reminders (silent advance/cleanup).');
+  } catch (e) {
+    console.warn('⏰ Failed to align overdue reminders:', e);
+  }
+}</code></pre>
+
+            <p>果然，问题成功修复了。解决这个问题后，我意识到虽然AI很强大，但在现阶段它仍然无法取代人类。有些问题仍然需要人的介入才能解决。</p>
+
+            <p>我还发现了另一个问题：如果用户设置了循环发送消息，App只在打开后接收到已完成的消息发送时，才计算下一次发送时间。我的解决方案是在用户设置循环通知时，立即在系统中预约多条通知，然后在用户进入App时更新状态。以下是代码：</p>
+
+            <pre class="code-block line-numbers"><code class="language-javascript">function enumerateUpcomingOccurrences(reminder, fromTime, maxDays, perReminderCap) {
+  const occurrences = [];
+  if (!(reminder && reminder.dailyCount > 0 && Array.isArray(reminder.dailyTimes) && reminder.dailyTimes.length > 0)) return occurrences;
+  const enabledTimes = [...reminder.dailyTimes].filter(Boolean).filter(t => isTimeEnabled(reminder, t)).sort();
+  if (enabledTimes.length === 0) return occurrences;
+
+  const now = new Date(fromTime);
+  const startBoundary = reminder.startDate ? new Date(`${reminder.startDate}T00:00:00`) : null;
+  const endBoundary = reminder.endDate ? new Date(`${reminder.endDate}T23:59:59`) : null;
+
+  for (let dayOffset = 0; dayOffset < maxDays; dayOffset++) {
+    const day = new Date(now);
+    day.setHours(0, 0, 0, 0);
+    day.setDate(day.getDate() + dayOffset);
+    if (startBoundary && day < startBoundary) continue;
+    if (endBoundary && day > endBoundary) break;
+
+    const ymd = formatDateYMD(day);
+    for (const t of enabledTimes) {
+      const at = new Date(`${ymd}T${t}:00`);
+      if (at <= now) continue; // Skip past moments
+      if (endBoundary && at > endBoundary) continue;
+      occurrences.push(at);
+      if (occurrences.length >= perReminderCap) return occurrences;
+    }
+  }
+  return occurrences;
+}</code></pre>
+
+            <p>有了这些改动，通知功能现在应该完整且正常运行了。</p>
+
+            <h2 id="icon-accessibility">改善图标可访问性 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月6日</span></h2>
+            <p>我还发现了另一个问题：我的App图标使用的是Google的Material Design图标，在中国没有VPN就无法加载。我将这些图标替换为Ionic图标，它们可以根据用户使用iOS还是Android自动调整，并且可以在中国直接访问。</p>
+
+            <p>这一改动显著改善了中国用户的体验，确保所有图标无论网络限制如何都能正常显示。Ionic图标系统还提供了更好的平台特定图标样式，让App在每个操作系统上感觉更加原生。</p>
+
+            <h2 id="ai-database-analysis">AI读取数据库并分析用户行为 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月7日</span></h2>
+            <p>我在App中开发了一个AI助手，但目前它无法分析用户提交的数据。为了让我的AI助手区别于普通的网页聊天机器人，我计划让它能够读取用户提交的健康相关数据，分析用户的身体状况，并提供建议。</p>
+
+            <p>最初，我的想法是让前端从数据库读取数据，然后发送到AI后端处理。但仔细考虑后，我意识到这种方式非常低效——既然后端和数据库运行在同一台服务器上，就没有必要让前端参与数据传输，浪费额外的带宽。</p>
+
+            <p>于是我调整了架构：前端只向后端发送基本用户信息（如userid和username）；后端收到信息后，从数据库查询用户的饮食、健康和病历数据，整合后再发送给大语言模型进行分析。</p>
+
+            <p>为了节省Token费用，我在前端添加了一个"启用数据分析"按钮。只有用户主动启用分析功能时，AI才会读取并分析用户数据；如果未启用，AI则表现为普通聊天模式。</p>
+
+            <p>完成功能后，我开始测试，却遇到了一个奇怪的问题：在数据分析模式下，每当聊天结束后切换页面，聊天记录就会消失，而且"AI数据分析"按钮会自动变为未激活状态。但奇怪的是，即便如此，AI仍然可以访问我的健康数据。</p>
+
+            <p>起初我以为是后端Bug——也许即使未激活分析功能，分析逻辑仍然在执行。但检查代码后，发现并非如此。直到有一次AI的回复中提到："根据我们之前的聊天内容，您的健康数据……"，我才意识到问题所在。</p>
+
+            <p>原来，虽然切换页面后前端状态被重置了，但仍然是同一个会话。AI的回复仍然基于之前的上下文进行推理。为了彻底解决这个问题，我让AI页面每次初始化时都创建一个新的sessionID，确保每次对话都是独立的，不再受之前聊天内容的影响。</p>
+
+            <h2 id="app-update-check">App版本和更新检查 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月13日</span></h2>
+            <p>我完成了广场页面的功能，但突然意识到一个问题：由于我的App没有在任何安卓应用商店上发布，安卓用户怎么知道他们的App是不是最新版本呢？</p>
+
+            <p>我的解决方案是在App的网站上添加一个包含每个版本更新信息的JSON文件。目前的JSON文件如下：</p>
+
+            <pre class="code-block line-numbers"><code class="language-json">{
+  "app_name": "紫癜精灵",
+  "package_name": "com.junxibao.healthapp",
+  "versions": [
+    {
+      "version": "1.2.5.2",
+      "release_date": "2025-10-9",
+      "changes": [
+        "Fixed an issue when users cropped their avatars"
+      ]
+    },
+    {
+      "version": "1.3.0.0",
+      "release_date": "2025-10-11",
+      "changes": [
+        "Added square page functionality",
+        "Added automatic update check feature"
+      ]
+    }
+  ]
+}</code></pre>
+
+            <p>在App中，我只需要添加版本号，并将本地版本与JSON文件中的远程版本进行比较。如果本地版本比远程版本旧，App就会显示更新提示，并附带每个版本的详细信息。</p>
+
+            <p>这样，对于未来的更新，我只需要更新App的本地版本号并修改服务器上的JSON文件。App就会自动检查更新，而不依赖任何应用商店。</p>
+
+            <h2 id="icp-filing-challenge">ICP备案的挑战 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月19日</span></h2>
+            <p>一天早上醒来，我的同伴告诉我，有用户反映在App Store上找不到我们的App了。起初我以为是用户拼错了名字，没有在意。但仔细调查后，我发现App确实无法在中国大陆的App Store上搜索到了。我第一反应是：这会不会是Apple的Bug？按理说，如果App被下架，Apple应该发送通知或邮件提醒，但我没有收到任何消息。</p>
+
+            <p>当我继续检查App Store Connect的设置时，在"国家和地区"部分发现了一个提示——中国大陆地区未进行ICP备案。这时我意识到问题可能与备案有关。于是我立即着手为App申请ICP备案。</p>
+
+            <p>整个备案流程并不算特别复杂，因为我们已经有了服务器和域名。但提交材料后，很快被阿里云的初审拒绝了。原因有两个：</p>
+            <ul>
+              <li>审核人员认为我的App属于企业性质，需要以公司名义备案，而非个人；</li>
+              <li>系统错误识别了我身份证上的信息，显示"备案人身份信息不正确"。</li>
+            </ul>
+
+            <p>此外，审核人员在电话中特别强调，App中不得含有任何医疗相关内容。前两个问题我可以解决，但最后这个要求让我很为难——毕竟我们的App就是专门为患者设计的。那一刻，我感到非常沮丧，甚至考虑放弃备案，让用户继续使用测试版，或者花1000元雇佣阿里云的"专家服务"来帮我处理。</p>
+
+            <p>然而，抱着一线希望，我重新提交了申请。这次几乎没有改动任何内容，只是在备注中添加了一句话："这是个人开发者的App，不包含任何医疗建议。"</p>
+
+            <p>没想到，这次顺利通过了！</p>
+
+            <p>至此，我们的App终于可以重新在中国大陆的App Store上架了。</p>
+
+            <h2 id="auto-message-check">完成消息自动更新检查 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年10月31日</span></h2>
+            <p>我的团队成员建议在App中添加自动"消息更新检查"——每当有人评论或回复用户的帖子时，系统应及时通知该用户。</p>
+            <p>研究后，我发现在Capacitor框架中没有直接处理远程推送的简便插件。iOS需要APNs，Android需要Firebase——对我现阶段来说有些沉重。</p>
+            <p>于是我选择了一个务实的过渡方案：不使用推送通知，而是实现了一个应用内的"消息中心"，用户可以在这里看到所有与自己相关的消息。系统还会显示自上次访问以来出现了多少条新消息。</p>
+            <p>第一部分很简单——遍历数据库中与当前用户相关的条目并按时间排序。第二部分需要稍微思考一下。当晚，我想到可以将用户的上次查看时间存储在<code>localStorage</code>中，加载消息时，统计数据库中时间戳晚于该值的相关记录数量，这就是新消息的精确数量。</p>
+            <p>思路清晰后，实现进展顺利，功能很快完成了。</p>
+
+            <h2 id="data-loss-lesson">数据丢失的惨痛教训 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年11月21日</span></h2>
+            <p>很久之前，我重命名了我的GitHub仓库。最近，出于安全考虑，我计划将仓库设置为私有——担心将源代码公开可能导致有人攻击我的服务器。但问题是：一旦设为私有，服务器就无法再从GitHub拉取代码了，而且由于GitHub在中国基本被GFW封锁，我也无法在服务器上登录同一账号。</p>
+
+            <p>走投无路之际，我尝试使用各种GitHub镜像站，但仍然无法完成账号登录。最终，我不得不妥协：将仓库重新设置为公开，并计划在服务器上使用githubfast镜像来拉取远程代码。</p>
+
+            <p>然而，在切换过程中，我不小心在服务器上写错了GitHub仓库地址。运行<code>git pull</code>时，系统提示本地版本和远程版本不一致，但我当时没有多想，直接强制拉取了远程代码，导致本地项目文件夹损坏了。其实到这一步，问题还没有严重到无法恢复。</p>
+
+            <p>真正让事情不可挽回的是，我一冲动，用<code>rm -rf</code>删除了整个文件夹！如果在这一步之后立刻使用文件恢复工具，也许还能找回数据。但我又一次冲动，立刻从GitHub拉取了正确的项目文件。</p>
+
+            <p>由于用户数据和代码存储在同一个文件夹中，而这些数据没有被Git追踪，这些数据几乎无法恢复了。</p>
+
+            <p>这次事故给了我一个非常深刻的教训。事后，我认真反思，决定从此必须定期备份服务器，避免类似的悲剧再次发生。</p>
+
+            <h2 id="check-in-system">完成打卡系统 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年12月1日</span></h2>
+            <p>最近，我发现我的健康追踪App有一个问题：用户参与度相当低。说实话，每天主动打开App记录生活的人并不多。于是我开始思考——如何让用户每天都想回来？</p>
+
+            <p>就在这时，我正在用多邻国学西班牙语，突然意识到：为什么我能坚持每天用它？</p>
+
+            <p>很简单——因为它的"连续天数"系统。每天看到那个连续天数不断增加，还有每天的小动画，我真的不想中断，想一直坚持下去。</p>
+
+            <p>于是我想：为什么我自己的App不能也有一个呢？</p>
+
+            <p>于是我开始着手实现。我在用户数据表中添加了两个字段：</p>
+            <ul>
+              <li>当前连续天数</li>
+              <li>最高连续天数</li>
+            </ul>
+
+            <p>然后在后端的<code>getjson</code>路由中，每次前端上传数据时，我都会检查：</p>
+            <ul>
+              <li>"这是用户今天的第一次上传吗？"</li>
+              <li>"应该更新连续天数了吗？"</li>
+              <li>"应该刷新最高纪录了吗？"</li>
+            </ul>
+
+            <p>当然，我也在"我的"页面直接展示这两个数字，让用户在坚持的过程中能一天天地看到自己的进步。</p>
+
+            <p>真正让我兴奋的是——我还创建了一个庆祝动画系统！</p>
+
+            <p>我参考了多邻国的风格：</p>
+            <ul>
+              <li>1–5天：轻动画</li>
+              <li>之后逐渐加强</li>
+              <li>每满一周：彩纸纷飞</li>
+              <li>每满100天：大爆炸（真的超爽！）</li>
+            </ul>
+
+            <p>不过，中间确实卡住了一次。起初，庆祝动画根本不触发，我几乎要放弃了。最后在AI的帮助下发现——我把流程写反了。</p>
+
+            <p>我原来的做法是：先更新数据库 → 再检查是否是今天的第一次上传</p>
+
+            <p>当然，检查结果永远都是"你今天已经打卡了"，动画自然不会出现。</p>
+
+            <p>后来我改成：先检查 → 再更新数据库</p>
+
+            <p>立刻就好了。动画顺利触发，整个体验活了起来。</p>
+
+            <p>现在整个功能都能正常运行了，我感觉App终于有了一种"坚持的氛围"，更像是一个每天陪伴用户生活的真正伙伴。如果它能让用户想每天打开App打卡，就像多邻国一样，那我觉得这个功能就成功了。</p>
+
+            <h2 id="system-theme-switch">系统深色/浅色模式切换 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年12月7日</span></h2>
+            <p>其实，我一直想在App中实现主题切换功能，让用户可以快速在深色模式、浅色模式或跟随系统设置之间切换。我以为会很简单——毕竟我的CSS已经用<code>@media</code>查询处理了深色/浅色模式逻辑，直接调用就行了，对吧？</p>
+
+            <p>但当我真正尝试实现时，才发现要在App内实现独立的主题切换，实际上需要依赖CSS中的"强制主题覆盖"。换句话说，必须自己写逻辑来强制切换所有元素的颜色。这个过程对我这个前端新手来说实在太难了。我尝试了好几次，每次都以失败告终。即使有AI的帮助，也不行——要么整个配色方案乱了，要么某些组件无法正常适配主题。</p>
+
+            <p>挣扎了一阵子后，我突然想到了一个思路：既然难点在于强制覆盖颜色，为什么不让App的原生层直接切换深色模式呢？只要原生层切换了主题，我App中的元素就会自然跟随我在<code>@media</code>查询中写的深色模式逻辑——问题解决！</p>
+
+            <p>我搜索了Capacitor插件，但找不到直接可用的，于是决定自己写一个插件。iOS端进展非常顺利——我只需要桥接<code>UIWindow.overrideUserInterfaceStyle</code> API，主题切换就完美实现了。</p>
+
+            <p>但到了Android端，我发现没有对应的API可以调用。我尝试了很多方法，都失败了。最终只好妥协：</p>
+
+            <p>在设置中，我只为iOS显示深色/浅色模式切换选项。Android和Web版本不显示此选项。</p>
+
+            <h2 id="streak-check-system">检查用户连续天数 <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">2025年12月11日</span></h2>
+            <p>在实现用户连续天数统计功能时，关键挑战是如何可靠地判断用户是否完成了前一天的打卡。最初，我的方案是在用户打开App主页（首页）时，前端发起请求检查昨天是否已打卡；如果没有，后端接口会将<code>current_streak</code>重置为0。</p>
+
+            <p>然而，这种方式在实践中暴露出几个可靠性问题：首先，判断逻辑取决于用户何时启动App。如果在启动的那一刻发生网络中断，检查就会被跳过。其次，如果用户长时间不打开App，服务器就没有办法知道用户已经断开了连续，导致连续天数无法及时重置，影响了排行榜等依赖实时数据的功能的准确性。</p>
+
+            <p>基于这些局限性，我决定将"断开连续判断"从客户端迁移到服务端，由服务器每天0点执行统一的检查任务：系统会遍历所有用户，判断他们昨天是否提交了打卡记录，如果没有，就将该用户的<code>current_streak</code>设置为0。为了实现这个机制，我使用了APScheduler作为定时任务调度框架（<code>pip install APScheduler</code>），并改进了数据库操作逻辑。</p>
+
+            <p>同时，由于生产环境使用Gunicorn部署后端，为了避免多个worker同时触发定时任务导致重复执行，我在任务执行流程中引入了文件锁机制，确保定时任务在任何时刻只由一个进程执行，从而保证数据一致性和线程安全。</p>
+
+            <p>核心代码：</p>
+            <pre class="code-block line-numbers"><code class="language-python">def _check_user_has_submission_for_date(user_id, target_date, conn):
+    cursor = conn.cursor()
+    try:
+        for table in RECORD_TABLES:  # ['metrics_files', 'diet_files', 'case_files', 'symptom_files']
+            try:
+                query = f"""
+                    SELECT COUNT(*) as count
+                    FROM {table}
+                    WHERE user_id = %s AND DATE(created_at) = %s
+                    LIMIT 1
+                """
+                cursor.execute(query, (user_id, target_date))
+                row = cursor.fetchone()
+                if row and row[0] > 0:
+                    return True
+            except mysql_errors.ProgrammingError as e:
+                if e.errno == 1146:  # Table doesn't exist
+                    continue
+                else:
+                    raise
+            except Exception as e:
+                logger.warning("Error checking %s for user %s on %s: %s", table, user_id, target_date, e)
+                continue
+        return False
+    finally:
+        try:
+            cursor.close()
+        except Exception:
+            pass</code></pre>
+
+            <p>现在我App的打卡系统应该可以完美运行了。</p>
+
+            <p>做App的过程还没有结束，我会继续更新这篇文章，谢谢。由于这篇文章已经很长了，下一篇我会另开一页。你可以点击<a href="./App_Making_4.html">这里</a>查看下一篇文章。</p>
+          </div>
+        </div>
+
       </article>
     </div>
   </div>

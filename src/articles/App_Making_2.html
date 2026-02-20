@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -13,7 +14,6 @@
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
-  
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
@@ -27,74 +27,95 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">The process of me making an app 2</h1>
-        <p class="article-date">Aug 18 2025</p>
-        <h2>Category</h2>
-        <nav class="toc">
-          <ul>
-            <li><a href="#flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</a></li>
-            <li><a href="#log">Fix Logging Issues</a></li>
-            <li><a href="#android">Compatible with Android devices</a></li>
-            <li><a href="#capacitor">Adapting to App Store Guidelines with Capacitor</a></li>
-            <li><a href="#reminder">Building a Medication Reminder Feature</a></li>
-            <li><a href="#health-db">Start building the user health database</a></li>
-            <li><a href="#daily-completion">Completing the Daily Page and App Store Submission</a></li>
-            <li><a href="#app-store-approval">Meeting Review Requirements and Successful Launch</a></li>
-          </ul>
-        </nav>
-        <div class="article-content">
-          <h2 id="flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</h2>
-          <p>Recently, I’ve been facing a recurring issue: after running for a while, my backend server becomes unresponsive.
-          Restarting the process temporarily fixes it, but this is a serious problem once the user base grows.
-          
-          One night before going to bed, I opened my app and, once again, the backend was unresponsive. I decided to fix it before
-          sleeping. Since I had no prior experience in this area, I asked ChatGPT for help. It first suggested checking the logs
-          for errors, but I found nothing—no errors, not even records of service calls.
-          
-          Then, I showed AI my app.py file, and it identified the root cause: I was running Flask with its built-in development
-          server (app.run(...)), without configuring Nginx as a reverse proxy. This meant the frontend was directly connecting to
-          port 5000. The development server is single-process and single-threaded, so whenever a slow I/O operation occurred, the
-          only worker thread would get blocked, causing the service to freeze.
-          
-          Although this didn’t immediately solve the issue, I realized I would eventually need a production-ready setup. So, with
-          AI’s help, I replaced my app.py and backend routes to run under Gunicorn, enabling multiple processes and threads. Next,
-          I configured Nginx as a reverse proxy to handle all routes. Finally, I updated my frontend JavaScript requests from
-          https://<domain>:5000/<route> to simply /<route>.
-          After testing, I found that both /readdata and /login responded much faster. As for stability, I’ll continue
-          monitoring it over time.</p>
-          <h2 id="log">Fix Logging Issues</h2>
-          <p>After switching my backend to Gunicorn, stability improved a lot. However, I ran into a development-time issue: inside my route handlers I used <em>print</em> to write logs, and I started the app with this command to redirect all stdout/stderr to a file:</p>
-          <pre class="code-block line-numbers"><code class="language-bash">exec python3 src/backend/app.py &gt; ./log/app.out 2&gt;&amp;1</code></pre>
-          <p>In theory, everything printed should land in <em>app.out</em>, but nothing showed up. A quick search told me this is pretty common. I asked ChatGPT how to log “properly,” and it suggested using Python’s <em>logging</em> library.</p>
-          <p>So at the top of <em>app.py</em> I added:</p>
-          <pre class="code-block line-numbers"><code class="language-python">import logging</code></pre>
-<p>And also, I add:</p>
-<pre class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")</code></pre>
-          <p>With that in place, I can call <em>logger</em> in my route functions and use levels like <em>info</em> and <em>warning</em> to make searching easier. Now, checking logs is much smoother.</p>
-        
-          <h2 id="android">Compatible with Android devices</h2>
-          <p>Today, I successfully adapted my app to the Android system. Since my app is
-          essentially a web page, the adaptation was relatively simple — it only required opening a link through the app. However,
-          as I had never worked with Android development before, the process still felt quite challenging. Compared to Apple’s
-          development, Android involves many more configuration items, which at times left me overwhelmed. Fortunately, with the
-          help of AI, I was able to complete it. But when I tried to add a splash screen, I unexpectedly discovered that Android
-          does not support playing videos with an alpha channel. This means I couldn’t create the same startup animation as on
-          iOS. In the end, I decided to skip the splash animation altogether.</p>
 
-          <h2 id="capacitor">Adapting to App Store Guidelines with Capacitor</h2>
-          <p>Recently, while reviewing Apple’s App Store guidelines, I realized that purely wrapping an H5 web app inside a shell makes it impossible to pass the review. Some native functionalities are required, 
-            such as notifications, widgets, or integrations with Apple Health. Since my current H5 frontend could not achieve this, I started exploring new solutions. That’s when I discovered <strong>Capacitor</strong>,
-             a framework that can package JavaScript-based apps into cross‑platform native applications, while also providing a rich plugin system for interacting with native features. I also learned there is a UI library named <strong>Ionic</strong> 
-              , which automatically adapts to iOS and Android design languages. Initially, I tried migrating my existing UI into Ionic, but the results were unsatisfactory, so I abandoned that path. Instead, I use Capacitor only. 
-             After installation, I could control app behavior directly from the terminal and use plugins like vibration, which worked seamlessly across both iOS and Android. Soon, I added vibration feedback to most buttons, greatly enhancing user immersion. 
-             With this framework, adapting system‑level features and accessing Apple Health data became much more approachable, and I finally felt confident about aligning my app with App Store requirements.</p>
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">The process of me making an app 2</h1>
+          <p class="article-date">Aug 18 2025</p>
+          <h2>Category</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and
+                  Stability</a></li>
+              <li><a href="#log">Fix Logging Issues</a></li>
+              <li><a href="#android">Compatible with Android devices</a></li>
+              <li><a href="#capacitor">Adapting to App Store Guidelines with Capacitor</a></li>
+              <li><a href="#reminder">Building a Medication Reminder Feature</a></li>
+              <li><a href="#health-db">Start building the user health database</a></li>
+              <li><a href="#daily-completion">Completing the Daily Page and App Store Submission</a></li>
+              <li><a href="#app-store-approval">Meeting Review Requirements and Successful Launch</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="flask2Gunicorn">From Flask to Gunicorn + Nginx: Improving Backend Performance and Stability</h2>
+            <p>Recently, I've been facing a recurring issue: after running for a while, my backend server becomes
+              unresponsive. Restarting the process temporarily fixes it, but this is a serious problem once the user
+              base grows. One night before going to bed, I opened my app and, once again, the backend was unresponsive.
+              I decided to fix it before sleeping. Since I had no prior experience in this area, I asked ChatGPT for
+              help. It first suggested checking the logs for errors, but I found nothing—no errors, not even records of
+              service calls. Then, I showed AI my app.py file, and it identified the root cause: I was running Flask
+              with its built-in development server (app.run(...)), without configuring Nginx as a reverse proxy. This
+              meant the frontend was directly connecting to port 5000. The development server is single-process and
+              single-threaded, so whenever a slow I/O operation occurred, the only worker thread would get blocked,
+              causing the service to freeze. Although this didn't immediately solve the issue, I realized I would
+              eventually need a production-ready setup. So, with AI's help, I replaced my app.py and backend routes to
+              run under Gunicorn, enabling multiple processes and threads. Next, I configured Nginx as a reverse proxy
+              to handle all routes. Finally, I updated my frontend JavaScript requests from
+              https://&lt;domain&gt;:5000/&lt;route&gt; to simply /&lt;route&gt;. After testing, I found that both
+              /readdata and /login responded much faster. As for stability, I'll continue monitoring it over time.</p>
 
-          <h2 id="reminder">Building a Medication Reminder Feature</h2>
-          <p>Over the past few days, I updated quite a few features, such as the mood selection interface and the record page. These updates didn’t carry much record‑keeping value; they were mostly about UI tweaks and refining the interaction with AI, which handled them excellently. 
-          After that, I decided to build a <strong>medication reminder feature</strong>. Since it was logically independent and didn’t rely on a database, I thought it would be quick to implement — though it turned out more complex than expected. Capacitor made it easy to support iOS and Android push notifications via plugins, but the web version posed challenges. In the end, I removed the feature on web and guided users to download the app if they needed reminders. 
-          I completed the environment judgment with the following code:</p>
-          <pre
-            class="code-block line-numbers"><code class="language-javascript">function isCapacitorApp() {
+            <h2 id="log">Fix Logging Issues</h2>
+            <p>After switching my backend to Gunicorn, stability improved a lot. However, I ran into a development-time
+              issue: inside my route handlers I used <em>print</em> to write logs, and I started the app with this
+              command to redirect all stdout/stderr to a file:</p>
+            <pre
+              class="code-block line-numbers"><code class="language-bash">exec python3 src/backend/app.py > ./log/app.out 2>&1</code></pre>
+            <p>In theory, everything printed should land in <em>app.out</em>, but nothing showed up. A quick search told
+              me this is pretty common. I asked ChatGPT how to log "properly," and it suggested using Python's
+              <em>logging</em> library.</p>
+            <p>So at the top of <em>app.py</em> I added:</p>
+            <pre class="code-block line-numbers"><code class="language-python">import logging</code></pre>
+            <p>And also, I add:</p>
+            <pre
+              class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")</code></pre>
+            <p>With that in place, I can call <em>logger</em> in my route functions and use levels like <em>info</em>
+              and <em>warning</em> to make searching easier. Now, checking logs is much smoother.</p>
+
+            <h2 id="android">Compatible with Android devices</h2>
+            <p>Today, I successfully adapted my app to the Android system. Since my app is essentially a web page, the
+              adaptation was relatively simple — it only required opening a link through the app. However, as I had
+              never worked with Android development before, the process still felt quite challenging. Compared to
+              Apple's development, Android involves many more configuration items, which at times left me overwhelmed.
+              Fortunately, with the help of AI, I was able to complete it. But when I tried to add a splash screen, I
+              unexpectedly discovered that Android does not support playing videos with an alpha channel. This means I
+              couldn't create the same startup animation as on iOS. In the end, I decided to skip the splash animation
+              altogether.</p>
+
+            <h2 id="capacitor">Adapting to App Store Guidelines with Capacitor</h2>
+            <p>Recently, while reviewing Apple's App Store guidelines, I realized that purely wrapping an H5 web app
+              inside a shell makes it impossible to pass the review. Some native functionalities are required, such as
+              notifications, widgets, or integrations with Apple Health. Since my current H5 frontend could not achieve
+              this, I started exploring new solutions. That's when I discovered <strong>Capacitor</strong>, a framework
+              that can package JavaScript-based apps into cross‑platform native applications, while also providing a
+              rich plugin system for interacting with native features. I also learned there is a UI library named
+              <strong>Ionic</strong>, which automatically adapts to iOS and Android design languages. Initially, I tried
+              migrating my existing UI into Ionic, but the results were unsatisfactory, so I abandoned that path.
+              Instead, I use Capacitor only. After installation, I could control app behavior directly from the terminal
+              and use plugins like vibration, which worked seamlessly across both iOS and Android. Soon, I added
+              vibration feedback to most buttons, greatly enhancing user immersion. With this framework, adapting
+              system‑level features and accessing Apple Health data became much more approachable, and I finally felt
+              confident about aligning my app with App Store requirements.</p>
+
+            <h2 id="reminder">Building a Medication Reminder Feature</h2>
+            <p>Over the past few days, I updated quite a few features, such as the mood selection interface and the
+              record page. These updates didn't carry much record‑keeping value; they were mostly about UI tweaks and
+              refining the interaction with AI, which handled them excellently. After that, I decided to build a
+              <strong>medication reminder feature</strong>. Since it was logically independent and didn't rely on a
+              database, I thought it would be quick to implement — though it turned out more complex than expected.
+              Capacitor made it easy to support iOS and Android push notifications via plugins, but the web version
+              posed challenges. In the end, I removed the feature on web and guided users to download the app if they
+              needed reminders. I completed the environment judgment with the following code:</p>
+            <pre class="code-block line-numbers"><code class="language-javascript">function isCapacitorApp() {
   try {
     // Check if the Capacitor object exists
     if (typeof window.Capacitor === 'undefined') {
@@ -114,18 +135,29 @@
   }
 }
 </code></pre>
-          <p>The basic notification sending worked quickly, but to make it more useful, I added recurring reminders like daily and weekly schedules. While AI generated much of the code, I struggled to understand the overall structure. A bug appeared: switching pages caused duplicate notifications and reminder cards wouldn’t clear. AI failed to fix it despite many attempts, so I dug into the code myself. Eventually I found that reloading <code>index.js</code> triggered the duplicate requests. After I reported this root cause, AI instantly gave a working fix: assigning each reminder a random ID that can only trigger once. 
-          This solved the bug neatly. Later, I polished the feature further with extra options. Through this process I realized that while AI can write code very efficiently, its context limitations prevent it from fully grasping project architecture. A skilled programmer’s role is still crucial — to understand the logic, direct the development, and collaborate with AI for maximum efficiency.</p>
-         <h2 id="health-db">Start building the user health database <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 18 2025</span></h2>
-        <p>After completing a series of functions, I finally encountered the most difficult part I had always thought - storing
-        users' dietary, health status and other information in the database. As I have designed many health-related sections and
-        my knowledge of MySQL is quite limited, I initially intended to store data through table associations, but I felt it was
-        quite challenging. Suddenly, an idea struck me: Why not convert the information filled in by users each time into JSON
-        format and then store it in the database? I thought this was a feasible solution, so I began to put it into practice.
-        Since the data to be stored mainly consists of three parts: diet, health and medical records, I have decided to create
-        separate tables for each part. I created an uploadjson.py file in the back end and created a database table through the
-        following code:</p>
-        <pre class="code-block line-numbers"><code class="language-python">function isCapacitorApp() {
+            <p>The basic notification sending worked quickly, but to make it more useful, I added recurring reminders
+              like daily and weekly schedules. While AI generated much of the code, I struggled to understand the
+              overall structure. A bug appeared: switching pages caused duplicate notifications and reminder cards
+              wouldn't clear. AI failed to fix it despite many attempts, so I dug into the code myself. Eventually I
+              found that reloading <code>index.js</code> triggered the duplicate requests. After I reported this root
+              cause, AI instantly gave a working fix: assigning each reminder a random ID that can only trigger once.
+              This solved the bug neatly. Later, I polished the feature further with extra options. Through this process
+              I realized that while AI can write code very efficiently, its context limitations prevent it from fully
+              grasping project architecture. A skilled programmer's role is still crucial — to understand the logic,
+              direct the development, and collaborate with AI for maximum efficiency.</p>
+
+            <h2 id="health-db">Start building the user health database <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 18 2025</span></h2>
+            <p>After completing a series of functions, I finally encountered the most difficult part I had always
+              thought - storing users' dietary, health status and other information in the database. As I have designed
+              many health-related sections and my knowledge of MySQL is quite limited, I initially intended to store
+              data through table associations, but I felt it was quite challenging. Suddenly, an idea struck me: Why not
+              convert the information filled in by users each time into JSON format and then store it in the database? I
+              thought this was a feasible solution, so I began to put it into practice. Since the data to be stored
+              mainly consists of three parts: diet, health and medical records, I have decided to create separate tables
+              for each part. I created an uploadjson.py file in the back end and created a database table through the
+              following code:</p>
+            <pre class="code-block line-numbers"><code class="language-python">function isCapacitorApp() {
           ddl = f"""
           CREATE TABLE IF NOT EXISTS {table_name} (
           id VARCHAR(64) PRIMARY KEY,
@@ -139,43 +171,188 @@
           INDEX idx_created_at (created_at)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
           """</code></pre>
-          <p>Subsequently, I asked the AI to write the code for JSON conversion in the JavaScript file for me and unified the file
-          naming format. At this point, the entire process is basically completed, and the user's health data can be smoothly
-          stored and managed.</p>
+            <p>Subsequently, I asked the AI to write the code for JSON conversion in the JavaScript file for me and
+              unified the file naming format. At this point, the entire process is basically completed, and the user's
+              health data can be smoothly stored and managed.</p>
 
-          <h2 id="daily-completion">Completing the Daily Page and App Store Submission <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 19 2025</span></h2>
-          <p>Now that I had completed the most challenging part—data storage—I began working on the daily page's information display. 
-          I added the same functionality to the diet logging page and then focused on presenting the data in the daily section. 
-          This part was honestly quite straightforward, similar to the readdata functionality but with added categorization and 
-          JSON data processing capabilities. I completed it quickly.</p>
-          
-          <p>After implementation, I encountered some UI issues, such as the page still being scrollable when modals were open, 
-          which created a strange user experience, and limited vertical scrolling distances. I had AI help fix these problems, 
-          and they were resolved successfully.</p>
-          
-          <p>Looking at the entire project, I felt the functionality was essentially complete, so I decided to try submitting 
-          to the App Store again. I remembered my first App Store submission when I had only completed the page framework 
-          using a shell app approach with no native support or content implementation. Comparing that to the current app, 
-          which now includes native features like messaging and a well-developed database, the improvement was substantial.</p>
-          
-          <p>I asked AI to calculate the probability of approval, and it estimated around 85-90%. I logged into App Store Connect, 
-          filled out the necessary information similar to my previous calendar app submission, and submitted for review. 
-          I'm hoping the review process goes smoothly!</p>
-          
-          <h2 id="app-store-approval">Meeting Review Requirements and Successful Launch <span class="article-date" style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 26 2025</span></h2>
-          <p>As I mentioned earlier, I had uploaded my app to App Store Connect, but unsurprisingly, it was rejected. The first rejection was because I hadn't provided test account credentials for the reviewers. This was relatively easy to fix—I simply added test accounts to the backend database and shared the login information with the reviewers.</p>
-          
-          <p>The second rejection was more concerning. I discovered the rejection notice at 1 AM when I got up to use the bathroom. The reason was a bug in my AI chat feature. The news completely eliminated my drowsiness, and I spent half an hour fixing the issue before resubmitting and finally going back to bed. However, when I woke up, I found it had been rejected again. This time, the reason was that Apple requires AI-generated health information to include citations.</p>
-          
-          <p>This left me feeling somewhat helpless, as my AI model doesn't have internet search capabilities and couldn't find web sources. Following AI's suggestion, I manually found several authoritative websites and implemented a keyword-matching system to determine which citation to display. Users could click the links to open these authoritative sites in their default browser. I submitted again, but it was still rejected.</p>
-          
-          <p>Feeling frustrated, I replied to the Apple reviewer, explaining that my AI model lacks internet search capabilities. I also mentioned that I had already added citations from authoritative websites and included a disclaimer at the end stating that the advice was for reference only and that users should seek medical attention if they feel unwell. Surprisingly, the reviewer immediately approved my app after reading my response.</p>
-          
-          <p>Now, this app is live on the App Store at <a href="https://apps.apple.com/cn/app/%E7%B4%AB%E7%99%9C%E7%B2%BE%E7%81%B5/id6749155721" target="_blank" rel="noopener">here</a>. This experience taught me the importance of clear communication with reviewers and the value of being transparent about technical limitations while still meeting platform requirements.</p>
-          
-          <p>The process of making the app is not over yet, I will continue to update this passage, thank you. Because this post is already quite long, I will open a separate page for the next post. You can click <a href="./App_Making_3.html">here</a> to view the next article.</p>
+            <h2 id="daily-completion">Completing the Daily Page and App Store Submission <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 19 2025</span></h2>
+            <p>Now that I had completed the most challenging part—data storage—I began working on the daily page's
+              information display. I added the same functionality to the diet logging page and then focused on
+              presenting the data in the daily section. This part was honestly quite straightforward, similar to the
+              readdata functionality but with added categorization and JSON data processing capabilities. I completed it
+              quickly.</p>
+            <p>After implementation, I encountered some UI issues, such as the page still being scrollable when modals
+              were open, which created a strange user experience, and limited vertical scrolling distances. I had AI
+              help fix these problems, and they were resolved successfully.</p>
+            <p>Looking at the entire project, I felt the functionality was essentially complete, so I decided to try
+              submitting to the App Store again. I remembered my first App Store submission when I had only completed
+              the page framework using a shell app approach with no native support or content implementation. Comparing
+              that to the current app, which now includes native features like messaging and a well-developed database,
+              the improvement was substantial.</p>
+            <p>I asked AI to calculate the probability of approval, and it estimated around 85-90%. I logged into App
+              Store Connect, filled out the necessary information similar to my previous calendar app submission, and
+              submitted for review. I'm hoping the review process goes smoothly!</p>
+
+            <h2 id="app-store-approval">Meeting Review Requirements and Successful Launch <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">Sep 26 2025</span></h2>
+            <p>As I mentioned earlier, I had uploaded my app to App Store Connect, but unsurprisingly, it was rejected.
+              The first rejection was because I hadn't provided test account credentials for the reviewers. This was
+              relatively easy to fix—I simply added test accounts to the backend database and shared the login
+              information with the reviewers.</p>
+            <p>The second rejection was more concerning. I discovered the rejection notice at 1 AM when I got up to use
+              the bathroom. The reason was a bug in my AI chat feature. The news completely eliminated my drowsiness,
+              and I spent half an hour fixing the issue before resubmitting and finally going back to bed. However, when
+              I woke up, I found it had been rejected again. This time, the reason was that Apple requires AI-generated
+              health information to include citations.</p>
+            <p>This left me feeling somewhat helpless, as my AI model doesn't have internet search capabilities and
+              couldn't find web sources. Following AI's suggestion, I manually found several authoritative websites and
+              implemented a keyword-matching system to determine which citation to display. Users could click the links
+              to open these authoritative sites in their default browser. I submitted again, but it was still rejected.
+            </p>
+            <p>Feeling frustrated, I replied to the Apple reviewer, explaining that my AI model lacks internet search
+              capabilities. I also mentioned that I had already added citations from authoritative websites and included
+              a disclaimer at the end stating that the advice was for reference only and that users should seek medical
+              attention if they feel unwell. Surprisingly, the reviewer immediately approved my app after reading my
+              response.</p>
+            <p>Now, this app is live on the App Store at <a
+                href="https://apps.apple.com/cn/app/%E7%B4%AB%E7%99%9C%E7%B2%BE%E7%81%B5/id6749155721" target="_blank"
+                rel="noopener">here</a>. This experience taught me the importance of clear communication with reviewers
+              and the value of being transparent about technical limitations while still meeting platform requirements.
+            </p>
+            <p>The process of making the app is not over yet, I will continue to update this passage, thank you. Because
+              this post is already quite long, I will open a separate page for the next post. You can click <a
+                href="./App_Making_3.html">here</a> to view the next article.</p>
+          </div>
         </div>
-        
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">我做App的过程 2</h1>
+          <p class="article-date">2025年8月18日</p>
+          <h2>目录</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#flask2Gunicorn">从Flask到Gunicorn + Nginx：提升后端性能和稳定性</a></li>
+              <li><a href="#log">修复日志问题</a></li>
+              <li><a href="#android">兼容安卓设备</a></li>
+              <li><a href="#capacitor">用Capacitor适配App Store指南</a></li>
+              <li><a href="#reminder">构建用药提醒功能</a></li>
+              <li><a href="#health-db">开始构建用户健康数据库</a></li>
+              <li><a href="#daily-completion">完成日常页面并提交App Store</a></li>
+              <li><a href="#app-store-approval">满足审核要求并成功上架</a></li>
+            </ul>
+          </nav>
+          <div class="article-content">
+            <h2 id="flask2Gunicorn">从Flask到Gunicorn + Nginx：提升后端性能和稳定性</h2>
+            <p>
+              最近，我一直面临一个反复出现的问题：后端服务器运行一段时间后就没有响应了。重启进程可以临时修复，但一旦用户量增长，这就是个严重问题。一天晚上睡觉前，我打开App，后端又无响应了。我决定睡前把它修好。由于对这方面没有经验，我向ChatGPT求助。它先建议检查日志查看错误，但我什么都没找到——没有错误，甚至没有服务调用的记录。然后，我给AI看了我的app.py文件，它找出了根本原因：我用的是Flask自带的开发服务器（app.run(...)），没有配置Nginx作为反向代理。这意味着前端直接连接到5000端口。开发服务器是单进程单线程的，所以每当发生慢I/O操作时，唯一的工作线程就会被阻塞，导致服务冻结。虽然这并没有立刻解决问题，但我意识到最终需要一个生产级的部署方案。于是，在AI的帮助下，我将app.py和后端路由改为在Gunicorn下运行，启用了多进程和多线程。接着，我配置了Nginx作为反向代理来处理所有路由。最后，我将前端JavaScript的请求地址从
+              https://&lt;domain&gt;:5000/&lt;route&gt; 改为简单的
+              /&lt;route&gt;。测试后，我发现/readdata和/login的响应都快了很多。至于稳定性，我会继续观察。</p>
+
+            <h2 id="log">修复日志问题</h2>
+            <p>切换到Gunicorn后，稳定性提升了很多。但在开发过程中遇到了一个问题：我在路由处理函数中用<em>print</em>来写日志，启动应用时用以下命令将所有stdout/stderr重定向到文件：</p>
+            <pre
+              class="code-block line-numbers"><code class="language-bash">exec python3 src/backend/app.py > ./log/app.out 2>&1</code></pre>
+            <p>
+              理论上，所有打印的内容都应该写入<em>app.out</em>，但什么都没出现。搜索后发现这是很常见的问题。我问ChatGPT如何"正确地"记录日志，它建议使用Python的<em>logging</em>库。
+            </p>
+            <p>于是我在<em>app.py</em>顶部添加了：</p>
+            <pre class="code-block line-numbers"><code class="language-python">import logging</code></pre>
+            <p>还添加了：</p>
+            <pre
+              class="code-block line-numbers"><code class="language-python">handler = RotatingFileHandler("./log/app.out", maxBytes=5_000_000, backupCount=3, encoding="utf-8")</code></pre>
+            <p>有了这些，我就可以在路由函数中调用<em>logger</em>，使用<em>info</em>和<em>warning</em>等级别来方便搜索。现在检查日志顺畅多了。</p>
+
+            <h2 id="android">兼容安卓设备</h2>
+            <p>
+              今天，我成功地将App适配到了安卓系统。由于我的App本质上是一个网页，适配相对简单——只需要通过App打开一个链接。不过，由于我之前从未做过安卓开发，整个过程还是感觉很有挑战。与苹果的开发相比，安卓涉及更多的配置项，有时让我应接不暇。好在有AI的帮助，我完成了适配。但当我尝试添加启动画面时，意外发现安卓不支持播放带Alpha通道的视频，这意味着我无法实现与iOS相同的启动动画。最终，我决定完全跳过启动动画。
+            </p>
+
+            <h2 id="capacitor">用Capacitor适配App Store指南</h2>
+            <p>最近，在查看Apple App Store的审核指南时，我意识到纯粹将H5 Web应用套壳是不可能通过审核的。需要一些原生功能，比如通知、小组件或与Apple
+              Health的集成。由于我当前的H5前端无法实现这些，我开始寻找新的解决方案。这时我发现了<strong>Capacitor</strong>，一个可以将基于JavaScript的应用打包成跨平台原生应用的框架，同时还提供了丰富的插件系统来与原生功能交互。我还了解到有一个叫<strong>Ionic</strong>的UI库，可以自动适配iOS和安卓的设计语言。一开始我尝试将现有UI迁移到Ionic，但效果不理想，于是放弃了这条路。我只使用Capacitor。安装后，我可以直接通过终端控制App行为，使用振动等插件，在iOS和安卓上都能完美运行。很快，我给大部分按钮添加了振动反馈，极大地提升了用户沉浸感。有了这个框架，适配系统级功能和访问Apple
+              Health数据变得更加可行，我终于对让App符合App Store要求充满了信心。</p>
+
+            <h2 id="reminder">构建用药提醒功能</h2>
+            <p>
+              过去几天，我更新了不少功能，比如心情选择界面和记录页面。这些更新没什么记录价值，主要是UI调整和优化与AI的交互，AI处理得很出色。之后，我决定构建<strong>用药提醒功能</strong>。由于它在逻辑上是独立的，不依赖数据库，我以为会很快完成——但结果比预期复杂得多。Capacitor通过插件可以轻松支持iOS和安卓的推送通知，但Web版本就有挑战了。最终，我在Web上移除了这个功能，引导用户下载App来使用提醒功能。我用以下代码完成了环境判断：
+            </p>
+            <pre class="code-block line-numbers"><code class="language-javascript">function isCapacitorApp() {
+  try {
+    // Check if the Capacitor object exists
+    if (typeof window.Capacitor === 'undefined') {
+      return false;
+    }
+
+    // Check if it is a native platform
+    if (typeof window.Capacitor.isNativePlatform === 'function') {
+      return window.Capacitor.isNativePlatform();
+    }
+
+    // Fallback check: verify the basic structure of the Capacitor object
+    return !!(window.Capacitor && window.Capacitor.Plugins);
+  } catch (error) {
+    console.warn('Error while detecting Capacitor environment:', error);
+    return false;
+  }
+}
+</code></pre>
+            <p>
+              基本的通知发送很快就搞定了，但为了更实用，我添加了每日和每周等定期提醒。虽然AI生成了大部分代码，但我很难理解整体结构。出现了一个Bug：切换页面导致重复通知，提醒卡片也无法清除。AI尝试了多次都没修好，于是我自己深入代码排查。最终我发现重新加载<code>index.js</code>触发了重复请求。当我报告了这个根本原因后，AI立刻给出了有效的修复：为每个提醒分配一个随机ID，让它只能触发一次。这完美解决了Bug。后来，我又添加了额外选项来完善这个功能。通过这个过程，我意识到虽然AI写代码非常高效，但它对上下文的理解有限，无法完全把握项目架构。熟练程序员的角色仍然至关重要——理解逻辑、指导开发方向、与AI协作以实现最高效率。
+            </p>
+
+            <h2 id="health-db">开始构建用户健康数据库 <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月18日</span></h2>
+            <p>
+              完成了一系列功能后，我终于遇到了我一直认为最困难的部分——将用户的饮食、健康状况等信息存储到数据库中。由于我设计了很多健康相关的模块，而我的MySQL知识又相当有限，最初打算通过表关联来存储数据，但觉得很有难度。突然，一个想法闪过：为什么不把用户每次填写的信息转换成JSON格式再存入数据库呢？我觉得这是个可行的方案，于是开始实践。由于需要存储的数据主要包括三部分：饮食、健康和病例记录，我决定为每部分创建单独的表。我在后端创建了uploadjson.py文件，通过以下代码创建了数据库表：
+            </p>
+            <pre class="code-block line-numbers"><code class="language-python">function isCapacitorApp() {
+          ddl = f"""
+          CREATE TABLE IF NOT EXISTS {table_name} (
+          id VARCHAR(64) PRIMARY KEY,
+          user_id VARCHAR(128) NULL,
+          username VARCHAR(128) NULL,
+          file_name VARCHAR(255) NOT NULL,
+          content LONGTEXT NOT NULL,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          INDEX idx_user_id (user_id),
+          INDEX idx_username (username),
+          INDEX idx_created_at (created_at)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          """</code></pre>
+            <p>随后，我让AI帮我写了JavaScript文件中的JSON转换代码，并统一了文件命名格式。到这里，整个流程基本完成了，用户的健康数据可以顺畅地存储和管理。</p>
+
+            <h2 id="daily-completion">完成日常页面并提交App Store <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月19日</span></h2>
+            <p>
+              既然最具挑战性的部分——数据存储——已经完成了，我开始着手日常页面的信息展示。我在饮食记录页面添加了相同的功能，然后专注于在日常模块中展示数据。说实话这部分相当简单，类似于readdata的功能，只是多了分类和JSON数据处理的能力。我很快就完成了。
+            </p>
+            <p>实现之后，我遇到了一些UI问题，比如弹窗打开时页面仍然可以滚动，导致奇怪的用户体验，以及垂直滚动距离受限。我让AI帮忙修复了这些问题，都成功解决了。</p>
+            <p>纵观整个项目，我觉得功能基本完善了，于是决定再次尝试提交到App
+              Store。我还记得第一次提交时，只完成了页面框架，是一个套壳App，没有原生支持也没有内容实现。与现在的App相比——已经包含了消息推送等原生功能和完善的数据库——进步是巨大的。</p>
+            <p>我让AI估算通过审核的概率，它估计大约在85-90%。我登录App Store Connect，填写了必要信息（与之前提交日历App类似），然后提交了审核。希望审核过程一切顺利！</p>
+
+            <h2 id="app-store-approval">满足审核要求并成功上架 <span class="article-date"
+                style="font-size: 0.6em; font-weight: normal; color: #888;">2025年9月26日</span></h2>
+            <p>正如之前提到的，我已经把App上传到了App Store
+              Connect，但不出所料，被拒了。第一次被拒是因为我没有为审核人员提供测试账号。这个比较容易解决——我只需在后端数据库中添加测试账号，并将登录信息分享给审核人员。</p>
+            <p>
+              第二次被拒更让人担心。我在凌晨1点起来上厕所时发现了被拒通知。原因是AI聊天功能的一个Bug。这个消息让我的困意完全消失了，我花了半小时修复问题后重新提交，然后才回去睡觉。但醒来后发现又被拒了。这次的原因是Apple要求AI生成的健康信息必须包含引用来源。
+            </p>
+            <p>
+              这让我感到有些无助，因为我的AI模型没有联网搜索的能力，无法找到网络来源。按照AI的建议，我手动找了几个权威网站，实现了一个关键词匹配系统来决定显示哪个引用来源。用户可以点击链接在默认浏览器中打开这些权威网站。我再次提交，但仍然被拒了。
+            </p>
+            <p>
+              感到沮丧的我回复了Apple审核人员，解释说我的AI模型不具备联网搜索的能力。我还提到我已经添加了权威网站的引用来源，并在末尾加了免责声明，表明建议仅供参考，如果身体不适请就医。出乎意料的是，审核人员在看了我的回复后立刻通过了App。
+            </p>
+            <p>现在，这个App已经在App Store上线了，<a
+                href="https://apps.apple.com/cn/app/%E7%B4%AB%E7%99%9C%E7%B2%BE%E7%81%B5/id6749155721" target="_blank"
+                rel="noopener">点这里</a>查看。这次经历让我认识到与审核人员清晰沟通的重要性，以及在满足平台要求的同时坦诚说明技术限制的价值。</p>
+            <p>做App的过程还没有结束，我会继续更新这篇文章，谢谢。由于这篇文章已经很长了，下一篇我会另开一页。你可以点击<a href="./App_Making_3.html">这里</a>查看下一篇文章。</p>
+          </div>
+        </div>
+
       </article>
     </div>
   </div>

@@ -10,7 +10,7 @@ window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
       location.reload();
     }
-  } catch {}
+  } catch { }
 });
 
 class GeekTheme {
@@ -111,7 +111,7 @@ class GeekTheme {
     const onScroll = () => {
       const scrolled = window.pageYOffset;
       const parallaxElements = document.querySelectorAll('.hero-section, .article-hero');
-      
+
       parallaxElements.forEach(element => {
         const speed = 0.5;
         element.style.transform = `translateY(${scrolled * speed}px)`;
@@ -123,12 +123,12 @@ class GeekTheme {
   // Typing Effects
   setupTypingEffects() {
     const typingElements = document.querySelectorAll('.typing-effect');
-    
+
     typingElements.forEach(element => {
       const text = element.textContent;
       element.textContent = '';
       element.style.borderRight = '2px solid var(--accent-green)';
-      
+
       let i = 0;
       const typeWriter = () => {
         if (i < text.length) {
@@ -139,7 +139,7 @@ class GeekTheme {
           element.style.borderRight = 'none';
         }
       };
-      
+
       // Start typing when element is visible
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -149,7 +149,7 @@ class GeekTheme {
           }
         });
       });
-      
+
       observer.observe(element);
     });
   }
@@ -207,7 +207,7 @@ class GeekTheme {
 
   static throttle(func, limit) {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -281,7 +281,7 @@ class EnhancedNavigation {
   setupActiveLink() {
     const currentPath = window.location.pathname;
     const navLinks = this.navMenu?.querySelectorAll('a');
-    
+
     if (navLinks) {
       navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath.split('/').pop()) {
@@ -312,7 +312,7 @@ class EnhancedCards {
     const cards = document.querySelectorAll('.card, .article-card');
     const skillCards = document.querySelectorAll('.skill-card:not(.reveal)');
     const allCards = [...cards, ...skillCards];
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -348,7 +348,7 @@ class EnhancedButtons {
 
   setupRippleEffect() {
     const buttons = document.querySelectorAll('.btn, .action-btn, .article-button');
-    
+
     buttons.forEach(button => {
       button.addEventListener('click', (e) => {
         const ripple = document.createElement('span');
@@ -378,6 +378,58 @@ class EnhancedButtons {
         }, 600);
       });
     });
+  }
+}
+
+// Language Toggle Button — injected before theme toggle in .nav-content
+class LangToggle {
+  constructor() {
+    this.btn = null;
+    this.init();
+  }
+
+  init() {
+    this.injectButton();
+    this.updateButton();
+    window.addEventListener('langchange', () => this.updateButton());
+  }
+
+  injectButton() {
+    const navContent = document.querySelector('.nav-content');
+    if (!navContent) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'lang-toggle';
+    btn.id = 'langToggle';
+
+    btn.addEventListener('click', () => {
+      if (!window.LangManager) return;
+      window.LangManager.cycle();
+    });
+
+    // Insert before theme toggle if it exists, else before mobile toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (themeToggle) {
+      navContent.insertBefore(btn, themeToggle);
+    } else if (mobileToggle) {
+      navContent.insertBefore(btn, mobileToggle);
+    } else {
+      navContent.appendChild(btn);
+    }
+    this.btn = btn;
+  }
+
+  updateButton() {
+    if (!this.btn) return;
+    const lang = window.LangManager ? window.LangManager.get() : 'en';
+    if (lang === 'zh') {
+      this.btn.textContent = 'EN';
+      this.btn.title = 'Switch to English';
+    } else {
+      this.btn.textContent = '中';
+      this.btn.title = '切换为中文';
+    }
   }
 }
 
@@ -461,7 +513,8 @@ document.addEventListener('DOMContentLoaded', () => {
   new EnhancedCards();
   new EnhancedButtons();
   new ThemeToggle();
-  
+  new LangToggle();
+
   // Back button handler (elements with .back-button)
   document.addEventListener('click', (e) => {
     const backBtn = e.target.closest && e.target.closest('.back-button');
@@ -469,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     try {
       sessionStorage.setItem('forceReload', '1');
-    } catch {}
+    } catch { }
     setTimeout(() => {
       if (history.length > 1) {
         history.back();

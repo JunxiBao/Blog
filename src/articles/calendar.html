@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -21,31 +22,59 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">From Zero to App Store: My First Swift App Made with AI</h1>
+
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">From Zero to App Store: My First Swift App Made with AI</h1>
           <p class="article-date">Aug 27 2025</p>
-        <div class="article-content">
-          <p>For someone who had never touched Apple’s Swift development before, I was amazed to find that—with the help of AI—I
-          could actually build a complete app. Here’s my story.
-          
-          One evening, while walking with my mom, we talked about how many Chinese apps are overloaded with ads. She casually
-          complained that the calendar app she was using was full of them. I was surprised—why not just use Apple’s built-in
-          Calendar? She explained that it didn’t have the features she needed, like public holidays and the traditional Chinese
-          almanac. At that moment, a lightbulb went off: I already had a developer account, so why not just build one myself?
-          
-          So I opened up AI and asked: “Can you write me a Swift calendar app with a beautiful UI that supports dark mode?” Almost
-          instantly, AI generated the code. When I ran it, the interface looked great. Next, I needed to display holidays. Since I
-          had no budget, AI suggested using the free holiday API provided by timor.tech. It not only integrated the API but also
-          added local caching so the app would still work offline.
-          
-          I then asked for a “year view” with color-coded holidays, and AI delivered. For the almanac feature, AI generated a JSON
-          dataset and wrote an algorithm to process it. I noticed the results didn’t always match other calendar apps. AI
-          explained that different “calculation standards” exist and even added a toggle so users could switch between them.
-          
-          Once that was done, I asked it to adapt the app for visionOS and macOS—AI handled that smoothly too. Since all of the
-          code was generated in one go, what I had was just a single, very long file without any modular structure. When I first
-          submitted it to the App Store, Apple rejected it under Guideline 4.2: Design—Minimum Functionality. I went back, asked
-          AI to add push notifications and a welcome screen, and on the next submission, it finally passed review.</p>
+          <div class="article-content">
+            <p>For someone who had never touched Apple's Swift development before, I was amazed to find that—with the
+              help of AI—I could actually build a complete app. Here's my story.
+
+              One evening, while walking with my mom, we talked about how many Chinese apps are overloaded with ads. She
+              casually complained that the calendar app she was using was full of them. I was surprised—why not just use
+              Apple's built-in Calendar? She explained that it didn't have the features she needed, like public holidays
+              and the traditional Chinese almanac. At that moment, a lightbulb went off: I already had a developer
+              account, so why not just build one myself?
+
+              So I opened up AI and asked: "Can you write me a Swift calendar app with a beautiful UI that supports dark
+              mode?" Almost instantly, AI generated the code. When I ran it, the interface looked great. Next, I needed
+              to display holidays. Since I had no budget, AI suggested using the free holiday API provided by
+              timor.tech. It not only integrated the API but also added local caching so the app would still work
+              offline.
+
+              I then asked for a "year view" with color-coded holidays, and AI delivered. For the almanac feature, AI
+              generated a JSON dataset and wrote an algorithm to process it. I noticed the results didn't always match
+              other calendar apps. AI explained that different "calculation standards" exist and even added a toggle so
+              users could switch between them.
+
+              Once that was done, I asked it to adapt the app for visionOS and macOS—AI handled that smoothly too. Since
+              all of the code was generated in one go, what I had was just a single, very long file without any modular
+              structure. When I first submitted it to the App Store, Apple rejected it under Guideline 4.2:
+              Design—Minimum Functionality. I went back, asked AI to add push notifications and a welcome screen, and on
+              the next submission, it finally passed review.</p>
+          </div>
         </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">从零到App Store：我用AI开发的第一款Swift应用</h1>
+          <p class="article-date">2025年8月27日</p>
+          <div class="article-content">
+            <p>作为一个从未接触过Apple Swift开发的人，我惊讶地发现——借助AI的帮助——我竟然能构建出一个完整的应用。这是我的故事。
+
+              一天晚上，我和妈妈散步时聊到国内很多应用广告泛滥。她随口抱怨说自己用的日历应用满是广告。我很惊讶——为什么不用苹果自带的日历呢？她解释说自带的日历没有她需要的功能，比如法定节假日和传统黄历。那一刻，我灵光一闪：我已经有开发者账号了，为什么不自己做一个呢？
+
+              于是我打开AI问道："你能帮我写一个界面漂亮、支持深色模式的Swift日历应用吗？"几乎瞬间，AI就生成了代码。运行后，界面效果很好。接下来，我需要显示节假日。由于没有预算，AI建议使用 timor.tech
+              提供的免费节假日API。它不仅集成了API，还添加了本地缓存，使应用在离线时也能正常工作。
+
+              然后我要求做一个带有颜色标记节假日的"年视图"，AI完成了。对于黄历功能，AI生成了一个JSON数据集并编写了处理算法。我注意到结果并不总是与其他日历应用一致。AI解释说存在不同的"计算标准"，甚至还添加了一个切换开关让用户自行选择。
+
+              完成这些后，我让它为visionOS和macOS做适配——AI也顺利搞定了。由于所有代码都是一次性生成的，我拿到的只是一个非常长的单文件，没有任何模块化结构。当我首次提交到App
+              Store时，Apple以准则4.2：设计——最低功能要求为由拒绝了。我回去让AI添加了推送通知和欢迎界面，再次提交后终于通过了审核。</p>
+          </div>
+        </div>
+
       </article>
     </div>
   </div>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -21,61 +22,115 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">The Complex Path of Finding a Suitable Editor</h1>
-        <p class="article-date">Apr 25 2025</p>
-        <div class="article-content">
-          <p>I enjoy coding and do it often. Finding a good editor can significantly boost my coding efficiency. Over
-            time, I’ve tried a wide variety of editors — some large, some lightweight; some popular, others obscure;
-            some user-friendly, while others offered a rather poor user experience. Here’s a rundown of the editors I’ve
-            used and my thoughts on each:</p>
 
-          <ol>
-            <li>
-              <strong>DEV C++</strong><br>
-              This was the first editor I used when I started coding. It only supports C++ and has very basic features
-              like compiling, debugging, and running code. However, it lacks autocomplete functionality, which became a
-              major drawback as I progressed. That’s the main reason I stopped using it.
-            </li>
-            <br>
-            <li>
-              <strong>Visual Studio</strong><br>
-              This is Microsoft’s flagship editor. It’s powerful, but huge. Even though I only installed the C++
-              development environment, it still took up about 15 GB. While it’s a great tool for some developers, it was
-              too heavy for my needs. Additionally, it mainly supports C++, so I couldn’t use it for Python or HTML,
-              which limited its usefulness for me.
-            </li>
-            <br>
-            <li>
-              <strong>JetBrains Suite (PyCharm, CLion, etc.)</strong><br>
-              JetBrains offers a range of language-specific editors. I used them for quite a while and really
-              appreciated their features — they’re well-designed and enjoyable to use. However, they’re quite expensive,
-              and they don’t have as many plugins as VSCode. Eventually, I made the switch to VSCode.
-            </li>
-            <br>
-            <li>
-              <strong>VSCode</strong><br>
-              This editor is extremely popular worldwide — and for good reason. It’s free, powerful, and thanks to its
-              vast plugin community, incredibly flexible. The base install is only about 300 MB, and you can easily add
-              whatever functionality you need through extensions. I still use VSCode regularly today.
-            </li>
-            <br>
-            <li>
-              <strong>Neovim</strong><br>
-              When people hear “vim,” some say it’s the best editor, while others find it hard to learn and not very
-              user-friendly. I’ve spent quite some time learning Vim and use it often. More recently, I’ve been using
-              Neovim, the modernized version of Vim. It’s the lightest editor I’ve ever used and, thanks to its plugin
-              ecosystem on GitHub, even more flexible than VSCode.<br><br>
-              That said, Neovim can be tough to configure — you often have to write a lot of config files. To make
-              things easier, I use a project called LazyVim, which simplifies the configuration process significantly.
-              You can view my configuration <a href="https://github.com/JunxiBao/nvim">here.</a><br><br>
-              However, there’s one major drawback: many plugins don’t play well with ARM-based chips. Because of that, I
-              can’t use my custom Neovim setup for remote development on my Raspberry Pi. In those cases, I still rely
-              on VSCode.
-            </li>
-          </ol>
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">The Complex Path of Finding a Suitable Editor</h1>
+          <p class="article-date">Apr 25 2025</p>
+          <div class="article-content">
+            <p>I enjoy coding and do it often. Finding a good editor can significantly boost my coding efficiency. Over
+              time, I've tried a wide variety of editors — some large, some lightweight; some popular, others obscure;
+              some user-friendly, while others offered a rather poor user experience. Here's a rundown of the editors
+              I've
+              used and my thoughts on each:</p>
 
-          <p>This is the complex process of me finding the editor that suits me best.</p>
+            <ol>
+              <li>
+                <strong>DEV C++</strong><br>
+                This was the first editor I used when I started coding. It only supports C++ and has very basic features
+                like compiling, debugging, and running code. However, it lacks autocomplete functionality, which became
+                a
+                major drawback as I progressed. That's the main reason I stopped using it.
+              </li>
+              <br>
+              <li>
+                <strong>Visual Studio</strong><br>
+                This is Microsoft's flagship editor. It's powerful, but huge. Even though I only installed the C++
+                development environment, it still took up about 15 GB. While it's a great tool for some developers, it
+                was
+                too heavy for my needs. Additionally, it mainly supports C++, so I couldn't use it for Python or HTML,
+                which limited its usefulness for me.
+              </li>
+              <br>
+              <li>
+                <strong>JetBrains Suite (PyCharm, CLion, etc.)</strong><br>
+                JetBrains offers a range of language-specific editors. I used them for quite a while and really
+                appreciated their features — they're well-designed and enjoyable to use. However, they're quite
+                expensive,
+                and they don't have as many plugins as VSCode. Eventually, I made the switch to VSCode.
+              </li>
+              <br>
+              <li>
+                <strong>VSCode</strong><br>
+                This editor is extremely popular worldwide — and for good reason. It's free, powerful, and thanks to its
+                vast plugin community, incredibly flexible. The base install is only about 300 MB, and you can easily
+                add
+                whatever functionality you need through extensions. I still use VSCode regularly today.
+              </li>
+              <br>
+              <li>
+                <strong>Neovim</strong><br>
+                When people hear "vim," some say it's the best editor, while others find it hard to learn and not very
+                user-friendly. I've spent quite some time learning Vim and use it often. More recently, I've been using
+                Neovim, the modernized version of Vim. It's the lightest editor I've ever used and, thanks to its plugin
+                ecosystem on GitHub, even more flexible than VSCode.<br><br>
+                That said, Neovim can be tough to configure — you often have to write a lot of config files. To make
+                things easier, I use a project called LazyVim, which simplifies the configuration process significantly.
+                You can view my configuration <a href="https://github.com/JunxiBao/nvim">here.</a><br><br>
+                However, there's one major drawback: many plugins don't play well with ARM-based chips. Because of that,
+                I
+                can't use my custom Neovim setup for remote development on my Raspberry Pi. In those cases, I still rely
+                on VSCode.
+              </li>
+            </ol>
+
+            <p>This is the complex process of me finding the editor that suits me best.</p>
+          </div>
         </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">寻找合适编辑器的曲折之路</h1>
+          <p class="article-date">2025年4月25日</p>
+          <div class="article-content">
+            <p>
+              我喜欢编程，也经常写代码。找到一个好的编辑器可以大大提高编程效率。这些年来，我尝试了各种各样的编辑器——有大型的，也有轻量的；有流行的，也有小众的；有好用的，也有体验很差的。以下是我用过的编辑器及我对每个的看法：
+            </p>
+
+            <ol>
+              <li>
+                <strong>DEV C++</strong><br>
+                这是我刚开始学编程时用的第一个编辑器。它只支持C++，功能非常基础，比如编译、调试和运行代码。但它缺少自动补全功能，随着我的进步，这成了一个很大的缺点。这是我停止使用它的主要原因。
+              </li>
+              <br>
+              <li>
+                <strong>Visual Studio</strong><br>
+                这是微软的旗舰编辑器。它功能强大，但体积巨大。虽然我只安装了C++开发环境，但它仍然占用了大约15GB。虽然它对某些开发者来说是个好工具，但对我来说太重了。而且，它主要支持C++，我没法用它写Python或HTML，这限制了它对我的实用性。
+              </li>
+              <br>
+              <li>
+                <strong>JetBrains 套件（PyCharm、CLion等）</strong><br>
+                JetBrains 提供了一系列针对特定语言的编辑器。我用了很长一段时间，也非常欣赏它们的功能——设计精良，用起来很舒服。但它们相当贵，而且插件没有VSCode那么多。最终，我转向了VSCode。
+              </li>
+              <br>
+              <li>
+                <strong>VSCode</strong><br>
+                这个编辑器在全球极其流行——而且确实名副其实。它免费、强大，凭借庞大的插件社区，灵活性极高。基础安装只有大约300MB，你可以通过扩展轻松添加任何你需要的功能。我至今仍在日常使用VSCode。
+              </li>
+              <br>
+              <li>
+                <strong>Neovim</strong><br>
+                一提到"vim"，有人说它是最好的编辑器，也有人觉得它难学、不太友好。我花了不少时间学习Vim，也经常使用它。最近，我一直在用Neovim，也就是Vim的现代化版本。它是我用过的最轻量的编辑器，得益于GitHub上的插件生态系统，甚至比VSCode还灵活。<br><br>
+                话虽如此，Neovim的配置可能很繁琐——你经常需要写大量配置文件。为了简化，我使用了一个叫LazyVim的项目，它大大简化了配置过程。
+                你可以在<a href="https://github.com/JunxiBao/nvim">这里</a>查看我的配置。<br><br>
+                不过，它有一个主要缺点：很多插件与ARM架构的芯片不兼容。因此，我无法在树莓派上使用我自定义的Neovim配置进行远程开发。在这些情况下，我仍然依赖VSCode。
+              </li>
+            </ol>
+
+            <p>这就是我寻找最适合自己的编辑器的曲折过程。</p>
+          </div>
+        </div>
+
       </article>
     </div>
   </div>

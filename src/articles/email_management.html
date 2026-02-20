@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Article</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../../static/css/template.css" />
 
   <link rel="icon" type="image/png" href="/static/image/favicon.png" />
@@ -21,29 +22,56 @@
   <div class="rainbow-border">
     <div class="article-wrapper">
       <article class="article-card">
-        <h1 class="article-title">Managing Emails with Custom Domain via Cloudflare</h1>
+
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">Managing Emails with Custom Domain via Cloudflare</h1>
           <p class="article-date">Nov 27 2025</p>
-        <div class="article-content">
-          <p>
-            Recently, I realized that managing emails is actually quite a complex task. Many important emails often get buried under a flood of promotional messages from various platforms. I tried blocking these promotional emails, but the results weren't great—my inbox still looked messy.
-          </p>
-          <p>
-            Later, I tried Gmail's custom label approach, like having friends send emails to <a href="mailto:junxibao2007+vital@gmail.com">junxibao2007+vital@gmail.com</a>, combined with Gmail's filters for automatic categorization. While this helped to some extent, the email address became really long and inconvenient to share.
-          </p>
-          <p>
-            One day, I noticed that Cloudflare offers email forwarding functionality, and my domain juxibao.com happens to be hosted on Cloudflare, so I decided to give it a try. Through this feature, I can create email addresses using my own domain, such as <a href="mailto:chat@juxibao.com">chat@juxibao.com</a> as my primary email for chatting with others. Cloudflare forwards these emails to Gmail, and Gmail's filters then categorize them by different addresses. This is the solution I'm currently using.
-          </p>
-          <p>
-            However, this approach has an obvious drawback: I can't send emails directly from my domain email. If someone sends me an email through my domain address, my reply still comes from Gmail. When they reply back, the email goes directly to my Gmail instead of the domain email, which means Gmail's categorization rules based on the domain address no longer work, and the email ends up in the main inbox.
-          </p>
-          <p>
-            Although this limitation does affect the user experience in practice, most other solutions that truly support both "sending and receiving" with custom domain emails require upgrading to enterprise email plans, which aren't cheap. So for now, I'm sticking with this Cloudflare forwarding solution.
-          </p>
+          <div class="article-content">
+            <p>Recently, I realized that managing emails is actually quite a complex task. Many important emails often
+              get buried under a flood of promotional messages from various platforms. I tried blocking these
+              promotional emails, but the results weren't great—my inbox still looked messy.</p>
+            <p>Later, I tried Gmail's custom label approach, like having friends send emails to <a
+                href="mailto:junxibao2007@gmail.com">junxibao2007@gmail.com</a>, combined with Gmail's
+              filters for automatic categorization. While this helped to some extent, the email address became really
+              long and inconvenient to share.</p>
+            <p>One day, I noticed that Cloudflare offers email forwarding functionality, and my domain juxibao.com
+              happens to be hosted on Cloudflare, so I decided to give it a try. Through this feature, I can create
+              email addresses using my own domain, such as <a href="mailto:chat@juxibao.com">chat@juxibao.com</a> as my
+              primary email for chatting with others. Cloudflare forwards these emails to Gmail, and Gmail's filters
+              then categorize them by different addresses. This is the solution I'm currently using.</p>
+            <p>However, this approach has an obvious drawback: I can't send emails directly from my domain email. If
+              someone sends me an email through my domain address, my reply still comes from Gmail. When they reply
+              back, the email goes directly to my Gmail instead of the domain email, which means Gmail's categorization
+              rules based on the domain address no longer work, and the email ends up in the main inbox.</p>
+            <p>Although this limitation does affect the user experience in practice, most other solutions that truly
+              support both "sending and receiving" with custom domain emails require upgrading to enterprise email
+              plans, which aren't cheap. So for now, I'm sticking with this Cloudflare forwarding solution.</p>
+          </div>
         </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">通过 Cloudflare 用自定义域名管理邮件</h1>
+          <p class="article-date">2025年11月27日</p>
+          <div class="article-content">
+            <p>最近，我意识到管理邮件其实是一件相当复杂的事情。很多重要邮件经常被各种平台的促销信息淹没。我试过屏蔽这些促销邮件，但效果不太好——收件箱依然很凌乱。</p>
+            <p>后来，我尝试了Gmail的自定义标签方式，比如让朋友们发邮件到 <a
+                href="mailto:junxibao2007@gmail.com">junxibao2007@gmail.com</a>，再配合Gmail的过滤器进行自动分类。虽然有一定帮助，但邮箱地址变得很长，分享起来很不方便。
+            </p>
+            <p>有一天，我注意到 Cloudflare 提供邮件转发功能，而我的域名 juxibao.com 恰好托管在 Cloudflare 上，于是决定试试。通过这个功能，我可以用自己的域名创建邮箱地址，比如用 <a
+                href="mailto:chat@juxibao.com">chat@juxibao.com</a> 作为主要的聊天邮箱。Cloudflare 把邮件转发到 Gmail，然后 Gmail
+              的过滤器按不同地址进行分类。这就是我目前在用的方案。</p>
+            <p>
+              不过，这个方案有一个明显的缺点：我无法直接从域名邮箱发送邮件。如果有人通过域名地址给我发邮件，我回复时仍然使用Gmail地址。当对方再次回复时，邮件会直接发到Gmail而不是域名邮箱，这意味着Gmail基于域名地址的分类规则就失效了，邮件会落入主收件箱。
+            </p>
+            <p>虽然这个限制确实影响了使用体验，但大多数真正支持自定义域名邮箱"收发"功能的方案都需要升级到企业邮箱套餐，价格不便宜。所以目前，我还是继续使用 Cloudflare 转发方案。</p>
+          </div>
+        </div>
+
       </article>
     </div>
   </div>
 </body>
 
 </html>
-

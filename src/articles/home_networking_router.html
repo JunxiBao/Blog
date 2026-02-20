@@ -1,83 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Networking Router Setup</title>
-    <script src="/static/js/theme.js"></script>
-    <link rel="stylesheet" href="../../static/css/template.css" />
-    <link rel="icon" type="image/png" href="/static/image/favicon.png" />
-    <link rel="shortcut icon" href="/static/image/favicon.ico" />
-    <link rel="apple-touch-icon" href="/static/image/favicon.png" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css"
-    />
-    <style>
-      /* Make code blocks mobile-friendly */
-      .article-content pre.code-block {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 12px;
-        border-radius: 8px;
-        background: #f6f8fa;
-        font-size: 0.95em;
-        line-height: 1.5;
-        margin: 0.75rem 0 1rem;
-      }
-      .article-content pre.code-block code {
-        white-space: pre; /* keep formatting; allow horizontal scroll on small screens */
-        word-break: normal;
-      }
-    </style>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css"
-    />
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Networking Router Setup</title>
+  <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
+  <link rel="stylesheet" href="../../static/css/template.css" />
+  <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+  <link rel="shortcut icon" href="/static/image/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/image/favicon.png" />
 
-  <body>
-    <a href="javascript:history.back()" class="back-button" title="Back">
-      &#8592;
-    </a>
-    <div class="rainbow-border">
-      <div class="article-wrapper">
-        <article class="article-card">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+  <style>
+    .article-content pre.code-block {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f6f8fa;
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin: 0.75rem 0 1rem;
+    }
+
+    .article-content pre.code-block code {
+      white-space: pre;
+      word-break: normal;
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button" title="Back">
+    &#8592;
+  </a>
+  <div class="rainbow-border">
+    <div class="article-wrapper">
+      <article class="article-card">
+
+        <!-- English -->
+        <div class="lang-en">
           <h1 class="article-title">Building a Home Networking Solution with Mesh Routers</h1>
           <p class="article-date"> April 15 2025</p>
           <div class="article-content">
-            <p>
-              My home has numerous devices that require internet access, such as the Home Assistant system running on my Raspberry Pi. Installing proxy software like Clash directly on these devices proved extremely challenging, so I decided to implement a network-wide proxy solution using a software router approach.
-            </p>
-
-            <p>
-              Given the size of my home, a single router wouldn't provide adequate coverage, so I opted for a mesh networking solution. Mesh networking uses a main router connected to satellite nodes to extend network coverage. All proxy processing runs on the main router, which requires substantial performance capabilities.
-            </p>
-
-            <p>
-              I chose the Xiaomi BE6500 for its powerful performance and excellent integration with other Xiaomi smart home devices in my setup. Following the tutorial from <a href="https://www.youtube.com/watch?v=dlsoMDtmDHA" target="_blank">https://www.youtube.com/watch?v=dlsoMDtmDHA</a>, I enabled SSH access and installed Clash proxy software. After importing the proxy nodes, I set up a web panel accessible via port 9999 on the local network, allowing me to monitor network usage and configure routing rules.
-            </p>
-
-            <p>
-              At this point, my entire home network successfully accessed the internet through the proxy. However, after some time, my parents complained that the internet was very slow. Upon investigation, I discovered that all the websites they frequently visited were being routed through the proxy, which explained the performance issues.
-            </p>
-
-            <p>
-              Most of these sites were matching a rule called "漏网之鱼" (stray fish), so I configured that rule for direct connection instead of proxy routing. But this created another problem - Google was also included in this "漏网之鱼" rule. If I set this rule to direct connection, I would lose access to Google services.
-            </p>
-
-            <p>
-              As a solution, I had to add custom rules to ensure Google traffic still goes through the proxy while allowing other domestic Chinese websites to connect directly for better performance. This fine-tuning process required careful rule management to balance accessibility with speed.
-            </p>
-
-            <p>
-              The implementation involved several key steps:
-            </p>
-
+            <p>My home has numerous devices that require internet access, such as the Home Assistant system running on
+              my Raspberry Pi. Installing proxy software like Clash directly on these devices proved extremely
+              challenging, so I decided to implement a network-wide proxy solution using a software router approach.</p>
+            <p>Given the size of my home, a single router wouldn't provide adequate coverage, so I opted for a mesh
+              networking solution. Mesh networking uses a main router connected to satellite nodes to extend network
+              coverage. All proxy processing runs on the main router, which requires substantial performance
+              capabilities.</p>
+            <p>I chose the Xiaomi BE6500 for its powerful performance and excellent integration with other Xiaomi smart
+              home devices in my setup. Following the tutorial from <a
+                href="https://www.youtube.com/watch?v=dlsoMDtmDHA"
+                target="_blank">https://www.youtube.com/watch?v=dlsoMDtmDHA</a>, I enabled SSH access and installed
+              Clash proxy software. After importing the proxy nodes, I set up a web panel accessible via port 9999 on
+              the local network, allowing me to monitor network usage and configure routing rules.</p>
+            <p>At this point, my entire home network successfully accessed the internet through the proxy. However,
+              after some time, my parents complained that the internet was very slow. Upon investigation, I discovered
+              that all the websites they frequently visited were being routed through the proxy, which explained the
+              performance issues.</p>
+            <p>Most of these sites were matching a rule called "漏网之鱼" (stray fish), so I configured that rule for direct
+              connection instead of proxy routing. But this created another problem - Google was also included in this
+              "漏网之鱼" rule. If I set this rule to direct connection, I would lose access to Google services.</p>
+            <p>As a solution, I had to add custom rules to ensure Google traffic still goes through the proxy while
+              allowing other domestic Chinese websites to connect directly for better performance. This fine-tuning
+              process required careful rule management to balance accessibility with speed.</p>
+            <p>The implementation involved several key steps:</p>
             <ul>
               <li>Setting up Xiaomi BE6500 as the main mesh router</li>
               <li>Enabling SSH access for advanced configuration</li>
@@ -86,13 +81,41 @@
               <li>Setting up the web management panel on port 9999</li>
               <li>Fine-tuning rules for optimal performance</li>
             </ul>
-
-            <p>
-              This setup provides a robust solution for managing internet access across all devices in my home, with the flexibility to customize routing based on specific needs and performance requirements.
-            </p>
+            <p>This setup provides a robust solution for managing internet access across all devices in my home, with
+              the flexibility to customize routing based on specific needs and performance requirements.</p>
           </div>
-        </article>
-      </div>
+        </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">用 Mesh 路由器构建家庭网络方案</h1>
+          <p class="article-date">2025年4月15日</p>
+          <div class="article-content">
+            <p>我家有很多需要联网的设备，比如运行在树莓派上的 Home Assistant 系统。在这些设备上直接安装 Clash 等代理软件非常困难，所以我决定使用软路由方案来实现全局代理。</p>
+            <p>由于家里面积较大，单个路由器无法提供足够的覆盖，所以我选择了 Mesh 组网方案。Mesh 网络使用一台主路由连接多个卫星节点来扩展网络覆盖。所有代理处理都在主路由上运行，这需要较强的性能。</p>
+            <p>我选择了小米 BE6500，因为它性能强大，而且能与我家其他小米智能家居设备完美集成。按照 <a href="https://www.youtube.com/watch?v=dlsoMDtmDHA"
+                target="_blank">这个教程</a> 开启了SSH访问并安装了 Clash 代理软件。导入代理节点后，我设置了一个通过局域网9999端口访问的Web面板，可以监控网络使用情况和配置路由规则。
+            </p>
+            <p>到这步，我家整个网络都成功通过代理访问互联网了。然而过了一段时间，父母抱怨网速很慢。经过排查，我发现他们经常访问的所有网站都被走了代理，这就解释了性能问题的原因。</p>
+            <p>这些网站大多匹配了一个叫"漏网之鱼"的规则，于是我把这个规则改成了直连而非走代理。但这又带来了另一个问题——Google 也被包含在这个"漏网之鱼"规则中。如果我把这个规则设为直连，就无法访问 Google
+              服务了。</p>
+            <p>作为解决方案，我添加了自定义规则，确保 Google 流量仍然走代理，同时让其他国内网站直接连接以获得更好的性能。这个微调过程需要仔细管理规则，在可访问性和速度之间取得平衡。</p>
+            <p>实施过程涉及以下几个关键步骤：</p>
+            <ul>
+              <li>将小米 BE6500 设置为 Mesh 主路由</li>
+              <li>开启 SSH 访问以进行高级配置</li>
+              <li>安装 Clash 代理软件</li>
+              <li>配置代理节点和路由规则</li>
+              <li>在9999端口设置 Web 管理面板</li>
+              <li>微调规则以获得最佳性能</li>
+            </ul>
+            <p>这套方案为管理我家所有设备的互联网访问提供了一个稳健的解决方案，并且具有根据具体需求和性能要求自定义路由的灵活性。</p>
+          </div>
+        </div>
+
+      </article>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

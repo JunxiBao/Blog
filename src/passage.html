@@ -7,8 +7,9 @@
   <link rel="apple-touch-icon" href="/static/image/favicon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Articles - JunxiBao's Blog</title>
+  <title data-i18n="page.title.passage">Articles - JunxiBao's Blog</title>
   <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
   <link rel="stylesheet" href="../static/css/geek-theme.css">
   <link rel="stylesheet" href="../static/css/passage.css">
   <link rel="stylesheet" href="/static/css/cursor.css">
@@ -317,8 +318,15 @@
 
     /* One-time highlight on target card */
     @keyframes cardHighlight {
-      0%, 100% { border-color: var(--border-color); }
-      50% { border-color: var(--accent-green); }
+
+      0%,
+      100% {
+        border-color: var(--border-color);
+      }
+
+      50% {
+        border-color: var(--accent-green);
+      }
     }
 
     .highlight-once {
@@ -615,10 +623,10 @@
       </button>
 
       <ul class="nav-menu" id="navMenu">
-        <li><a href="home.html">About Myself</a></li>
-        <li><a href="passage.html">Articles</a></li>
+        <li><a href="home.html" data-i18n="nav.about">About Myself</a></li>
+        <li><a href="passage.html" data-i18n="nav.articles">Articles</a></li>
         <li><a href="https://github.com/junxibao">Github</a></li>
-        <li><a href="mailto:junxibao2007@gmail.com">Email</a></li>
+        <li><a href="mailto:junxibao2007@gmail.com" data-i18n="nav.email">Email</a></li>
       </ul>
     </div>
   </nav>
@@ -627,44 +635,52 @@
   <main class="main-content">
     <!-- Hero Section -->
     <section class="hero-section">
-      <h1 class="hero-title reveal" style="--d: .05s">Knowledge Repository</h1>
-      <p class="hero-subtitle reveal" style="--d: .2s">Exploring technology, sharing insights, building the future</p>
+      <h1 class="hero-title reveal" style="--d: .05s" data-i18n="passage.hero.title">Knowledge Repository</h1>
+      <p class="hero-subtitle reveal" style="--d: .2s" data-i18n="passage.hero.subtitle">Exploring technology, sharing
+        insights, building the future</p>
     </section>
 
     <!-- Stats Section -->
     <section class="stats-section">
-      <h2 class="reveal" style="--d: .05s">Article Statistics</h2>
+      <h2 class="reveal" style="--d: .05s" data-i18n="passage.stats.h2">Article Statistics</h2>
       <div class="stats-grid">
         <div class="stat-item reveal" style="--d: .15s">
           <div class="stat-number"><span id="totalArticlesCount">0</span></div>
-          <div class="stat-label">Total Articles</div>
+          <div class="stat-label" data-i18n="passage.stats.total">Total Articles</div>
         </div>
         <div class="stat-item reveal" style="--d: .25s">
           <div class="stat-number"><span id="totalCategoriesCount">0</span></div>
-          <div class="stat-label">Categories</div>
+          <div class="stat-label" data-i18n="passage.stats.categories">Categories</div>
         </div>
       </div>
     </section>
 
     <!-- Filter Section -->
     <section class="filter-section">
-      <h3 class="reveal" style="--d: .05s">Filter by Category</h3>
+      <h3 class="reveal" style="--d: .05s" data-i18n="passage.filter.h3">Filter by Category</h3>
       <div class="search-container reveal" style="--d: .08s">
         <div class="search-box">
           <span class="search-icon">🔎</span>
           <input id="articleSearchInput" class="search-input" type="text"
+            data-i18n-placeholder="passage.search.placeholder"
             placeholder="Search articles by title, tag or description..." />
           <span class="spinner" aria-hidden="true"></span>
           <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
       </div>
       <div class="filter-buttons">
-        <button class="filter-btn active reveal" data-category="all" style="--d: .1s">All Articles</button>
-        <button class="filter-btn reveal" data-category="projects" style="--d: .2s">Projects</button>
-        <button class="filter-btn reveal" data-category="daily" style="--d: .3s">Daily</button>
-        <button class="filter-btn reveal" data-category="smart-home" style="--d: .4s">Smart-Home</button>
-        <button class="filter-btn reveal" data-category="app-development" style="--d: .5s">APP Development</button>
-        <button class="filter-btn reveal" data-category="web3" style="--d: .6s">Web 3</button>
+        <button class="filter-btn active reveal" data-category="all" style="--d: .1s" data-i18n="passage.filter.all">All
+          Articles</button>
+        <button class="filter-btn reveal" data-category="projects" style="--d: .2s"
+          data-i18n="passage.filter.projects">Projects</button>
+        <button class="filter-btn reveal" data-category="daily" style="--d: .3s"
+          data-i18n="passage.filter.daily">Daily</button>
+        <button class="filter-btn reveal" data-category="smart-home" style="--d: .4s"
+          data-i18n="passage.filter.smart-home">Smart-Home</button>
+        <button class="filter-btn reveal" data-category="app-development" style="--d: .5s"
+          data-i18n="passage.filter.app-development">APP Development</button>
+        <button class="filter-btn reveal" data-category="web3" style="--d: .6s" data-i18n="passage.filter.web3">Web
+          3</button>
       </div>
     </section>
 
@@ -674,28 +690,33 @@
         <article class="article-card reveal" data-category="web3" style="--d: .05s">
           <div class="article-icon">🪙</div>
           <div class="article-header">
-            <h3 class="article-title">From a 500 RMB Liquidation to Building a Crypto Portfolio</h3>
+            <h3 class="article-title" data-i18n="article.web3.title">From a 500 RMB Liquidation to Building a Crypto
+              Portfolio</h3>
             <div class="article-meta">
-              <span class="article-tag">Web 3</span>
+              <span class="article-tag" data-i18n="tag.web3">Web 3</span>
               <span class="article-date">Feb 13 2026</span>
             </div>
           </div>
-          <p class="article-description">How paying for ChatGPT accidentally led me into Web3: a journey from a small
+          <p class="article-description" data-i18n="article.web3.desc">How paying for ChatGPT accidentally led me into
+            Web3: a journey from a small
             liquidation to building a core crypto portfolio.</p>
-          <a href="./articles/From_500_RMB_Liquidation_to_Web3.html" class="article-button">Read Article →</a>
+          <a href="./articles/From_500_RMB_Liquidation_to_Web3.html" class="article-button"
+            data-i18n="passage.article.read">Read Article →</a>
         </article>
         <article class="article-card reveal" data-category="daily" style="--d: .05s">
           <div class="article-icon">🌐</div>
           <div class="article-header">
-            <h3 class="article-title">My Website, My Rules</h3>
+            <h3 class="article-title" data-i18n="article.mywebsite.title">My Website, My Rules</h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Apr 23 2025</span>
             </div>
           </div>
-          <p class="article-description">This is the first article on this website, where I'll walk you through the
+          <p class="article-description" data-i18n="article.mywebsite.desc">This is the first article on this website,
+            where I'll walk you through the
             development process and provide a general introduction to its purpose and features.</p>
-          <a href="./articles/My_Web_My_rules.html" class="article-button">Read Article →</a>
+          <a href="./articles/My_Web_My_rules.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
 
@@ -706,16 +727,19 @@
         <article class="article-card reveal" data-category="daily" style="--d: .15s">
           <div class="article-icon">💻</div>
           <div class="article-header">
-            <h3 class="article-title">The Complex Path of Finding a Suitable Editor</h3>
+            <h3 class="article-title" data-i18n="article.editor.title">The Complex Path of Finding a Suitable Editor
+            </h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Apr 25 2025</span>
             </div>
           </div>
-          <p class="article-description">This article shares my journey of exploring different code editors. From DEV
+          <p class="article-description" data-i18n="article.editor.desc">This article shares my journey of exploring
+            different code editors. From DEV
             C++ to Visual Studio, JetBrains, VSCode, and Neovim, I compare their pros and cons. In the end, I mainly use
             neovim and sometimes use VSCode for Raspberry Pi's development.</p>
-          <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor.html" class="article-button">Read Article
+          <a href="./articles/The_Complex_Path_of_Findin_a_Suitable_Editor.html" class="article-button"
+            data-i18n="passage.article.read">Read Article
             →</a>
         </article>
 
@@ -727,17 +751,19 @@
         <article class="article-card reveal" data-category="smart-home" style="--d: .25s">
           <div class="article-icon">🏠</div>
           <div class="article-header">
-            <h3 class="article-title">The Intelligent Path in my room</h3>
+            <h3 class="article-title" data-i18n="article.smarthome.title">The Intelligent Path in my room</h3>
             <div class="article-meta">
-              <span class="article-tag">smart-home</span>
+              <span class="article-tag" data-i18n="tag.smart-home">smart-home</span>
               <span class="article-date">May 4 2025</span>
             </div>
           </div>
-          <p class="article-description">I built a smart bedroom using Xiaomi devices and Home Assistant. I installed a
+          <p class="article-description" data-i18n="article.smarthome.desc">I built a smart bedroom using Xiaomi devices
+            and Home Assistant. I installed a
             smart socket, upgraded my chandelier lights, added motion sensors for automation, and used a Curtain Mate
             for automatic curtain control. This setup makes my room more convenient, efficient, and comfortable without
             major modifications.</p>
-          <a href="./articles/intelligent_home.html" class="article-button">Read Article →</a>
+          <a href="./articles/intelligent_home.html" class="article-button" data-i18n="passage.article.read">Read
+            Article →</a>
         </article>
 
 
@@ -747,31 +773,37 @@
         <article class="article-card reveal" data-category="daily" style="--d: .35s">
           <div class="article-icon">☁️</div>
           <div class="article-header">
-            <h3 class="article-title">Internet Great Good Samaritan: Cloudflare</h3>
+            <h3 class="article-title" data-i18n="article.cloudflare.title">Internet Great Good Samaritan: Cloudflare
+            </h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Jun 3 2025</span>
             </div>
           </div>
-          <p class="article-description">I used to host my website on Vultr for $5/month, which was too expensive. Due
+          <p class="article-description" data-i18n="article.cloudflare.desc">I used to host my website on Vultr for
+            $5/month, which was too expensive. Due
             to the GFW, GitHub Pages was inaccessible. I finally switched to Cloudflare, which is free, powerful, and
             not blocked, greatly reducing my costs.</p>
-          <a href="./articles/Cloudflare.html" class="article-button">Read Article →</a>
+          <a href="./articles/Cloudflare.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
         <article class="article-card reveal" data-category="daily" style="--d: .4s">
           <div class="article-icon">📧</div>
           <div class="article-header">
-            <h3 class="article-title">Managing Emails with Custom Domain via Cloudflare</h3>
+            <h3 class="article-title" data-i18n="article.email.title">Managing Emails with Custom Domain via Cloudflare
+            </h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Nov 27 2025</span>
             </div>
           </div>
-          <p class="article-description">Managing emails can be tricky when important messages get buried under
+          <p class="article-description" data-i18n="article.email.desc">Managing emails can be tricky when important
+            messages get buried under
             promotions. I explored Gmail's plus addressing and eventually settled on Cloudflare's email forwarding with
             my custom domain—a free solution with some trade-offs.</p>
-          <a href="./articles/email_management.html" class="article-button">Read Article →</a>
+          <a href="./articles/email_management.html" class="article-button" data-i18n="passage.article.read">Read
+            Article →</a>
         </article>
 
 
@@ -782,16 +814,18 @@
         <article class="article-card reveal" data-category="app-development,projects" style="--d: .45s">
           <div class="article-icon">📱</div>
           <div class="article-header">
-            <h3 class="article-title">The process of me making an app</h3>
+            <h3 class="article-title" data-i18n="article.app1.title">The process of me making an app</h3>
             <div class="article-meta">
-              <span class="article-tag">app-development</span>
+              <span class="article-tag" data-i18n="tag.app-development">app-development</span>
               <span class="article-date">Aug 1 2025</span>
             </div>
           </div>
-          <p class="article-description">In this website, I described the process of making my own app and some problems
+          <p class="article-description" data-i18n="article.app1.desc">In this website, I described the process of
+            making my own app and some problems
             I encountered in the early stage, such as js loading problems, https problems, etc. I will add more content
             later.</p>
-          <a href="./articles/App_Making.html" class="article-button">Read Article →</a>
+          <a href="./articles/App_Making.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
 
@@ -802,17 +836,19 @@
         <article class="article-card reveal" data-category="projects" style="--d: .55s">
           <div class="article-icon">🤖</div>
           <div class="article-header">
-            <h3 class="article-title">Developing an automatic vision measurement system using Raspberry Pi</h3>
+            <h3 class="article-title" data-i18n="article.raspi.title">Developing an automatic vision measurement system
+              using Raspberry Pi</h3>
             <div class="article-meta">
-              <span class="article-tag">projects</span>
+              <span class="article-tag" data-i18n="tag.projects">projects</span>
 
             </div>
           </div>
-          <p class="article-description">This is a notion from a project I did. My project was to build an automatic
+          <p class="article-description" data-i18n="article.raspi.desc">This is a notion from a project I did. My
+            project was to build an automatic
             vision test system based on gesture
             recognition and face recognition on a Raspberry Pi.</p>
           <a href="https://pewter-stoplight-6c5.notion.site/Passion-Project-Learn-Raspberry-Pi-10d104ec071e80fb8b72f963a5ab63f3"
-            class="article-button">Read Article →</a>
+            class="article-button" data-i18n="passage.article.read">Read Article →</a>
         </article>
 
 
@@ -823,15 +859,18 @@
         <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
           <div class="article-icon">📱</div>
           <div class="article-header">
-            <h3 class="article-title">The process of me making an app 2</h3>
+            <h3 class="article-title" data-i18n="article.app2.title">The process of me making an app 2</h3>
             <div class="article-meta">
-              <span class="article-tag">app-development</span>
+              <span class="article-tag" data-i18n="tag.app-development">app-development</span>
               <span class="article-date">Aug 18 2025</span>
             </div>
           </div>
-          <p class="article-description">This article is the second part of <a href="./articles/App_Making.html">The
-              process of me making an app.</a>And in this article, I successfully submitted my app to the App Store.</p>
-          <a href="./articles/App_Making_2.html" class="article-button">Read Article →</a>
+          <p class="article-description" data-i18n="article.app2.desc">This article is the second part of <a
+              href="./articles/App_Making.html">The
+              process of me making an app.</a> And in this article, I successfully submitted my app to the App Store.
+          </p>
+          <a href="./articles/App_Making_2.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
 
@@ -839,92 +878,105 @@
         <article class="article-card reveal" data-category="app-development,projects" style="--d: .65s">
           <div class="article-icon">📅</div>
           <div class="article-header">
-            <h3 class="article-title">From Zero to App Store: My First Swift App Made with AI</h3>
+            <h3 class="article-title" data-i18n="article.calendar.title">From Zero to App Store: My First Swift App Made
+              with AI</h3>
             <div class="article-meta">
-              <span class="article-tag">app-development</span>
+              <span class="article-tag" data-i18n="tag.app-development">app-development</span>
               <span class="article-date">Aug 27 2025</span>
             </div>
           </div>
-          <p class="article-description">AI lowered the barrier, enabling a beginner to turn an idea into a full App
+          <p class="article-description" data-i18n="article.calendar.desc">AI lowered the barrier, enabling a beginner
+            to turn an idea into a full App
             Store release.</p>
-          <a href="./articles/calendar.html" class="article-button">Read Article →</a>
+          <a href="./articles/calendar.html" class="article-button" data-i18n="passage.article.read">Read Article →</a>
         </article>
 
         <article class="article-card reveal" data-category="smart-home" style="--d: .75s">
           <div class="article-icon">🌐</div>
           <div class="article-header">
-            <h3 class="article-title">Building a Home Networking Solution with Mesh Routers</h3>
+            <h3 class="article-title" data-i18n="article.router.title">Building a Home Networking Solution with Mesh
+              Routers</h3>
             <div class="article-meta">
-              <span class="article-tag">smart-home</span>
+              <span class="article-tag" data-i18n="tag.smart-home">smart-home</span>
               <span class="article-date">Apr 15 2025</span>
             </div>
           </div>
-          <p class="article-description">Setting up a Xiaomi BE6500 mesh router with Clash proxy for whole-home internet
+          <p class="article-description" data-i18n="article.router.desc">Setting up a Xiaomi BE6500 mesh router with
+            Clash proxy for whole-home internet
             access, including performance optimization and rule customization.</p>
-          <a href="./articles/home_networking_router.html" class="article-button">Read Article →</a>
+          <a href="./articles/home_networking_router.html" class="article-button" data-i18n="passage.article.read">Read
+            Article →</a>
         </article>
 
         <article class="article-card reveal" data-category="app-development,projects" style="--d: .85s">
           <div class="article-icon">📱</div>
           <div class="article-header">
-            <h3 class="article-title">The process of me making an app 3</h3>
+            <h3 class="article-title" data-i18n="article.app3.title">The process of me making an app 3</h3>
             <div class="article-meta">
-              <span class="article-tag">app-development</span>
+              <span class="article-tag" data-i18n="tag.app-development">app-development</span>
               <span class="article-date">Dec 15 2025</span>
             </div>
           </div>
-          <p class="article-description">This article is the third part of <a href="./articles/App_Making.html">The
+          <p class="article-description" data-i18n="article.app3.desc">This article is the third part of <a
+              href="./articles/App_Making.html">The
               process of me making an app.</a> In this article, I continue to improve the app after it went live on the
             App Store, including fixing UI issues and adding photo upload features.</p>
-          <a href="./articles/App_Making_3.html" class="article-button">Read Article →</a>
+          <a href="./articles/App_Making_3.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
         <article class="article-card reveal" data-category="app-development,projects" style="--d: .95s">
           <div class="article-icon">📱</div>
           <div class="article-header">
-            <h3 class="article-title">The process of me making an app 4</h3>
+            <h3 class="article-title" data-i18n="article.app4.title">The process of me making an app 4</h3>
             <div class="article-meta">
-              <span class="article-tag">app-development</span>
+              <span class="article-tag" data-i18n="tag.app-development">app-development</span>
               <span class="article-date">Feb 06 2026</span>
             </div>
           </div>
-          <p class="article-description">This article is the fourth part of <a href="./articles/App_Making.html">The
+          <p class="article-description" data-i18n="article.app4.desc">This article is the fourth part of <a
+              href="./articles/App_Making.html">The
               process of me making an app.</a> In this article, I discuss how I implemented code obfuscation and
             compression to protect my source code, optimized app performance, and my journey to obtaining a Software
             Copyright.</p>
-          <a href="./articles/App_Making_4.html" class="article-button">Read Article →</a>
+          <a href="./articles/App_Making_4.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
         <article class="article-card reveal" data-category="daily" style="--d: 1.05s">
           <div class="article-icon">📚</div>
           <div class="article-header">
-            <h3 class="article-title">TOEFL Learning: A Painful Journey</h3>
+            <h3 class="article-title" data-i18n="article.toefl.title">TOEFL Learning: A Painful Journey</h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Dec 20 2025</span>
             </div>
           </div>
-          <p class="article-description">As a student who transferred from a regular middle school to an international
+          <p class="article-description" data-i18n="article.toefl.desc">As a student who transferred from a regular
+            middle school to an international
             school, English has always been my biggest weakness. This article documents my TOEFL learning journey from
             scoring 3 on reading in my first attempt to eventually achieving 94, including the setbacks, efforts, and
             growth along the way.</p>
-          <a href="./articles/TOEFL_Learning.html" class="article-button">Read Article →</a>
+          <a href="./articles/TOEFL_Learning.html" class="article-button" data-i18n="passage.article.read">Read Article
+            →</a>
         </article>
 
         <article class="article-card reveal" data-category="daily" style="--d: 1.15s">
           <div class="article-icon">🏆</div>
           <div class="article-header">
-            <h3 class="article-title">2025 Youth Challenge competition</h3>
+            <h3 class="article-title" data-i18n="article.youth.title">2025 Youth Challenge competition</h3>
             <div class="article-meta">
-              <span class="article-tag">daily</span>
+              <span class="article-tag" data-i18n="tag.daily">daily</span>
               <span class="article-date">Dec 14 2025</span>
             </div>
           </div>
-          <p class="article-description">Our school's education group held a charity competition called the "2050 Future
-            Changemakers Competition." Our "Purple Elf" project participated and won the national championship with a
+          <p class="article-description" data-i18n="article.youth.desc">Our school's education group held a charity
+            competition called the "2050 Future
+            Changemakers Competition." Our "Purpura Elf" project participated and won the national championship with a
             prize of 4000 yuan. This article documents our journey from the preliminary rounds through the school finals
             to the national finals in Shanghai, including the challenges, improvements, and ultimate victory.</p>
-          <a href="./articles/2025_Youth_Challenge_competition.html" class="article-button">Read Article →</a>
+          <a href="./articles/2025_Youth_Challenge_competition.html" class="article-button"
+            data-i18n="passage.article.read">Read Article →</a>
         </article>
 
 
@@ -935,26 +987,26 @@
 
     <!-- Site Uptime -->
     <section class="uptime-section reveal">
-      <p class="uptime-label">// site has been running for</p>
+      <p class="uptime-label" data-i18n="uptime.label">// site has been running for</p>
       <div class="uptime-counter">
         <div class="uptime-unit">
           <span class="uptime-value" id="uptime-days">000</span>
-          <span class="uptime-name">days</span>
+          <span class="uptime-name" data-i18n="uptime.days">days</span>
         </div>
         <span class="uptime-sep">:</span>
         <div class="uptime-unit">
           <span class="uptime-value" id="uptime-hours">00</span>
-          <span class="uptime-name">hours</span>
+          <span class="uptime-name" data-i18n="uptime.hours">hours</span>
         </div>
         <span class="uptime-sep">:</span>
         <div class="uptime-unit">
           <span class="uptime-value" id="uptime-mins">00</span>
-          <span class="uptime-name">mins</span>
+          <span class="uptime-name" data-i18n="uptime.mins">mins</span>
         </div>
         <span class="uptime-sep">:</span>
         <div class="uptime-unit">
           <span class="uptime-value" id="uptime-secs">00</span>
-          <span class="uptime-name">secs</span>
+          <span class="uptime-name" data-i18n="uptime.secs">secs</span>
         </div>
       </div>
       <p class="uptime-since">est. 2025.05.20 &nbsp;13:13 CST</p>
@@ -963,7 +1015,7 @@
   </main>
 
   <!-- 返回顶部按钮 -->
-  <button id="backToTop" class="back-to-top" aria-label="返回顶部">
+  <button id="backToTop" class="back-to-top" data-i18n-aria-label="btn.backToTop" aria-label="Back to top">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 4L4 12H8V20H16V12H20L12 4Z" fill="currentColor" />
     </svg>
