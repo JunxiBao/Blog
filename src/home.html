@@ -874,6 +874,17 @@
         const content = data[lang] || data.en;
         titleEl.textContent = content.title;
         bodyEl.innerHTML = content.html;
+        // Propagate lang param to dynamically injected links
+        bodyEl.querySelectorAll('a[href]').forEach(function (a) {
+          var href = a.getAttribute('href');
+          if (!href || /^(https?:|mailto:|javascript:|tel:|#)/.test(href)) return;
+          try {
+            var u = new URL(href, location.href);
+            if (u.hostname !== location.hostname) return;
+            u.searchParams.set('lang', lang);
+            a.setAttribute('href', u.pathname + (u.search || '') + (u.hash || ''));
+          } catch (e) { }
+        });
         modal.classList.add('show');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';

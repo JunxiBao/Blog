@@ -95,7 +95,7 @@ body {
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   font-weight: 500;
-  color: var(--accent-blue);
+  color: var(--accent-blue, #2563eb);
   transition: color .2s ease, transform .2s ease;
 }
 
@@ -106,7 +106,7 @@ body {
 
 .article-content a:hover,
 .toc a:hover {
-  color: var(--accent-green);
+  color: var(--accent-green, #22c55e);
   transform: translateY(-1px);
 }
 
