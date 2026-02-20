@@ -12,17 +12,6 @@ window.addEventListener('pageshow', (event) => {
     }
   } catch {}
 });
-// When navigating back to a page from bfcache or history, force refresh if flagged
-window.addEventListener('pageshow', (e) => {
-  try {
-    const force = sessionStorage.getItem('forceReload');
-    if (force) {
-      sessionStorage.removeItem('forceReload');
-      // Force a hard reload to refresh content/state
-      location.reload();
-    }
-  } catch {}
-});
 
 class GeekTheme {
   constructor() {
@@ -34,65 +23,68 @@ class GeekTheme {
     if (canEffects) this.setupMatrixRain();
     if (canEffects) this.setupScrollEffects();
     if (canEffects) this.setupTypingEffects();
-    if (canEffects) this.setupParticleSystem();
     if (canEffects) this.setupGlitchEffects();
     if (canEffects) this.setupTerminalEffects();
   }
 
-  // Matrix Rain Effect
+  // Matrix Rain Effect — canvas-based, single RAF loop
   setupMatrixRain() {
-    // Guard: reuse existing container if already present (avoid duplicates)
-    let matrixContainer = document.getElementById('matrixBg');
-    if (!matrixContainer) {
-      matrixContainer = document.createElement('div');
-      matrixContainer.className = 'matrix-bg';
-      matrixContainer.id = 'matrixBg';
-      document.body.appendChild(matrixContainer);
-    }
-
+    if (document.getElementById('matrixBg')) return;
+    const canvas = document.createElement('canvas');
+    canvas.id = 'matrixBg';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:-1;opacity:0.06;';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d', { alpha: true });
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
-    const columns = Math.floor(window.innerWidth / 20);
-    
-    for (let i = 0; i < columns; i++) {
-      this.createMatrixColumn(matrixContainer, i * 20, chars);
-    }
-  }
+    const fontSize = 14;
+    let cols = 0, drops = new Float32Array(0), accentColor = '#00c768';
 
-  createMatrixColumn(container, x, chars) {
-    const column = document.createElement('div');
-    column.style.position = 'absolute';
-    column.style.left = x + 'px';
-    column.style.top = '-100px';
-    // Use theme color for better contrast in light/dark modes
-    column.style.color = 'var(--accent-green)';
-    column.style.fontFamily = 'monospace';
-    column.style.fontSize = '14px';
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    column.style.opacity = prefersDark ? '0.6' : '0.9';
-    column.style.pointerEvents = 'none';
-    column.style.zIndex = '-1';
-
-    let y = 0;
-    const speed = Math.random() * 2 + 1;
-    
-    const animate = () => {
-      if (y > window.innerHeight) {
-        y = -20;
-        column.textContent = chars[Math.floor(Math.random() * chars.length)];
-      }
-      
-      y += speed;
-      column.style.top = y + 'px';
-      
-      if (Math.random() < 0.02) {
-        column.textContent = chars[Math.floor(Math.random() * chars.length)];
-      }
-      
-      requestAnimationFrame(animate);
+    const syncColor = () => {
+      const c = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
+      accentColor = c || '#00c768';
     };
-    
-    animate();
-    container.appendChild(column);
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const newCols = Math.floor(canvas.width / fontSize);
+      if (newCols !== cols) {
+        const prev = drops;
+        drops = new Float32Array(newCols);
+        for (let i = 0; i < newCols; i++) drops[i] = i < prev.length ? prev[i] : -(Math.random() * 30);
+        cols = newCols;
+      }
+    };
+
+    syncColor();
+    resize();
+    window.addEventListener('resize', GeekTheme.debounce(resize, 250));
+    window.addEventListener('themechange', syncColor);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncColor);
+
+    let animId;
+    const draw = () => {
+      // Fade existing pixels toward transparency to create the trailing effect
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalAlpha = 0.05;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+      ctx.fillStyle = accentColor;
+      ctx.font = `${fontSize}px monospace`;
+      const h = canvas.height;
+      for (let i = 0; i < cols; i++) {
+        const y = drops[i] * fontSize;
+        if (y > 0) ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, y);
+        drops[i]++;
+        if (y > h && Math.random() > 0.975) drops[i] = -(Math.random() * 20);
+      }
+      animId = requestAnimationFrame(draw);
+    };
+    animId = requestAnimationFrame(draw);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { cancelAnimationFrame(animId); }
+      else { animId = requestAnimationFrame(draw); }
+    });
   }
 
   // Scroll Effects
@@ -162,84 +154,22 @@ class GeekTheme {
     });
   }
 
-  // Particle System
-  setupParticleSystem() {
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'particle-container';
-    particleContainer.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.1;
-    `;
-    document.body.appendChild(particleContainer);
-
-    for (let i = 0; i < 50; i++) {
-      this.createParticle(particleContainer);
-    }
-  }
-
-  createParticle(container) {
-    const particle = document.createElement('div');
-    particle.style.cssText = `
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--accent-green);
-      border-radius: 50%;
-      pointer-events: none;
-    `;
-
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight;
-    const vx = (Math.random() - 0.5) * 0.5;
-    const vy = (Math.random() - 0.5) * 0.5;
-
-    particle.style.left = x + 'px';
-    particle.style.top = y + 'px';
-
-    const animate = () => {
-      let newX = parseFloat(particle.style.left) + vx;
-      let newY = parseFloat(particle.style.top) + vy;
-
-      if (newX < 0 || newX > window.innerWidth) vx *= -1;
-      if (newY < 0 || newY > window.innerHeight) vy *= -1;
-
-      particle.style.left = newX + 'px';
-      particle.style.top = newY + 'px';
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-    container.appendChild(particle);
-  }
-
   // Glitch Effects
   setupGlitchEffects() {
     const glitchElements = document.querySelectorAll('.glitch');
-    
+
     glitchElements.forEach(element => {
       let glitchInterval;
-      
+
       const startGlitch = () => {
         glitchInterval = setInterval(() => {
           element.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
-          element.style.textShadow = `
-            ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px var(--accent-green),
-            ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px var(--accent-blue)
-          `;
         }, 50);
       };
 
       const stopGlitch = () => {
         clearInterval(glitchInterval);
         element.style.transform = 'translate(0, 0)';
-        element.style.textShadow = 'none';
       };
 
       element.addEventListener('mouseenter', startGlitch);
@@ -250,11 +180,8 @@ class GeekTheme {
   // Terminal Effects
   setupTerminalEffects() {
     const terminalWindows = document.querySelectorAll('.terminal-window');
-    
+
     terminalWindows.forEach(terminal => {
-      // Add typing sound effect (optional)
-      const typeSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
-      
       // Add cursor blink effect
       const cursor = terminal.querySelector('.typing-cursor');
       if (cursor) {
@@ -262,15 +189,6 @@ class GeekTheme {
           cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
         }, 500);
       }
-
-      // Add terminal glow effect on hover
-      terminal.addEventListener('mouseenter', () => {
-        terminal.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6)';
-      });
-
-      terminal.addEventListener('mouseleave', () => {
-        terminal.style.boxShadow = 'var(--terminal-shadow)';
-      });
     });
   }
 
@@ -349,9 +267,8 @@ class EnhancedNavigation {
     if (!this.nav) return;
 
     const handleScroll = GeekTheme.throttle(() => {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const solidBackground = prefersDark ? '#1a1a1a' : '#f6f7f9';
-      this.nav.style.background = solidBackground;
+      // Use CSS variables so manual theme overrides are respected
+      this.nav.style.background = 'var(--bg-secondary)';
       this.nav.style.borderBottom = '2px solid var(--border-color)';
       this.nav.style.backdropFilter = 'none';
       this.nav.style.webkitBackdropFilter = 'none';
@@ -387,20 +304,7 @@ class EnhancedCards {
   }
 
   setupCardHoverEffects() {
-    // 只处理非reveal的卡片，reveal卡片的hover效果由CSS处理
-    const cards = document.querySelectorAll('.card, .article-card, .skill-card:not(.reveal)');
-    
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px) scale(1.02)';
-        card.style.boxShadow = '0 20px 40px rgba(0, 255, 65, 0.2)';
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-        card.style.boxShadow = '0 10px 30px rgba(0, 255, 65, 0.1)';
-      });
-    });
+    // CSS handles all hover effects; no JS box-shadow overrides needed
   }
 
   setupCardAnimations() {
@@ -439,19 +343,7 @@ class EnhancedButtons {
   }
 
   setupButtonEffects() {
-    const buttons = document.querySelectorAll('.btn, .action-btn, .article-button');
-    
-    buttons.forEach(button => {
-      button.addEventListener('mouseenter', () => {
-        button.style.transform = 'translateY(-3px)';
-        button.style.boxShadow = '0 10px 30px rgba(0, 255, 65, 0.4)';
-      });
-
-      button.addEventListener('mouseleave', () => {
-        button.style.transform = 'translateY(0)';
-        button.style.boxShadow = '0 5px 15px rgba(0, 255, 65, 0.2)';
-      });
-    });
+    // CSS handles all button hover effects; no JS box-shadow overrides needed
   }
 
   setupRippleEffect() {
@@ -489,12 +381,86 @@ class EnhancedButtons {
   }
 }
 
+// Theme Toggle Button — injected as last item in .nav-menu
+class ThemeToggle {
+  constructor() {
+    this.btn = null;
+    this.init();
+  }
+
+  init() {
+    this.injectButton();
+    this.updateButton();
+    window.addEventListener('themechange', () => this.updateButton());
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (!document.documentElement.getAttribute('data-theme')) this.updateButton();
+    });
+  }
+
+  injectButton() {
+    const navContent = document.querySelector('.nav-content');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (!navContent) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'theme-toggle';
+    btn.id = 'themeToggle';
+
+    btn.addEventListener('click', () => {
+      if (!window.ThemeManager) return;
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      window.ThemeManager.cycle(x, y);
+    });
+
+    if (mobileToggle) {
+      navContent.insertBefore(btn, mobileToggle);
+    } else {
+      navContent.appendChild(btn);
+    }
+    this.btn = btn;
+  }
+
+  updateButton() {
+    if (!this.btn) return;
+    const eff = window.ThemeManager
+      ? window.ThemeManager.getEffective()
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    if (eff === 'dark') {
+      this.btn.innerHTML = ThemeToggle.ICON_SUN;
+      this.btn.title = 'Switch to light mode';
+    } else {
+      this.btn.innerHTML = ThemeToggle.ICON_MOON;
+      this.btn.title = 'Switch to dark mode';
+    }
+  }
+
+  static get ICON_SUN() {
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">' +
+      '<circle cx="12" cy="12" r="5"/>' +
+      '<line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>' +
+      '<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>' +
+      '<line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>' +
+      '<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>' +
+      '</svg>';
+  }
+
+  static get ICON_MOON() {
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">' +
+      '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>' +
+      '</svg>';
+  }
+}
+
 // Initialize all enhancements when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new GeekTheme();
   new EnhancedNavigation();
   new EnhancedCards();
   new EnhancedButtons();
+  new ThemeToggle();
   
   // Back button handler (elements with .back-button)
   document.addEventListener('click', (e) => {

@@ -97,6 +97,8 @@
       for (let i = 0; i < spawnCount; i++) spawn(tailX, tailY);
     }
 
+    // Disable per-particle shadow — screen blend mode provides glow naturally
+    ctx.shadowBlur = 0;
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.life++;
@@ -109,8 +111,6 @@
       const size = p.size * (0.8 + 0.6 * t);
       ctx.beginPath();
       ctx.fillStyle = p.color;
-      ctx.shadowColor = p.color;
-      ctx.shadowBlur = 10 * t + 4;
       ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -120,11 +120,13 @@
       if (Math.random() < 0.08) spawn(tailX, tailY);
     }
 
-    requestAnimationFrame(step);
+    stepId = requestAnimationFrame(step);
   }
-  // Initialize with slight transparent fill to avoid flash
-  // No initial full-screen fill to avoid any flash on load
-  requestAnimationFrame(step);
+  let stepId = requestAnimationFrame(step);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { cancelAnimationFrame(stepId); }
+    else { stepId = requestAnimationFrame(step); }
+  });
 
   // Cleanup on unload
   window.addEventListener('beforeunload', ()=>{

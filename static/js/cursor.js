@@ -20,17 +20,7 @@
   let isHovering = false;
   let isClicking = false;
 
-  // 动画循环
-  function animate() {
-    // 零阻尼：直接贴合鼠标位置
-    cursorX = mouseX;
-    cursorY = mouseY;
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
-    requestAnimationFrame(animate);
-  }
-
-  // 鼠标移动事件
+  // 鼠标移动事件 — position is set directly here, no RAF needed
   document.addEventListener('pointermove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -113,9 +103,6 @@
     
     setTimeout(() => ripple.remove(), 600);
   }
-
-  // 开始动画循环
-  animate();
 
   // 页面卸载时清理
   window.addEventListener('beforeunload', () => {

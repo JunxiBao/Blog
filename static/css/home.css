@@ -14,7 +14,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, rgba(0, 255, 65, 0.1), rgba(0, 128, 255, 0.1));
+  background: linear-gradient(45deg, rgba(34, 197, 94, 0.05), rgba(59, 130, 246, 0.05));
   z-index: -1;
 }
 
@@ -25,17 +25,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: glow 2s ease-in-out infinite alternate;
-  background-size: 200% auto;
-  animation: glow 2s ease-in-out infinite alternate, gradient-slide 8s linear infinite, floatY 6s ease-in-out infinite;
+  animation: floatY 8s ease-in-out infinite;
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
-  to { text-shadow: 0 0 30px rgba(0, 255, 65, 0.8); }
-}
-
-@keyframes gradient-slide { 0% { background-position: 0% 50% } 100% { background-position: 200% 50% } }
 @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
 
 .hero-subtitle {
@@ -52,27 +44,25 @@
   height: 250px;
   border-radius: 50%;
   border: 4px solid var(--accent-green);
-  box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   position: relative;
   animation: bob 8s ease-in-out infinite;
 }
 
-.profile-image:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(0, 255, 65, 0.5); }
+.profile-image:hover { transform: scale(1.03); }
 
 .profile-image::before {
   content: '';
   position: absolute;
   top: -10px; left: -10px; right: -10px; bottom: -10px;
-  border: 2px solid var(--accent-green);
+  border: 1px dashed var(--border-color);
   border-radius: 50%;
-  animation: rotate 10s linear infinite, ring-glow 3s ease-in-out infinite;
+  animation: rotate 20s linear infinite;
   opacity: 0.5;
 }
 
 @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
-@keyframes ring-glow { 0%,100% { box-shadow: 0 0 0 rgba(0,255,65,0) } 50% { box-shadow: 0 0 12px rgba(0,255,65,.35) } }
 
 .profile-info { padding: 2rem; }
 .profile-info h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--accent-green); }
@@ -83,7 +73,7 @@
 .skill-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; text-align: center; position: relative; overflow: hidden; will-change: transform, box-shadow; }
 .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); transform: scaleX(0); transition: transform 0.3s ease; }
 .skill-card:hover::before { transform: scaleX(1); }
-.skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.1); border-color: var(--accent-green); }
+.skill-card:hover { transform: translateY(-3px); border-color: var(--accent-green); }
 .skill-icon { font-size: 2.5rem; margin-bottom: 1rem; animation: floatY 7s ease-in-out infinite; }
 .skill-name { font-size: 1.2rem; color: var(--accent-green); margin-bottom: 0.5rem; }
 .skill-description { color: var(--text-muted); font-size: 0.9rem; }
@@ -105,10 +95,9 @@
 .modal-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: center; gap: .5rem; background: var(--bg-primary); margin: -1.5rem -1.5rem 0 -1.5rem; padding: 1rem 2.25rem; border-bottom: 1px solid var(--border-color); z-index: 1; }
 .modal-header h3 { margin: 0; text-align: center; font-size: 1.15rem; }
 .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; padding-right: .25rem; align-content: start; }
-.app-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform .25s ease, box-shadow .3s ease, border-color .3s ease; height: auto; }
-.app-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,255,65,.1); border-color: var(--accent-green); }
-.app-card::before { content: ''; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; background: linear-gradient(135deg, rgba(0,255,65,.18), rgba(0,128,255,.10)); opacity: .18; }
-.app-card:hover::before { opacity: .28; }
+.app-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform .25s ease, border-color .3s ease; height: auto; }
+.app-card:hover { transform: translateY(-3px); border-color: var(--accent-green); }
+.app-card::before { content: ''; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; background: linear-gradient(135deg, rgba(34,197,94,.06), rgba(59,130,246,.04)); opacity: 1; }
 .app-title { font-size: 1.25rem; color: var(--accent-green); margin-bottom: .5rem; font-weight: 700; letter-spacing: .2px; }
 .app-desc { color: var(--text-muted); margin-bottom: 1rem; font-size: .98rem; }
 .app-links { display: flex; gap: .6rem; flex-wrap: wrap; row-gap: .5rem; }
@@ -143,9 +132,8 @@ body { opacity: 0; animation: page-fade-in .6s ease both; }
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px) scale(0.8);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease, background 0.2s ease, color 0.2s ease;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 255, 65, 0.15);
 }
 
 .back-to-top.show {
@@ -158,7 +146,6 @@ body { opacity: 0; animation: page-fade-in .6s ease both; }
   background: var(--accent-green);
   color: var(--bg-primary);
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 30px rgba(0, 255, 65, 0.3);
   border-color: var(--accent-green);
 }
 
@@ -172,28 +159,6 @@ body { opacity: 0; animation: page-fade-in .6s ease both; }
 
 .back-to-top:hover svg {
   transform: translateY(-2px);
-}
-
-/* 按钮发光效果 */
-.back-to-top::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.back-to-top:hover::before {
-  opacity: 0.3;
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.1); opacity: 0.6; }
 }
 
 /* 响应式设计 */
