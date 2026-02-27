@@ -161,9 +161,7 @@
     "passage.filter.all": { en: "All Articles", zh: "全部文章" },
     "passage.filter.projects": { en: "Projects", zh: "项目" },
     "passage.filter.daily": { en: "Daily", zh: "日常" },
-    "passage.filter.smart-home": { en: "Smart-Home", zh: "智能家居" },
     "passage.filter.app-development": { en: "APP Development", zh: "APP开发" },
-    "passage.filter.web3": { en: "Web 3", zh: "Web 3" },
     "passage.search.placeholder": {
       en: "Search articles by title, tag or description...",
       zh: "按标题、标签或描述搜索文章...",
@@ -171,6 +169,14 @@
     "passage.article.read": { en: "Read Article →", zh: "阅读文章 →" },
 
     // Article titles & descriptions
+    "article.tangem.title": {
+      en: "Taking the First Step in Crypto Investing: My Tangem Cold Wallet Unboxing Experience",
+      zh: "踏出加密投资的第一步：我的 Tangem 冷钱包开箱体验",
+    },
+    "article.tangem.desc": {
+      en: "Unboxing and setting up my new Tangem hardware wallet to secure my crypto assets, along with an updated portfolio strategy.",
+      zh: "开箱并设置我的 Tangem 硬件钱包以保护我的加密资产，并更新了投资组合策略。",
+    },
     "article.web3.title": {
       en: "From a 500 RMB Liquidation to Building a Crypto Portfolio",
       zh: "从500元爆仓到构建加密货币投资组合",
@@ -302,10 +308,8 @@
     "index.btn.enter": { en: "🚀 Enter Website", zh: "🚀 进入网站" },
 
     // ── Article category tags ─────────────────────────────────────────────────
-    "tag.web3": { en: "Web 3", zh: "Web 3" },
     "tag.daily": { en: "daily", zh: "日常" },
     "tag.app-development": { en: "app-development", zh: "APP开发" },
-    "tag.smart-home": { en: "smart-home", zh: "智能家居" },
     "tag.projects": { en: "projects", zh: "项目" },
   };
 
