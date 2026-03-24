@@ -114,7 +114,7 @@
       en: "Here you can download and access my two applications",
       zh: "在这里，你可以下载并访问我的两款应用",
     },
-    "home.apps.btn": { en: "📲 Open App List", zh: "📲 打开应用列表" },
+    "home.apps.btn": { en: "<i data-lucide='smartphone'></i> Open App List", zh: "<i data-lucide='smartphone'></i> 打开应用列表" },
     "home.apps.modal.title": { en: "Application list", zh: "应用列表" },
     "home.apps.purpura.title": { en: "Purpura Elf", zh: "紫癜精灵" },
     "home.apps.purpura.desc": {
@@ -135,9 +135,9 @@
       en: "Discover the fascinating world of technology through my articles and projects",
       zh: "通过我的文章和项目，探索精彩的科技世界",
     },
-    "home.cta.articles": { en: "📚 Read Articles", zh: "📚 阅读文章" },
-    "home.cta.github": { en: "🐙 View GitHub", zh: "🐙 查看 GitHub" },
-    "home.cta.email": { en: "📧 Get in Touch", zh: "📧 联系我" },
+    "home.cta.articles": { en: "<i data-lucide='book-open'></i> Read Articles", zh: "<i data-lucide='book-open'></i> 阅读文章" },
+    "home.cta.github": { en: "<i data-lucide='github'></i> View GitHub", zh: "<i data-lucide='github'></i> 查看 GitHub" },
+    "home.cta.email": { en: "<i data-lucide='mail'></i> Get in Touch", zh: "<i data-lucide='mail'></i> 联系我" },
 
     // Uptime (shared)
     "uptime.label": { en: "// site has been running for", zh: "// 网站已运行" },
@@ -305,7 +305,7 @@
     "index.output.about2": { en: "Currently studying at NINGBO HD School.", zh: "目前就读于宁波赫德实验学校。" },
     "index.output.projects": { en: "Smart Home Setup | Web Development | App Development | Raspberry Pi Projects", zh: "智能家居 | 网页开发 | 应用开发 | 树莓派项目" },
     "index.output.ready": { en: "Ready to explore?", zh: "准备好探索了吗？" },
-    "index.btn.enter": { en: "🚀 Enter Website", zh: "🚀 进入网站" },
+    "index.btn.enter": { en: "<i data-lucide='rocket'></i> Enter Website", zh: "<i data-lucide='rocket'></i> 进入网站" },
 
     // ── Article category tags ─────────────────────────────────────────────────
     "tag.daily": { en: "daily", zh: "日常" },
@@ -376,6 +376,11 @@
     window.dispatchEvent(
       new CustomEvent("langchange", { detail: { lang: currentLang } }),
     );
+
+    // Re-initialize lucide icons for newly injected translation elements
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
   }
 
   // ─── Public API ───────────────────────────────────────────────────────────────

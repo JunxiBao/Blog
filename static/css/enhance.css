@@ -41,4 +41,60 @@ a:not(.btn):not(.article-button)::after {
 }
 a:not(.btn):not(.article-button):hover::after { transform: scaleX(1); }
 
+/* Lucide Icons Global Styling */
+.lucide {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  display: inline-block;
+  stroke-width: 1.75;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 4px color-mix(in oklab, currentColor 40%, transparent));
+}
 
+.btn .lucide, .action-btn .lucide, .article-button .lucide, .related-link .lucide {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.btn:hover .lucide, .action-btn:hover .lucide, .article-button:hover .lucide {
+  transform: scale(1.15) rotate(-5deg);
+  filter: drop-shadow(0 0 8px color-mix(in oklab, currentColor 70%, transparent));
+}
+
+.skill-icon .lucide {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--accent-green, #00ff41);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent-green, #00ff41) 50%, transparent));
+}
+
+.skill-card:hover .skill-icon .lucide {
+  transform: scale(1.15) translateY(-2px);
+  filter: drop-shadow(0 0 12px color-mix(in oklab, var(--accent-green, #00ff41) 80%, transparent));
+}
+
+.article-icon .lucide {
+  width: 2.2rem;
+  height: 2.2rem;
+  color: var(--accent-green, #00ff41);
+  filter: drop-shadow(0 0 5px color-mix(in oklab, var(--accent-green, #00ff41) 40%, transparent));
+}
+
+.article-card:hover .article-icon .lucide {
+  transform: scale(1.1) rotate(3deg);
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent-green, #00ff41) 80%, transparent));
+}
+
+.search-icon .lucide {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--text-muted, #888);
+}
+
+.search-box:focus-within .search-icon .lucide,
+.search-box.searching .search-icon .lucide {
+  color: var(--accent-green, #00ff41);
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--accent-green, #00ff41) 60%, transparent));
+}
