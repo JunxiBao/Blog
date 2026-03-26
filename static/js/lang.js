@@ -289,6 +289,14 @@
       en: "As a student who transferred from a regular middle school to an international school, English has always been my biggest weakness. This article documents my TOEFL learning journey from scoring 3 on reading in my first attempt to eventually achieving 94, including the setbacks, efforts, and growth along the way.",
       zh: "作为一名从普通初中转入国际学校的学生，英语一直是我最大的弱项。这篇文章记录了我从第一次托福阅读只得3分，到最终取得94分的学习历程，包括其中的挫折、努力与成长。",
     },
+    "article.ctb.title": {
+      en: "National Championship: A Thrilling Journey from Code to Podium",
+      zh: "CTB全国赛摘金记：从代码到领奖台的惊险之旅",
+    },
+    "article.ctb.desc": {
+      en: "My experience at the CTB National Finals pitching our app to juries and cracking poster dilemmas with AI.",
+      zh: "我在CTB全国总决赛中向评委展示应用、并用AI攻克海报难题的全程体验。",
+    },
     "article.youth.title": {
       en: "2025 Youth Challenge competition",
       zh: "2025青年挑战赛",
