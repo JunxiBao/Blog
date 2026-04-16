@@ -169,6 +169,14 @@
     "passage.article.read": { en: "Read Article →", zh: "阅读文章 →" },
 
     // Article titles & descriptions
+    "article.obsidian.title": {
+      en: "Obsidian: The Best Note-Taking Tool",
+      zh: "Obsidian：最好用的笔记工具",
+    },
+    "article.obsidian.desc": {
+      en: "From theme setup and LaTeX workflow to AI-assisted knowledge management, this is why Obsidian became my long-term note-taking tool.",
+      zh: "从主题配置、LaTeX 公式输入到 AI 辅助知识整理，这篇文章分享了 Obsidian 为什么成为我长期使用的笔记工具。",
+    },
     "article.tangem.title": {
       en: "Taking the First Step in Crypto Investing: My Tangem Cold Wallet Unboxing Experience",
       zh: "踏出加密投资的第一步：我的 Tangem 冷钱包开箱体验",

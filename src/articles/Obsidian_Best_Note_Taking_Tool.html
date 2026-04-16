@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obsidian: The Best Note-Taking Tool</title>
+  <script src="/static/js/theme.js"></script>
+  <script src="/static/js/lang.js"></script>
+  <link rel="stylesheet" href="../../static/css/template.css" />
+
+  <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+  <link rel="shortcut icon" href="/static/image/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/image/favicon.png">
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button" title="Back">
+    &#8592;
+  </a>
+  <div class="rainbow-border">
+    <div class="article-wrapper">
+      <article class="article-card">
+
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">Obsidian: The Best Note-Taking Tool</h1>
+          <p class="article-date">Apr 16 2026</p>
+          <div class="article-content">
+            <h2>Table of Contents</h2>
+            <nav class="toc">
+              <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#themes">Theme Choices</a></li>
+                <li><a href="#latex-plugin">The Key to Efficient STEM Notes: LaTeX Plugin</a></li>
+                <li><a href="#ai-assistant">AI Assistant</a></li>
+              </ul>
+            </nav>
+
+            <section>
+              <h2 id="intro">Introduction</h2>
+              <p>When it comes to note-taking tools, I have tried quite a few.</p>
+              <p>I started with Microsoft OneNote. Later, when I saw more and more people recommending Notion online, I
+                gave it a try as well. After that, I switched to Apple Notes. Especially after I got an iPad, taking
+                notes with Apple Pencil felt really convenient. But for me, handwritten notes always had two obvious
+                downsides: they were not efficient enough, and my handwriting honestly did not look very good. So the
+                main reason I kept using Apple Notes for a while was that it made it easy to write down complex formulas
+                and symbols.</p>
+              <p>It was not until a friend recommended Obsidian to me that I finally found the note-taking tool that
+                truly suited me.</p>
+              <p>At its core, Obsidian is a Markdown-based note-taking app. What appealed to me most is that I can
+                record everything in the simplest text format, while the software takes care of rendering and
+                presentation automatically. Compared with tools that emphasize a WYSIWYG experience, Markdown feels
+                lighter, faster, and much better for long-term knowledge accumulation.</p>
+              <p>Of course, the value of Obsidian goes far beyond Markdown. It is highly extensible, which means I can
+                continuously shape and refine my note-taking system based on my own needs. In today&apos;s AI era, this
+                matters even more, because AI agents can easily read, understand, and modify my Markdown files, helping
+                me take notes, organize knowledge, and even restructure content much more efficiently. Even better,
+                because everything is plain text, I can also use Git for version control.</p>
+              <p>What impressed me even more is that Obsidian recently released the official Obsidian CLI. This means
+                AI is no longer just helping me write notes; it can now participate in my knowledge management workflow
+                in a much more precise and integrated way. In a sense, Obsidian is not just a note-taking app. It feels
+                more like a personal knowledge platform built for collaboration between humans and AI.</p>
+              <p>I have been using Obsidian for quite a long time now, and I have built a number of configurations that
+                I personally find very practical. If you are interested, you can check them out in my <a
+                  href="https://github.com/JunxiBao/dotfiles">dotfiles</a>. Next, I will introduce some setups that I
+                find especially interesting and worth sharing.</p>
+            </section>
+
+            <section>
+              <h2 id="themes">Theme Choices</h2>
+
+              <h3>Border</h3>
+              <p>The theme I mainly use right now is Border. It won an Obsidian community award in 2023, and its
+                overall design is very pleasant to look at. It also offers rich customization options, and its
+                animations are quite polished. But for me, the most important feature is that it supports different
+                colors for headings at different levels, which is almost a must-have in my workflow.</p>
+              <img src="../../static/image/Obsidian/Obsidian_Border_Theme.png" alt=""
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3>Primary</h3>
+              <p>Primary is another theme that I really like. Its default color scheme is exactly my style, with a
+                yellow tone that reminds me a lot of Vim. Its animation transitions are also incredibly smooth, honestly
+                even better than Border in that regard. The reason I do not use it as my main theme is simple: it does
+                not support color distinctions between different heading levels, and that happens to be very important to
+                me.</p>
+              <img src="../../static/image/Obsidian/Obsidian_Primary_Theme.png" alt=""
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+            </section>
+
+            <section>
+              <h2 id="latex-plugin">The Key to Efficient STEM Notes: LaTeX Plugin</h2>
+              <p>As I mentioned earlier, one of the main reasons I liked using Apple Notes with Apple Pencil was that
+                it made writing formulas convenient. But in Obsidian, writing formulas is just as easy, arguably even
+                easier.</p>
+              <p>First, Markdown itself supports LaTeX formulas. This means I can directly type formula code inside my
+                notes and let Obsidian render it beautifully. For anyone who frequently records math-related content,
+                this is already extremely useful.</p>
+              <p>What really elevated the experience for me, though, is Obsidian&apos;s plugin ecosystem. Through the
+                plugin marketplace, I found a plugin that can almost be called a formula-input superpower:
+                <strong>Latex Suite</strong>.
+              </p>
+              <p>Latex Suite provides many highly efficient ways to type LaTeX. For example, it can automatically expand
+                <code>mu</code> into <code>\mu</code>, and turn <code>a/b</code> into <code>\frac{a}{b}</code>. These
+                may sound like small conveniences, but when you type formulas often, they significantly reduce
+                repetitive work and make the whole input process much smoother.
+              </p>
+              <p>On top of that, it also supports formula preview. While typing LaTeX code, I can already see what the
+                rendered formula will look like. This real-time feedback feels very close to WYSIWYG and makes writing
+                formulas in Obsidian much more natural and efficient.</p>
+            </section>
+
+            <section>
+              <h2 id="ai-assistant">AI Assistant</h2>
+              <p>Using AI to help with note-taking and note organization is, in my opinion, an excellent solution. The
+                plugin I use is called <strong>Claudian</strong>. It is not yet available in Obsidian&apos;s community
+                plugin marketplace, so you need to download and install it manually from <a
+                  href="https://github.com/YishenTu/claudian">GitHub</a>.</p>
+              <p>I use it to connect to Codex on my computer, and I have installed several useful skills for it. For
+                example, there is <code>obsidian-canvas-creator</code> for generating mind maps,
+                <code>obsidian-cli</code> for using the official Obsidian CLI, and
+                <code>obsidian-markdown</code> for helping AI better understand and work with Obsidian-specific Markdown
+                syntax.
+              </p>
+              <p>With these tools, AI has significantly improved my note-taking efficiency. I can directly ask AI to
+                insert a new knowledge point into an existing note, or let it organize a large batch of unstructured
+                files for me. A lot of repetitive, tedious, and time-consuming work can now be done far more
+                efficiently.</p>
+              <p>Of course, Obsidian has far more to offer than what I have mentioned here. For me, it is not just a
+                note-taking app, but a knowledge management system that I can continuously refine and evolve over time.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">Obsidian：最好用的笔记工具</h1>
+          <p class="article-date">2026年4月16日</p>
+          <div class="article-content">
+            <h2>目录</h2>
+            <nav class="toc">
+              <ul>
+                <li><a href="#intro">引言</a></li>
+                <li><a href="#themes">主题选择</a></li>
+                <li><a href="#latex-plugin">理科笔记的效率核心：LaTeX 插件</a></li>
+                <li><a href="#ai-assistant">AI 助手</a></li>
+              </ul>
+            </nav>
+
+            <section>
+              <h2 id="intro">引言</h2>
+              <p>说起笔记工具，我其实折腾过不少。</p>
+              <p>最早，我用的是微软的 OneNote。后来看到网上越来越多人推荐 Notion，我也跟风体验过一段时间。再后来，我又转向了苹果备忘录。尤其是在有了 iPad
+                之后，配合 Apple Pencil 记笔记，体验确实不错。只不过，对我来说，手写笔记始终有两个明显的问题：一是效率不够高，二是字确实写得不太好看。所以那段时间我之所以还愿意继续使用苹果备忘录，更多是因为它在记录复杂公式和符号时比较方便。</p>
+              <p>直到后来，在一位朋友的推荐下，我开始接触 Obsidian，这才慢慢找到了真正适合自己的笔记工具。</p>
+              <p>Obsidian 本质上是一款基于 Markdown
+                的笔记软件。对我来说，它最大的吸引力在于：我可以直接用最简洁的文本方式记录内容，而软件会自动完成排版和渲染。相比起那些强调“所见即所得”的工具，Markdown
+                的表达方式反而更轻、更快，也更适合长期积累。</p>
+              <p>当然，Obsidian 的价值远不止于 Markdown。它拥有极强的扩展性，可以按照自己的需求不断搭建和完善整个笔记系统。而在今天这个 AI 时代，这一点显得尤其重要，因为
+                AI Agent 可以非常方便地读取、理解、修改 Markdown
+                文件，从而帮助我更高效地完成笔记记录、知识整理，甚至内容重构。更厉害的是，因为是编辑纯文本，我还可以用自己熟悉的 Git 来进行版本管理。</p>
+              <p>尤其让我觉得惊艳的是，最近 Obsidian 官方还推出了 Obsidian CLI。这意味着，AI 不再只是“辅助我写笔记”，而是可以更精准、更深入地参与到我的知识管理流程中。某种程度上说，Obsidian
+                不只是一个笔记软件，它更像是一个适合人与 AI 协作的个人知识平台。</p>
+              <p>我已经使用 Obsidian 很长一段时间了，也围绕它做了不少自己觉得很实用的配置。如果你感兴趣，可以在我的 <a
+                  href="https://github.com/JunxiBao/dotfiles">dotfiles</a> 中查看相关设置。接下来，我也会介绍其中一些我认为特别有意思、也很值得分享的配置。</p>
+            </section>
+
+            <section>
+              <h2 id="themes">主题选择</h2>
+
+              <h3>Border</h3>
+              <p>我现在主要使用的主题是 Border。这个主题曾在 2023
+                年获得过 Obsidian 社区奖项，整体风格非常耐看，同时也支持丰富的自定义选项，动画效果也做得相当不错。但对我来说，最重要的一点还是它支持对不同层级标题进行颜色区分，这几乎可以说是我的刚需。</p>
+              <img src="../../static/image/Obsidian/Obsidian_Border_Theme.png" alt=""
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3>Primary</h3>
+              <p>Primary 也是我非常喜欢的一个主题。首先，它的默认配色很对我的胃口，有一种很像 Vim
+                风格的黄色调；另外，它的动画过渡也做得非常丝滑，甚至比刚刚提到的 Border 还要更出色。之所以没有把它作为我的主力主题，主要还是因为它不支持对不同层级标题进行颜色区分，而这一点对我来说偏偏又很重要。</p>
+              <img src="../../static/image/Obsidian/Obsidian_Primary_Theme.png" alt=""
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+            </section>
+
+            <section>
+              <h2 id="latex-plugin">理科笔记的效率核心：LaTeX 插件</h2>
+              <p>我前面提到过，我曾经很喜欢用苹果备忘录配合 Apple Pencil 来记笔记，其中一个很重要的原因，就是它能够比较方便地记录公式。不过，对 Obsidian
+                来说，公式输入同样不是问题，甚至可以说非常轻松。</p>
+              <p>首先，Markdown 本身就支持 LaTeX 公式语法。这意味着我完全可以直接在笔记中输入公式代码，而 Obsidian 会自动将其渲染成清晰、美观的数学公式。对于需要经常记录数学内容的人来说，这一点已经非常实用了。</p>
+              <p>但真正让我觉得体验大幅提升的，还是 Obsidian 强大的插件生态。借助插件市场，我找到了一个几乎可以称得上“公式输入神器”的插件：<strong>Latex
+                  Suite</strong>。</p>
+              <p>Latex Suite 提供了很多高效的 LaTeX 输入方式。比如，它可以把 <code>mu</code> 自动补全为 <code>\mu</code>，把
+                <code>a/b</code> 自动展开为 <code>\frac{a}{b}</code>。这些看似细小的优化，在真正频繁输入公式的时候，能显著减少重复操作，让整个输入过程顺畅很多。
+              </p>
+              <p>除此之外，它还支持公式预览功能。也就是说，在输入 LaTeX
+                代码的同时，我就能实时看到公式渲染后的效果。这种“边写边看”的体验，非常接近所见即所得，也让我在 Obsidian 里记录公式时变得更加自然、高效。</p>
+            </section>
+
+            <section>
+              <h2 id="ai-assistant">AI 助手</h2>
+              <p>用 AI 来辅助写笔记、整理笔记，在我看来真的是一个非常好的解决方案。我现在使用的是一个叫 <strong>Claudian</strong> 的插件。这个插件目前还没有上架
+                Obsidian 的第三方插件市场，需要通过 <a href="https://github.com/YishenTu/claudian">GitHub</a> 手动下载安装。</p>
+              <p>我用它连接了电脑上的 Codex，并在里面配置了一些很实用的 skills。比如，用来生成思维导图的
+                <code>obsidian-canvas-creator</code>，用于调用 Obsidian 官方 CLI 的 <code>obsidian-cli</code>，以及让 AI 更好理解和使用
+                Obsidian 专属 Markdown 语法的 <code>obsidian-markdown</code> 等。
+              </p>
+              <p>在这些工具的帮助下，AI 确实大幅提升了我的笔记效率。比如，我可以直接让 AI 在现有笔记中插入某个知识点，也可以把一大批还没来得及整理的文件交给它统一梳理。很多原本重复、琐碎、耗时的整理工作，现在都可以更高效地完成。</p>
+              <p>当然，Obsidian 的强大之处远不止我上面提到的这些，它还有非常多值得挖掘和探索的玩法。对我来说，它不仅是一款笔记软件，更是一套可以持续打磨和进化的知识管理工具。</p>
+            </section>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</body>
+
+</html>
