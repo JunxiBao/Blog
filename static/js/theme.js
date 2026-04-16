@@ -102,3 +102,152 @@ document.addEventListener('click', function (e) {
     window.location.href = url.toString();
   } catch (err) {}
 }, true);
+
+// Global progressive image loading:
+// 1) render low-res image first from /static/image/.lowres/
+// 2) after window load, swap to full-res source
+(function () {
+  var BASE = '/static/image/';
+  var LOWRES_BASE = '/static/image/.lowres/';
+  var PREPARED_ATTR = 'data-progressive-prepared';
+  var FULL_ATTR = 'data-fullres-src';
+  var LOW_ATTR = 'data-lowres-src';
+  var OPT_OUT_ATTR = 'data-progressive-off';
+  var candidates = [];
+
+  function injectStyles() {
+    if (document.getElementById('progressive-image-style')) return;
+    var style = document.createElement('style');
+    style.id = 'progressive-image-style';
+    style.textContent = [
+      '.progressive-image{transition:filter .28s ease, opacity .28s ease;}',
+      '.progressive-image.is-lowres{filter:blur(10px);opacity:.92;}',
+      '.progressive-image.is-fullres{filter:none;opacity:1;}',
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  function normalizeURL(url) {
+    try {
+      return new URL(url, window.location.href);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function shouldHandle(img) {
+    if (!img) return false;
+    if (img.getAttribute(PREPARED_ATTR) === '1') return false;
+    if (img.getAttribute(OPT_OUT_ATTR) === '1') return false;
+
+    var raw = img.getAttribute('src');
+    if (!raw || /^(data:|blob:)/i.test(raw)) return false;
+
+    var parsed = normalizeURL(raw);
+    if (!parsed) return false;
+    if (parsed.origin !== window.location.origin) return false;
+    if (parsed.pathname.indexOf(BASE) !== 0) return false;
+    if (parsed.pathname.indexOf(LOWRES_BASE) === 0) return false;
+
+    return true;
+  }
+
+  function toLowresURL(fullURL) {
+    var parsed = normalizeURL(fullURL);
+    if (!parsed || parsed.pathname.indexOf(BASE) !== 0) return null;
+    parsed.pathname = LOWRES_BASE + parsed.pathname.slice(BASE.length);
+    return parsed.toString();
+  }
+
+  function markLow(img) {
+    img.classList.add('progressive-image', 'is-lowres');
+    img.classList.remove('is-fullres');
+  }
+
+  function markFull(img) {
+    img.classList.add('progressive-image', 'is-fullres');
+    img.classList.remove('is-lowres');
+  }
+
+  function prepareImage(img) {
+    if (!shouldHandle(img)) return;
+
+    var fullURL = normalizeURL(img.getAttribute('src'));
+    if (!fullURL) return;
+
+    var lowURL = toLowresURL(fullURL.toString());
+    if (!lowURL) return;
+
+    img.setAttribute(PREPARED_ATTR, '1');
+    img.setAttribute(FULL_ATTR, fullURL.toString());
+    img.setAttribute(LOW_ATTR, lowURL);
+    img.decoding = 'async';
+    markLow(img);
+
+    // If low-res file is missing, fail fast to full-res.
+    var onLowError = function () {
+      img.removeEventListener('error', onLowError);
+      img.src = fullURL.toString();
+      markFull(img);
+    };
+    img.addEventListener('error', onLowError);
+
+    img.src = lowURL;
+    candidates.push(img);
+  }
+
+  function swapToFull(img) {
+    if (!img || !img.isConnected) return;
+    var fullURL = img.getAttribute(FULL_ATTR);
+    if (!fullURL) return;
+
+    var preload = new Image();
+    preload.decoding = 'async';
+    preload.src = fullURL;
+
+    var commit = function () {
+      if (!img.isConnected) return;
+      img.src = fullURL;
+      markFull(img);
+    };
+
+    if (typeof preload.decode === 'function') {
+      preload.decode().then(commit).catch(function () {
+        if (preload.complete) commit();
+        else {
+          preload.onload = commit;
+          preload.onerror = commit;
+        }
+      });
+      return;
+    }
+
+    if (preload.complete) commit();
+    else {
+      preload.onload = commit;
+      preload.onerror = commit;
+    }
+  }
+
+  function prepareAllInDOM() {
+    var imgs = document.querySelectorAll('img[src]');
+    imgs.forEach(prepareImage);
+  }
+
+  function swapAllToFull() {
+    candidates.forEach(swapToFull);
+  }
+
+  injectStyles();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepareAllInDOM, { once: true });
+  } else {
+    prepareAllInDOM();
+  }
+
+  // Respect user requirement: load high-res only after full page load.
+  window.addEventListener('load', function () {
+    swapAllToFull();
+  }, { once: true });
+})();
