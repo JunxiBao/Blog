@@ -2,7 +2,9 @@
 
 /* 隐藏默认光标 */
 @media (pointer: fine) {
-  html, body, * { 
+  html.custom-cursor-active,
+  html.custom-cursor-active body,
+  html.custom-cursor-active * {
     cursor: none !important; 
   }
 }
@@ -97,4 +99,3 @@
     --cursor-text: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><linearGradient id='t1' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%2300ff6a'/><stop offset='100%' stop-color='%23009cff'/></linearGradient><filter id='tg' x='-50%' y='-50%' width='200%' height='200%'><feGaussianBlur stdDeviation='0.9'/></filter></defs><path d='M14 4 L14 24 M9 6 L19 6 M9 22 L19 22' stroke='url(%23t1)' stroke-width='1.6' stroke-linecap='round'/><path d='M14 4 L14 24 M9 6 L19 6 M9 22 L19 22' stroke='%2300ff6a' stroke-opacity='0.65' stroke-width='3.2' stroke-linecap='round' filter='url(%23tg)'/></svg>") 10 14, auto;
   }
 }
-
