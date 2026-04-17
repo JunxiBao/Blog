@@ -12,6 +12,7 @@
     cursor: null,
     initialized: false,
     listenersBound: false,
+    watchdogId: null,
     lastX: Math.max(12, Math.round(window.innerWidth / 2)),
     lastY: Math.max(12, Math.round(window.innerHeight / 2))
   };
@@ -38,7 +39,7 @@
     if (!state.cursor || !state.cursor.isConnected) {
       state.cursor = document.createElement('div');
       state.cursor.className = 'cursor-main';
-      state.cursor.style.opacity = '0';
+      state.cursor.style.opacity = '1';
       state.container.appendChild(state.cursor);
     } else if (state.cursor.parentElement !== state.container) {
       state.container.appendChild(state.cursor);
@@ -124,7 +125,8 @@
   }
 
   function onMouseLeave() {
-    if (state.cursor) state.cursor.style.opacity = '0';
+    // Keep cursor visible to avoid hidden state after browser history navigation.
+    if (state.cursor) state.cursor.style.opacity = '1';
   }
 
   function onMouseOver(e) {
@@ -164,7 +166,8 @@
   }
 
   function onPageHide() {
-    if (state.cursor) state.cursor.style.opacity = '0';
+    // Do not hide on pagehide; BFCache restore may skip expected enter/move events.
+    if (state.cursor) state.cursor.style.opacity = '1';
   }
 
   function onVisibilityChange() {
@@ -204,6 +207,13 @@
 
     addMediaListener(finePointerQuery, onMediaChange);
     addMediaListener(reducedMotionQuery, onMediaChange);
+
+    // Safety net: recover from rare BFCache/history edge states.
+    state.watchdogId = window.setInterval(() => {
+      if (document.visibilityState === 'visible' && document.hasFocus()) {
+        ensureCursorVisible();
+      }
+    }, 400);
   }
 
   function init() {
