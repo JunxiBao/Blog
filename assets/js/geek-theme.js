@@ -1,15 +1,8 @@
 // Geek Theme JavaScript - Enhanced Interactions and Effects
-// Ensure back/forward cache restores trigger a refresh when requested
-window.addEventListener('pageshow', (event) => {
+// Keep BFCache restores smooth (no forced reload on browser back/forward)
+window.addEventListener('pageshow', () => {
   try {
-    if (sessionStorage.getItem('forceReload') === '1') {
-      sessionStorage.removeItem('forceReload');
-      location.reload();
-      return;
-    }
-    if (event.persisted) {
-      location.reload();
-    }
+    sessionStorage.removeItem('forceReload');
   } catch { }
 });
 
@@ -540,9 +533,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const backBtn = e.target.closest && e.target.closest('.back-button');
     if (!backBtn) return;
     e.preventDefault();
-    try {
-      sessionStorage.setItem('forceReload', '1');
-    } catch { }
     setTimeout(() => {
       if (history.length > 1) {
         history.back();
