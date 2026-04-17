@@ -13,6 +13,26 @@ window.addEventListener('pageshow', (event) => {
   } catch { }
 });
 
+function resolveSitePath(pathFromRoot) {
+  const normalized = String(pathFromRoot || '').replace(/^\/+/, '');
+  const scripts = document.getElementsByTagName('script');
+  for (let i = scripts.length - 1; i >= 0; i--) {
+    const src = scripts[i].getAttribute('src');
+    if (!src || !/assets\/js\/geek-theme\.js(\?|#|$)/.test(src)) continue;
+    try {
+      const parsed = new URL(src, window.location.href);
+      const basePath = parsed.pathname.replace(/assets\/js\/geek-theme\.js$/, '');
+      return basePath + normalized;
+    } catch (e) { }
+  }
+  const splitMark = '/pages/';
+  if (window.location.pathname.indexOf(splitMark) !== -1) {
+    const prefix = window.location.pathname.split(splitMark)[0];
+    return prefix + '/' + normalized;
+  }
+  return '/' + normalized;
+}
+
 class GeekTheme {
   constructor() {
     this.init();
@@ -527,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (history.length > 1) {
         history.back();
       } else {
-        location.href = '/src/passage.html';
+        location.href = resolveSitePath('pages/passage.html');
       }
     }, 100);
   });

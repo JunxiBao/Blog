@@ -104,16 +104,30 @@ document.addEventListener('click', function (e) {
 }, true);
 
 // Global progressive image loading:
-// 1) render low-res image first from /static/image/.lowres/
+// 1) render low-res image first from assets/images/.lowres/
 // 2) after window load, swap to full-res source
 (function () {
-  var BASE = '/static/image/';
-  var LOWRES_BASE = '/static/image/.lowres/';
   var PREPARED_ATTR = 'data-progressive-prepared';
   var FULL_ATTR = 'data-fullres-src';
   var LOW_ATTR = 'data-lowres-src';
   var OPT_OUT_ATTR = 'data-progressive-off';
   var candidates = [];
+
+  function detectAssetPrefix() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = scripts.length - 1; i >= 0; i--) {
+      var src = scripts[i].getAttribute('src');
+      if (!src || !/assets\/js\/theme\.js(\?|#|$)/.test(src)) continue;
+      var parsed = normalizeURL(src);
+      if (!parsed) continue;
+      return parsed.pathname.replace(/assets\/js\/theme\.js$/, 'assets/');
+    }
+    return '/assets/';
+  }
+
+  var ASSET_PREFIX = detectAssetPrefix();
+  var BASE = ASSET_PREFIX + 'images/';
+  var LOWRES_BASE = BASE + '.lowres/';
 
   function injectStyles() {
     if (document.getElementById('progressive-image-style')) return;
