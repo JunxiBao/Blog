@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="onion-location" content="http://junxibao7eqtslsmrjdwz7kxjym5a66omxd43tew6vy3fcp34wzeueyd.onion/index.html" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setting Up a VPN Node and Dark Web Site</title>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/template.css" />
+  <link rel="stylesheet" href="../../assets/css/cursor.css?v=20260417b" />
+
+  <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="../../assets/images/favicon.png">
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button" title="Back">
+    &#8592;
+  </a>
+  <div class="rainbow-border">
+    <div class="article-wrapper">
+      <article class="article-card">
+
+        <!-- English -->
+        <div class="lang-en">
+          <h1 class="article-title">Setting Up a VPN Node and Dark Web Site on an Overseas Server</h1>
+          <p class="article-date">Apr 25 2026</p>
+          <div class="article-content">
+            <h2>Table of Contents</h2>
+            <nav class="toc">
+              <ul>
+                <li><a href="#setting-up-node">Setting Up the Node</a>
+                  <ul>
+                    <li><a href="#cmin2-route">The Key Breakthrough: Locking Down a Premium CMIN2 Route</a></li>
+                    <li><a href="#initial-attempts">Initial Attempts and a Hardcore "Authentication" Strategy</a></li>
+                    <li><a href="#s-ui-panel">Experience Upgrade: Migrating to the s-ui Panel</a></li>
+                    <li><a href="#ip-blocked">Sudden Crisis: IP Blocked and the Difficult Recovery</a></li>
+                    <li><a href="#post-mortem">Lessons Learned: Post-Mortem on the IP Ban and Security Hardening</a></li>
+                  </ul>
+                </li>
+                <li><a href="#dark-web">Setting Up the Dark Web Site</a>
+                  <ul>
+                    <li><a href="#onion-address">The Collision of Computing Power and Luck: Generating a Custom .onion Vanity Address</a></li>
+                    <li><a href="#tor-nginx">Server Deployment: The Classic Tor + Nginx Combo</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+
+            <p>As my understanding of the underlying logic of networking and proxy technologies deepened, I began to grow weary and dissatisfied with the traditional "airport" (proxy subscription) services available on the market. These services universally suffer from severe IP overselling — multiple users sharing the same IP not only exponentially increases the risk of being blocked by the GFW (Great Firewall), but during peak evening hours, the congested links drastically reduce connection speeds. Moreover, in early 2026, authorities in China launched a harsh crackdown on numerous "airport" services, prompting many tech bloggers to advocate for self-hosting nodes using a VPS. Inspired by this, I conceived the idea of building my own overseas proxy server.</p>
+
+            <section>
+              <h2 id="setting-up-node">Setting Up the Node</h2>
+
+              <h3 id="cmin2-route">The Key Breakthrough: Locking Down a Premium CMIN2 Route</h3>
+              <p>After thoroughly researching various VPS specifications, I zeroed in on the choice of "network route." Since I use China Mobile broadband, and to pursue the ultimate direct-connection experience, I decided to look for servers offering CMIN2 or tri-network optimized routes.</p>
+              <p>At the time, most of the promotional server models I had my eye on were already sold out, so I had no choice but to wait patiently. It wasn't until April 21st that, through a Telegram channel notification, I keenly spotted that VMISS servers had finally restocked. Although only the single-network optimized version remained, I didn't hesitate and promptly purchased a 1-core, 1GB CMIN2 route server for CAD 50 per year.</p>
+
+              <h3 id="initial-attempts">Initial Attempts and a Hardcore "Authentication" Strategy</h3>
+              <p>Initially, to quickly validate my concept, I deployed the <code>fscarmen/sing-box</code> script on the server. This tool is extremely beginner-friendly — it not only spins up a node rapidly but also enables the BBR congestion control algorithm by default to optimize network throughput.</p>
+              <p>After the node was successfully running, I wanted to share it with friends, but on the condition that I kept core control in my own hands — meaning I could manage their access permissions at any time. After some exploration, I devised an "authentication" strategy based on Sub-Store:</p>
+              <ol>
+                <li>Import the original node into Sub-Store, then generate subscription links through it for sharing.</li>
+                <li>Set up a script on the server to automatically rotate the node's UUID on a daily schedule.</li>
+                <li>This way, once I revoke a friend's subscription access in Sub-Store, their client can no longer fetch the latest UUID for that day. As soon as the UUID fails to match on both ends, the connection is naturally blocked.</li>
+              </ol>
+              <p>Subsequently, I conducted thorough testing on the server's routing. The results confirmed that under China Mobile broadband, it indeed routes through the CMIN2 line, with excellent latency and sufficient bandwidth to smoothly stream YouTube 8K videos.</p>
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337466.png" alt="Route test results"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337488.png" alt="Speed test results"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3 id="s-ui-panel">Experience Upgrade: Migrating to the s-ui Panel</h3>
+              <p>However, as I explored further, I discovered an even more elegant ultimate solution: the <code>alireza0/s-ui</code> panel.</p>
+              <p>It is also based on the high-performance sing-box core, but offers an extremely intuitive Web UI interface. It not only monitors server resource usage in real-time but also has a comprehensive built-in multi-user management system. Now, I can create independent accounts for each friend, assign dedicated UUIDs, and precisely limit traffic caps and expiration dates. In the dashboard, their online status and traffic consumption are visible at a glance. If I need to revoke access, I simply delete the corresponding user in the panel with one click, and that UUID's connection is immediately invalidated. This not only significantly reduced my maintenance costs but also made node management more professional and efficient.</p>
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337465.png" alt="s-ui panel dashboard"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3 id="ip-blocked">Sudden Crisis: IP Blocked and the Difficult Recovery</h3>
+              <p>However, good things don't last. About two days after stable operation, one evening I suddenly found that the node couldn't connect. My first instinct was that the server configuration had gone wrong, until I ran a test on Ping.pe and saw the screen covered in red — my IP was completely blocked across mainland China's entire network. That's when it hit me: <strong>the IP had been banned</strong>.</p>
+              <p>I tried to "resurrect" the node through a Cloudflare tunnel (Argo Tunnel), but this approach caused speeds to plummet catastrophically. Left with no other option, I ultimately paid the service provider CAD 5 to get a brand new IP address.</p>
+
+              <h3 id="post-mortem">Lessons Learned: Post-Mortem on the IP Ban and Security Hardening</h3>
+              <p>After paying this "tuition fee," I began a thorough post-mortem on the root causes of the IP ban. Through research and deep reflection, I identified several fatal vulnerabilities from my initial setup:</p>
+              <ul>
+                <li><strong>Obvious protocol signatures</strong>: During the early setup phase, I had kept legacy protocols like Shadowsocks that are easily identified and precisely blocked by the GFW.</li>
+                <li><strong>Improper port configuration</strong>: The VLESS+Reality protocol I was using wasn't bound to port 443, causing traffic to fail at perfectly masquerading as normal HTTPS traffic, ultimately revealing its true nature.</li>
+                <li><strong>Plaintext transmission risk</strong>: My s-ui panel was accessed directly via IP without a domain binding, exposing all management communications under plaintext HTTP.</li>
+                <li><strong>Exposed sensitive services</strong>: The server was also running Sub-Store and SubConverter Docker containers, similarly without domain bindings and using default ports, making them extremely vulnerable to active probing and scanning by the GFW.</li>
+              </ul>
+              <p><strong>The Final Hardening Plan:</strong> Having learned from this painful lesson, the moment I got the new IP, I carried out a thorough security hardening:</p>
+              <ol>
+                <li><strong>Streamlined protocols</strong>: Decisively removed all protocols except VLESS+Reality and strictly bound it to port 443.</li>
+                <li><strong>Panel encryption</strong>: Bound the s-ui panel to a dedicated domain through Cloudflare, enforcing site-wide HTTPS encrypted transmission.</li>
+                <li><strong>Reduced attack surface</strong>: Completely took offline the Sub-Store and SubConverter containers that posed exposure risks.</li>
+              </ol>
+              <p>After this entire ordeal of troubleshooting and optimization, my node finally entered a truly stable period. This experience not only gave me a high-speed private proxy but also provided me with profound, hands-on knowledge of network security and protocol disguise.</p>
+            </section>
+
+            <section>
+              <h2 id="dark-web">Setting Up the Dark Web Site</h2>
+              <p>When I bring up the "dark web" with my classmates, they often look at me with astonishment. In most people's preconceived notions, it's a lawless wasteland filled with pornography, violence, and illegal transactions. But after my own in-depth research, I discovered that the dark web's technical underpinnings are fascinating — it not only protects privacy, but actually hosts many perfectly legitimate sites. For instance, the CIA, Facebook, and even major news organizations all have official Tor hidden services.</p>
+              <p>I had actually planted the seed of building a dark web site in my mind long ago. My original intention was very simple: <strong>purely for technical learning and "hardcore tinkering," with absolutely no involvement in any illegal activities</strong>. But I was held back by not having a suitable overseas server (domestic machines in China can't directly connect to the Tor network due to the GFW), so the plan was shelved indefinitely. Well, now that I'd just finished setting up this US VPS, I decided to go ahead and get this dark web mini-site up and running.</p>
+
+              <h3 id="onion-address">The Collision of Computing Power and Luck: Generating a Custom .onion Vanity Address</h3>
+              <p>The first step in the setup process was obtaining a <code>.onion</code> domain.</p>
+              <p>To give the domain a personal touch, I had previously used <code>mkp224o</code>, a brute-force collision tool, burning through computing power to painstakingly generate a vanity address starting with the pinyin of my name. But back then, due to inexperience, I only saved that flashy address string and completely forgot to back up the corresponding public-private key pair (Keypair). In the Tor network, without the keys, there is no ownership — that address I had worked so hard to compute became nothing more than a decoration, completely unusable.</p>
+              <p>Learn from your mistakes. With no other choice, I had to let my computer fan scream and CPU max out through another all-nighter, re-running <code>mkp224o</code> to generate several new addresses starting with my name. This time, I was extremely careful to properly back up the generated key pair folders.</p>
+
+              <h3 id="tor-nginx">Server Deployment: The Classic Tor + Nginx Combo</h3>
+              <p>With the custom domain and keys secured, the subsequent Ubuntu server deployment was very straightforward. The entire architecture isn't complex — the core concept is to receive dark web traffic through Tor and forward it to the web server for processing:</p>
+              <ol>
+                <li><strong>Environment Setup</strong>: First, use the <code>apt</code> package manager to install <code>tor</code> and <code>nginx</code> in one go.</li>
+                <li><strong>Configure the Tor Node</strong>: Edit the <code>/etc/tor/torrc</code> configuration file, enable the hidden service (HiddenServiceDir), point the path to the directory containing my freshly generated key pair, and set up port forwarding (HiddenServicePort) to forward incoming port 80 traffic to the local Nginx listening port.</li>
+                <li><strong>Configure the Web Service</strong>: Finally, adjust the Nginx configuration to act as a reverse proxy. When Nginx receives local requests forwarded by Tor, it can smoothly serve back the static web page content I've written.</li>
+              </ol>
+              <p>After everything was configured and services restarted, I typed that unique string of characters into the Tor Browser. As the page loaded successfully, the entire workflow was confirmed working, and my hidden corner on the Tor network — my "Forgotten Archive" — was officially built and successfully brought online!</p>
+            </section>
+          </div>
+        </div>
+
+        <!-- 中文 -->
+        <div class="lang-zh">
+          <h1 class="article-title">通过海外服务器搭建翻墙节点和暗网网站</h1>
+          <p class="article-date">2026年4月25日</p>
+          <div class="article-content">
+            <h2>目录</h2>
+            <nav class="toc">
+              <ul>
+                <li><a href="#setting-up-node">开始搭建节点</a>
+                  <ul>
+                    <li><a href="#cmin2-route">破局关键：锁定 CMIN2 优质线路</a></li>
+                    <li><a href="#initial-attempts">初步尝试与硬核的"鉴权"策略</a></li>
+                    <li><a href="#s-ui-panel">体验升级：迁移至 s-ui 面板</a></li>
+                    <li><a href="#ip-blocked">突发危机：IP 被墙与艰难自救</a></li>
+                    <li><a href="#post-mortem">痛定思痛：IP 被封原因复盘与安全加固</a></li>
+                  </ul>
+                </li>
+                <li><a href="#dark-web">搭建暗网</a>
+                  <ul>
+                    <li><a href="#onion-address">算力与运气的碰撞：生成专属 .onion 靓号</a></li>
+                    <li><a href="#tor-nginx">服务器部署：Tor + Nginx 的经典配合</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+
+            <p>随着对网络底层逻辑与代理技术的了解不断加深，我开始对市面上传统的"机场"服务感到疲劳与不满。这些服务普遍存在严重的 IP 超售问题——多人共用同一 IP 不仅成倍增加了被 GFW 封锁的风险，一到晚高峰，拥堵的链路更是让连接速度大打折扣。加之 2026 年初国内对大量"机场"进行了严厉打击，许多技术博主开始提倡使用 VPS 自建节点。受此启发，我萌生了亲手搭建海外代理服务器的念头。</p>
+
+            <section>
+              <h2 id="setting-up-node">开始搭建节点</h2>
+
+              <h3 id="cmin2-route">破局关键：锁定 CMIN2 优质线路</h3>
+              <p>在仔细调研了各项 VPS 参数后，我将目光锁定在了"网络线路"的选择上。由于我使用的是中国移动宽带，为了追求极致的直连体验，我决定寻找提供 CMIN2 或三网优化线路的服务器。</p>
+              <p>当时心仪的促销机型大都已售罄，我只能耐心蹲守。直到 4 月 21 日，通过 Telegram 的频道推送，我敏锐地捕捉到 VMISS 的服务器终于补货。虽然当时仅剩单网优化版本，但我没有犹豫，果断入手了一台 1核 1G 的 CMIN2 线路服务器，年付 50 加元。</p>
+
+              <h3 id="initial-attempts">初步尝试与硬核的"鉴权"策略</h3>
+              <p>起初，为了快速验证构想，我在服务器上部署了 <code>fscarmen/sing-box</code> 脚本。这个工具对新手极度友好，不仅能迅速拉起节点，还默认开启了 BBR 拥塞控制算法以优化网络吞吐量。</p>
+              <p>节点顺利跑通后，我希望能分享给朋友们使用，但前提是将核心控制权握在自己手中——即随时可以管控他们的访问权限。经过一番摸索，我设计了一套基于 Sub-Store 的"鉴权"策略：</p>
+              <ol>
+                <li>将原始节点导入 Sub-Store，再通过它生成订阅链接分享出去。</li>
+                <li>在服务器端设定脚本，每天定时自动更换节点的 UUID。</li>
+                <li>这样一来，一旦我在 Sub-Store 中切断了某位朋友的订阅权限，他的客户端就无法获取当日最新的 UUID。只要两端的 UUID 匹配失败，连接自然会被阻断。</li>
+              </ol>
+              <p>随后，我对服务器的链路进行了详尽测试。结果证明，在移动宽带下确实走的是 CMIN2 线路，延迟极佳，带宽也完全足以流畅播放 YouTube 8K 视频。</p>
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337466.png" alt="线路测试结果"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337488.png" alt="速度测试结果"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3 id="s-ui-panel">体验升级：迁移至 s-ui 面板</h3>
+              <p>不过，随着探索的深入，我发现了一个更为优雅的终极解决方案：<code>alireza0/s-ui</code> 面板。</p>
+              <p>它同样基于性能强悍的 sing-box 内核，但提供了一个极其直观的 Web UI 界面。它不仅能实时监控服务器的资源开销，还内置了一套完善的多用户管理机制。现在，我可以为每位朋友创建独立的账户，分配专属的 UUID，并精确限制流量上限与到期时间。在后台，他们的在线状态和流量消耗一目了然。若需收回权限，只需在面板中一键删除对应用户，该 UUID 的连接便会立即失效。这不仅大幅降低了我的维护成本，也让节点的管理变得更加专业、高效。</p>
+              <img src="../../assets/images/VPN_Darkweb/file-20260425104337465.png" alt="s-ui 面板截图"
+                style="width: 100%; max-width: 1000px; margin: 1.5rem auto; display: block;" />
+
+              <h3 id="ip-blocked">突发危机：IP 被墙与艰难自救</h3>
+              <p>然而，好景不长。在稳定运行了大约两天后的一个夜晚，我突然发现节点无法连接了。我的第一反应是服务器配置出了差错，直到我通过 Ping.pe 测试，看着屏幕上一片飘红——我的 IP 在中国大陆全网阻断，这才猛然意识到：<strong>IP 被封了</strong>。</p>
+              <p>我曾尝试通过 Cloudflare 隧道（Argo Tunnel）来"复活"节点，但这种方式会导致速度出现断崖式下跌。无奈之下，我最终向服务商支付了 5 加元，更换了一个全新的 IP 地址。</p>
+
+              <h3 id="post-mortem">痛定思痛：IP 被封原因复盘与安全加固</h3>
+              <p>交了"学费"后，我开始复盘 IP 被封的根本原因。经过查阅资料与深入思考，我揪出了初次搭建时的几个致命隐患：</p>
+              <ul>
+                <li><strong>协议特征明显</strong>：搭建初期，我保留了类似 Shadowsocks 这种容易被 GFW 识别并精准阻断的传统协议。</li>
+                <li><strong>端口配置不当</strong>：我使用的 VLESS+Reality 协议没有绑定 443 端口，导致流量未能完美伪装成正常的 HTTPS 流量，最终露出破绽。</li>
+                <li><strong>明文传输风险</strong>：我的 s-ui 面板直接通过 IP 访问，未绑定域名，所有的管理通信均暴露在 HTTP 明文之下。</li>
+                <li><strong>暴露的敏感服务</strong>：服务器上还运行着 Sub-Store 和 SubConverter 的 Docker 容器，同样未绑定域名且使用了默认端口，极易被 GFW 主动探测并扫描到。</li>
+              </ul>
+              <p><strong>最终的加固方案：</strong> 吸取了这次血的教训后，在更换新 IP 的第一时间，我进行了彻底的安全加固：</p>
+              <ol>
+                <li><strong>精简协议</strong>：果断删除了除 VLESS+Reality 之外的所有协议，并将其严格绑定在 443 端口上。</li>
+                <li><strong>面板加密</strong>：通过 Cloudflare 将 s-ui 面板绑定了专属域名，强制全站开启 HTTPS 加密传输。</li>
+                <li><strong>缩减攻击面</strong>：彻底下线了存在暴露风险的 Sub-Store 和 SubConverter 容器。</li>
+              </ol>
+              <p>经过这一系列的折腾与优化，我的节点终于迎来了真正的稳定期。这次经历不仅让我收获了一个高速的私人代理，更让我对网络安全与协议伪装有了深刻的实战认知。</p>
+            </section>
+
+            <section>
+              <h2 id="dark-web">搭建暗网</h2>
+              <p>当我和同学们聊起"暗网"时，他们往往会投来惊愕的目光。在大多数人的固有认知里，那里就是一个充斥着色情、暴力与非法交易的法外之地。但经过我的一番深入研究，我发现暗网的技术底层大有乾坤，不仅保护隐私，上面其实也运行着许多完全正规的站点——比如 CIA、Facebook 甚至诸大新闻机构，都拥有官方的 Tor 隐藏服务。</p>
+              <p>我其实很早就在心里埋下了搭建一个暗网网站的种子，初衷非常简单：<strong>纯粹为了技术学习和"硬核整活"，绝不涉及任何违规行为</strong>。但苦于手头一直没有合适的海外服务器（国内的机器由于 GFW 的原因根本无法直连 Tor 网络），这个计划一直被搁置。这不，趁着刚折腾好这台美国 VPS，我决定顺手把这个暗网小站给跑起来。</p>
+
+              <h3 id="onion-address">算力与运气的碰撞：生成专属 .onion 靓号</h3>
+              <p>搭建过程的第一步，是获取一个 <code>.onion</code> 域名。</p>
+              <p>为了让域名带上个人印记，我之前就使用 <code>mkp224o</code> 这个暴力碰撞工具，靠着消耗算力硬生生算出了一个以我名字拼音开头的靓号地址。结果当时经验不足，光顾着保存那一串炫酷的地址，竟然忘记备份与之对应的公私钥对（Keypair）。在 Tor 网络中，没有密钥就等于没有所有权，那个废了九牛二虎之力算出来的地址直接成了摆设，完全无法使用。</p>
+              <p>吃一堑长一智。无奈之下，我只好让电脑风扇狂转、CPU 满载地又熬了一个通宵，重新跑 <code>mkp224o</code> 算出了几个以我名字开头的新地址。这一次，我可是小心翼翼地把生成的密钥对文件夹妥善备份了起来。</p>
+
+              <h3 id="tor-nginx">服务器部署：Tor + Nginx 的经典配合</h3>
+              <p>搞定了专属域名和密钥，接下来的 Ubuntu 服务器端部署就显得非常顺理成章了。整个架构并不复杂，核心就是通过 Tor 接收暗网流量，再转发给 Web 服务器处理：</p>
+              <ol>
+                <li><strong>环境准备</strong>：首先通过 <code>apt</code> 包管理器，一键安装好 <code>tor</code> 和 <code>nginx</code>。</li>
+                <li><strong>配置 Tor 节点</strong>：编辑 <code>/etc/tor/torrc</code> 配置文件，开启隐藏服务（HiddenServiceDir），将路径指向我刚生成的密钥对所在的目录，并设置端口转发（HiddenServicePort），将接收到的 80 端口流量转发给本地的 Nginx 监听端口。</li>
+                <li><strong>配置 Web 服务</strong>：最后，调整 Nginx 的配置作为反向代理。当 Nginx 监听到 Tor 转发过来的本地请求时，就能顺利地将我写好的静态网页内容响应回去。</li>
+              </ol>
+              <p>一切配置妥当并重启服务后，我在 Tor 浏览器中输入了那串专属的代码。随着页面成功加载，全套流程宣告跑通，我在 Tor 网络上的隐秘角落——我的"Forgotten Archive"——就这样正式搭建完毕并成功上线了！</p>
+            </section>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </div>
+  <script src="../../assets/js/cursor.js?v=20260417b"></script>
+</body>
+
+</html>

@@ -305,6 +305,14 @@
       en: "My experience at the CTB National Finals pitching our app to juries and cracking poster dilemmas with AI.",
       zh: "我在CTB全国总决赛中向评委展示应用、并用AI攻克海报难题的全程体验。",
     },
+    "article.vpn-darkweb.title": {
+      en: "Setting Up a VPN Node and Dark Web Site on an Overseas Server",
+      zh: "通过海外服务器搭建翻墙节点和暗网网站",
+    },
+    "article.vpn-darkweb.desc": {
+      en: "From self-hosting a CMIN2 proxy node with s-ui panel management to deploying a Tor hidden service with a custom .onion vanity address — a hands-on journey through network security, protocol disguise, and dark web architecture.",
+      zh: "从自建 CMIN2 代理节点、使用 s-ui 面板管理多用户，到部署 Tor 隐藏服务并生成专属 .onion 靓号地址——一段关于网络安全、协议伪装与暗网架构的实战之旅。",
+    },
     "article.youth.title": {
       en: "2025 Youth Challenge competition",
       zh: "2025青年挑战赛",
