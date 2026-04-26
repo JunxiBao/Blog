@@ -14,6 +14,7 @@
     },
     {
       command: "cat about.txt",
+      batch: true,
       outputs: [
         {
           key: "index.output.about1",
@@ -247,6 +248,13 @@
 
     var token = ++runToken;
     var reducedMotion = shouldReduceMotion();
+
+    // Wait for fonts to load so the height measurement is accurate
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+    if (token !== runToken) return;
+
     lockContainerHeight(container);
     container.innerHTML = "";
 
@@ -264,7 +272,12 @@
       for (var j = 0; j < step.outputs.length; j++) {
         var outputItem = step.outputs[j];
         var outputText = getTranslation(outputItem.key, outputItem.fallback);
-        createOutputLine(container, outputText, reducedMotion);
+        createOutputLine(container, outputText, step.batch || reducedMotion);
+        if (!step.batch) {
+          if (!(await wait(STEP_DELAY.afterOutputLine, token))) return;
+        }
+      }
+      if (step.batch) {
         if (!(await wait(STEP_DELAY.afterOutputLine, token))) return;
       }
 
