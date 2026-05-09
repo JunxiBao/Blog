@@ -311,7 +311,7 @@
     },
     "article.vpn-darkweb.desc": {
       en: "From self-hosting a CMIN2 proxy node with s-ui panel management to deploying a Tor hidden service with a custom .onion vanity address — a hands-on journey through network security, protocol disguise, and dark web architecture.",
-      zh: "从自建 CMIN2 代理节点、使用 s-ui 面板管理多用户，到部署 Tor 隐藏服务并生成专属 .onion 靓号地址——一段关于网络安全、协议伪装与暗网架构的实战之旅。",
+      zh: "从自建 CMIN2 代理节点、使用 s-ui 面板管理多用户，到部署 Tor 隐藏服务并生成专属 .onion 域名——一段关于网络安全、协议伪装与暗网架构的实战之旅。",
     },
     "article.youth.title": {
       en: "2025 Youth Challenge competition",

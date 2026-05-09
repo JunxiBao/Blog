@@ -33,64 +33,170 @@ class GeekTheme {
 
   init() {
     const canEffects = !(window.AppEffects && (window.AppEffects.isReduced() || !window.AppEffects.isEnabled()));
-    if (canEffects) this.setupMatrixRain();
+    if (canEffects) this.setupGravityField();
     if (canEffects) this.setupScrollEffects();
     if (canEffects) this.setupTypingEffects();
     if (canEffects) this.setupGlitchEffects();
     if (canEffects) this.setupTerminalEffects();
   }
 
-  // Matrix Rain Effect — canvas-based, single RAF loop
-  setupMatrixRain() {
-    if (document.getElementById('matrixBg')) return;
+  // Gravity Field Effect — interactive grid that deforms around the cursor
+  setupGravityField() {
+    if (document.getElementById('gravityFieldBg')) return;
     const canvas = document.createElement('canvas');
-    canvas.id = 'matrixBg';
-    canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:-1;opacity:0.06;';
+    canvas.id = 'gravityFieldBg';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:-1;';
     document.body.appendChild(canvas);
     const ctx = canvas.getContext('2d', { alpha: true });
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
-    const fontSize = 14;
-    let cols = 0, drops = new Float32Array(0), accentColor = '#00c768';
+
+    // Grid configuration
+    const spacing = 40;          // distance between grid points
+    const influenceRadius = 180; // how far the mouse influence reaches
+    const pullStrength = 18;     // max displacement in px
+    const springBack = 0.08;     // how quickly points return (0-1)
+    const dotRadius = 1.2;       // base dot size
+
+    let cols = 0, rows = 0;
+    let gridOrigins = [];   // original positions {x,y}
+    let gridCurrent = [];   // current displaced positions {x,y}
+    let accentColor = '#00c768';
+    let mouseX = -9999, mouseY = -9999;
+    let isOnPage = false;
+
+    // Helper: parse hex/rgb to {r,g,b}
+    const parseColor = (str) => {
+      const el = document.createElement('div');
+      el.style.color = str;
+      document.body.appendChild(el);
+      const computed = getComputedStyle(el).color;
+      document.body.removeChild(el);
+      const m = computed.match(/(\d+)/g);
+      return m ? { r: +m[0], g: +m[1], b: +m[2] } : { r: 0, g: 199, b: 104 };
+    };
+
+    let colorRGB = parseColor(accentColor);
 
     const syncColor = () => {
       const c = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
       accentColor = c || '#00c768';
+      colorRGB = parseColor(accentColor);
     };
-    const resize = () => {
+
+    const buildGrid = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const newCols = Math.floor(canvas.width / fontSize);
-      if (newCols !== cols) {
-        const prev = drops;
-        drops = new Float32Array(newCols);
-        for (let i = 0; i < newCols; i++) drops[i] = i < prev.length ? prev[i] : -(Math.random() * 30);
-        cols = newCols;
+      cols = Math.floor(canvas.width / spacing) + 2;
+      rows = Math.floor(canvas.height / spacing) + 2;
+      const offsetX = (canvas.width - (cols - 1) * spacing) / 2;
+      const offsetY = (canvas.height - (rows - 1) * spacing) / 2;
+      gridOrigins = [];
+      gridCurrent = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const ox = offsetX + c * spacing;
+          const oy = offsetY + r * spacing;
+          gridOrigins.push({ x: ox, y: oy });
+          gridCurrent.push({ x: ox, y: oy });
+        }
       }
     };
 
     syncColor();
-    resize();
-    window.addEventListener('resize', GeekTheme.debounce(resize, 250));
+    buildGrid();
+    window.addEventListener('resize', GeekTheme.debounce(buildGrid, 250));
     window.addEventListener('themechange', syncColor);
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncColor);
 
+    // Track mouse (we enable pointer-events temporarily on document, not canvas)
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      isOnPage = true;
+    });
+    document.addEventListener('mouseleave', () => {
+      isOnPage = false;
+    });
+
     let animId;
     const draw = () => {
-      // Fade existing pixels toward transparency to create the trailing effect
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.globalAlpha = 0.05;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.restore();
-      ctx.fillStyle = accentColor;
-      ctx.font = `${fontSize}px monospace`;
-      const h = canvas.height;
-      for (let i = 0; i < cols; i++) {
-        const y = drops[i] * fontSize;
-        if (y > 0) ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, y);
-        drops[i]++;
-        if (y > h && Math.random() > 0.975) drops[i] = -(Math.random() * 20);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const total = gridOrigins.length;
+      const ir2 = influenceRadius * influenceRadius;
+
+      // Update positions
+      for (let i = 0; i < total; i++) {
+        const orig = gridOrigins[i];
+        const cur = gridCurrent[i];
+
+        if (isOnPage) {
+          const dx = orig.x - mouseX;
+          const dy = orig.y - mouseY;
+          const dist2 = dx * dx + dy * dy;
+
+          if (dist2 < ir2 && dist2 > 0) {
+            const dist = Math.sqrt(dist2);
+            const force = (1 - dist / influenceRadius);
+            const pushX = (dx / dist) * force * pullStrength;
+            const pushY = (dy / dist) * force * pullStrength;
+            const targetX = orig.x + pushX;
+            const targetY = orig.y + pushY;
+            cur.x += (targetX - cur.x) * 0.15;
+            cur.y += (targetY - cur.y) * 0.15;
+          } else {
+            cur.x += (orig.x - cur.x) * springBack;
+            cur.y += (orig.y - cur.y) * springBack;
+          }
+        } else {
+          cur.x += (orig.x - cur.x) * springBack;
+          cur.y += (orig.y - cur.y) * springBack;
+        }
       }
+
+      // Draw horizontal lines
+      for (let r = 0; r < rows; r++) {
+        ctx.beginPath();
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const p = gridCurrent[idx];
+          if (c === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.strokeStyle = `rgba(${colorRGB.r},${colorRGB.g},${colorRGB.b},0.08)`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+
+      // Draw vertical lines
+      for (let c = 0; c < cols; c++) {
+        ctx.beginPath();
+        for (let r = 0; r < rows; r++) {
+          const idx = r * cols + c;
+          const p = gridCurrent[idx];
+          if (r === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.strokeStyle = `rgba(${colorRGB.r},${colorRGB.g},${colorRGB.b},0.08)`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+
+      // Draw dots at grid intersections with proximity glow
+      for (let i = 0; i < total; i++) {
+        const p = gridCurrent[i];
+        const orig = gridOrigins[i];
+        const dispX = p.x - orig.x;
+        const dispY = p.y - orig.y;
+        const disp = Math.sqrt(dispX * dispX + dispY * dispY);
+        const intensity = Math.min(disp / pullStrength, 1);
+        const alpha = 0.12 + intensity * 0.6;
+        const radius = dotRadius + intensity * 2;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${colorRGB.r},${colorRGB.g},${colorRGB.b},${alpha})`;
+        ctx.fill();
+      }
+
       animId = requestAnimationFrame(draw);
     };
     animId = requestAnimationFrame(draw);
