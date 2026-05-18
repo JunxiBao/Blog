@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPad Hall Effect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Import maps polyfill -->
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="left-controls" style="position:absolute; width:50%; height:100%; top:0; left:0; z-index:1;"></div>
+    <div id="right-controls" style="position:absolute; width:50%; height:100%; top:0; left:50%; z-index:1;"></div>
+    
+    <svg id="connection-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2;">
+        <path id="connection-line" fill="none" stroke="#34c759" stroke-width="2" stroke-dasharray="5,5" d="M0,0 L0,0" />
+        <circle id="sensor-dot" cx="0" cy="0" r="4" fill="#34c759" />
+        <circle id="slab-dot" cx="0" cy="0" r="4" fill="#38bdf8" />
+    </svg>
+    
+    <div class="split-labels">
+        <div class="label-left">Macro View: iPad & Smart Cover</div>
+        <div class="label-right">Micro View: Inside Hall Sensor</div>
+    </div>
+
+    <div id="ui-container">
+        <div class="floating-panel glass-panel">
+            <div class="panel-header">
+                <h2>Hall Effect Physics</h2>
+                <div class="data-readouts">
+                    <div class="data-item">
+                        <span class="data-label">Magnetic Field</span>
+                        <span id="magnetic-field-status" class="data-value warning">Weak</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Hall Voltage</span>
+                        <span id="sensor-voltage" class="data-value">3.3V</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Screen State</span>
+                        <span id="screen-state" class="data-value success">Awake</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="mobile-view-toggle" class="glass-button" style="display:none;">Switch to Micro View</button>
+            
+            <div class="control-section">
+                <label for="cover-slider">Open / Close Cover</label>
+                <input type="range" id="cover-slider" min="0" max="180" value="180" step="1">
+            </div>
+
+            <div class="info-section">
+                <p id="explanation-text">When the cover is open, electrons flow straight through the sensor, maintaining a high voltage output (3.3V) that keeps the screen awake.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
