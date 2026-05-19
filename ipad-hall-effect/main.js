@@ -12,7 +12,7 @@ const macroCamera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
 macroCamera.position.set(0, 15, 20);
 
 const microCamera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
-microCamera.position.set(100, 0, 15);
+microCamera.position.set(100, 0, 20);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -41,7 +41,7 @@ macroControls.target.set(0, 0, 0);
 
 const microControls = new OrbitControls(microCamera, rightControlsDiv);
 microControls.enableDamping = true; microControls.dampingFactor = 0.05;
-microControls.target.set(100, 0, 0);
+microControls.target.set(101.5, 0, 0);
 
 // ---- LIGHTING ----
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -353,6 +353,122 @@ for(let x=-slabWidth/2 + 1; x<=slabWidth/2; x+=2) {
 arrowGroup.visible = false;
 microGroup.add(arrowGroup);
 
+// ---- VOLTAGE SENSOR (Hall Voltage Probes) ----
+// Two gold electrodes, one on top face and one on bottom face of the slab,
+// connected by wires to a floating voltmeter label.
+const probeMat = new THREE.MeshStandardMaterial({ color: 0xffd700, roughness: 0.2, metalness: 0.9 });
+const probeGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.25, 16);
+
+// Top probe (at +Y face of slab)
+const probeTop = new THREE.Mesh(probeGeo, probeMat);
+probeTop.position.set(0, slabHeight / 2 + 0.12, 0);
+microGroup.add(probeTop);
+
+// Bottom probe (at -Y face of slab)
+const probeBottom = new THREE.Mesh(probeGeo, probeMat);
+probeBottom.position.set(0, -slabHeight / 2 - 0.12, 0);
+microGroup.add(probeBottom);
+
+// Wire from top probe to voltmeter (goes upward)
+const wireTopPoints = [
+    new THREE.Vector3(0, slabHeight / 2 + 0.25, 0),
+    new THREE.Vector3(0, slabHeight / 2 + 1.8, 0),
+    new THREE.Vector3(slabWidth / 2 + 1.5, slabHeight / 2 + 1.8, 0),
+];
+const wireTopGeo = new THREE.BufferGeometry().setFromPoints(wireTopPoints);
+const wireTopLine = new THREE.Line(wireTopGeo, new THREE.LineBasicMaterial({ color: 0xffd700, linewidth: 2 }));
+microGroup.add(wireTopLine);
+
+// Wire from bottom probe to voltmeter (goes downward)
+const wireBotPoints = [
+    new THREE.Vector3(0, -slabHeight / 2 - 0.25, 0),
+    new THREE.Vector3(0, -slabHeight / 2 - 1.8, 0),
+    new THREE.Vector3(slabWidth / 2 + 1.5, -slabHeight / 2 - 1.8, 0),
+    new THREE.Vector3(slabWidth / 2 + 1.5, slabHeight / 2 + 1.8, 0),  // connects up to voltmeter
+];
+const wireBotGeo = new THREE.BufferGeometry().setFromPoints(wireBotPoints);
+const wireBotLine = new THREE.Line(wireBotGeo, new THREE.LineBasicMaterial({ color: 0xffd700, linewidth: 2 }));
+microGroup.add(wireBotLine);
+
+// Voltmeter box (a small rounded box on the right side)
+const vmeterGeo = new THREE.BoxGeometry(1.8, 2.0, 0.3);
+const vmeterMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.5, metalness: 0.1 });
+const vmeter = new THREE.Mesh(vmeterGeo, vmeterMat);
+vmeter.position.set(slabWidth / 2 + 2.4, 0, 0);
+microGroup.add(vmeter);
+
+// Voltmeter face / screen (slightly in front)
+const vmeterScreenGeo = new THREE.PlaneGeometry(1.4, 0.9);
+const vmeterScreenCanvas = document.createElement('canvas');
+vmeterScreenCanvas.width = 256; vmeterScreenCanvas.height = 128;
+const vmeterCtx = vmeterScreenCanvas.getContext('2d');
+const vmeterTex = new THREE.CanvasTexture(vmeterScreenCanvas);
+const vmeterScreenMat = new THREE.MeshBasicMaterial({ map: vmeterTex });
+const vmeterScreen = new THREE.Mesh(vmeterScreenGeo, vmeterScreenMat);
+vmeterScreen.position.set(slabWidth / 2 + 2.4, 0.3, 0.16);
+microGroup.add(vmeterScreen);
+
+// Voltmeter label plane (shows 'V' symbol)
+const vmeterLabelCanvas = document.createElement('canvas');
+vmeterLabelCanvas.width = 256; vmeterLabelCanvas.height = 64;
+const vmLabelCtx = vmeterLabelCanvas.getContext('2d');
+vmLabelCtx.fillStyle = 'transparent';
+vmLabelCtx.clearRect(0, 0, 256, 64);
+vmLabelCtx.fillStyle = '#ffd700';
+vmLabelCtx.font = 'bold 36px monospace';
+vmLabelCtx.textAlign = 'center';
+vmLabelCtx.textBaseline = 'middle';
+vmLabelCtx.fillText('⚡ VOLTMETER', 128, 32);
+const vmLabelTex = new THREE.CanvasTexture(vmeterLabelCanvas);
+const vmLabelMat = new THREE.MeshBasicMaterial({ map: vmLabelTex, transparent: true });
+const vmLabel = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.4), vmLabelMat);
+vmLabel.position.set(slabWidth / 2 + 2.4, -0.55, 0.16);
+microGroup.add(vmLabel);
+
+// Probe label: "+" on top, "-" on bottom
+function makeProbeLabel(text, color) {
+    const c = document.createElement('canvas');
+    c.width = 64; c.height = 64;
+    const cx = c.getContext('2d');
+    cx.fillStyle = color;
+    cx.font = 'bold 48px monospace';
+    cx.textAlign = 'center';
+    cx.textBaseline = 'middle';
+    cx.fillText(text, 32, 32);
+    const tex = new THREE.CanvasTexture(c);
+    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
+    return new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), mat);
+}
+const plusLabel = makeProbeLabel('+', '#ff6b6b');
+plusLabel.position.set(-0.4, slabHeight / 2 + 0.5, 0.1);
+microGroup.add(plusLabel);
+const minusLabel = makeProbeLabel('−', '#4fc3f7');
+minusLabel.position.set(-0.4, -slabHeight / 2 - 0.5, 0.1);
+microGroup.add(minusLabel);
+
+function updateVmeterDisplay(voltage) {
+    vmeterCtx.clearRect(0, 0, 256, 128);
+    // Background
+    vmeterCtx.fillStyle = '#0a0a1a';
+    vmeterCtx.fillRect(0, 0, 256, 128);
+    // Green border glow
+    vmeterCtx.strokeStyle = '#39ff14';
+    vmeterCtx.lineWidth = 4;
+    vmeterCtx.strokeRect(4, 4, 248, 120);
+    // Voltage value
+    const displayV = Math.max(0, voltage).toFixed(2);
+    vmeterCtx.fillStyle = '#39ff14';
+    vmeterCtx.font = 'bold 44px monospace';
+    vmeterCtx.textAlign = 'center';
+    vmeterCtx.textBaseline = 'middle';
+    vmeterCtx.fillText(displayV + ' V', 128, 60);
+    // Unit label
+    vmeterCtx.font = '18px monospace';
+    vmeterCtx.fillStyle = 'rgba(57,255,20,0.6)';
+    vmeterCtx.fillText('Hall Voltage', 128, 108);
+    vmeterTex.needsUpdate = true;
+}
+
 // ---- STATE & LOGIC ----
 let isScreenOn = true;
 let lorentzForceStrength = 0; 
@@ -457,8 +573,8 @@ function onWindowResize() {
             macroControls.target.set(0, -2 * zoomFactor, 0);
             
             microCamera.aspect = pipW / pipH;
-            microCamera.position.set(100, 0, 15);
-            microControls.target.set(100, 0, 0);
+            microCamera.position.set(100, 0, 20);
+            microControls.target.set(101.5, 0, 0);
         } else {
             setPipStyle(leftControlsDiv);
             setMainStyle(rightControlsDiv);
@@ -468,8 +584,8 @@ function onWindowResize() {
             macroControls.target.set(0, 0, 0);
             
             microCamera.aspect = mobileAspect;
-            microCamera.position.set(100, 0, 15 * zoomFactor * 0.85);
-            microControls.target.set(100, -1.5 * zoomFactor, 0);
+            microCamera.position.set(100, 0, 20 * zoomFactor * 0.85);
+            microControls.target.set(101.5, -1.5 * zoomFactor, 0);
         }
     } else {
         macroCamera.aspect = (w/2) / h;
@@ -477,8 +593,8 @@ function onWindowResize() {
         
         macroCamera.position.set(0, 15, 20);
         macroControls.target.set(0, 0, 0);
-        microCamera.position.set(100, 0, 15);
-        microControls.target.set(100, 0, 0);
+        microCamera.position.set(100, 0, 20);
+        microControls.target.set(101.5, 0, 0);
         
         leftControlsDiv.style.width = '50%'; leftControlsDiv.style.height = '100%'; leftControlsDiv.style.left = '0'; leftControlsDiv.style.top = '0';
         leftControlsDiv.style.border = 'none'; leftControlsDiv.style.borderRadius = '0';
@@ -519,6 +635,8 @@ function animate() {
         let noise = targetVoltage > 0.1 ? (Math.random() * 0.04 - 0.02) : (Math.random() * 0.01);
         let displayVoltage = Math.max(0, targetVoltage + noise);
         voltageEl.textContent = displayVoltage.toFixed(2) + 'V';
+        // Update the in-scene voltmeter display too
+        updateVmeterDisplay(displayVoltage);
     }
 
     // Micro animation
