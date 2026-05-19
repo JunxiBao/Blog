@@ -302,28 +302,30 @@ const lineMaterial = new THREE.LineDashedMaterial({ color: 0xff3b30, transparent
 
 for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 2) {   // 4 angles instead of 8
     for (let radius = 0.3; radius <= 1.0; radius += 0.7) {           // 2 radii instead of 4
-        // Dipole field shape
-        const curve = new THREE.EllipseCurve(0, 0, radius, radius*1.5, -Math.PI/2, Math.PI/2, false, 0);
+        // Dipole field shape: looping perpendicular to the cover (dipole axis along Z)
+        const curve = new THREE.EllipseCurve(0, 0, radius, radius*1.5, Math.PI/2, -Math.PI/2, true, 0);
         const points = curve.getPoints(30);
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(points.length * 3);
         for (let i = 0; i < points.length; i++) {
             const x = points[i].x; const y = points[i].y;
+            // Map the ellipse height 'y' to the Z-axis (perpendicular to the cover)
             positions[i*3] = x * Math.cos(angle);
-            positions[i*3+1] = y;
-            positions[i*3+2] = x * Math.sin(angle);
+            positions[i*3+1] = x * Math.sin(angle);
+            positions[i*3+2] = y;
         }
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         const line = new THREE.Line(geometry, lineMaterial);
         line.computeLineDistances();
         fieldLinesGroup.add(line);
         
-        // Add a small arrowhead (cone) at the apex (t = 0.5) of the field line to show N -> S direction explicitly
+        // Add a small arrowhead (cone) at the apex (t = 0.5) of the field line, pointing along the loop (into the screen)
         const point = curve.getPointAt(0.5);
         const tangent = curve.getTangentAt(0.5).normalize();
         
-        const pos3D = new THREE.Vector3(point.x * Math.cos(angle), point.y, point.x * Math.sin(angle));
-        const tan3D = new THREE.Vector3(tangent.x * Math.cos(angle), tangent.y, tangent.x * Math.sin(angle)).normalize();
+        const pos3D = new THREE.Vector3(point.x * Math.cos(angle), point.x * Math.sin(angle), point.y);
+        const tan3D = new THREE.Vector3(tangent.x * Math.cos(angle), tangent.x * Math.sin(angle), tangent.y).normalize();
+        tan3D.negate(); // Force arrowhead to point INTO the screen (towards -Z)
         
         const coneGeo = new THREE.ConeGeometry(0.04, 0.12, 6);
         const coneMat = new THREE.MeshBasicMaterial({ color: 0xff3b30, transparent: true, opacity: 0.9 });
@@ -673,7 +675,7 @@ function animate() {
     // Macro animation: Flowing magnetic field lines
     fieldLinesGroup.children.forEach(line => {
         if(line.material.dashOffset !== undefined) {
-            line.material.dashOffset -= delta * 1.5;
+            line.material.dashOffset += delta * 1.5;
         }
     });
 
