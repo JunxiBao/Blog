@@ -24,6 +24,136 @@
 <body>
     <div id="canvas-container"></div>
 
+    <!-- Top-Right Info Button -->
+    <div class="info-btn-container">
+        <button id="info-trigger-btn" class="info-trigger-btn">?</button>
+    </div>
+
+    <!-- Science Pop-up Modal -->
+    <div id="science-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Physics Guide: Hall Effect & Hand Rules</h3>
+            </div>
+            <div class="modal-tabs">
+                <div class="segmented-control">
+                    <button class="segment-btn active" data-tab="tab-hall">🔬 Hall Effect</button>
+                    <button class="segment-btn" data-tab="tab-rules">✋ Hand Rules</button>
+                    <button class="segment-btn" data-tab="tab-ipad">📱 iPad Hardware</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- Tab 1: Hall Effect -->
+                <div id="tab-hall" class="tab-content active">
+                    <div class="science-card">
+                        <div class="science-badge">What is the Hall Effect?</div>
+                        <h4>What is the Hall Effect?</h4>
+                        <p>The <strong>Hall Effect</strong> is a fundamental electromagnetic phenomenon discovered in 1879 by the American physicist Edwin Hall.</p>
+                        <p>When an electric current passes through a conductor or semiconductor placed inside a magnetic field that is perpendicular to the current, the magnetic field exerts a lateral force on the moving charge carriers (known as the <strong>Lorentz Force</strong>). This force deflects the charges toward one side of the material, causing them to accumulate on the edges. This charge accumulation creates a transverse electric field, which generates a potential difference called the <strong>Hall Voltage (V<sub>H</sub>)</strong>.</p>
+                        
+                        <!-- Diagram for Hall Effect -->
+                        <div class="science-img-container">
+                            <img src="hall-effect-diagram.png" alt="Hall Effect Physics Diagram" class="science-img">
+                            <div class="img-caption">Figure 1: 3D schematic of the Hall Effect. When current I flows through a semiconductor slab, a perpendicular magnetic field B deflects moving charge carriers to one side, establishing the Hall Voltage V<sub>H</sub> across the edges.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="science-card info">
+                        <div class="science-badge">Physics Formula</div>
+                        <h4>💡 Mathematical Formula</h4>
+                        <p>For a homogeneous rectangular semiconductor slab, the maximum stable Hall Voltage is defined as:</p>
+                        <div class="formula-box">
+                            V<sub>H</sub> = R<sub>H</sub> &middot; (I &middot; B) / d
+                        </div>
+                        <ul>
+                            <li><strong>V<sub>H</sub></strong>: Hall Voltage</li>
+                            <li><strong>R<sub>H</sub></strong>: Hall Coefficient (depends on the material's carrier density and type)</li>
+                            <li><strong>I</strong>: Electric current flowing through the semiconductor chip</li>
+                            <li><strong>B</strong>: External magnetic field strength</li>
+                            <li><strong>d</strong>: Thickness of the sensor chip</li>
+                        </ul>
+                        <p class="formula-desc">In our simulation, you can drag the cover slider. As the cover gets closer to the sensor, the magnetic field <strong>B</strong> becomes stronger, causing a larger deflection force. This accumulates more charges on the edges, leading to a higher Hall Voltage <strong>V<sub>H</sub></strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Hand Rules -->
+                <div id="tab-rules" class="tab-content">
+                    <div class="science-card">
+                        <div class="science-badge">Lorentz Force & Left-Hand Rule</div>
+                        <h4>✋ Fleming's Left-Hand Rule (Deflection of Electrons)</h4>
+                        <p>In our micro-level simulation, electrons flowing through the semiconductor chip are deflected downwards. To determine the direction of the magnetic force acting on moving charge carriers, we use <strong>Fleming's Left-Hand Rule</strong>:</p>
+                        <ol class="step-list">
+                            <li>
+                                <span class="step-num">1</span>
+                                <span class="step-text"><strong>Position your Left Hand</strong>: Place your left hand such that the magnetic field lines <strong>B</strong> point into your palm (since the magnetic field B points into the screen in the -Z direction, your palm should face forward).</span>
+                            </li>
+                            <li>
+                                <span class="step-num">2</span>
+                                <span class="step-text"><strong>Point your Four Fingers</strong>: Point your four fingers in the direction of the conventional current. Since <strong>negatively charged electrons</strong> are flowing to the left in the chip, the equivalent conventional current flows in the opposite direction, which is to the <strong>right</strong>. Thus, point your four fingers to the right.</span>
+                            </li>
+                            <li>
+                                <span class="step-num">3</span>
+                                <span class="step-text"><strong>Find the Force with your Thumb</strong>: Extend your thumb perpendicular to your four fingers. Your thumb now points in the direction of the Lorentz Force <strong>F</strong> acting on the electrons. You will see that your thumb points <strong>downwards</strong>.</span>
+                            </li>
+                        </ol>
+
+                        <!-- Diagram for Left Hand Rule -->
+                        <div class="science-img-container">
+                            <img src="left-hand-rule.png" alt="Fleming's Left Hand Rule" class="science-img" style="max-height: 180px;">
+                            <div class="img-caption">Figure 2: Fleming's Left-Hand Rule. The index finger points in the direction of the magnetic Field B, the middle finger points in the direction of the conventional Current I, and the thumb indicates the direction of the deflection Force F.</div>
+                        </div>
+
+                        <p><strong>Physics Conclusion:</strong> The Lorentz Force pushes the flowing electrons toward the <strong>bottom edge (negatively charged)</strong>, leaving a deficit of electrons—and thus a <strong>positive charge—on the top edge</strong>. This establishes the "top-positive, bottom-negative" potential difference, generating the Hall Voltage!</p>
+                    </div>
+ 
+                    <div class="science-card warning">
+                        <div class="science-badge">Comparison</div>
+                        <h4>⚠️ Physics Reminder: Distinguishing Hand Rules</h4>
+                        <p>In electromagnetism, Left-Hand and Right-Hand rules are easily confused. Here is a quick guide to distinguish them:</p>
+                        <ul>
+                            <li><strong>Left-Hand Rule (Force / Deflection)</strong>: Used to determine the magnetic force acting on a current-carrying conductor or moving charges in a magnetic field. <em>"Left hand for Force."</em></li>
+                            <li><strong>Right-Hand Rule (Induced Current / Generator)</strong>: Used to determine the direction of induced current when a conductor cuts through magnetic field lines. <em>"Right hand for Electricity."</em></li>
+                            <li><strong>Right-Hand Grip Rule (Ampere's Rule)</strong>: Point your right thumb in the direction of the current; your curled fingers show the direction of the <strong>encircling magnetic field</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab 3: iPad Hardware Application -->
+                <div id="tab-ipad" class="tab-content">
+                    <div class="science-card">
+                        <div class="science-badge">iPad Application</div>
+                        <h4>📱 How does the iPad sleep and wake up with a Smart Cover?</h4>
+                        <p>A tiny Hall Effect sensor chip is embedded behind the iPad's bezel, executing the following logic:</p>
+                        <div class="ipad-logic-flow">
+                            <div class="logic-step">
+                                <span class="logic-icon">🧲</span>
+                                <h5>1. Embedded Magnets</h5>
+                                <p>Small permanent magnets are embedded inside the edge of the iPad Smart Cover.</p>
+                            </div>
+                            <div class="logic-step">
+                                <span class="logic-icon">📟</span>
+                                <h5>2. Hall Sensor in Bezel</h5>
+                                <p>A highly sensitive Hall sensor chip is located in the bezel (corresponding to the semiconductor chip in our micro-view).</p>
+                            </div>
+                            <div class="logic-step">
+                                <span class="logic-icon">⚡</span>
+                                <h5>3. Closing the Cover</h5>
+                                <p>When the cover closes, the magnets align directly over the sensor. The magnetic field deflects the flowing electrons, causing the Hall Voltage to rise. The system detects this high potential and immediately puts the display to sleep.</p>
+                            </div>
+                            <div class="logic-step">
+                                <span class="logic-icon">☀️</span>
+                                <h5>4. Opening the Cover</h5>
+                                <p>When the cover is peeled open, the magnetic field drops to zero, and the electrons flow straight. The Hall Voltage drops back to zero, instantly waking up the display for a seamless user experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-start-btn" class="glass-button primary-btn" style="margin: 0; width: auto; padding: 0.6rem 2rem; font-size: 0.9rem;">Got it, Start exploring</button>
+            </div>
+        </div>
+    </div>
 
     <div id="ui-container">
         <div class="floating-panel glass-panel" id="main-panel">

@@ -781,4 +781,51 @@ if (panelToggle && mainPanel) {
     });
 }
 
+// ---- PHYSICS KNOWLEDGE MODAL SYSTEM ----
+const infoTriggerBtn = document.getElementById('info-trigger-btn');
+const scienceModal = document.getElementById('science-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const modalStartBtn = document.getElementById('modal-start-btn');
+const segmentBtns = document.querySelectorAll('.segment-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+if (infoTriggerBtn && scienceModal) {
+    // Open modal
+    infoTriggerBtn.addEventListener('click', () => {
+        scienceModal.classList.add('active');
+        macroControls.enabled = false; // Disable controls while reading modal
+    });
+
+    // Close modal function
+    const closeModal = () => {
+        scienceModal.classList.remove('active');
+        macroControls.enabled = true;
+    };
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalStartBtn) modalStartBtn.addEventListener('click', closeModal);
+
+    // Close on overlay click
+    scienceModal.addEventListener('click', (e) => {
+        if (e.target === scienceModal) {
+            closeModal();
+        }
+    });
+
+    // Tab switching logic
+    segmentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            segmentBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            btn.classList.add('active');
+            const tabId = btn.getAttribute('data-tab');
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+        });
+    });
+}
+
 animate();

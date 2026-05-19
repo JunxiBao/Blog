@@ -257,3 +257,434 @@ input[type=range]::-webkit-slider-runnable-track {
         font-size: 0.9rem;
     }
 }
+
+/* Info Button Position and Styling */
+.info-btn-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.info-trigger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--panel-border);
+    color: var(--text-primary);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.info-trigger-btn:hover {
+    transform: scale(1.08) translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    border-color: rgba(41,151,255,0.4);
+    color: var(--accent);
+}
+
+.info-trigger-btn:active {
+    transform: scale(0.95);
+}
+
+/* Pop-up Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(29, 29, 31, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    background: var(--panel-bg);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border: 1px solid var(--panel-border);
+    width: 90%;
+    max-width: 650px;
+    max-height: 85vh;
+    border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.93) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+}
+
+
+
+.modal-tabs {
+    padding: 1rem 2rem 0 2rem;
+}
+
+.segmented-control {
+    display: flex;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 3px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.segment-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.segment-btn:hover {
+    color: var(--text-primary);
+}
+
+.segment-btn.active {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.modal-body {
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Premium Apple-style Glass Scrollbar */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+}
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.22);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--panel-border);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.primary-btn {
+    background: #0071e3 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 20px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+}
+
+.primary-btn:hover {
+    background: #0077ed !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3) !important;
+}
+
+.primary-btn:active {
+    transform: translateY(0) !important;
+}
+
+/* Tab Content Transitions */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Science Cards and Content Elements */
+.science-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    text-align: left; /* Ensure text alignment is clean */
+}
+
+.science-card:last-child {
+    margin-bottom: 0;
+}
+
+.science-card.info {
+    background: linear-gradient(135deg, rgba(41, 151, 255, 0.06), rgba(41, 151, 255, 0.02));
+    border-color: rgba(41, 151, 255, 0.15);
+}
+
+.science-card.warning {
+    background: linear-gradient(135deg, rgba(255, 159, 10, 0.06), rgba(255, 159, 10, 0.02));
+    border-color: rgba(255, 159, 10, 0.15);
+}
+
+.science-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #86868b;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+}
+
+.science-card.info .science-badge {
+    background: rgba(41, 151, 255, 0.1);
+    color: #2997ff;
+}
+
+.science-card.warning .science-badge {
+    background: rgba(255, 159, 10, 0.1);
+    color: #ff9f0a;
+}
+
+.science-card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+}
+
+.science-card p {
+    font-size: 0.9rem;
+    color: #48484a;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.science-card p:last-of-type {
+    margin-bottom: 0;
+}
+
+.science-card ul, .science-card ol {
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: #48484a;
+}
+
+.science-card li {
+    margin-bottom: 0.5rem;
+}
+
+.formula-box {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    padding: 0.9rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: #1d1d1f;
+    border: 1px solid rgba(0,0,0,0.03);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.formula-desc {
+    font-style: italic;
+    font-size: 0.82rem !important;
+    color: #86868b !important;
+    line-height: 1.4;
+}
+
+/* Step list for hands rules */
+.step-list {
+    list-style: none;
+    margin: 1rem 0 !important;
+    padding: 0;
+}
+
+.step-list li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem !important;
+    align-items: flex-start;
+}
+
+.step-num {
+    background: #0071e3;
+    color: #ffffff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.step-text {
+    font-size: 0.9rem;
+    color: #48484a;
+    line-height: 1.5;
+}
+
+/* iPad logic flow in Tab 3 */
+.ipad-logic-flow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.logic-step {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.logic-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.logic-step h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 0.35rem;
+}
+
+.logic-step p {
+    font-size: 0.8rem !important;
+    color: #86868b !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+}
+
+/* Science Diagram Image Containers */
+.science-img-container {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1.25rem 0;
+    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+
+.science-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 6px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.04));
+}
+
+.science-img:hover {
+    transform: scale(1.03);
+}
+
+.img-caption {
+    font-size: 0.78rem;
+    color: #86868b;
+    margin-top: 0.75rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 768px) {
+    .ipad-logic-flow {
+        grid-template-columns: 1fr;
+    }
+    .modal-container {
+        width: 95%;
+        max-height: 90vh;
+    }
+    .modal-header, .modal-tabs, .modal-body, .modal-footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+    .segment-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.2rem;
+    }
+    .info-btn-container {
+        top: 15px;
+        right: 15px;
+    }
+    .info-trigger-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+}
+
