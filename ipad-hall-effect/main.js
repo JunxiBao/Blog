@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // ---- SCENE SETUP ----
 const container = document.getElementById('canvas-container');
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000); // Apple dark
+scene.background = new THREE.Color(0xffffff); // Clean white background
 
 // Split Screen Setup
 const aspect = (window.innerWidth / 2) / window.innerHeight;
@@ -114,8 +114,7 @@ function updateScreenTexture() {
     // Draw Time
     let hours = now.getHours();
     let minutes = now.getMinutes();
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
+    hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     const timeString = hours + ':' + minutes;
 
@@ -190,6 +189,29 @@ screenMesh.rotation.y = Math.PI;
 screenMesh.rotation.z = Math.PI;
 chassis.add(screenMesh);
 
+// iPad Buttons (Power & Volume)
+// Use a slightly darker material so they stand out from the chassis
+const buttonMaterial = new THREE.MeshStandardMaterial({ color: 0x6e6e73, roughness: 0.3, metalness: 0.9 }); 
+
+// Power Button (Top right edge, visually local -Y is the top because screen is flipped)
+const powerButtonGeo = new THREE.BoxGeometry(1.0, 0.2, 0.15);
+const powerButton = new THREE.Mesh(powerButtonGeo, buttonMaterial);
+// Push it out to y = -ipadHeight/2 - 0.1 to clear the top bevel
+powerButton.position.set(ipadWidth/2 - 1.5, -ipadHeight/2 - 0.1, ipadDepth/2);
+chassis.add(powerButton);
+
+// Volume Up Button (Right edge, near top)
+const volButtonGeo = new THREE.BoxGeometry(0.2, 0.8, 0.15);
+const volUpButton = new THREE.Mesh(volButtonGeo, buttonMaterial);
+// Push it out to x = ipadWidth/2 + 0.1, and near the top (local -Y)
+volUpButton.position.set(ipadWidth/2 + 0.1, -ipadHeight/2 + 1.5, ipadDepth/2);
+chassis.add(volUpButton);
+
+// Volume Down Button (Right edge, below Vol Up)
+const volDownButton = new THREE.Mesh(volButtonGeo, buttonMaterial);
+volDownButton.position.set(ipadWidth/2 + 0.1, -ipadHeight/2 + 2.5, ipadDepth/2);
+chassis.add(volDownButton);
+
 const sensor = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.02, 16), sensorMaterial);
 sensor.rotation.x = Math.PI / 2;
 sensor.position.set(ipadWidth/2 - 0.25, 0, -0.02); 
@@ -211,6 +233,24 @@ cover.rotation.x = Math.PI / 2;
 cover.position.set(ipadWidth/2, 0, 0); 
 cover.castShadow = true;
 coverGroup.add(cover);
+
+// Cover Apple Logo
+const coverLogoCanvas = document.createElement('canvas');
+coverLogoCanvas.width = 256; coverLogoCanvas.height = 256;
+const coverLogoCtx = coverLogoCanvas.getContext('2d');
+coverLogoCtx.fillStyle = 'rgba(0,0,0,0.15)'; // Embossed dark look
+coverLogoCtx.font = '160px -apple-system, BlinkMacSystemFont, sans-serif';
+coverLogoCtx.textAlign = 'center';
+coverLogoCtx.textBaseline = 'middle';
+coverLogoCtx.fillText('', 128, 120); 
+
+const coverLogoTex = new THREE.CanvasTexture(coverLogoCanvas);
+coverLogoTex.colorSpace = THREE.SRGBColorSpace;
+const coverLogoMat = new THREE.MeshBasicMaterial({ map: coverLogoTex, transparent: true, depthWrite: false });
+const coverLogo = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 2.5), coverLogoMat);
+coverLogo.rotation.x = Math.PI; // Face upwards (local -Z)
+coverLogo.position.set(0, 0, -0.001);
+cover.add(coverLogo);
 
 const magnet = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16), magnetMaterial);
 magnet.position.set(ipadWidth/2 - 0.25, -0.05, 0); 
@@ -240,10 +280,7 @@ for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
 }
 magnet.add(fieldLinesGroup);
 
-// Grid
-const gridHelper = new THREE.GridHelper(40, 40, 0x333333, 0x111111);
-gridHelper.position.y = -1;
-scene.add(gridHelper);
+// Grid removed per user request
 
 // ---- MICRO MODELS (Hall Effect Logic) ----
 const microGroup = new THREE.Group();
@@ -319,6 +356,8 @@ microGroup.add(arrowGroup);
 // ---- STATE & LOGIC ----
 let isScreenOn = true;
 let lorentzForceStrength = 0; 
+let targetVoltage = 3.3;
+let lastVoltageUpdateTime = 0;
 
 const coverSlider = document.getElementById('cover-slider');
 const magStatusEl = document.getElementById('magnetic-field-status');
@@ -342,20 +381,22 @@ function updateUI(angleDeg) {
     
     const thresholdAngle = 10;
     
+    // Simulate analog output voltage dropping as magnetic field gets stronger (closeness -> 1)
+    targetVoltage = 3.3 * (1 - Math.pow(closeness, 2));
+    if (targetVoltage < 0) targetVoltage = 0;
+    
     if (angleDeg < thresholdAngle) {
         if (isScreenOn) { screenMesh.material = screenSleepMaterial; isScreenOn = false; }
         magStatusEl.textContent = 'Strong'; magStatusEl.className = 'data-value success';
-        voltageEl.textContent = '0.0V';
         screenStateEl.textContent = 'Sleep'; screenStateEl.className = 'data-value warning';
-        explanationEl.innerHTML = '<strong>Cover Closed:</strong> The magnet is adjacent to the sensor. The Lorentz force deflects electrons, separating charges to create a Hall Voltage. The processor detects 0V and sleeps the screen.';
+        explanationEl.innerHTML = '<strong>Cover Closed:</strong> The magnet is adjacent to the sensor. The Lorentz force deflects electrons, separating charges to create a Hall Voltage. The processor detects near 0V and sleeps the screen.';
         sensorRingMat.color.setHex(0xff3b30); 
     } else {
         if (!isScreenOn) { screenMesh.material = screenAwakeMaterial; isScreenOn = true; }
         if (angleDeg < 45) { magStatusEl.textContent = 'Approaching'; magStatusEl.className = 'data-value warning'; } 
         else { magStatusEl.textContent = 'Weak'; magStatusEl.className = 'data-value warning'; }
-        voltageEl.textContent = '3.3V';
         screenStateEl.textContent = 'Awake'; screenStateEl.className = 'data-value success';
-        explanationEl.innerHTML = '<strong>Cover Open:</strong> The magnetic field is weak. Electrons flow straight through the sensor, maintaining a high voltage output (3.3V) that keeps the screen awake.';
+        explanationEl.innerHTML = '<strong>Cover Open:</strong> The magnetic field is weak. Electrons flow straight through the sensor, maintaining a high voltage output (near 3.3V) that keeps the screen awake.';
         sensorRingMat.color.setHex(0x34c759); 
     }
 }
@@ -392,7 +433,7 @@ function onWindowResize() {
         const setPipStyle = (div) => {
             div.style.width = pipW + 'px'; div.style.height = pipH + 'px';
             div.style.left = pipX + 'px'; div.style.top = pipY + 'px';
-            div.style.border = '2px solid rgba(255,255,255,0.3)';
+            div.style.border = '2px solid rgba(0, 0, 0, 0.2)'; // Gray border
             div.style.borderRadius = '12px';
             div.style.zIndex = '10';
         };
@@ -471,6 +512,14 @@ function animate() {
             line.material.dashOffset -= delta * 1.5;
         }
     });
+
+    // Real-time Voltage UI Update (flutter effect like a digital multimeter)
+    if (time - lastVoltageUpdateTime > 0.15) {
+        lastVoltageUpdateTime = time;
+        let noise = targetVoltage > 0.1 ? (Math.random() * 0.04 - 0.02) : (Math.random() * 0.01);
+        let displayVoltage = Math.max(0, targetVoltage + noise);
+        voltageEl.textContent = displayVoltage.toFixed(2) + 'V';
+    }
 
     // Micro animation
     for(let i=0; i<numElectrons; i++) {
