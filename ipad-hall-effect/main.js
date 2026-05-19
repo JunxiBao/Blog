@@ -332,6 +332,20 @@ for(let i=0; i<5; i++) {
 positiveGroup.visible = false;
 microGroup.add(positiveGroup);
 
+// Negative charge accumulation on the BOTTOM face (electrons deflected downward)
+const negativeGroup = new THREE.Group();
+negativeGroup.position.y = -slabHeight / 2 - 0.5;
+for(let i=0; i<5; i++) {
+    const nMat = new THREE.MeshBasicMaterial({ color: 0x4fc3f7 }); // blue = electron color
+    // Minus sign: just a horizontal bar
+    const nMesh = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.1, 0.1), nMat);
+    const nObj = new THREE.Group(); nObj.add(nMesh);
+    nObj.position.x = -slabWidth/3 + i*(slabWidth/6);
+    negativeGroup.add(nObj);
+}
+negativeGroup.visible = false;
+microGroup.add(negativeGroup);
+
 const arrowGroup = new THREE.Group();
 const crossMat = new THREE.MeshBasicMaterial({ color: 0xff3b30, transparent: false }); // Opaque to prevent depth sorting issues
 const crossGeo1 = new THREE.BoxGeometry(0.8, 0.1, 0.1);
@@ -494,6 +508,7 @@ function updateUI(angleDeg) {
     
     arrowGroup.visible = closeness > 0.2;
     positiveGroup.visible = closeness > 0.5;
+    negativeGroup.visible = closeness > 0.5;
     
     const thresholdAngle = 10;
     
@@ -512,13 +527,26 @@ function updateUI(angleDeg) {
         if (angleDeg < 45) { magStatusEl.textContent = 'Approaching'; magStatusEl.className = 'data-value warning'; } 
         else { magStatusEl.textContent = 'Weak'; magStatusEl.className = 'data-value warning'; }
         screenStateEl.textContent = 'Awake'; screenStateEl.className = 'data-value success';
-        explanationEl.innerHTML = '<strong>Cover Open:</strong> The magnetic field is weak. Electrons flow straight through the sensor, maintaining a high voltage output (near 3.3V) that keeps the screen awake.';
+        explanationEl.innerHTML = '<strong>Cover Open:</strong> The magnetic field is weak. Electrons flow straight through the sensor, maintaining a high voltage output that keeps the screen awake.';
         sensorRingMat.color.setHex(0x34c759); 
     }
 }
 
 updateUI(180);
 coverSlider.addEventListener('input', (e) => updateUI(parseFloat(e.target.value)));
+
+// Disable OrbitControls while the slider is being dragged to prevent
+// accidental model rotation when the mouse drifts outside the thumb.
+coverSlider.addEventListener('pointerdown', () => {
+    macroControls.enabled = false;
+    microControls.enabled = false;
+});
+const reenableControls = () => {
+    macroControls.enabled = true;
+    microControls.enabled = true;
+};
+coverSlider.addEventListener('pointerup', reenableControls);
+coverSlider.addEventListener('pointercancel', reenableControls);
 
 let isMobile = false;
 let mobileView = 'macro'; // 'macro' or 'micro'
