@@ -23,25 +23,17 @@
 </head>
 <body>
     <div id="canvas-container"></div>
-    <div id="left-controls" style="position:absolute; width:50%; height:100%; top:0; left:0; z-index:1;"></div>
-    <div id="right-controls" style="position:absolute; width:50%; height:100%; top:0; left:50%; z-index:1;"></div>
-    
-    <svg id="connection-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2;">
-        <path id="connection-line" fill="none" stroke="#34c759" stroke-width="2" stroke-dasharray="5,5" d="M0,0 L0,0" />
-        <circle id="sensor-dot" cx="0" cy="0" r="4" fill="#34c759" />
-        <circle id="slab-dot" cx="0" cy="0" r="4" fill="#38bdf8" />
-    </svg>
-    
-    <div class="split-labels">
-        <div class="label-left">Macro View: iPad & Smart Cover</div>
-        <div class="label-right">Micro View: Inside Hall Sensor</div>
-    </div>
+
 
     <div id="ui-container">
-        <div class="floating-panel glass-panel">
-            <div class="panel-header">
+        <div class="floating-panel glass-panel" id="main-panel">
+            <div class="panel-title-bar" id="panel-toggle">
                 <h2>Hall Effect Physics</h2>
-                <div class="data-readouts">
+                <span id="collapse-icon">▼</span>
+            </div>
+            <div id="panel-content">
+                <div class="panel-header" style="border:none; padding:0; margin:0;">
+                    <div class="data-readouts">
                     <div class="data-item">
                         <span class="data-label">Magnetic Field</span>
                         <span id="magnetic-field-status" class="data-value warning">Weak</span>
@@ -57,15 +49,19 @@
                 </div>
             </div>
             
-            <button id="mobile-view-toggle" class="glass-button" style="display:none;">Switch to Micro View</button>
-            
-            <div class="control-section">
-                <label for="cover-slider">Open / Close Cover</label>
-                <input type="range" id="cover-slider" min="0" max="180" value="180" step="1">
+            <div class="control-row" style="display: flex; gap: 2rem; align-items: flex-end; margin-top: 1rem; margin-bottom: 1.5rem; width: 100%;">
+                <div class="control-section" style="flex: 1.2; margin: 0; width: 100%;">
+                    <label for="cover-slider" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-secondary);">Open / Close Cover</label>
+                    <input type="range" id="cover-slider" min="0" max="180" value="180" step="1" style="width: 100%;">
+                </div>
+                <div class="control-section" style="flex: 1; margin: 0; width: 100%;">
+                    <button id="focus-sensor-btn" class="glass-button focus-btn" style="width: 100%; margin: 0; padding: 0.65rem 1rem; box-sizing: border-box;">🔬 Focus on Sensor</button>
+                </div>
             </div>
 
             <div class="info-section">
                 <p id="explanation-text">When the cover is open, electrons flow straight through the sensor, maintaining a high voltage output (3.3V) that keeps the screen awake.</p>
+            </div>
             </div>
         </div>
     </div>

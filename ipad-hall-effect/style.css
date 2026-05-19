@@ -34,29 +34,7 @@ body {
     z-index: 1;
 }
 
-/* Split vertical line removed per user request */
-#canvas-container::after {
-    display: none;
-}
-
-.split-labels {
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.label-left, .label-right {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: rgba(0,0,0,0.5);
-    text-transform: uppercase;
-}
+/* Split labels removed — now single unified X-ray view */
 
 #ui-container {
     position: absolute;
@@ -85,9 +63,41 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-.panel-header {
+.panel-title-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.collapsed .panel-title-bar {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom-color: transparent;
+}
+
+.collapsed #panel-content {
+    display: none;
+}
+
+#collapse-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    user-select: none;
+    color: #86868b;
+}
+
+.collapsed #collapse-icon {
+    transform: rotate(-90deg);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: center;
     align-items: center;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--panel-border);
@@ -196,23 +206,21 @@ input[type=range]::-webkit-slider-runnable-track {
 .glass-button:active {
     background: rgba(0, 0, 0, 0.12);
 }
+.focus-btn {
+    background: linear-gradient(135deg, rgba(41,151,255,0.15), rgba(41,151,255,0.05));
+    border-color: rgba(41,151,255,0.4);
+    color: #2997ff;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.focus-btn:hover {
+    background: linear-gradient(135deg, rgba(41,151,255,0.25), rgba(41,151,255,0.1));
+    border-color: rgba(41,151,255,0.7);
+}
 
-/* SVG Overlay Animations */
-#connection-line {
-    animation: dash-flow 1s linear infinite;
-}
-@keyframes dash-flow {
-    to {
-        stroke-dashoffset: -10;
-    }
-}
-#sensor-dot, #slab-dot {
-    animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-    0%, 100% { opacity: 0.6; r: 3; }
-    50% { opacity: 1; r: 6; }
-}
+/* Consolidated controls removed from top right, restored inside the panel */
+
+/* SVG overlay removed — micro view is embedded inside the iPad */
 
 /* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
