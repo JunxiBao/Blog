@@ -80,6 +80,21 @@
       </article>
     </div>
   </div>
+  <div class="lightbox" id="lightbox"><img alt=""></div>
+  <script>
+    (function () {
+      var box = document.getElementById('lightbox'), big = box.querySelector('img');
+      document.querySelectorAll('.photo-card').forEach(function (c) {
+        c.addEventListener('click', function () {
+          var im = c.querySelector('img');
+          big.src = im.currentSrc || im.src || im.getAttribute('data-src');
+          box.classList.add('open');
+        });
+      });
+      box.addEventListener('click', function () { box.classList.remove('open'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') box.classList.remove('open'); });
+    })();
+  </script>
 </body>
 
 </html>

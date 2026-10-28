@@ -44,6 +44,7 @@ body {
 }
 
 .terminal-container {
+  position: relative;
   width: 90%;
   max-width: 800px;
   z-index: 10;
@@ -260,4 +261,77 @@ body {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
   }
+}
+
+/* === Photo stickers === */
+.sticker {
+  --k: 1; --dx: 0px; --dy: 0px; --s: 1;
+  position: absolute; z-index: 30; width: calc(var(--w, 120px) * var(--k)); aspect-ratio: 1;
+  translate: var(--dx) var(--dy); rotate: var(--r, 0deg); scale: var(--s);
+  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  filter: drop-shadow(0 5px 8px rgba(0,0,0,.45));
+  transition: scale .3s cubic-bezier(.2,.9,.3,1.5), rotate .3s ease, filter .3s ease;
+  animation: stickerSlap .6s cubic-bezier(.2,.9,.3,1.2) var(--d, 0s) backwards;
+  will-change: translate;
+}
+.sticker:hover { --s: 1.08; rotate: calc(var(--r) * .3); filter: drop-shadow(0 10px 14px rgba(0,0,0,.5)); }
+.sticker.dragging { --s: 1.14; cursor: grabbing; transition: scale .2s ease, filter .2s ease; filter: drop-shadow(0 16px 20px rgba(0,0,0,.55)); }
+@keyframes stickerSlap { from { opacity: 0; scale: 1.9; rotate: calc(var(--r) - 25deg); } to { opacity: 1; } }
+
+.sticker .face { position: relative; width: 100%; height: 100%; padding: 6px; box-sizing: border-box; background: #fff; border-radius: 50%; overflow: hidden; }
+.sticker .face img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; pointer-events: none; }
+.sticker .face::after { /* glossy sweep */
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.55) 50%, transparent 62%) 160% 0 / 250% 100% no-repeat;
+  transition: background-position .8s ease;
+}
+.sticker:hover .face::after { background-position: -60% 0; }
+.shape-squircle .face { border-radius: 26%; }
+.shape-blob .face { border-radius: 58% 42% 55% 45% / 46% 56% 44% 54%; }
+
+.sticker-tag {
+  position: absolute; left: 50%; bottom: -9px; translate: -50% 0; rotate: -3deg;
+  padding: 2px 9px; font-size: 11px; font-weight: 700; letter-spacing: .04em; white-space: nowrap;
+  background: var(--accent-green); color: #04140a; border: 2px solid #fff; border-radius: 999px; pointer-events: none;
+}
+.sticker-text { width: auto; aspect-ratio: auto; padding: 8px 14px; background: #fff; border-radius: 12px; }
+.sticker-text span { display: block; padding: 4px 10px; background: #0b0f0c; color: var(--accent-green); border-radius: 8px; font-weight: 700; font-size: 13px; }
+
+/* Positions (relative to .terminal-container) */
+.st1 { left: -95px;  top: -75px; }
+.st2 { right: -100px; top: -60px; }
+.st3 { left: -90px;  bottom: -5px; }
+.st4 { right: -80px; bottom: 5px; }
+.st5 { right: 21%;   top: -88px; }
+.st6 { left: 22%;    top: -90px; }
+.st7 { left: 4%;     bottom: -62px; }
+
+/* Tablet: shrink, pull inward so nothing is clipped by the viewport */
+@media (max-width: 1000px) {
+  .sticker { --k: .78; }
+  .st1 { left: -40px; } .st2 { right: -40px; } .st3 { left: -40px; } .st4 { right: -36px; }
+}
+
+/* Phone: stickers hug the corners of the terminal, inside the screen */
+@media (max-width: 640px) {
+  .sticker { --k: .6; }
+  .st1 { left: -6px;  top: -58px; }
+  .st2 { right: -6px; top: -50px; }
+  .st5 { right: auto; left: 50%; top: -60px; margin-left: -30px; }
+  .st3 { left: -4px;  bottom: -64px; }
+  .st4 { right: -4px; bottom: -58px; }
+  .st6, .st7 { display: none; }
+  .sticker-tag { font-size: 10px; padding: 1px 7px; bottom: -8px; }
+  .sticker .face { padding: 4px; }
+}
+/* Very short screens (landscape phones): small stickers on the sides only */
+@media (max-height: 560px) {
+  .sticker { --k: .5; }
+  .st1, .st2, .st5, .st6 { top: -34px; }
+  .st3, .st4 { bottom: -34px; }
+  .st5, .st6, .st7 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticker { animation: none; transition: none; }
+  .sticker .face::after { display: none; }
 }

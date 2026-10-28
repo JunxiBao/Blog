@@ -408,6 +408,14 @@
     <section class="profile-section">
       <div class="profile-container">
 
+        <figure class="profile-photo reveal" style="--d: .05s">
+          <div class="photo-frame">
+            <img data-src="../assets/images/my.jpeg" alt="Junxi Bao" width="682" height="1024" loading="lazy">
+            <span class="corner tl"></span><span class="corner br"></span>
+          </div>
+          <figcaption class="photo-tag">&gt; junxi_bao<span class="photo-cursor">_</span></figcaption>
+        </figure>
+
         <div class="profile-info">
           <h2 class="reveal" style="--d: .1s" data-i18n="home.profile.h2">Hello, I'm Junxi Bao</h2>
           <p class="reveal" style="--d: .2s" data-i18n="home.profile.p1">I'm a passionate high school student at
@@ -427,12 +435,63 @@
       </div>
     </section>
 
+    <!-- Timeline Section (scroll-driven horizontal) -->
+    <section class="timeline-section">
+      <div class="tl-pin" id="tlPin">
+        <div class="tl-sticky">
+          <h2 class="tl-heading" data-i18n="home.timeline.h2">// my_journey</h2>
+          <div class="tl-viewport">
+            <div class="timeline" id="tlTrack">
+          <a class="tl-item" href="articles/intelligent_home.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/intelligent_home/Chandelier.jpg" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2025.05</span><span class="f">2025.05</span></div>
+            <div class="tl-title" data-i18n="tl.smart.title">Smart home journey</div>
+            <div class="tl-desc" data-i18n="tl.smart.desc">The intelligent path in my room.</div>
+          </a>
+          <a class="tl-item" href="articles/2025_Youth_Challenge_competition.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/2050_Youth_Challenge/Charity_Competition_win.jpg" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2025.12</span><span class="f">2025.12</span></div>
+            <div class="tl-title" data-i18n="tl.youth.title">2050 Youth Challenge</div>
+            <div class="tl-desc" data-i18n="tl.youth.desc">Took our app project to a charity competition.</div>
+          </a>
+          <a class="tl-item" href="articles/Tangem_Cold_Wallet_Unboxing.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/Tangem/card.png" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2026.02</span><span class="f">2026.02</span></div>
+            <div class="tl-title" data-i18n="tl.tangem.title">Tangem Cold Wallet</div>
+            <div class="tl-desc" data-i18n="tl.tangem.desc">Unboxing my first crypto cold wallet.</div>
+          </a>
+          <a class="tl-item" href="articles/CTB_National_Championship.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/CTB/Award_Ceremony.JPG" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2026.03</span><span class="f">2026.03</span></div>
+            <div class="tl-title" data-i18n="tl.ctb.title">CTB National Championship</div>
+            <div class="tl-desc" data-i18n="tl.ctb.desc">Exhibition, defense and award ceremony.</div>
+          </a>
+          <a class="tl-item" href="articles/Obsidian_Best_Note_Taking_Tool.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/Obsidian/Obsidian_Primary_Theme.png" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2026.04</span><span class="f">2026.04</span></div>
+            <div class="tl-title" data-i18n="tl.obs.title">Obsidian</div>
+            <div class="tl-desc" data-i18n="tl.obs.desc">The best note-taking tool.</div>
+          </a>
+          <a class="tl-item" href="articles/VPN_Node_and_Dark_Web.html">
+            <div class="tl-photo"><img data-progressive-off="1" data-tl="../assets/images/VPN_Darkweb/file-20260425104337488.png" alt="" loading="lazy"></div>
+            <div class="tl-date"><span class="o">2026.04</span><span class="f">2026.04</span></div>
+            <div class="tl-title" data-i18n="tl.vpn.title">VPN Node & Dark Web</div>
+            <div class="tl-desc" data-i18n="tl.vpn.desc">Self-hosted node on an overseas server.</div>
+          </a>
+            </div>
+          </div>
+          <div class="tl-progress" aria-hidden="true"><span class="tl-count" id="tlCount">01 / 06</span><div class="tl-bar"><i id="tlFill"></i></div><span class="tl-hint">scroll &darr;</span></div>
+        </div>
+      </div>
+    </section>
+
     <!-- Skills Section -->
     <section class="skills-section">
       <h2 style="text-align: center; margin-bottom: 2rem;" data-i18n="home.skills.h2">My Tech Arsenal</h2>
       <div class="skills-grid">
         <div class="skill-card reveal" style="--d: .1s" role="button" tabindex="0" data-skill="app-dev"
           aria-label="Application development details">
+          <div class="skill-bg" data-bg="../assets/images/APPs/Easyagent.png" aria-hidden="true"></div>
           <div class="skill-icon"><i data-lucide="smartphone"></i></div>
           <div class="skill-name" data-i18n="skill.app-dev.name">Application development</div>
           <div class="skill-description" data-i18n="skill.app-dev.desc">SQL database, Capacitor Framework, API keys,
@@ -441,6 +500,7 @@
 
         <div class="skill-card reveal" style="--d: .2s" role="button" tabindex="0" data-skill="smart-home"
           aria-label="Smart Home details">
+          <div class="skill-bg" data-bg="../assets/images/intelligent_home/Chandelier.jpg" aria-hidden="true"></div>
           <div class="skill-icon"><i data-lucide="home"></i></div>
           <div class="skill-name" data-i18n="skill.smart-home.name">Smart Home</div>
           <div class="skill-description" data-i18n="skill.smart-home.desc">Home Assistant, IoT, Automation</div>
@@ -448,6 +508,7 @@
 
         <div class="skill-card reveal" style="--d: .3s" role="button" tabindex="0" data-skill="web-dev"
           aria-label="Web Development details">
+          <div class="skill-bg" data-bg="../assets/images/Obsidian/Obsidian_Primary_Theme.png" aria-hidden="true"></div>
           <div class="skill-icon"><i data-lucide="globe"></i></div>
           <div class="skill-name" data-i18n="skill.web-dev.name">Web Development</div>
           <div class="skill-description" data-i18n="skill.web-dev.desc">HTML, CSS, JavaScript</div>
@@ -455,6 +516,7 @@
 
         <div class="skill-card reveal" style="--d: .4s" role="button" tabindex="0" data-skill="raspberry-pi"
           aria-label="Raspberry Pi details">
+          <div class="skill-bg" data-bg="../assets/images/intelligent_home/Raspberry_Pi.jpg" aria-hidden="true"></div>
           <div class="skill-icon"><i data-lucide="cpu"></i></div>
           <div class="skill-name" data-i18n="skill.raspberry-pi.name">Raspberry Pi</div>
           <div class="skill-description" data-i18n="skill.raspberry-pi.desc">Embedded Systems, Linux, Face Recognition
@@ -463,6 +525,7 @@
 
         <div class="skill-card reveal" style="--d: .5s" role="button" tabindex="0" data-skill="web3"
           aria-label="Web 3 details">
+          <div class="skill-bg" data-bg="../assets/images/Tangem/card.png" aria-hidden="true"></div>
           <div class="skill-icon"><i data-lucide="coins"></i></div>
           <div class="skill-name" data-i18n="skill.web3.name">Web 3</div>
           <div class="skill-description" data-i18n="skill.web3.desc">Blockchain, Smart Contracts, DApps</div>
@@ -839,7 +902,7 @@
   <script>
     // Site uptime counter
     (function () {
-      var launch = new Date('2025-05-20T13:13:00+08:00');
+      var launch = new Date('2023-10-08T13:13:00+08:00');
       var dEl = document.getElementById('uptime-days');
       var hEl = document.getElementById('uptime-hours');
       var mEl = document.getElementById('uptime-mins');
@@ -864,6 +927,107 @@
     window.addEventListener('DOMContentLoaded', function () {
       if (window.lucide) lucide.createIcons();
     });
+  </script>
+  <script>
+    /* Timeline photos: 64px lowres first, then a 900px version (decoded off-screen before swapping, so scrolling never stalls) */
+    (function () {
+      document.querySelectorAll('img[data-tl]').forEach(function (img) {
+        var u = img.getAttribute('data-tl');
+        img.src = u.replace('assets/images/', 'assets/images/.lowres/');
+        var big = new Image();
+        big.src = u.replace('assets/images/', 'assets/images/.mid/');
+        (big.decode ? big.decode() : Promise.resolve()).then(function () { img.src = big.src; }).catch(function () { img.src = u; });
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var pin = document.getElementById('tlPin'), track = document.getElementById('tlTrack');
+      if (!pin || !track || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var items = [].slice.call(track.children), imgs = items.map(function (it) { return it.querySelector('img'); });
+      var fills = items.map(function (it) { return it.querySelector('.tl-date .f'); });
+      var fill = document.getElementById('tlFill'), count = document.getElementById('tlCount');
+      // Pause the background particle canvas while the timeline is pinned (frees the GPU/CPU)
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          var c = document.getElementById('particleNetworkBg');
+          if (c) c.style.display = es[0].isIntersecting ? 'none' : '';
+        }, { threshold: 0 }).observe(pin);
+      }
+      var dist = 0, winW = 0, winH = 0, pinTop = 0, total = 0;
+      var centers = [], target = 0, cur = 0, active = -1, running = false;
+
+      // Measure once (no layout reads while animating)
+      function layout() {
+        winW = window.innerWidth; winH = window.innerHeight;
+        track.style.transform = 'none';
+        dist = Math.max(0, track.offsetWidth - winW);
+        pin.style.height = (winH + dist * 1.1) + 'px';
+        pinTop = pin.getBoundingClientRect().top + window.pageYOffset;
+        total = pin.offsetHeight - winH;
+        centers = items.map(function (it) { return it.offsetLeft + it.offsetWidth / 2; });
+        readScroll(); cur = target; render();
+      }
+      function readScroll() {
+        var p = total > 0 ? (window.pageYOffset - pinTop) / total : 0;
+        target = p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+      function render() {
+        var x = cur * dist, mid = winW / 2, best = 0, bestD = 1e9;
+        track.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+        fill.style.transform = 'scaleX(' + cur + ')';
+        for (var i = 0; i < items.length; i++) {
+          var off = (centers[i] - x - mid) / winW, d = off < 0 ? -off : off;
+          if (d < bestD) { bestD = d; best = i; }
+          // Everything is a continuous function of distance from center: no class toggles, no CSS transitions,
+          // only transform/opacity are written (compositor-only, no layout or repaint).
+          var t = d / 0.3; t = t > 1 ? 1 : t; t = t * t * (3 - 2 * t);
+          items[i].style.transform = 'scale3d(' + (1 - 0.12 * t).toFixed(3) + ',' + (1 - 0.12 * t).toFixed(3) + ',1)';
+          items[i].style.opacity = (1 - 0.55 * t).toFixed(3);
+          fills[i].style.opacity = (1 - t).toFixed(3);
+          if (imgs[i] && d < 1.2) imgs[i].style.transform = 'translate3d(' + (off * -36).toFixed(1) + 'px,0,0) scale(1.15)';
+        }
+        if (best !== active) {
+          active = best;
+          count.textContent = ('0' + (best + 1)).slice(-2) + ' / ' + ('0' + items.length).slice(-2);
+        }
+      }
+      // Smooth follow: ease toward the scroll position each frame
+      function loop() {
+        cur += (target - cur) * 0.12;
+        if (Math.abs(target - cur) < 0.0004) { cur = target; running = false; }
+        render();
+        if (running) requestAnimationFrame(loop);
+      }
+      function onScroll() {
+        readScroll();
+        if (!running) { running = true; requestAnimationFrame(loop); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', layout);
+      window.addEventListener('load', layout);
+      layout();
+    })();
+  </script>
+  <script>
+    /* Progressive background photos for skill cards: lowres first, then full-res */
+    (function () {
+      var els = document.querySelectorAll('.skill-bg[data-bg]');
+      function low(u) { return u.replace('assets/images/', 'assets/images/.lowres/'); }
+      function set(el, u) { el.style.backgroundImage = 'url("' + u + '")'; }
+      function upgrade(el) {
+        var full = el.getAttribute('data-bg'), im = new Image();
+        im.onload = function () { set(el, full); };
+        im.src = full;
+      }
+      var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); upgrade(e.target); } });
+      }, { rootMargin: '200px' }) : null;
+      els.forEach(function (el) {
+        set(el, low(el.getAttribute('data-bg')));
+        io ? io.observe(el) : upgrade(el);
+      });
+    })();
   </script>
 </body>
 

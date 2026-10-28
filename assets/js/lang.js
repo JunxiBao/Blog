@@ -82,6 +82,20 @@
       zh: "欢迎与我一起探索创意与技术的交汇处，共同分享见解、挑战与发现。",
     },
 
+    "home.timeline.h2": { en: "// my_journey", zh: "// 我的足迹" },
+    "tl.smart.title": { en: "Smart home journey", zh: "智能家居之路" },
+    "tl.smart.desc": { en: "The intelligent path in my room.", zh: "我房间里的智能之路。" },
+    "tl.tangem.title": { en: "Tangem Cold Wallet", zh: "Tangem 冷钱包" },
+    "tl.tangem.desc": { en: "Unboxing my first crypto cold wallet.", zh: "开箱我的第一个加密冷钱包。" },
+    "tl.obs.title": { en: "Obsidian", zh: "Obsidian" },
+    "tl.obs.desc": { en: "The best note-taking tool.", zh: "最好用的笔记工具。" },
+    "tl.vpn.title": { en: "VPN Node & Dark Web", zh: "VPN 节点与暗网" },
+    "tl.vpn.desc": { en: "Self-hosted node on an overseas server.", zh: "在海外服务器上自建节点。" },
+    "tl.youth.title": { en: "2050 Youth Challenge", zh: "2050 青年挑战赛" },
+    "tl.youth.desc": { en: "Took our app project to a charity competition.", zh: "带着我们的 App 项目参加公益比赛。" },
+    "tl.ctb.title": { en: "CTB National Championship", zh: "CTB 全国总决赛" },
+    "tl.ctb.desc": { en: "Exhibition, defense and award ceremony.", zh: "展位展示、答辩与颁奖典礼。" },
+
     "home.skills.h2": { en: "My Tech Arsenal", zh: "我的技术武器库" },
 
     "skill.app-dev.name": { en: "Application development", zh: "应用开发" },
