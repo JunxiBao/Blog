@@ -82,7 +82,7 @@
       zh: "欢迎与我一起探索创意与技术的交汇处，共同分享见解、挑战与发现。",
     },
 
-    "home.timeline.h2": { en: "// my_journey", zh: "// 我的足迹" },
+    "home.timeline.h2": { en: "// snapshots", zh: "// 生活快照" },
     "tl.smart.title": { en: "Smart home journey", zh: "智能家居之路" },
     "tl.smart.desc": { en: "The intelligent path in my room.", zh: "我房间里的智能之路。" },
     "tl.tangem.title": { en: "Tangem Cold Wallet", zh: "Tangem 冷钱包" },

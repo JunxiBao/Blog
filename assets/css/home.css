@@ -276,13 +276,9 @@ body { opacity: 0; animation: page-fade-in .6s ease both; }
 .tl-heading { text-align: center; margin: 0; }
 .tl-viewport { position: relative; }
 .timeline { position: relative; display: flex; align-items: flex-start; gap: clamp(1.5rem, 4vw, 3.5rem); width: max-content; padding: 2.4rem calc(50vw - min(160px, 39vw)) 0; will-change: transform; }
-.timeline::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-green) 12%, var(--accent-green) 88%, transparent); opacity: .5; }
 .tl-item { position: relative; flex: none; width: min(320px, 78vw); display: block; text-decoration: none; color: inherit; will-change: transform, opacity; backface-visibility: hidden; transform-origin: center top; }
-/* Fixed center marker: never moves, only a compositor-friendly pulse ring */
-.tl-viewport::before, .tl-viewport::after { content: ''; position: absolute; top: 0; left: 50%; width: 14px; height: 14px; margin: -6px 0 0 -7px; border-radius: 50%; pointer-events: none; z-index: 3; }
-.tl-viewport::before { background: var(--accent-green); }
-.tl-viewport::after { border: 2px solid var(--accent-green); animation: tlPulse 2s ease-out infinite; }
-@keyframes tlPulse { from { transform: scale(1); opacity: .8; } to { transform: scale(3.2); opacity: 0; } }
+.tl-item { margin: 0; }
+.tl-item:nth-child(even) { margin-top: 2.4rem; }
 .tl-photo { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 24px rgba(0,0,0,.14); contain: paint; }
 .tl-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; will-change: transform; transform: scale(1.15); }
 .tl-date { position: relative; z-index: 2; margin: -1.6rem 0 0 .8rem; font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: .02em; width: max-content; }
@@ -300,9 +296,8 @@ body { opacity: 0; animation: page-fade-in .6s ease both; }
 @media (prefers-reduced-motion: reduce) {
   .tl-sticky { position: static; height: auto; overflow: visible; padding: 2rem 0; }
   .timeline { width: auto; flex-wrap: wrap; justify-content: center; padding: 2rem 1rem 0; }
-  .timeline::before { display: none; }
   .tl-item { transform: none !important; opacity: 1 !important; }
-  .tl-viewport::before, .tl-viewport::after, .tl-progress { display: none; }
+  .tl-progress { display: none; }
   .tl-date .f { opacity: 1 !important; }
   .tl-hint { animation: none; }
 }
