@@ -17,53 +17,7 @@
   <script src="../assets/js/theme.js"></script>
   <script src="../assets/js/lang.js"></script>
   <link rel="stylesheet" href="../assets/css/geek-theme.css">
-  <link rel="stylesheet" href="../assets/css/geek-theme.css">
   <link rel="stylesheet" href="../assets/css/passage.css">
-  <style>
-    /* Specific styles for apps page */
-    .app-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-    }
-    .theme-image-wrapper { position: relative; }
-    .theme-image-wrapper .dark-image { position: absolute; top: 0; left: 0; opacity: 0 !important; }
-    html[data-theme="dark"] .theme-image-wrapper .dark-image { opacity: 1 !important; }
-    html[data-theme="dark"] .theme-image-wrapper .light-image { opacity: 0 !important; }
-    html[data-theme="dark"] .btn-icon { filter: invert(1); }
-    
-    .app-links {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: auto;
-      padding-top: 1.5rem;
-    }
-    .pill-btn {
-      border-radius: 999px;
-      padding: 0.4rem 1rem;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-    .pill-btn:hover {
-      background: var(--accent-green);
-      color: var(--bg-primary);
-      border-color: var(--accent-green);
-      transform: translateY(-2px);
-    }
-    .pill-btn i, .btn-icon {
-      width: 16px;
-      height: 16px;
-    }
-  </style>
   <link rel="stylesheet" href="../assets/css/cursor.css?v=20260417b">
   <link rel="stylesheet" href="../assets/css/enhance.css">
 </head>
@@ -147,37 +101,10 @@
     </section>
   </main>
 
+  <script defer src="https://unpkg.com/lucide@latest"></script>
   <script defer src="../assets/js/effects.js"></script>
   <script defer src="../assets/js/geek-theme.js"></script>
   <script defer src="../assets/js/cursor.js?v=20260417b"></script>
-  <script>
-    // Check dark mode
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-
-    // Scroll reveal
-    document.addEventListener('DOMContentLoaded', () => {
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            setTimeout(() => e.target.classList.remove('reveal', 'in'), 1500);
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      els.forEach(el => io.observe(el));
-    });
-  </script>
-  <!-- Initialize icons -->
-  <script defer src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      if (window.lucide) lucide.createIcons();
-    });
-  </script>
 </body>
 
 </html>

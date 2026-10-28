@@ -13,36 +13,6 @@ body {
   min-height: 100vh;
 }
 
-.matrix-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.3; /* Override default to be stronger on index */
-}
-
-.matrix-char {
-  position: absolute;
-  color: var(--accent-green);
-  font-family: monospace;
-  font-size: 14px;
-  animation: matrix-fall 3s linear infinite;
-}
-
-@keyframes matrix-fall {
-  0% {
-    transform: translateY(-100vh);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
-}
-
 .terminal-container {
   position: relative;
   width: 90%;
@@ -51,13 +21,16 @@ body {
 }
 
 .terminal-window {
-  background: var(--terminal-bg);
+  background: color-mix(in oklab, var(--terminal-bg) 76%, transparent);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 3px solid var(--terminal-border);
   border-radius: 15px;
   padding: 0;
   margin: 0;
   box-shadow: var(--terminal-shadow);
   position: relative;
+  z-index: 2;
   overflow: hidden;
 }
 
@@ -69,6 +42,7 @@ body {
   align-items: center;
   padding: 0 15px;
   position: relative;
+  z-index: 2;
 }
 
 .terminal-buttons {
@@ -97,12 +71,18 @@ body {
 }
 
 .terminal-content {
-  padding: 2rem;
+  margin-top: 0;
+  padding: 2.25rem 2rem 2rem;
   color: var(--accent-green);
   font-size: 1.1rem;
   line-height: 1.6;
-  min-height: 330px;
+  min-height: 370px;
   overflow-y: auto;
+  position: relative;
+  z-index: 2;
+  background: color-mix(in oklab, var(--terminal-bg) 52%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .terminal-line {
@@ -176,10 +156,14 @@ body {
   justify-content: center;
   margin-top: 2rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .action-btn {
-  background: transparent;
+  background: color-mix(in oklab, var(--bg-primary) 72%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: var(--accent-green);
   border: 2px solid var(--accent-green);
   padding: 1rem 2rem;
@@ -196,28 +180,6 @@ body {
 .action-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px color-mix(in oklab, var(--accent-green) 20%, transparent);
-}
-
-.language-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: transparent;
-  color: var(--accent-green);
-  border: 2px solid var(--accent-green);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  z-index: 100;
-}
-
-.language-toggle:hover {
-  background: var(--accent-green);
-  color: var(--bg-primary);
-  box-shadow: 0 0 20px color-mix(in oklab, var(--accent-green) 40%, transparent);
 }
 
 @media (max-width: 768px) {
@@ -241,13 +203,6 @@ body {
     width: 100%;
     max-width: 300px;
   }
-
-  .language-toggle {
-    top: 15px;
-    right: 15px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -263,77 +218,45 @@ body {
   }
 }
 
-/* === Photo stickers === */
-/* Perf notes: only translate/rotate/scale/opacity are animated (compositor-only).
-   Shadows are static box-shadows (no filter: drop-shadow), the gloss is a translated pseudo-element. */
-.sticker {
-  --k: 1; --s: 1;
-  position: absolute; z-index: 30; width: calc(var(--w, 120px) * var(--k)); aspect-ratio: 1;
-  rotate: var(--r, 0deg); scale: var(--s);
-  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
-  contain: layout style;
-  transition: scale .3s cubic-bezier(.2,.9,.3,1.5), rotate .3s ease;
-  animation: stickerSlap .6s cubic-bezier(.2,.9,.3,1.2) var(--d, 0s) backwards;
-  will-change: translate, scale;
-}
-.sticker:hover { --s: 1.08; rotate: calc(var(--r) * .3); }
-.sticker.dragging { --s: 1.14; cursor: grabbing; transition: scale .2s ease; }
-@keyframes stickerSlap { from { opacity: 0; scale: 1.9; rotate: calc(var(--r) - 25deg); } to { opacity: 1; } }
-
-.sticker .face { position: relative; width: 100%; height: 100%; padding: 6px; box-sizing: border-box; background: #fff; border-radius: 50%; overflow: hidden; box-shadow: 0 5px 12px rgba(0,0,0,.45); }
-.sticker .face img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; pointer-events: none; }
-.sticker .face::after { /* glossy sweep: transform only */
-  content: ''; position: absolute; inset: 0; pointer-events: none; will-change: transform;
-  background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.5) 50%, transparent 62%);
-  transform: translate3d(-100%, 0, 0); transition: transform .7s ease;
-}
-.sticker:hover .face::after { transform: translate3d(100%, 0, 0); }
-.shape-squircle .face { border-radius: 26%; }
-.shape-blob .face { border-radius: 58% 42% 55% 45% / 46% 56% 44% 54%; }
-
-.sticker-tag {
-  position: absolute; left: 50%; bottom: -9px; translate: -50% 0; rotate: -3deg;
-  padding: 2px 9px; font-size: 11px; font-weight: 700; letter-spacing: .04em; white-space: nowrap;
-  background: var(--accent-green); color: #04140a; border: 2px solid #fff; border-radius: 999px; pointer-events: none;
-}
-.sticker-text { width: auto; aspect-ratio: auto; padding: 8px 14px; background: #fff; border-radius: 12px; }
-.sticker-text span { display: block; padding: 4px 10px; background: #0b0f0c; color: var(--accent-green); border-radius: 8px; font-weight: 700; font-size: 13px; }
-
-/* Positions (relative to .terminal-container) */
-.st1 { left: -95px;  top: -75px; }
-.st2 { right: -100px; top: -60px; }
-.st3 { left: -90px;  bottom: -5px; }
-.st4 { right: -80px; bottom: 5px; }
-.st5 { right: 21%;   top: -88px; }
-.st6 { left: 22%;    top: -90px; }
-.st7 { left: 4%;     bottom: -62px; }
-
-/* Tablet: shrink, pull inward so nothing is clipped by the viewport */
-@media (max-width: 1000px) {
-  .sticker { --k: .78; }
-  .st1 { left: -40px; } .st2 { right: -40px; } .st3 { left: -40px; } .st4 { right: -36px; }
+/* === Portrait background layer underneath the terminal === */
+.terminal-bg-portrait {
+  position: absolute;
+  top: 35px;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
+  height: calc(100% - 35px);
+  width: auto;
+  aspect-ratio: 2572 / 3856;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: portraitFadeIn .7s cubic-bezier(.2,.9,.3,1) .2s backwards;
 }
 
-/* Phone: stickers hug the corners of the terminal, inside the screen */
-@media (max-width: 640px) {
-  .sticker { --k: .6; }
-  .st1 { left: -6px;  top: -58px; }
-  .st2 { right: -6px; top: -50px; }
-  .st5 { right: auto; left: 50%; top: -60px; margin-left: -30px; }
-  .st3 { left: -4px;  bottom: -64px; }
-  .st4 { right: -4px; bottom: -58px; }
-  .st6, .st7 { display: none; }
-  .sticker-tag { font-size: 10px; padding: 1px 7px; bottom: -8px; }
-  .sticker .face { padding: 4px; }
+.terminal-bg-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
 }
-/* Very short screens (landscape phones): small stickers on the sides only */
-@media (max-height: 560px) {
-  .sticker { --k: .5; }
-  .st1, .st2, .st5, .st6 { top: -34px; }
-  .st3, .st4 { bottom: -34px; }
-  .st5, .st6, .st7 { display: none; }
+
+@keyframes portraitFadeIn {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .sticker { animation: none; transition: none; }
-  .sticker .face::after { display: none; }
+  .terminal-bg-portrait {
+    animation: none;
+  }
 }

@@ -15,7 +15,7 @@
   <script src="./assets/js/theme.js"></script>
   <script src="./assets/js/lang.js"></script>
   <link rel="stylesheet" href="./assets/css/geek-theme.css">
-  <link rel="stylesheet" href="./assets/css/index.css?v=20261028a">
+  <link rel="stylesheet" href="./assets/css/index.css?v=20261028e">
   <link rel="stylesheet" href="./assets/css/cursor.css?v=20260417b">
   <link rel="stylesheet" href="./assets/css/enhance.css">
 </head>
@@ -35,6 +35,11 @@
         </div>
         <div class="terminal-title">junxibao@terminal:~$</div>
       </div>
+
+      <!-- Portrait background layer scaled to fit underneath the terminal -->
+      <div class="terminal-bg-portrait" aria-hidden="true">
+        <img decoding="async" data-progressive-off="1" data-st="./assets/images/portrait-bg.png" alt="" draggable="false">
+      </div>
       
       <div class="terminal-content" id="terminal-content"></div>
     </div>
@@ -42,75 +47,12 @@
     <div class="action-buttons">
       <a href="./pages/home.html" class="action-btn" data-i18n="index.btn.enter"><i data-lucide="rocket"></i> Enter Website</a>
     </div>
-
-    <!-- Photo stickers: draggable die-cut stickers around the terminal -->
-    <div class="stickers">
-      <div class="sticker st1 shape-circle" style="--w:150px;--r:-10deg;--d:.5s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s6.jpg" alt="" draggable="false" style="object-position:50% 28%"></div>
-      </div>
-      <div class="sticker st2 shape-squircle" style="--w:170px;--r:8deg;--d:.65s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s4.jpg" alt="" draggable="false" style="object-position:62% 40%"></div>
-      </div>
-      <div class="sticker st3 shape-blob" style="--w:150px;--r:6deg;--d:.8s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s3.jpg" alt="" draggable="false" style="object-position:50% 20%"></div>
-      </div>
-      <div class="sticker st4 shape-squircle" style="--w:135px;--r:-7deg;--d:.95s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s5.jpg" alt="" draggable="false" style="object-position:50% 16%"></div>
-      </div>
-      <div class="sticker st5 shape-circle" style="--w:100px;--r:-14deg;--d:1.1s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s2.jpg" alt="" draggable="false" style="object-position:50% 24%"></div>
-      </div>
-      <div class="sticker st6 shape-blob" style="--w:105px;--r:9deg;--d:1.25s">
-        <div class="face"><img decoding="async" data-progressive-off="1" data-st="./assets/images/stickers/s1.jpg" alt="" draggable="false" style="object-position:40% 8%"></div>
-      </div>
-      <div class="sticker st7 sticker-text" style="--r:-6deg;--d:1.4s"><span>print("hi")</span></div>
-    </div>
   </div>
 
-  <script>
-    (function () {
-      var stickers = [].slice.call(document.querySelectorAll('.sticker'));
-      // Progressive photos: 64px lowres first, then a decoded mid-res swap
-      document.querySelectorAll('img[data-st]').forEach(function (img) {
-        var u = img.getAttribute('data-st');
-        img.src = u.replace('assets/images/', 'assets/images/.lowres/');
-        var big = new Image(); big.src = u.replace('assets/images/', 'assets/images/.mid/');
-        (big.decode ? big.decode() : Promise.resolve()).then(function () { img.src = big.src; }).catch(function () { img.src = u; });
-      });
-      // Drag: pointer events are coalesced into one rAF write of the `translate` property (no layout, no var recalcs)
-      var z = 30;
-      stickers.forEach(function (el) {
-        var sx, sy, bx = 0, by = 0, minX, maxX, minY, maxY, id = null, nx = 0, ny = 0, raf = 0;
-        function apply() { raf = 0; el.style.translate = nx + 'px ' + ny + 'px'; }
-        el.addEventListener('pointerdown', function (e) {
-          id = e.pointerId; el.setPointerCapture(id);
-          var r = el.getBoundingClientRect();
-          bx = nx; by = ny; sx = e.clientX; sy = e.clientY;
-          minX = bx - r.left + 4; maxX = bx + innerWidth - r.right - 4;
-          minY = by - r.top + 4; maxY = by + innerHeight - r.bottom - 4;
-          el.style.zIndex = ++z; el.classList.add('dragging'); e.preventDefault();
-        });
-        el.addEventListener('pointermove', function (e) {
-          if (id === null) return;
-          nx = Math.max(minX, Math.min(maxX, bx + e.clientX - sx));
-          ny = Math.max(minY, Math.min(maxY, by + e.clientY - sy));
-          if (!raf) raf = requestAnimationFrame(apply);
-        });
-        function end() { if (id === null) return; id = null; el.classList.remove('dragging'); }
-        el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
-      });
-    })();
-  </script>
+  <script defer src="https://unpkg.com/lucide@latest"></script>
   <script defer src="./assets/js/effects.js"></script>
   <script defer src="./assets/js/geek-theme.js"></script>
   <script defer src="./assets/js/cursor.js?v=20260417b"></script>
   <script defer src="./assets/js/index-terminal.js"></script>
-  <!-- Initialize icons -->
-  <script defer src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      if (window.lucide) lucide.createIcons();
-    });
-  </script>
 </body>
 </html>

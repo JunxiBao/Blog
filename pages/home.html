@@ -20,358 +20,6 @@
   <link rel="stylesheet" href="../assets/css/home.css">
   <link rel="stylesheet" href="../assets/css/cursor.css?v=20260417b">
   <link rel="stylesheet" href="../assets/css/enhance.css">
-  <style>
-    /* === Extracted to home.css === */
-
-    /* === Profile image bob === */
-    .profile-image {
-      animation: bob 8s ease-in-out infinite;
-    }
-
-    @keyframes bob {
-
-      0%,
-      100% {
-        transform: translateY(0)
-      }
-
-      50% {
-        transform: translateY(-8px)
-      }
-    }
-
-    .profile-image::before {
-      animation: rotate 20s linear infinite;
-    }
-
-    /* === Skill card lift === */
-    .skill-card {
-      will-change: transform;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      contain: content;
-    }
-
-    .skill-icon {
-      animation: floatY 7s ease-in-out infinite;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-
-    /* === Buttons: micro-press === */
-    .btn {
-      position: relative;
-      overflow: hidden;
-      border: 1.5px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-      transition: transform .15s ease, box-shadow .2s ease, border-color .3s ease, background .2s ease, color .2s ease;
-      will-change: transform;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent-green);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    /* === Apps section === */
-    #openAppsModal {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 15px;
-      color: var(--accent-green);
-      padding: 1.5rem 3rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      cursor: pointer;
-    }
-
-    #openAppsModal i {
-      color: var(--accent-green);
-      margin-right: 0.5rem;
-    }
-
-    #openAppsModal:hover {
-      border-color: var(--accent-green);
-    }
-
-    .apps-section {
-      padding: 3rem 0;
-      margin: 3rem 0;
-    }
-
-    /* === Modal styles === */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      padding: clamp(96px, env(safe-area-inset-top) + 96px, 128px) 1rem 1.25rem;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
-    .modal {
-      width: min(900px, 100%);
-      max-height: 100%;
-      background: var(--bg-secondary);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 1.5rem;
-      position: relative;
-      animation: modal-pop .18s ease-out;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      margin-top: 0;
-    }
-
-    .modal-body {
-      flex: 1;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 .25rem .75rem;
-    }
-
-    @keyframes modal-pop {
-      from {
-        transform: translateY(6px) scale(.98);
-        opacity: .6
-      }
-
-      to {
-        transform: translateY(0) scale(1);
-        opacity: 1
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: .6rem;
-      right: .8rem;
-      border: none;
-      background: transparent;
-      font-size: 1.6rem;
-      line-height: 1;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    .modal-close:hover {
-      color: var(--accent-green);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      background: transparent;
-      padding-bottom: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .modal-header h3 {
-      margin: 0;
-      text-align: center;
-      font-size: 1.15rem;
-    }
-
-    .modal-close {
-      top: .9rem;
-      right: 1rem;
-    }
-
-    /* Ensure extra breathing space between header and app cards in Apps modal only */
-
-    /* Skills modal styling - cleaner card layout */
-    #skillModal .modal {
-      border-radius: 16px;
-    }
-
-    #skillModal .modal-header {
-      padding: 1rem 2.25rem;
-    }
-
-    #skillModal .modal-body {
-      padding-top: 1.6rem;
-    }
-
-    /* Ensure the first content block does not crowd the sticky header */
-    #skillModal .section:first-child {
-      margin-top: .9rem;
-    }
-
-    #skillModal .section {
-      margin-bottom: 1.1rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1rem 1rem;
-    }
-
-    #skillModal .section-title {
-      margin: .1rem 0 .55rem;
-      font-size: 1rem;
-      color: var(--text-muted);
-      letter-spacing: .2px;
-    }
-
-    #skillModal .intro {
-      color: var(--text-primary);
-      line-height: 1.85;
-      margin: .1rem 0 .8rem;
-    }
-
-    #skillModal ul {
-      margin: .25rem 0 .4rem;
-      padding-left: 1.05rem;
-    }
-
-    #skillModal li {
-      margin: .28rem 0;
-      color: var(--text-muted);
-    }
-
-    @media (min-width: 720px) {
-      #skillModal ul {
-        columns: 2;
-        column-gap: 2rem;
-      }
-
-      #skillModal li {
-        break-inside: avoid;
-      }
-    }
-
-    #skillModal .related-list {
-      display: flex;
-      flex-direction: column;
-      gap: .45rem;
-    }
-
-    #skillModal .related-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      text-decoration: none;
-      color: var(--accent-green);
-      padding: .25rem .4rem;
-      border-radius: 6px;
-    }
-
-    #skillModal .related-link:hover {
-      background: color-mix(in oklab, var(--accent-green) 10%, transparent);
-      text-decoration: none;
-    }
-
-    #skillModal .badge {
-      display: inline-block;
-      padding: .28rem .55rem;
-      border: 1px solid var(--border-color);
-      border-radius: 999px;
-      font-size: .82rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 480px) {
-      .modal {
-        padding: 1.1rem;
-      }
-
-      .modal {
-        max-height: 100%;
-      }
-
-      .modal-header {
-        padding: .85rem 2rem;
-      }
-
-      .modal-backdrop {
-        padding-top: clamp(84px, env(safe-area-inset-top) + 84px, 110px);
-        padding-bottom: .75rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .modal-backdrop {
-        padding-top: clamp(110px, env(safe-area-inset-top) + 110px, 140px);
-      }
-    }
-
-    /* Enhanced app card aesthetics and intro space */
-    .app-title {
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-
-    .app-intro {
-      min-height: 3.75rem;
-      color: var(--text-primary);
-      line-height: 1.7;
-      margin-bottom: .75rem;
-    }
-
-    .app-links .btn {
-      padding: .5rem .95rem;
-      font-size: .95rem;
-    }
-
-    .app-card {
-      background-image: none;
-    }
-
-    .app-desc {
-      font-size: .98rem;
-    }
-
-    /* === Effects gating and reduced-motion fallbacks === */
-    :root {
-      --effects: 1;
-    }
-
-    html[data-effects="off"] {
-      --effects: 0;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      :root {
-        --effects: 0;
-      }
-
-      .profile-image,
-      .skill-icon {
-        animation: none !important;
-      }
-    }
-
-    /* Dampen common hover/transforms with --effects */
-    .action-btn:hover {
-      transform: translateY(calc(-3px * var(--effects)));
-    }
-
-    .app-card:hover {
-      transform: translateY(calc(-3px * var(--effects)));
-    }
-
-    .skill-card:hover {
-      transform: translateY(calc(-3px * var(--effects)));
-    }
-  </style>
 </head>
 
 <body>
@@ -443,25 +91,25 @@
           <div class="tl-viewport">
             <div class="timeline" id="tlTrack">
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s1.jpg" alt="Junxi Bao photo 1" style="object-position:40% 12%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s1.jpg" alt="Junxi Bao photo 1" style="object-position:40% 12%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s2.jpg" alt="Junxi Bao photo 2" style="object-position:50% 25%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s2.jpg" alt="Junxi Bao photo 2" style="object-position:50% 25%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s3.jpg" alt="Junxi Bao photo 3" style="object-position:50% 22%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s3.jpg" alt="Junxi Bao photo 3" style="object-position:50% 22%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s4.jpg" alt="Junxi Bao photo 4" style="object-position:62% 50%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s4.jpg" alt="Junxi Bao photo 4" style="object-position:62% 50%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s5.jpg" alt="Junxi Bao photo 5" style="object-position:50% 18%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s5.jpg" alt="Junxi Bao photo 5" style="object-position:50% 18%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s6.jpg" alt="Junxi Bao photo 6" style="object-position:50% 30%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s6.jpg" alt="Junxi Bao photo 6" style="object-position:50% 30%"></div>
               </figure>
               <figure class="tl-item">
-                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/stickers/s7.jpg" alt="Junxi Bao photo 7" style="object-position:40% 20%"></div>
+                <div class="tl-photo"><img decoding="async" data-progressive-off="1" data-tl="../assets/images/snapshots/s7.jpg" alt="Junxi Bao photo 7" style="object-position:40% 20%"></div>
               </figure>
             </div>
           </div>
@@ -574,44 +222,6 @@
   </button>
 
   <script>
-    // Scroll reveal (gated by effects controller)
-    (function () {
-      const enable = window.AppEffects ? window.AppEffects.isEnabled() && !window.AppEffects.isReduced() : true;
-      if (!enable) return;
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            setTimeout(() => e.target.classList.remove('reveal', 'in'), 1500);
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      els.forEach(el => io.observe(el));
-      if (window.AppEffects) {
-        window.AppEffects.registerEffect('scroll-reveal', () => { }, () => {
-          els.forEach(el => el.classList.remove('in'));
-        });
-      }
-    })();
-
-    // Apps modal logic
-    (function () {
-      const modal = document.getElementById('appsModal');
-      const openBtn = document.getElementById('openAppsModal');
-      const closeBtn = modal ? modal.querySelector('.modal-close') : null;
-      if (!modal || !openBtn || !closeBtn) return;
-
-      function openModal() { modal.classList.add('show'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
-      function closeModal() { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
-
-      openBtn.addEventListener('click', openModal);
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
-    })();
-
     // Skill cards modal logic
     (function () {
       const modal = document.getElementById('skillModal');
@@ -852,79 +462,11 @@
         if (currentSkillKey && modal.classList.contains('show')) openModalFor(currentSkillKey);
       });
     })();
-
-    // 返回顶部按钮逻辑
-    (function () {
-      const backToTopBtn = document.getElementById('backToTop');
-      if (!backToTopBtn) return;
-
-      // 滚动监听 - 200像素后显示按钮
-      function handleScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > 200) {
-          backToTopBtn.classList.add('show');
-        } else {
-          backToTopBtn.classList.remove('show');
-        }
-      }
-
-      // 平滑滚动到顶部
-      function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
-
-      // 添加事件监听器
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      backToTopBtn.addEventListener('click', scrollToTop);
-
-      // 初始化检查
-      handleScroll();
-    })();
   </script>
-  <script>
-    // Site uptime counter
-    (function () {
-      var launch = new Date('2023-10-08T13:13:00+08:00');
-      var dEl = document.getElementById('uptime-days');
-      var hEl = document.getElementById('uptime-hours');
-      var mEl = document.getElementById('uptime-mins');
-      var sEl = document.getElementById('uptime-secs');
-      function tick() {
-        var diff = Math.floor((Date.now() - launch) / 1000);
-        dEl.textContent = String(Math.floor(diff / 86400)).padStart(3, '0');
-        hEl.textContent = String(Math.floor(diff % 86400 / 3600)).padStart(2, '0');
-        mEl.textContent = String(Math.floor(diff % 3600 / 60)).padStart(2, '0');
-        sEl.textContent = String(diff % 60).padStart(2, '0');
-      }
-      tick();
-      setInterval(tick, 1000);
-    })();
-  </script>
+  <script defer src="https://unpkg.com/lucide@latest"></script>
   <script defer src="../assets/js/effects.js"></script>
   <script defer src="../assets/js/geek-theme.js"></script>
   <script defer src="../assets/js/cursor.js?v=20260417b"></script>
-  <!-- Initialize icons -->
-  <script defer src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      if (window.lucide) lucide.createIcons();
-    });
-  </script>
-  <script>
-    /* Timeline photos: 64px lowres first, then a 900px version (decoded off-screen before swapping, so scrolling never stalls) */
-    (function () {
-      document.querySelectorAll('img[data-tl]').forEach(function (img) {
-        var u = img.getAttribute('data-tl');
-        img.src = u.replace('assets/images/', 'assets/images/.lowres/');
-        var big = new Image();
-        big.src = u.replace('assets/images/', 'assets/images/.mid/');
-        (big.decode ? big.decode() : Promise.resolve()).then(function () { img.src = big.src; }).catch(function () { img.src = u; });
-      });
-    })();
-  </script>
   <script>
     (function () {
       var pin = document.getElementById('tlPin'), track = document.getElementById('tlTrack');

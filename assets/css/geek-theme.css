@@ -119,18 +119,13 @@ body {
   background: var(--bg-secondary);
 }
 
-::-webkit-scend {
+::-webkit-scrollbar-thumb {
   background: var(--accent-green);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
-}
-/* Fix typo: use correct thumb selector */
-::-webkit-scrollbar-thumb {
-  background: var(--accent-green);
-  border-radius: 4px;
 }
 
 /* Typography */
@@ -718,33 +713,41 @@ a:hover {
   to { transform: rotate(360deg); }
 }
 
-/* Matrix Rain Effect */
-.matrix-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.06;
-}
-
-.matrix-char {
-  position: absolute;
-  color: var(--accent-green);
-  font-family: monospace;
-  font-size: 14px;
-  animation: matrix-fall 3s linear infinite;
-}
-
-@keyframes matrix-fall {
-  0% {
-    transform: translateY(-100vh);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
+@keyframes ripple {
+  to {
+    transform: scale(4);
     opacity: 0;
   }
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-in {
+  animation: animate-in 0.6s ease forwards;
+}
+
+.nav-open {
+  overflow: hidden;
+}
+
+.nav-menu a.active,
+.nav-menu a.active:hover {
+  background: var(--accent-green);
+  color: var(--bg-primary);
+  cursor: default;
+}
+
+.nav-menu a.active::before,
+.nav-menu a.active:hover::before {
+  opacity: 0;
+  left: -10px;
 }

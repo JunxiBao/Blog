@@ -2,7 +2,74 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   initFloatingTOC();
+  initScrollReveal();
+  initBackToTop();
+  initUptimeCounter();
+  initMidResSwap();
+  if (window.lucide) window.lucide.createIcons();
 });
+
+function initScrollReveal() {
+  var enable = window.AppEffects ? window.AppEffects.isEnabled() && !window.AppEffects.isReduced() : true;
+  if (!enable) return;
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        setTimeout(function () { e.target.classList.remove('reveal', 'in'); }, 1800);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+}
+
+function initBackToTop() {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+  function handleScroll() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    btn.classList.toggle('show', scrollTop > 200);
+  }
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  handleScroll();
+}
+
+function initUptimeCounter() {
+  var dEl = document.getElementById('uptime-days');
+  var hEl = document.getElementById('uptime-hours');
+  var mEl = document.getElementById('uptime-mins');
+  var sEl = document.getElementById('uptime-secs');
+  if (!dEl || !hEl || !mEl || !sEl) return;
+  var launch = new Date('2023-10-08T13:13:00+08:00');
+  function tick() {
+    var diff = Math.floor((Date.now() - launch) / 1000);
+    dEl.textContent = String(Math.floor(diff / 86400)).padStart(3, '0');
+    hEl.textContent = String(Math.floor(diff % 86400 / 3600)).padStart(2, '0');
+    mEl.textContent = String(Math.floor(diff % 3600 / 60)).padStart(2, '0');
+    sEl.textContent = String(diff % 60).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+function initMidResSwap() {
+  document.querySelectorAll('img[data-st], img[data-tl]').forEach(function (img) {
+    var u = img.getAttribute('data-st') || img.getAttribute('data-tl');
+    if (!u) return;
+    img.src = u.replace('assets/images/', 'assets/images/.lowres/');
+    var big = new Image();
+    big.src = u.replace('assets/images/', 'assets/images/.mid/');
+    (big.decode ? big.decode() : Promise.resolve())
+      .then(function () { img.src = big.src; })
+      .catch(function () { img.src = u; });
+  });
+}
 
 function initFloatingTOC() {
   // Find the currently active TOC (visible one for bilingual articles)
